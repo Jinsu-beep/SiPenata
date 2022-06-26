@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\AdminModel;
 use App\Http\Controllers\Controller;
+use App\UserModel;
 
 class LoginController extends Controller
 {
     public function loginForm()
     {
-        return view('Admin.login');
+        return view('login.login');
     }
 
     public function login(Request $request)
