@@ -28,7 +28,7 @@
             <div class="card-header border-0">
               <h3 class="card-title">
                 <i class="fas fa-th mr-1"></i>
-                Sistem Persediaan BPKAD Badung
+                Sistem Penataan Tower Telekomunikasi
               </h3>
 
               <div class="card-tools">
@@ -36,10 +36,10 @@
             </div>
             <div class="card-body">
               <center>
-                <img src="/adminlte/dist/img/logo_pemkab.jpg" alt="Logo Pemkab Badung" style="width:100px; height:100px;">
-                <h4>Sistem yang dibangun untuk melakukan pengelolaan data persediaan di Badan Pengelolaan Keuangan dan Aset Daerah Kabupaten Badung.</h4>
+                <img src="/../../images/logo_krasem.png" alt="Logo Pemkab Karangasem" style="width:150px; height:200px;">
+                {{-- <h4>Sistem yang dibangun untuk melakukan pengelolaan data persediaan di Badan Pengelolaan Keuangan dan Aset Daerah Kabupaten Badung.</h4>
                 <p></p>
-                <h4>Selamat datang! Anda login sebagai <span class="text-bold"></span>. Berikut adalah menu yang dapat anda gunakan.</h4>
+                <h4>Selamat datang! Anda login sebagai <span class="text-bold"></span>. Berikut adalah menu yang dapat anda gunakan.</h4> --}}
               </center>
             </div>
             

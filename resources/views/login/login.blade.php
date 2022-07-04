@@ -29,28 +29,34 @@
   </style>
   
   <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
 
 </head>
+
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>Sistem Persediaan</b> Project KP</a>
+    <a style="margin:auto"><b>Sistem Penataan Tower Telekomuniasi</b></a>
+  </div>
+  <div class="logosipenata">
+    <center>
+      <img src="../../images/logosipenata.png" alt="Logo SiPenata" style="width:75%; height:75%" >
+    </center>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      {{-- <div class="logo_pemkab">
-        <center>
-          <img src="../../dist/img/logo_pemkab.jpg" alt="Logo Pemkab Badung" style="width:100px; height:100px;">
-        </center>
-      </div> --}}
-      <p class="login-box-msg">Silahkan Login Admin</p>
-
+      <p class="login-box-msg">Silahkan Login</p>
+      @if (session('message'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{session('message')}}
+          {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+        </div>
+      @endif
       <form action="{{ route('Login') }}" method="post">
         @csrf
         <div class="input-group mb-3">
@@ -71,7 +77,7 @@
         </div>
         <div class="row">
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" class="btn btn-primary btn-block center-block" >Login</button>
           </div>
         </div>
       </form>
