@@ -22,3 +22,6 @@ Route::post('/login', 'LoginController@login')->name('Login');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
 Route::get('/dashboard','UserController@dashboard')->name('dashboard');
+
+// Dasar Hukum
+Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
