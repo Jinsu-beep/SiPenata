@@ -25,3 +25,11 @@ Route::get('/dashboard','UserController@dashboard')->name('dashboard');
 
 // Dasar Hukum
 Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
+Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('createDasarHukum');
+
+
+// Akun
+    // Super Admin
+    Route::get('/superadmin/data','UserController@dataSuperAdmin')->name('dataSuperAdmin');
+    Route::get('/superadmin/create','UserController@createSuperAdmin')->name('createSuperAdmin');
+    Route::post('/superadmin/insert','UserController@insertSuperAdmin')->name('insertSuperAdmin');

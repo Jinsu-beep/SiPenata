@@ -40,4 +40,25 @@ class DasarHukumController extends Controller
 
         return view("dashboard.dasarhukum.data", compact("dataUser"));
     }
+
+    public function createDasarHukum()
+    {
+        if (Auth::user()->kategori == "super admin") {
+            $dataUser = SuperAdminModel::whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "tim administratif") {
+            $dataUser = TimAdministratifModel::whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "tim lapangan") {
+            $dataUser = TimLapanganModel::whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "bupati") {
+            $dataUser = BupatiModel::whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "pemilik menara") {
+            $dataUser = PemilikMenaraModel::whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "provider") {
+            $dataUser = ProviderModel::whereIn("id_user", [Auth::user()->id])->first();
+        } 
+
+        
+
+        return view("dashboard.dasarhukum.create", compact("dataUser"));
+    }
 }
