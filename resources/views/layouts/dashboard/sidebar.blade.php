@@ -67,13 +67,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="/timadministratif/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Tim Administratif</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="/timlapangan/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Tim Lapangan</p>
                   </a>

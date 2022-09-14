@@ -8,6 +8,17 @@
 @endpush
 
 @section('content')
+@if (session()->has('statusInput'))
+    <div class="row">
+    <div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
+        {{session()->get('statusInput')}}
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    </div>
+@endif
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -43,23 +54,26 @@
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
-                            @foreach ($dataSuperAdmin as $dsa)
-                                <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $dsa->nama}}</td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <a href="#" class="btn btn-warning btn-icon-split">
-                                          <span class="icon">
-                                              <i class="fas fa-edit"></i>
-                                          </span>
-                                          <span class="text">Edit</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
                             <tbody>                
-                            
+                                @foreach ($dataSuperAdmin as $dsa)
+                                    <tr>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td>{{ $dsa->nama}}</td>
+                                        <td></td>
+                                        <td class="text-center">
+                                            <button value="{{ $dsa->id }}" id="edit_SuperAdmin{{ $dsa->id }}" class="btn btn-warning btn-icon-split">
+                                            <span class="icon">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            </button>
+                                            <button onclick="statusdelete({{ $dsa->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                            <span class="icon">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -117,22 +131,45 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="nama" value="">
+                        <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="username" value="">
+                        <input type="text" class="form-control" name="username" id="edit_username" placeholder="username" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="password" value="">
+                        <input type="password" class="form-control" name="password" id="edit_password" placeholder="password" value="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-sdelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" id="sdelete" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Akun Super Admin</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Yakin akan menghapus data?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="delete" type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>
@@ -191,10 +228,33 @@
     }
 </script>
 
-{{-- <script>
-    function editsuperadmin() {
-        $("#edit_form").attr("action", "/superadmin/edit");
-        $('#modal-editsa').modal('show');
+<script>
+    var data_SuperAdmin = {!! json_encode($dataSuperAdmin->toArray()) !!}
+    data_SuperAdmin.forEach(element => {
+        $('#edit_SuperAdmin'+element.id).click(function () {
+            if ($('edit_SuperAdmin').val() != ""){
+                let id = $(this).val();
+                // console.log(id);
+                $.ajax({
+                    type: 'GET',
+                    url: '/superadmin/get/'+id,
+                    success:function(response){
+                        // console.log(response.id);
+                        $("#edit_form").attr("action", "/superadmin/update/"+response.id);
+                        $('#edit_nama').val(response.nama);
+                        $('#edit_username').val(response.user.username);
+                        $('#modal-editsa').modal('show');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    function statusdelete(id) {
+    $("#sdelete").attr("action", "/superadmin/delete/"+id);
+    $('#modal-sdelete').modal('show');
     }
-</script> --}}
+  </script>
 @endpush
