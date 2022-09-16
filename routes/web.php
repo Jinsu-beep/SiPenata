@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'LoginController@loginForm')->name('login')->middleware('guest');
+
 Route::post('/login', 'LoginController@login')->name('Login');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
@@ -26,7 +27,6 @@ Route::get('/dashboard','UserController@dashboard')->name('dashboard');
 // Dasar Hukum
 Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
 Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('createDasarHukum');
-
 
 // Akun
     // Super Admin
@@ -47,3 +47,12 @@ Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('
     Route::get('/timlapangan/get/{id}','UserController@getTimLapangan')->name('getTimLapangan');
     Route::post('/timlapangan/update/{id}','UserController@updateTimLapangan')->name('updateTimLapangan');
     Route::post('/timlapangan/delete/{id}','UserController@deleteTimLapangan')->name('deleteTimLapangan');
+    // Pemilik Menara
+    Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
+    Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
+    // Provider
+    Route::get('/provider/data','UserController@dataProvider')->name('dataProvider');
+    Route::post('/provider/insert','UserController@insertProvider')->name('insertProvider');
+    // Profile
+    Route::get('/profile/profile','UserController@dataProfileAdmin')->name('dataProfileAdmin');
+    Route::get('/profile/edit','UserController@editProfileAdmin')->name('editProfileAdmin');

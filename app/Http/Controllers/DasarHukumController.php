@@ -22,19 +22,17 @@ class DasarHukumController extends Controller
 
     public function dataDasarHukum()
     {
-        if (Auth::user()->kategori == "super admin") {
-            $dataUser = SuperAdminModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim administratif") {
-            $dataUser = TimAdministratifModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim lapangan") {
-            $dataUser = TimLapanganModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "bupati") {
-            $dataUser = BupatiModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "pemilik menara") {
-            $dataUser = PemilikMenaraModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "provider") {
-            $dataUser = ProviderModel::whereIn("id_user", [Auth::user()->id])->first();
-        } 
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
 
         
 
@@ -43,19 +41,17 @@ class DasarHukumController extends Controller
 
     public function createDasarHukum()
     {
-        if (Auth::user()->kategori == "super admin") {
-            $dataUser = SuperAdminModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim administratif") {
-            $dataUser = TimAdministratifModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim lapangan") {
-            $dataUser = TimLapanganModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "bupati") {
-            $dataUser = BupatiModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "pemilik menara") {
-            $dataUser = PemilikMenaraModel::whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "provider") {
-            $dataUser = ProviderModel::whereIn("id_user", [Auth::user()->id])->first();
-        } 
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
 
         
 

@@ -2,8 +2,6 @@
 @section('title') Data Akun Super Admin @endsection
 
 @push('css')
-<!-- SweeAlert2 -->
-<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 {{-- h1 {
     margin: 50px;
 } --}}
@@ -26,7 +24,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Akun Super Admin</h1>
+                <h1>Akun Pemilik Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -40,7 +38,7 @@
                     <div class="card-header">
                         <h3 class="card-title">List Data User</h3>
                         <div class="card-tools btn btn-primary btn-icon-split">
-                            <button class="btn btn-primary" type="button" onclick="createsuperadmin()">
+                            <button class="btn btn-primary" type="button" onclick="createpemilikmenara()">
                                 <i class="fas fa-plus"></i>
                                 <span class="text">Tambah User Baru</span>
                             </button>
@@ -57,22 +55,22 @@
                                 </tr>
                             </thead>
                             <tbody>                
-                                @foreach ($dataSuperAdmin as $dsa)
+                                @foreach ($dataPemilikMenara as $dpm)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $dsa->nama}}</td>
+                                        <td>{{ $dpm->nama}}</td>
                                         <td></td>
                                         <td class="text-center">
-                                            <button value="{{ $dsa->id }}" id="edit_SuperAdmin{{ $dsa->id }}" class="btn btn-warning btn-icon-split">
-                                            <span class="icon">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            </button>
-                                            <button onclick="statusdelete({{ $dsa->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
-                                            <span class="icon">
-                                                <i class="fas fa-trash"></i>
-                                            </span>
-                                            </button>
+                                            {{-- <button value="{{ $dpm->id }}" id="edit_PemilikMenara{{ $dpm->id }}" class="btn btn-warning btn-icon-split">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                            </button> --}}
+                                            {{-- <button onclick="statusdelete({{ $dpm->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                            </button> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -85,13 +83,13 @@
     </div>
 </section>
 
-<div class="modal fade" id="modal-createsa">
+<div class="modal fade" id="modal-createpm">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="" id="create_form" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Buat Akun Super Admin</h4>
+                    <h4 class="modal-title">Buat Akun Pemilik Menara</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -120,13 +118,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-editsa">
+{{-- <div class="modal fade" id="modal-editpm">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="" id="edit_form" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Akun Super Admin</h4>
+                    <h4 class="modal-title">Edit Akun Pemilik Menara</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -153,15 +151,15 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="modal fade" id="modal-sdelete">
+{{-- <div class="modal fade" id="modal-sdelete">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="" id="sdelete" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Akun Super Admin</h4>
+                    <h4 class="modal-title">Delete Akun Pemilik Menara</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -176,7 +174,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 
 @push('js')
@@ -189,8 +187,6 @@
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap4 Duallistbox -->
 <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- SweeAlert2 -->
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <!-- Page specific script -->
 <script>
@@ -226,57 +222,39 @@
 </script>
 
 <script>
-    function createsuperadmin() {
-        $("#create_form").attr("action", "/superadmin/insert");
-        $('#modal-createsa').modal('show');
+    function createpemilikmenara() {
+        $("#create_form").attr("action", "/pemilikmenara/insert");
+        $('#modal-createpm').modal('show');
     }
 </script>
 
-<script>
-    var data_SuperAdmin = {!! json_encode($dataSuperAdmin->toArray()) !!}
-    data_SuperAdmin.forEach(element => {
-        $('#edit_SuperAdmin'+element.id).click(function () {
-            if ($('edit_SuperAdmin').val() != ""){
+{{-- <script>
+    var data_PemilikMenara = {!! json_encode($dataPemilikMenara->toArray()) !!}
+    data_PemilikMenara.forEach(element => {
+        $('#edit_PemilikMenara'+element.id).click(function () {
+            if ($('edit_PemilikMenara').val() != ""){
                 let id = $(this).val();
                 // console.log(id);
                 $.ajax({
                     type: 'GET',
-                    url: '/superadmin/get/'+id,
+                    url: '/pemilikmenara/get/'+id,
                     success:function(response){
                         // console.log(response.id);
-                        $("#edit_form").attr("action", "/superadmin/update/"+response.id);
+                        $("#edit_form").attr("action", "/pemilikmenara/update/"+response.id);
                         $('#edit_nama').val(response.nama);
                         $('#edit_username').val(response.user.username);
-                        $('#modal-editsa').modal('show');
+                        $('#modal-editpm').modal('show');
                     }
                 });
             }
         });
     });
-</script>
+</script> --}}
 
-<script>
+{{-- <script>
     function statusdelete(id) {
-    $("#sdelete").attr("action", "/superadmin/delete/"+id);
+    $("#sdelete").attr("action", "/pemilikmenara/delete/"+id);
     $('#modal-sdelete').modal('show');
     }
-</script>
-
-<script>
-    $(function() {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-
-        $('.create_form').submit(function() {
-            Toast.fire({
-            icon: 'success',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            })
-        });
-    });
-</script>
+  </script> --}}
 @endpush

@@ -33,11 +33,6 @@ class UserModel extends Authenticatable
         return $this->hasMany(TimLapanganModel::class, 'id_user', 'id');
     }
 
-    public function Bupati()
-    {
-        return $this->hasMany(BupatiModel::class, 'id_user', 'id');
-    }
-
     public function PemilikMenara()
     {
         return $this->hasMany(PemilikMenaraModel::class, 'id_user', 'id');

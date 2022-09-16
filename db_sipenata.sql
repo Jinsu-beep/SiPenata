@@ -151,12 +151,13 @@ CREATE TABLE `tb_pemilik_menara` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_pemilik_menara_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_pemilik_menara` */
 
 insert  into `tb_pemilik_menara`(`id`,`id_user`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,5,'Pemilik Menara',NULL,NULL,NULL);
+(1,5,'Pemilik Menara',NULL,NULL,NULL),
+(2,11,'asd','2022-09-15 17:22:28','2022-09-15 17:22:28',NULL);
 
 /*Table structure for table `tb_provider` */
 
@@ -172,12 +173,13 @@ CREATE TABLE `tb_provider` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_provider_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_provider` */
 
 insert  into `tb_provider`(`id`,`id_user`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,6,'provider',NULL,NULL,NULL);
+(1,6,'provider',NULL,NULL,NULL),
+(2,12,'qwe','2022-09-15 17:25:45','2022-09-15 17:25:45',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
@@ -193,7 +195,7 @@ CREATE TABLE `tb_super_admin` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_super_admin_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_super_admin` */
 
@@ -215,7 +217,7 @@ CREATE TABLE `tb_tim_administratif` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_tim_administratif_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_tim_administratif` */
 
@@ -236,7 +238,7 @@ CREATE TABLE `tb_tim_lapangan` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_tim_lapangan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_tim_lapangan` */
 
@@ -251,22 +253,24 @@ CREATE TABLE `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `kategori` enum('super admin','pemilik menara','provider','tim administratif','tim lapangan','bupati') DEFAULT NULL,
+  `kategori` enum('Super Admin','Tim Administratif','Tim Lapangan','Pemilik Menara','Provider') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_user` */
 
 insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,'admin','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','super admin',NULL,NULL,NULL),
-(2,'tim_administratif','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','tim administratif',NULL,NULL,NULL),
-(3,'tim_lapangan','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','tim lapangan',NULL,NULL,NULL),
-(4,'bupati','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','bupati',NULL,NULL,NULL),
-(5,'pemilik_menara','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','pemilik menara',NULL,NULL,NULL),
-(6,'provider','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','provider',NULL,NULL,NULL);
+(1,'admin','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Super Admin',NULL,NULL,NULL),
+(2,'tim_administratif','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Administratif',NULL,NULL,NULL),
+(3,'tim_lapangan','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Lapangan',NULL,NULL,NULL),
+(4,'bupati','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','',NULL,NULL,NULL),
+(5,'pemilik_menara','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Pemilik Menara',NULL,NULL,NULL),
+(6,'provider','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Provider',NULL,NULL,NULL),
+(11,'asd','$2y$10$jpNwswBnAfS3hIfhGaTmBuWCGXyLsrYuzlOmcaHFj5x3nk6bbJnU.','Pemilik Menara',NULL,NULL,NULL),
+(12,'qwe','$2y$10$u6gakYhnhWCjF47nfLEn6OKvdeD/wGwJXsierCVOfd4kFYcMXl1zq','Provider',NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

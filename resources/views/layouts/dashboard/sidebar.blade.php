@@ -13,7 +13,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a class="d-block">{{ $dataUser->nama }}</a>
+          <a class="d-block" href="/profile/profile">{{ $dataUser->nama }}</a>
         </div>
       </div>
 
@@ -76,6 +76,18 @@
                   <a href="/timlapangan/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Tim Lapangan</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/pemilikmenara/data" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Pemilik Menara</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/provider/data" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Provider</p>
                   </a>
                 </li>
               </ul>
