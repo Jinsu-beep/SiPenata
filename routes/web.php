@@ -54,5 +54,10 @@ Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('
     Route::get('/provider/data','UserController@dataProvider')->name('dataProvider');
     Route::post('/provider/insert','UserController@insertProvider')->name('insertProvider');
     // Profile
-    Route::get('/profile/profile','UserController@dataProfileAdmin')->name('dataProfileAdmin');
-    Route::get('/profile/edit','UserController@editProfileAdmin')->name('editProfileAdmin');
+    Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
+    Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
+    Route::post('/profile/update/admin/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+
+    Route::get('/profile/user','UserController@dataProfileAdmin')->name('dataProfileAdmin');
+    Route::get('/profile/edit/user','UserController@editProfileAdmin')->name('editProfileAdmin');
+    Route::post('/profile/update/user/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');

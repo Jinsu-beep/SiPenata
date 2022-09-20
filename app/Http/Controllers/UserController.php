@@ -23,61 +23,57 @@ class UserController extends Controller
     
     public function dashboard()
     {
-        if (Auth::user()->kategori == "super admin") {
+        if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim administratif") {
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim lapangan") {
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "pemilik menara") {
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "provider") {
+        } elseif (Auth::user()->kategori == "Provider") {
             $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
-        } 
+        }
 
         return view("dashboard.dashboard", compact("dataUser"));
     }
 
-    // Profile
+    // Profile Admin
     public function dataProfileAdmin()
     {
-        if (Auth::user()->kategori == "super admin") {
+        if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim administratif") {
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim lapangan") {
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "pemilik menara") {
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "provider") {
+        } elseif (Auth::user()->kategori == "Provider") {
             $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        // dd($dataUser);
-
-        return view("dashboard.akun.profile.profile", compact("dataUser"));
+        return view("dashboard.akun.profile.admin.admin", compact("dataUser"));
     }
 
     public function editProfileAdmin()
     {
-        if (Auth::user()->kategori == "super admin") {
+        if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim administratif") {
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "tim lapangan") {
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "pemilik menara") {
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "provider") {
+        } elseif (Auth::user()->kategori == "Provider") {
             $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        // dd($dataUser);
-
-        return view("dashboard.akun.profile.edit", compact("dataUser"));
+        return view("dashboard.akun.profile.admin.edit", compact("dataUser"));
     }
 
-    public function insertProfileAdmin($id, Request $request)
+    public function updateProfileAdmin($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
@@ -87,6 +83,137 @@ class UserController extends Controller
 
         if($validator->fails()){
             return back()->withErrors($validator);
+        }
+
+        $password = Hash::make($request->password);
+
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $dataUser = UserModel::find($id);
+                if ($dataUser->kategori == "Super Admin") {
+                    $editUser = UserModel::find($id);
+                    $editUser->username = $request->username;
+                    $editUser->password = $password;
+                    $editUser->update();
+
+                    $editSuperAdmin = SuperAdminModel::where("id_user", $id)->first();
+                    $editSuperAdmin->nama = $request->nama;
+                    $editSuperAdmin->update();
+                } elseif ($dataUser->kategori == "Tim Administratif") {
+                    $editUser = UserModel::find($id);
+                    $editUser->username = $request->username;
+                    $editUser->password = $password;
+                    $editUser->update();
+
+                    $editTimAdministratif = TimAdministratifModel::where("id_user", $id)->first();
+                    $editTimAdministratif->nama = $request->nama;
+                    $editTimAdministratif->update();
+                } elseif ($dataUser->kategori == "Tim Lapangan") {
+                    $editUser = UserModel::find($id);
+                    $editUser->username = $request->username;
+                    $editUser->password = $password;
+                    $editUser->update();
+
+                    $editTimLapangan = TimLapaganModel::where("id_user", $id)->first();
+                    $editTimLapangan->nama = $request->nama;
+                    $editTimLapangan->update();
+                }
+
+                return redirect('/profile/admin');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
+    }
+
+    // Profile User
+    public function dataProfileUser()
+    {
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
+
+        // dd($dataUser);
+
+        return view("dashboard.akun.profile.user.user", compact("dataUser"));
+    }
+
+    public function updateProfileUser()
+    {
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
+
+        // dd($dataUser);
+
+        return view("dashboard.akun.profile.user.edit", compact("dataUser"));
+    }
+
+    public function insertProfileUser($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $password = Hash::make($request->password);
+
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $dataUser = UserModel::find($id);
+                if ($dataUser->kategori == "Pemilik Menara") {
+                    $editUser = UserModel::find($id);
+                    $editUser->username = $request->username;
+                    $editUser->password = $password;
+                    $editUser->update();
+
+                    $editPemilikMenara = PemilikMenaraModel::where("id_user", $id)->first();
+                    $editPemilikMenara->nama = $request->nama;
+                    $editPemilikMenara->update();
+                } elseif ($dataUser->kategori == "Provider") {
+                    $editUser = UserModel::find($id);
+                    $editUser->username = $request->username;
+                    $editUser->password = $password;
+                    $editUser->update();
+
+                    $editProvider = ProviderModel::where("id_user", $id)->first();
+                    $editProvider->nama = $request->nama;
+                    $editProvider->update();
+                }
+
+                return redirect('/profile/user');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
         }
     }
 
@@ -124,18 +251,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $newUser = new UserModel();
-        $newUser->username = $request->username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Super Admin';
-        $newUser->save();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Super Admin';
+                $newUser->save();
 
-        $newSuperAdmin = new SuperAdminModel();
-        $newSuperAdmin->id_user = $newUser->id;
-        $newSuperAdmin->nama = $request->nama;
-        $newSuperAdmin->save();
+                $newSuperAdmin = new SuperAdminModel();
+                $newSuperAdmin->id_user = $newUser->id;
+                $newSuperAdmin->nama = $request->nama;
+                $newSuperAdmin->save();
 
-        return redirect()->back()->with('statusInput', 'Insert Success');
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function getSuperAdmin($id)
@@ -159,18 +296,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $updateSuperAdmin = SuperAdminModel::find($id);
-        $updateSuperAdmin->nama = $request->nama;
-        $updateSuperAdmin->update();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $updateSuperAdmin = SuperAdminModel::find($id);
+                $updateSuperAdmin->nama = $request->nama;
+                $updateSuperAdmin->update();
 
-        $idSuperAdmin = $updateSuperAdmin->id_user;
+                $idSuperAdmin = $updateSuperAdmin->id_user;
 
-        $superAdminUpdate = UserModel::find($idSuperAdmin);
-        $superAdminUpdate->username = $request->username;
-        $superAdminUpdate->password = $password;
-        $superAdminUpdate->update();
-        
-        return redirect()->back()->with('statusInput', 'Update Success');
+                $superAdminUpdate = UserModel::find($idSuperAdmin);
+                $superAdminUpdate->username = $request->username;
+                $superAdminUpdate->password = $password;
+                $superAdminUpdate->update();
+                
+                return redirect()->back()->with('statusInput', 'Update Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function deleteSuperAdmin($id)
@@ -220,18 +367,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $newUser = new UserModel();
-        $newUser->username = $request->username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Tim Administratif';
-        $newUser->save();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Tim Administratif';
+                $newUser->save();
 
-        $newTimAdministratif = new TimAdministratifModel();
-        $newTimAdministratif->id_user = $newUser->id;
-        $newTimAdministratif->nama = $request->nama;
-        $newTimAdministratif->save();
+                $newTimAdministratif = new TimAdministratifModel();
+                $newTimAdministratif->id_user = $newUser->id;
+                $newTimAdministratif->nama = $request->nama;
+                $newTimAdministratif->save();
 
-        return redirect()->back()->with('statusInput', 'Insert Success');
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function getTimAdministratif($id)
@@ -255,18 +412,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $updateTimAdministratif = TimAdministratifModel::find($id);
-        $updateTimAdministratif->nama = $request->nama;
-        $updateTimAdministratif->update();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $updateTimAdministratif = TimAdministratifModel::find($id);
+                $updateTimAdministratif->nama = $request->nama;
+                $updateTimAdministratif->update();
 
-        $idTimAdministratif = $updateTimAdministratif->id_user;
+                $idTimAdministratif = $updateTimAdministratif->id_user;
 
-        $timAdministratifUpdate = UserModel::find($idTimAdministratif);
-        $timAdministratifUpdate->username = $request->username;
-        $timAdministratifUpdate->password = $password;
-        $timAdministratifUpdate->update();
-        
-        return redirect()->back()->with('statusInput', 'Update Success');
+                $timAdministratifUpdate = UserModel::find($idTimAdministratif);
+                $timAdministratifUpdate->username = $request->username;
+                $timAdministratifUpdate->password = $password;
+                $timAdministratifUpdate->update();
+                
+                return redirect()->back()->with('statusInput', 'Update Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function deleteTimAdministratif($id)
@@ -315,18 +482,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $newUser = new UserModel();
-        $newUser->username = $request->username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Tim Lapangan';
-        $newUser->save();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Tim Lapangan';
+                $newUser->save();
 
-        $newTimLapangan = new TimLapanganModel();
-        $newTimLapangan->id_user = $newUser->id;
-        $newTimLapangan->nama = $request->nama;
-        $newTimLapangan->save();
+                $newTimLapangan = new TimLapanganModel();
+                $newTimLapangan->id_user = $newUser->id;
+                $newTimLapangan->nama = $request->nama;
+                $newTimLapangan->save();
 
-        return redirect()->back()->with('statusInput', 'Insert Success');
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function getTimLapangan($id)
@@ -350,18 +527,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $updateTimLapangan = TimLapanganModel::find($id);
-        $updateTimLapangan->nama = $request->nama;
-        $updateTimLapangan->update();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $updateTimLapangan = TimLapanganModel::find($id);
+                $updateTimLapangan->nama = $request->nama;
+                $updateTimLapangan->update();
 
-        $idTimLapangan = $updateTimLapangan->id_user;
+                $idTimLapangan = $updateTimLapangan->id_user;
 
-        $timLapanganUpdate = UserModel::find($idTimLapangan);
-        $timLapanganUpdate->username = $request->username;
-        $timLapanganUpdate->password = $password;
-        $timLapanganUpdate->update();
-        
-        return redirect()->back()->with('statusInput', 'Update Success');
+                $timLapanganUpdate = UserModel::find($idTimLapangan);
+                $timLapanganUpdate->username = $request->username;
+                $timLapanganUpdate->password = $password;
+                $timLapanganUpdate->update();
+                
+                return redirect()->back()->with('statusInput', 'Update Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     public function deleteTimLapangan($id)
@@ -410,18 +597,28 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $newUser = new UserModel();
-        $newUser->username = $request->username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Pemilik Menara';
-        $newUser->save();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Pemilik Menara';
+                $newUser->save();
 
-        $newPemilikMenara = new PemilikMenaraModel();
-        $newPemilikMenara->id_user = $newUser->id;
-        $newPemilikMenara->nama = $request->nama;
-        $newPemilikMenara->save();
+                $newPemilikMenara = new PemilikMenaraModel();
+                $newPemilikMenara->id_user = $newUser->id;
+                $newPemilikMenara->nama = $request->nama;
+                $newPemilikMenara->save();
 
-        return redirect()->back()->with('statusInput', 'Insert Success');
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 
     // Provider
@@ -458,17 +655,27 @@ class UserController extends Controller
 
         $password = Hash::make($request->password);
 
-        $newUser = new UserModel();
-        $newUser->username = $request->username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Provider';
-        $newUser->save();
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Provider';
+                $newUser->save();
 
-        $newProvider = new ProviderModel();
-        $newProvider->id_user = $newUser->id;
-        $newProvider->nama = $request->nama;
-        $newProvider->save();
+                $newProvider = new ProviderModel();
+                $newProvider->id_user = $newUser->id;
+                $newProvider->nama = $request->nama;
+                $newProvider->save();
 
-        return redirect()->back()->with('statusInput', 'Insert Success');
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
     }
 }

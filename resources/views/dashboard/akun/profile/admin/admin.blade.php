@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Data Akun Super Admin @endsection
+@section('title') Data Akun {{ $dataUser->user->kategori }} @endsection
 
 @section('content')
 <div class="container-fluid">
@@ -10,12 +10,11 @@
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
                     </div>
-                    <h3 class="profile-username text-center">Nina Mcintire</h3>
-                    <p class="text-muted text-center">Software Engineer</p>
+                    <h3 class="profile-username text-center">{{ $dataUser->nama }}</h3>
+                    <p class="text-muted text-center">{{ $dataUser->user->kategori }}</p>
                 </div>
             </div>
         </div>
-    
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header p-2">
@@ -37,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="offset-sm-2 col-sm-10">
-                                <a href="/profile/edit" class="btn btn-warning">Edit</a>
+                                <a href="/profile/edit/admin" class="btn btn-warning">Edit</a>
                             </div>
                         </div>
                     
