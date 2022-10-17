@@ -12,4 +12,9 @@ class PemilikMenaraModel extends Model
     {
         return $this->belongsTo(UserModel::class, 'id_user', 'id');
     }
+
+    public function Menara()
+    {
+        return $this->hasMany(MenaraModel::class, 'id_pemilik_menara', 'id');
+    }
 }

@@ -105,12 +105,12 @@
             </li>
           @endif
           
-          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim Lapangan', 'Pemilik menara', 'Provider']))
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim Lapangan', 'Pemilik Menara', 'Provider']))
           <li class="nav-header">MANAJEMEN MENARA</li>
           @endif
             @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Pemilik Menara']))
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="/menara/data" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Data Menara

@@ -13,51 +13,59 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', 'LoginController@loginForm')->name('login')->middleware('guest');
+
+// Registrasi 
+    Route::get('/pilihRole', 'RegistrasiController@registrasiRole')->name('pilihRole')->middleware('guest');
+    Route::get('/registrasiPemilikMenara', 'RegistrasiController@registrasiPemilikMenaraForm')->name('registrasiPemilikMenara')->middleware('guest');
+    Route::post('/regisPemilikMenara', 'RegistrasiController@insertRegistrasiPemilikMenara')->name('insertRegistrasiPemilikMenara')->middleware('guest');
+    Route::get('/registrasiProvider', 'RegistrasiController@registrasiProviderForm')->name('registrasiProvider')->middleware('guest');
+    Route::post('/regisProvider', 'RegistrasiController@insertRegistrasiProvider')->name('insertRegistrasiProvider')->middleware('guest');
+    Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
 
 Route::post('/login', 'LoginController@login')->name('Login');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
-Route::get('/dashboard','UserController@dashboard')->name('dashboard');
+// Dashboard 
+    Route::get('/dashboard','UserController@dashboard')->name('dashboard');
 
-// Dasar Hukum
-Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
-Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('createDasarHukum');
+    // Dasar Hukum
+    Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
+    Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('createDasarHukum');
 
-// Akun
-    // Super Admin
-    Route::get('/superadmin/data','UserController@dataSuperAdmin')->name('dataSuperAdmin');
-    Route::post('/superadmin/insert','UserController@insertSuperAdmin')->name('insertSuperAdmin');
-    Route::get('/superadmin/get/{id}','UserController@getSuperAdmin')->name('getSuperAdmin');
-    Route::post('/superadmin/update/{id}','UserController@updateSuperAdmin')->name('updateSuperAdmin');
-    Route::post('/superadmin/delete/{id}','UserController@deleteSuperAdmin')->name('deleteSuperAdmin');
-    // Tim Administratif
-    Route::get('/timadministratif/data','UserController@dataTimAdministratif')->name('dataTimAdministratif');
-    Route::post('/timadministratif/insert','UserController@insertTimAdministratif')->name('insertTimAdministratif');
-    Route::get('/timadministratif/get/{id}','UserController@getTimAdministratif')->name('getTimAdministratif');
-    Route::post('/timadministratif/update/{id}','UserController@updateTimAdministratif')->name('updateTimAdministratif');
-    Route::post('/timadministratif/delete/{id}','UserController@deleteTimAdministratif')->name('deleteTimAdministratif');
-    // Tim Lapangan
-    Route::get('/timlapangan/data','UserController@dataTimLapangan')->name('dataTimLapangan');
-    Route::post('/timlapangan/insert','UserController@insertTimLapangan')->name('insertTimLapangan');
-    Route::get('/timlapangan/get/{id}','UserController@getTimLapangan')->name('getTimLapangan');
-    Route::post('/timlapangan/update/{id}','UserController@updateTimLapangan')->name('updateTimLapangan');
-    Route::post('/timlapangan/delete/{id}','UserController@deleteTimLapangan')->name('deleteTimLapangan');
-    // Pemilik Menara
-    Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
-    Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
-    // Provider
-    Route::get('/provider/data','UserController@dataProvider')->name('dataProvider');
-    Route::post('/provider/insert','UserController@insertProvider')->name('insertProvider');
-    // Profile
-    Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
-    Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
-    Route::post('/profile/update/admin/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+    // Akun
+        // Super Admin
+        Route::get('/superadmin/data','UserController@dataSuperAdmin')->name('dataSuperAdmin');
+        Route::post('/superadmin/insert','UserController@insertSuperAdmin')->name('insertSuperAdmin');
+        Route::get('/superadmin/get/{id}','UserController@getSuperAdmin')->name('getSuperAdmin');
+        Route::post('/superadmin/update/{id}','UserController@updateSuperAdmin')->name('updateSuperAdmin');
+        Route::post('/superadmin/delete/{id}','UserController@deleteSuperAdmin')->name('deleteSuperAdmin');
+        // Tim Administratif
+        Route::get('/timadministratif/data','UserController@dataTimAdministratif')->name('dataTimAdministratif');
+        Route::post('/timadministratif/insert','UserController@insertTimAdministratif')->name('insertTimAdministratif');
+        Route::get('/timadministratif/get/{id}','UserController@getTimAdministratif')->name('getTimAdministratif');
+        Route::post('/timadministratif/update/{id}','UserController@updateTimAdministratif')->name('updateTimAdministratif');
+        Route::post('/timadministratif/delete/{id}','UserController@deleteTimAdministratif')->name('deleteTimAdministratif');
+        // Tim Lapangan
+        Route::get('/timlapangan/data','UserController@dataTimLapangan')->name('dataTimLapangan');
+        Route::post('/timlapangan/insert','UserController@insertTimLapangan')->name('insertTimLapangan');
+        Route::get('/timlapangan/get/{id}','UserController@getTimLapangan')->name('getTimLapangan');
+        Route::post('/timlapangan/update/{id}','UserController@updateTimLapangan')->name('updateTimLapangan');
+        Route::post('/timlapangan/delete/{id}','UserController@deleteTimLapangan')->name('deleteTimLapangan');
+        // Pemilik Menara
+        Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
+        Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
+        // Provider
+        Route::get('/provider/data','UserController@dataProvider')->name('dataProvider');
+        Route::post('/provider/insert','UserController@insertProvider')->name('insertProvider');
+        // Profile
+        Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
+        Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
+        Route::post('/profile/update/admin/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
 
-    Route::get('/profile/user','UserController@dataProfileAdmin')->name('dataProfileAdmin');
-    Route::get('/profile/edit/user','UserController@editProfileAdmin')->name('editProfileAdmin');
-    Route::post('/profile/update/user/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+        Route::get('/profile/user','UserController@dataProfileAdmin')->name('dataProfileAdmin');
+        Route::get('/profile/edit/user','UserController@editProfileAdmin')->name('editProfileAdmin');
+        Route::post('/profile/update/user/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+
+    // Menara
+    Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
