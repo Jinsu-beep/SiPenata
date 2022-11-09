@@ -13,7 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'LoginController@loginForm')->name('login')->middleware('guest');
+Route::get('/landing', function () {
+    return view('test.home');
+});
+
+Route::get('/', 'LandingController@test')->name('test')->middleware('guest');
+Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
+Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
+
+// Login 
+    Route::get('/login_form', 'LoginController@loginForm')->name('loginForm')->middleware('guest');
+    Route::post('/login', 'LoginController@login')->name('Login');
+    Route::get('/logout', 'LoginController@logout')->name('logout');
 
 // Registrasi 
     Route::get('/pilihRole', 'RegistrasiController@registrasiRole')->name('pilihRole')->middleware('guest');
@@ -22,9 +33,6 @@ Route::get('/', 'LoginController@loginForm')->name('login')->middleware('guest')
     Route::get('/registrasiProvider', 'RegistrasiController@registrasiProviderForm')->name('registrasiProvider')->middleware('guest');
     Route::post('/regisProvider', 'RegistrasiController@insertRegistrasiProvider')->name('insertRegistrasiProvider')->middleware('guest');
     Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
-
-Route::post('/login', 'LoginController@login')->name('Login');
-Route::get('/logout', 'LoginController@logout')->name('logout');
 
 // Dashboard 
     Route::get('/dashboard','UserController@dashboard')->name('dashboard');
