@@ -15,6 +15,6 @@ class MenaraModel extends Model
 
     public function Kecamatan()
     {
-        return $this->belongsTo(KecamatanModel::class, 'id_m_kecamatan', 'id');
+        return $this->belongsTo(KecamatanModel::class, 'id_kecamatan', 'id');
     }
 }

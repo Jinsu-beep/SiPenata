@@ -54,20 +54,6 @@
           @csrf
           <div class=" card-body mx-5" >
             <div class="row">
-              <div class="col-lg-6 col-sm-12">
-                <div class="form-group mb-3">
-                  <label for="NoKTP">No KTP</label>
-                  <input type="text" class="form-control" placeholder="No KTP" name="NoKTP">
-                </div>
-              </div>
-              <div class="col-lg-6 col-sm-12">
-                <div class="form-group mb-3">
-                  <label for="NoKTP">File KTP</label>
-                  <input type="text" class="form-control" placeholder="File KTP" name="FileKTP">
-                </div>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-lg-10 col-sm-12">
                 <div class="form-group mb-3">
                   <label for="nama">Nama</label>
@@ -85,10 +71,18 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6 col-sm-12">
+              <div class="col-lg-12 col-sm-12">
                 <div class="form-group mb-3">
                   <label for="email">Email</label>
                   <input type="text" class="form-control" placeholder="Email" name="Email">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <div class="form-group mb-3">
+                  <label for="NoKTP">No KTP</label>
+                  <input type="text" class="form-control" placeholder="No KTP" name="NoKTP">
                 </div>
               </div>
               <div class="col-lg-6 col-sm-12">
@@ -155,8 +149,11 @@
               <input type="text" class="form-control" placeholder="password" name="Password">
             </div>
           </div>
-          <div class="justify-content-center row ml-2 mb-2 mx-auto">
-            <div class="col-4">
+          <div class="justify-content-between row ml-2 mb-2 mx-auto">
+            <div class="col-3">
+              <a href="{{ route('loginForm') }}" class="btn btn-primary btn-block center-block" >Kembali</a>
+            </div>
+            <div class="col-3">
               <button type="submit" class="btn btn-primary btn-block center-block" >Registrasi</button>
             </div>
           </div>

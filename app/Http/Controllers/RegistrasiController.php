@@ -31,7 +31,7 @@ class RegistrasiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'NoKTP' => 'required',
-            'FileKTP' => 'required',
+            'NPWP' => 'required',
             'Nama' => 'required',
             'Kewarganegaraan' => 'required',
             'Email' => 'required',

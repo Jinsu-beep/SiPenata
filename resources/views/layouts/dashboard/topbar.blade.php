@@ -21,6 +21,7 @@
       </li> --}}
       <li class="nav-item">
         <a class="nav-link" href="/logout" role="button">
+          <b>LOG OUT</b>
           <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>

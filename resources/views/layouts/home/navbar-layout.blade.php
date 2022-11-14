@@ -32,7 +32,7 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="page-scroll text-decoration-none" id="menu-home" href="{{ route('test') }}">Beranda</a>
+                                        <a class="page-scroll text-decoration-none" id="menu-home" href="{{ route('landing_page') }}">Beranda</a>
                                     </li>
                                     <li class="nav-item" id="berita">
                                         <a class="text-decoration-none" id="menu-tentang" href="#tentang">Tentang</a>

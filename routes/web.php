@@ -17,7 +17,7 @@ Route::get('/landing', function () {
     return view('test.home');
 });
 
-Route::get('/', 'LandingController@test')->name('test')->middleware('guest');
+Route::get('/', 'LandingController@test')->name('landing_page')->middleware('guest');
 Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
 
@@ -27,11 +27,9 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     Route::get('/logout', 'LoginController@logout')->name('logout');
 
 // Registrasi 
-    Route::get('/pilihRole', 'RegistrasiController@registrasiRole')->name('pilihRole')->middleware('guest');
+    // Route::get('/pilihRole', 'RegistrasiController@registrasiRole')->name('pilihRole')->middleware('guest');
     Route::get('/registrasiPemilikMenara', 'RegistrasiController@registrasiPemilikMenaraForm')->name('registrasiPemilikMenara')->middleware('guest');
     Route::post('/regisPemilikMenara', 'RegistrasiController@insertRegistrasiPemilikMenara')->name('insertRegistrasiPemilikMenara')->middleware('guest');
-    Route::get('/registrasiProvider', 'RegistrasiController@registrasiProviderForm')->name('registrasiProvider')->middleware('guest');
-    Route::post('/regisProvider', 'RegistrasiController@insertRegistrasiProvider')->name('insertRegistrasiProvider')->middleware('guest');
     Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
 
 // Dashboard 
@@ -63,17 +61,17 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
         // Pemilik Menara
         Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
         Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
-        // Provider
-        Route::get('/provider/data','UserController@dataProvider')->name('dataProvider');
-        Route::post('/provider/insert','UserController@insertProvider')->name('insertProvider');
         // Profile
         Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
         Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
         Route::post('/profile/update/admin/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
 
-        Route::get('/profile/user','UserController@dataProfileAdmin')->name('dataProfileAdmin');
-        Route::get('/profile/edit/user','UserController@editProfileAdmin')->name('editProfileAdmin');
-        Route::post('/profile/update/user/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+        Route::get('/profile/user','UserController@dataProfileUser')->name('dataProfileUser');
+        Route::get('/profile/edit/user','UserController@editProfileUser')->name('editProfileUser');
+        Route::post('/profile/update/user/{id}','UserController@updateProfileUser')->name('updateProfileUser');
 
     // Menara
     Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
+
+    // Pengajuan Menara
+    Route::get('/pengajuan/data','PengajuanMenaraController@dataPengajuan')->name('dataPengajuan');

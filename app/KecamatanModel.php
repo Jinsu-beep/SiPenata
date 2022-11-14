@@ -10,6 +10,6 @@ class KecamatanModel extends Model
 
     public function Menara()
     {
-        return $this->hasMany(MenaraModel::class, 'id_m_kecamatan', 'id');
+        return $this->hasMany(MenaraModel::class, 'id_kecamatan', 'id');
     }
 }

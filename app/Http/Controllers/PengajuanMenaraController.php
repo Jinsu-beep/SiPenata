@@ -16,14 +16,14 @@ use App\ProviderModel;
 use App\UserModel;
 use App\KecamatanModel;
 
-class MenaraController extends Controller
+class PengajuanMenaraController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
 
-    public function dataMenara()
+    public function dataPengajuan()
     {
         if (Auth::user()->kategori == "Tim Administratif") {
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
@@ -31,7 +31,7 @@ class MenaraController extends Controller
             $dataMenara = MenaraModel::with("PemilikMenara.Menara")->with("Kecamatan.Menara")->get();
             // dd($dataMenara);
 
-            return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara"));
 
         } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
@@ -41,7 +41,7 @@ class MenaraController extends Controller
             $dataMenara = MenaraModel::with("PemilikMenara.Menara")->with("Kecamatan.Menara")->where("id_pemilik_menara", $dataUser->id)->get();
             // dd($dataMenara);
 
-            return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara"));
 
         }
     }
