@@ -73,7 +73,7 @@ class DasarHukumController extends Controller
         $newDasarHukum->tanggal = Date('Y-m-d');
         $newDasarHukum->save();
 
-        return redirect()->route('dataDasarHukum')->with('statusInput', 'Insert Success');
+        return redirect()->route('dataDasarHukum')->with(['success' => 'Dasar Hukum Berhasil Dibuat']);
     }
 
     public function detailDasarHukum($id)
@@ -123,8 +123,31 @@ class DasarHukumController extends Controller
         return view("dashboard.dasarhukum.edit", compact("dataUser", "dataDasarHukum"));
     }
 
-    public function updateDasarHukum(Request $request)
+    public function updateDasarHukum($id, Request $request)
     {
+        $file = $request->file('file_dasarHukum');
+        $extension = $file->getClientOriginalExtension();
+        $nama = $request->nama_dasarHukum . '.' . $extension;
+        Storage::putFileAs('public/DasarHukum', $request->file('file_dasarHukum'), $nama);
+
+        $updateDasarHukum = DasarHukumModel::find($id);
+        $updateDasarHukum->nama = $request->nama_dasarHukum;
+        $updateDasarHukum->no_DasarHukum = $request->no_dasarHukum;
+        $updateDasarHukum->file_Dasarhukum = "/storage/DasarHukum/" . $nama;
+        $updateDasarHukum->tanggal = Date('Y-m-d');
+        $updateDasarHukum->update();
+
+        return redirect()->route('dataDasarHukum')->with(['success' => 'Dasar Hukum Berhasil Diperbarui']);
+    }
+
+    public function deleteDasarHukum($id)
+    {
+        $DasarHukum = DasarHukumModel::find($id);
+        $nama = $DasarHukum->nama;
+        $file = '/public/DasarHukum/'. $nama . '.pdf';
+        storage::disk('local')->delete($file);
+        $DasarHukum->delete();
         
+        return redirect()->back()->with(['success' => 'Dasar Hukum Berhasil Dihapus']);
     }
 }

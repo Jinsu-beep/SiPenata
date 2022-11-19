@@ -42,6 +42,8 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     Route::get('/dasarhukum/detail/{id}','DasarHukumController@detailDasarHukum')->name('detailDasarHukum');
     Route::get('/dasarhukum/download/{id}','DasarHukumController@downloadDasarHukum')->name('downloadDasarHukum');
     Route::get('/dasarhukum/edit/{id}','DasarHukumController@editDasarHukum')->name('editDasarHukum');
+    Route::post('/dasarhukum/update/{id}','DasarHukumController@updateDasarHukum')->name('updateDasarHukum');
+    Route::post('/dasarhukum/delete/{id}','DasarHukumController@deleteDasarHukum')->name('deleteDasarHukum');
 
     // Akun
         // Super Admin

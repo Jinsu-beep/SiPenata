@@ -53,6 +53,12 @@
                 <p>Dasar Hukum</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="/dasarhukum/data" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Provider</p>
+              </a>
+            </li>
 
           <li class="nav-header">Akun</li>
             <li class="nav-item">
