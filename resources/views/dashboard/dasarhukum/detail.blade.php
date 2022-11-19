@@ -2,9 +2,9 @@
 @section('title') Buat Dasar Hukum Baru @endsection
 
 @push('css')
-{{-- h1 {
-    margin: 50px;
-} --}}
+<style>
+    .pdfobject-container { height: 30rem;}
+</style>
 @endpush
 
 @section('content')
@@ -45,11 +45,8 @@
                 </div>
                 <div class="form-group">
                     <label for="nama_dasarHukum">File Dasar Hukum</label><br>
-                    <a href="{{ $dataDasarHukum->file_DasarHukum }}" class="btn btn-primary">Show File</a>
-                    <button onclick="createadmin()" class="btn btn-warning btn-icon-split">
-                        <span class="icon">
-                            <i class="fas fa-edit"></i>
-                        </span>
+                    <button onclick="createadmin()" class="btn btn btn-primary">
+                        Show File
                     </button>
                 </div>
             </div>
@@ -129,5 +126,5 @@
     
 </script>
 <script src="/PDFObject/pdfobject.js"></script>
-<script>PDFObject.embed("/storage/DasarHukum/test.pdf", "#example1");</script>
+<script>PDFObject.embed("/storage/DasarHukum/test1.pdf", "#example1");</script>
 @endpush
