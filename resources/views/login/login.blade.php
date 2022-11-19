@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SiPenata | Log in (v2)</title>
+<title>SiPenata | Log in</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
@@ -51,11 +51,8 @@
       <div class="container">
         <br>  
       </div>
-      <p class="mb-1">
-        <a href="#">I forgot my password</a>
-      </p>
       <p class="mb-0">
-        <a href="{{ route('registrasiPemilikMenara') }}" class="text-center">Register a new membership</a>
+        <a href="{{ route('registrasiPemilikMenara') }}" class="text-center">Register a new user</a>
       </p>
     </div>
   </div>

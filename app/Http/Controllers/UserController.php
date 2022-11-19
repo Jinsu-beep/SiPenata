@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\SuperAdminModel;
+use App\AdminModel;
 use App\TimAdministratifModel;
 use App\TimLapanganModel;
 use App\BupatiModel;
@@ -331,7 +332,121 @@ class UserController extends Controller
 
         return redirect()->back()->with('statusInput', 'Delete Success');
     }
-    
+
+    // Admin
+    public function dataAdmin()
+    {
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } 
+
+        $dataAdmin = AdminModel::get();
+
+        return view("dashboard.akun.admin.data", compact("dataUser", "dataAdmin"));
+    }
+
+    public function insertAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $password = Hash::make($request->password);
+
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $newUser = new UserModel();
+                $newUser->username = $request->username;
+                $newUser->password = $password;
+                $newUser->kategori = 'Admin';
+                $newUser->save();
+
+                $newAdmin = new AdminModel();
+                $newAdmin->id_user = $newUser->id;
+                $newAdmin->nama = $request->nama;
+                $newAdmin->save();
+
+                return redirect()->back()->with('statusInput', 'Insert Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
+    }
+
+    public function getAdmin($id)
+    {
+        $getAdmin  = AdminModel::with('user.Admin')->where('id', $id)->first();
+        
+        return response()->json($getAdmin);
+    }
+
+    public function updateAdmin($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $password = Hash::make($request->password);
+
+        $cekUsername = UserModel::where("username", $request->username)->first();
+        if ($cekUsername == NULL) {
+            $cekPassword = UserModel::where("password", $password)->first();
+            if ($cekPassword == NULL) {
+                $updateAdmin = AdminModel::find($id);
+                $updateAdmin->nama = $request->nama;
+                $updateAdmin->update();
+
+                $idAdmin = $updateAdmin->id_user;
+
+                $AdminUpdate = UserModel::find($idAdmin);
+                $AdminUpdate->username = $request->username;
+                $AdminUpdate->password = $password;
+                $AdminUpdate->update();
+                
+                return redirect()->back()->with('statusInput', 'Update Success');
+            } else {
+                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            }
+        } else {
+            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+        }
+    }
+
+    public function deleteAdmin($id)
+    {
+        $dataAdmin = AdminModel::find($id);
+        $idUser = $dataAdmin->id_user;
+        $dataAdmin->delete();
+
+        $dataUser = UserModel::find($idUser);
+        $dataUser->delete();
+
+        return redirect()->back()->with('statusInput', 'Delete Success');
+    }
 
     // Tim Administratif
     public function dataTimAdministratif()
