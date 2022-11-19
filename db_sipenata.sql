@@ -16,6 +16,25 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_sipenata` /*!40100 DEFAULT CHARACTER
 
 USE `db_sipenata`;
 
+/*Table structure for table `tb_admin` */
+
+DROP TABLE IF EXISTS `tb_admin`;
+
+CREATE TABLE `tb_admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_admin` */
+
 /*Table structure for table `tb_laporan_kondisi` */
 
 DROP TABLE IF EXISTS `tb_laporan_kondisi`;
@@ -24,6 +43,8 @@ CREATE TABLE `tb_laporan_kondisi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_menara` int(11) DEFAULT NULL,
   `id_tim_lapangan` int(11) DEFAULT NULL,
+  `tanggalLaporan` date DEFAULT NULL,
+  `foto` varbinary(255) DEFAULT NULL,
   `laporan` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -44,14 +65,19 @@ DROP TABLE IF EXISTS `tb_m_dasarhukum`;
 CREATE TABLE `tb_m_dasarhukum` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) DEFAULT NULL,
-  `dasar_hukum` varchar(255) DEFAULT NULL,
+  `no_DasarHukum` varchar(255) DEFAULT NULL,
+  `file_DasarHukum` varchar(255) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_m_dasarhukum` */
+
+insert  into `tb_m_dasarhukum`(`id`,`nama`,`no_DasarHukum`,`file_DasarHukum`,`tanggal`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,'asd',NULL,'sdads','2022-11-17','2022-11-17 14:42:15',NULL,NULL);
 
 /*Table structure for table `tb_m_desa` */
 
@@ -85,9 +111,12 @@ CREATE TABLE `tb_m_kabupaten` (
   PRIMARY KEY (`id`),
   KEY `id_provinsi` (`id_provinsi`),
   CONSTRAINT `tb_m_kabupaten_ibfk_1` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_m_kabupaten` */
+
+insert  into `tb_m_kabupaten`(`id`,`id_provinsi`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,'b','2022-10-07 12:50:57',NULL,NULL);
 
 /*Table structure for table `tb_m_kecamatan` */
 
@@ -103,24 +132,12 @@ CREATE TABLE `tb_m_kecamatan` (
   PRIMARY KEY (`id`),
   KEY `id_kabupaten` (`id_kabupaten`),
   CONSTRAINT `tb_m_kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_m_kecamatan` */
 
-/*Table structure for table `tb_m_negara` */
-
-DROP TABLE IF EXISTS `tb_m_negara`;
-
-CREATE TABLE `tb_m_negara` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `tb_m_negara` */
+insert  into `tb_m_kecamatan`(`id`,`id_kabupaten`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,'c','2022-10-07 12:51:06',NULL,NULL);
 
 /*Table structure for table `tb_m_provinsi` */
 
@@ -133,9 +150,27 @@ CREATE TABLE `tb_m_provinsi` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_m_provinsi` */
+
+insert  into `tb_m_provinsi`(`id`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,'a','2022-10-07 12:50:41',NULL,NULL);
+
+/*Table structure for table `tb_m_status` */
+
+DROP TABLE IF EXISTS `tb_m_status`;
+
+CREATE TABLE `tb_m_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_m_status` */
 
 /*Table structure for table `tb_menara` */
 
@@ -143,29 +178,38 @@ DROP TABLE IF EXISTS `tb_menara`;
 
 CREATE TABLE `tb_menara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_m_kecamatan` int(11) DEFAULT NULL,
+  `id_provinsi` int(11) DEFAULT NULL,
+  `id_kabupaten` int(11) DEFAULT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
+  `id_desa` int(11) DEFAULT NULL,
   `id_pemilik_menara` int(11) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `tanggal_pembuatan` date DEFAULT NULL,
-  `beban_maks` int(11) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
-  `lang` varchar(255) DEFAULT NULL,
-  `tinggi` varchar(255) DEFAULT NULL,
-  `NOP` varchar(255) DEFAULT NULL,
-  `surat_izin` varchar(255) DEFAULT NULL,
+  `long` varchar(255) DEFAULT NULL,
+  `jenisMenara` enum('Menara 4 Kaki','Menara 3 Kaki','Menara 1 Kaki') DEFAULT NULL,
+  `tinggiMenara` varchar(255) DEFAULT NULL,
+  `tinggiAntena` varchar(255) DEFAULT NULL,
+  `luasArea` varchar(255) DEFAULT NULL,
+  `aksesJalan` varchar(255) DEFAULT NULL,
+  `suratIzinPembanguna` varchar(255) DEFAULT NULL,
+  `suratIzinOperasional` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pemilik_menara` (`id_pemilik_menara`),
-  KEY `id_m_kecamatan` (`id_m_kecamatan`),
+  KEY `id_m_kecamatan` (`id_kecamatan`),
   CONSTRAINT `tb_menara_ibfk_1` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`),
-  CONSTRAINT `tb_menara_ibfk_2` FOREIGN KEY (`id_m_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `tb_menara_ibfk_2` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_menara` */
+
+insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`foto`,`nama`,`tanggal_pembuatan`,`alamat`,`lat`,`long`,`jenisMenara`,`tinggiMenara`,`tinggiAntena`,`luasArea`,`aksesJalan`,`suratIzinPembanguna`,`suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,NULL,NULL,1,NULL,1,NULL,'menara 1','2022-10-01','jl. test','121','212',NULL,'12',NULL,NULL,NULL,NULL,NULL,'2022-10-07 12:53:37',NULL,NULL);
 
 /*Table structure for table `tb_opd` */
 
@@ -189,23 +233,35 @@ DROP TABLE IF EXISTS `tb_pemilik_menara`;
 CREATE TABLE `tb_pemilik_menara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
+  `id_perusahaan` int(11) DEFAULT NULL,
+  `id_provinsi` int(11) DEFAULT NULL,
+  `id_kabupaten` int(11) DEFAULT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
+  `id_desa` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
-  `no_telp` varchar(13) DEFAULT NULL,
+  `no_ktp` varchar(255) DEFAULT NULL,
+  `NPWP` varchar(255) DEFAULT NULL,
+  `Kewarganegaraan` enum('WNI','WNA') DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
-  CONSTRAINT `tb_pemilik_menara_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  KEY `id_perusahaan` (`id_perusahaan`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_2` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_pemilik_menara` */
 
-insert  into `tb_pemilik_menara`(`id`,`id_user`,`nama`,`no_telp`,`alamat`,`email`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,5,'Pemilik Menara',NULL,NULL,NULL,NULL,NULL,NULL),
-(2,11,'asd',NULL,NULL,NULL,'2022-09-15 17:22:28','2022-09-15 17:22:28',NULL);
+insert  into `tb_pemilik_menara`(`id`,`id_user`,`id_perusahaan`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_ktp`,`NPWP`,`Kewarganegaraan`,`alamat`,`no_telp`,`email`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,5,NULL,NULL,NULL,NULL,NULL,'Pemilik Menara',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(2,11,NULL,NULL,NULL,NULL,NULL,'asd',NULL,NULL,NULL,NULL,NULL,NULL,'2022-09-15 17:22:28','2022-09-15 17:22:28',NULL),
+(3,17,NULL,1,1,1,1,'asd','asd','asd','WNI','aas','123','asd','2022-10-16 11:37:38','2022-10-16 11:37:38',NULL),
+(4,18,NULL,1,1,1,1,'qwe','qwe','qweqwe','WNI','qweqw','123','qwe','2022-10-16 11:39:13','2022-10-16 11:39:13',NULL);
 
 /*Table structure for table `tb_pengajuan_menara` */
 
@@ -214,13 +270,30 @@ DROP TABLE IF EXISTS `tb_pengajuan_menara`;
 CREATE TABLE `tb_pengajuan_menara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pemilik_menara` int(11) DEFAULT NULL,
+  `id_provinsi` int(11) DEFAULT NULL,
+  `id_kabupaten` int(11) DEFAULT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
+  `id_desa` int(11) DEFAULT NULL,
+  `id_persetujuan_pendamping` int(11) DEFAULT NULL,
+  `ketinggian_menara` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
-  `surat_tanah` varchar(255) DEFAULT NULL,
-  `surat_keterangan_rencana_kota` varchar(255) DEFAULT NULL,
-  `informasi_perencanaan_menara` varchar(255) DEFAULT NULL,
-  `persetujuan_warga` varchar(255) DEFAULT NULL,
-  `status` enum('Draft','Proses','Disetujui','Selesai') DEFAULT NULL,
+  `jenis_menara` enum('Tower 4 Kaki','Tower 3 Kaki','Tower 1 Kaki') DEFAULT NULL,
+  `tinggi_menara` varchar(255) DEFAULT NULL,
+  `tinggi_antena` varchar(255) DEFAULT NULL,
+  `luas_area` varchar(255) DEFAULT NULL,
+  `akses_jalan` varchar(255) DEFAULT NULL,
+  `status_lahan` enum('sewa','milik_perusahaan') DEFAULT NULL,
+  `kepemilikan_tanah` varchar(255) DEFAULT NULL,
+  `file_SuratKuasa` varchar(255) DEFAULT NULL,
+  `file_GambarRancanganPondasi` varchar(255) DEFAULT NULL,
+  `file_DenahBangunan` varchar(255) DEFAULT NULL,
+  `file_GambarLokasiDanSituasi` varchar(255) DEFAULT NULL,
+  `file_KTPPemohon` varchar(255) DEFAULT NULL,
+  `file_NPWPPemohon` varchar(255) DEFAULT NULL,
+  `file_FotoPemohon` varchar(255) DEFAULT NULL,
+  `file_SuratTanah` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -231,52 +304,92 @@ CREATE TABLE `tb_pengajuan_menara` (
 
 /*Data for the table `tb_pengajuan_menara` */
 
-/*Table structure for table `tb_penyewaan_menara` */
+/*Table structure for table `tb_pengajuan_status` */
 
-DROP TABLE IF EXISTS `tb_penyewaan_menara`;
+DROP TABLE IF EXISTS `tb_pengajuan_status`;
 
-CREATE TABLE `tb_penyewaan_menara` (
+CREATE TABLE `tb_pengajuan_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_status` int(11) DEFAULT NULL,
+  `id_pengajuan_menara` int(11) DEFAULT NULL,
+  `tanggal_status` date DEFAULT NULL,
+  `disposisi` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_status` (`id_status`),
+  KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
+  CONSTRAINT `tb_pengajuan_status_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `tb_m_status` (`id`),
+  CONSTRAINT `tb_pengajuan_status_ibfk_2` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_pengajuan_status` */
+
+/*Table structure for table `tb_penggunaan_menara` */
+
+DROP TABLE IF EXISTS `tb_penggunaan_menara`;
+
+CREATE TABLE `tb_penggunaan_menara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_provider` int(11) DEFAULT NULL,
   `id_menara` int(11) DEFAULT NULL,
-  `Status` enum('Draft','Proses','Disetujui','Ditolak') DEFAULT NULL,
-  `waktu_awal` date DEFAULT NULL,
-  `waktu_akhir` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updatedt_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_menara` (`id_menara`),
   KEY `id_provider` (`id_provider`),
-  CONSTRAINT `tb_penyewaan_menara_ibfk_1` FOREIGN KEY (`id_provider`) REFERENCES `tb_provider` (`id`),
-  CONSTRAINT `tb_penyewaan_menara_ibfk_3` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`)
+  CONSTRAINT `tb_penggunaan_menara_ibfk_3` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
+  CONSTRAINT `tb_penggunaan_menara_ibfk_4` FOREIGN KEY (`id_provider`) REFERENCES `tb_provider` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `tb_penyewaan_menara` */
+/*Data for the table `tb_penggunaan_menara` */
 
-/*Table structure for table `tb_perbaikan_menara` */
+/*Table structure for table `tb_persetujuan_pendamping` */
 
-DROP TABLE IF EXISTS `tb_perbaikan_menara`;
+DROP TABLE IF EXISTS `tb_persetujuan_pendamping`;
 
-CREATE TABLE `tb_perbaikan_menara` (
+CREATE TABLE `tb_persetujuan_pendamping` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_menara` int(11) DEFAULT NULL,
-  `status` enum('Draft','Proses','Disetujui','Ditolak','Selesai') DEFAULT NULL,
-  `lat` varchar(255) DEFAULT NULL,
-  `lang` varchar(255) DEFAULT NULL,
-  `surat_izin` varchar(255) DEFAULT NULL,
-  `surat_tanah` varchar(255) DEFAULT NULL,
-  `surat_keterangan_rencana_kota` varchar(255) DEFAULT NULL,
-  `informasi_perubahan_menara` varchar(255) DEFAULT NULL,
+  `id_pengajuan_menara` int(11) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `no_ktp` varchar(16) DEFAULT NULL,
+  `file_suratPersetujuan` varchar(255) DEFAULT NULL,
+  `jarak` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_menara` (`id_menara`),
-  CONSTRAINT `tb_perbaikan_menara_ibfk_1` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`)
+  KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
+  CONSTRAINT `tb_persetujuan_pendamping_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `tb_perbaikan_menara` */
+/*Data for the table `tb_persetujuan_pendamping` */
+
+/*Table structure for table `tb_perusahaan` */
+
+DROP TABLE IF EXISTS `tb_perusahaan`;
+
+CREATE TABLE `tb_perusahaan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_provinsi` int(11) DEFAULT NULL,
+  `id_kabupaten` int(11) DEFAULT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
+  `id_desa` int(11) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `file_TandaDaftarPerusahaan` varchar(255) DEFAULT NULL,
+  `file_AktaPendirianPerusahaan` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_perusahaan` */
 
 /*Table structure for table `tb_provider` */
 
@@ -284,24 +397,14 @@ DROP TABLE IF EXISTS `tb_provider`;
 
 CREATE TABLE `tb_provider` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
-  `no_tlp` varchar(13) DEFAULT NULL,
-  `alamat` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  CONSTRAINT `tb_provider_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_provider` */
-
-insert  into `tb_provider`(`id`,`id_user`,`nama`,`no_tlp`,`alamat`,`email`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,6,'provider',NULL,NULL,NULL,NULL,NULL,NULL),
-(2,12,'qwe',NULL,NULL,NULL,'2022-09-15 17:25:45','2022-09-15 17:25:45',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
@@ -311,6 +414,7 @@ CREATE TABLE `tb_super_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -321,9 +425,9 @@ CREATE TABLE `tb_super_admin` (
 
 /*Data for the table `tb_super_admin` */
 
-insert  into `tb_super_admin`(`id`,`id_user`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,1,'SUPER ADMIN',NULL,'2022-09-19 11:17:18',NULL),
-(7,15,'Tyagi','2022-09-20 14:12:21','2022-09-20 14:12:21',NULL);
+insert  into `tb_super_admin`(`id`,`id_user`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,'SUPER ADMIN',NULL,NULL,'2022-09-19 11:17:18',NULL),
+(7,15,'Tyagi',NULL,'2022-09-20 14:12:21','2022-09-20 14:12:21',NULL);
 
 /*Table structure for table `tb_tim_administratif` */
 
@@ -334,6 +438,7 @@ CREATE TABLE `tb_tim_administratif` (
   `id_user` int(11) DEFAULT NULL,
   `id_opd` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -346,8 +451,8 @@ CREATE TABLE `tb_tim_administratif` (
 
 /*Data for the table `tb_tim_administratif` */
 
-insert  into `tb_tim_administratif`(`id`,`id_user`,`id_opd`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,2,NULL,'Tim Administratif','2022-09-10 18:21:00',NULL,NULL);
+insert  into `tb_tim_administratif`(`id`,`id_user`,`id_opd`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,2,NULL,'Tim Administratif',NULL,'2022-09-10 18:21:00',NULL,NULL);
 
 /*Table structure for table `tb_tim_lapangan` */
 
@@ -358,6 +463,7 @@ CREATE TABLE `tb_tim_lapangan` (
   `id_user` int(11) DEFAULT NULL,
   `id_opd` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
+  `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -370,8 +476,8 @@ CREATE TABLE `tb_tim_lapangan` (
 
 /*Data for the table `tb_tim_lapangan` */
 
-insert  into `tb_tim_lapangan`(`id`,`id_user`,`id_opd`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,3,NULL,'Tim Lapangan','2022-09-10 18:21:13',NULL,NULL);
+insert  into `tb_tim_lapangan`(`id`,`id_user`,`id_opd`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,3,NULL,'Tim Lapangan',NULL,'2022-09-10 18:21:13',NULL,NULL);
 
 /*Table structure for table `tb_user` */
 
@@ -381,12 +487,12 @@ CREATE TABLE `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `kategori` enum('Super Admin','Tim Administratif','Tim Lapangan','Pemilik Menara','Provider') DEFAULT NULL,
+  `kategori` enum('Super Admin','Admin','Tim Administratif','Tim Lapangan','Pemilik Menara') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_user` */
 
@@ -395,10 +501,30 @@ insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`created_at`,`updat
 (2,'tim_administratif','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Administratif',NULL,NULL,NULL),
 (3,'tim_lapangan','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Lapangan',NULL,NULL,NULL),
 (5,'pemilik_menara','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Pemilik Menara',NULL,NULL,NULL),
-(6,'provider','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Provider',NULL,NULL,NULL),
+(6,'provider','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','',NULL,NULL,NULL),
 (11,'asd','$2y$10$jpNwswBnAfS3hIfhGaTmBuWCGXyLsrYuzlOmcaHFj5x3nk6bbJnU.','Pemilik Menara',NULL,NULL,NULL),
-(12,'qwe','$2y$10$u6gakYhnhWCjF47nfLEn6OKvdeD/wGwJXsierCVOfd4kFYcMXl1zq','Provider',NULL,NULL,NULL),
-(15,'tyagi','$2y$10$sFgGMLBnZ2YAAgOqh6U6kucpp04wUC0hnyfITMgbsKkQtLzcHE7WG','Super Admin',NULL,NULL,NULL);
+(12,'qwe','$2y$10$u6gakYhnhWCjF47nfLEn6OKvdeD/wGwJXsierCVOfd4kFYcMXl1zq','',NULL,NULL,NULL),
+(15,'tyagi','$2y$10$sFgGMLBnZ2YAAgOqh6U6kucpp04wUC0hnyfITMgbsKkQtLzcHE7WG','Super Admin',NULL,NULL,NULL),
+(16,NULL,'$2y$10$XvGWwUnv70njFgk7KdR2K.fQYmARqKJJIdH0/w6/TUvcfBz65gNjC','Pemilik Menara',NULL,NULL,NULL),
+(17,'asd','$2y$10$esjab/fcG0y7IIJMKOAgOurstnIx2/YVkBynURIb/UFc6CR9nvrtO','Pemilik Menara',NULL,NULL,NULL),
+(18,'qwe','$2y$10$qogdYEZewATPWEEvM.S09uN9udi50ZQzu4ZBM0DbywFc9GdP9kNZa','Pemilik Menara',NULL,NULL,NULL);
+
+/*Table structure for table `tb_zone_plan` */
+
+DROP TABLE IF EXISTS `tb_zone_plan`;
+
+CREATE TABLE `tb_zone_plan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lat` varchar(255) DEFAULT NULL,
+  `long` varchar(255) DEFAULT NULL,
+  `status` enum('available','used') DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_zone_plan` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

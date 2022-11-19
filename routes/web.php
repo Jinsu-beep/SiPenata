@@ -38,6 +38,8 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     // Dasar Hukum
     Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
     Route::get('/dasarhukum/create','DasarHukumController@createDasarHukum')->name('createDasarHukum');
+    Route::post('/dasarhukum/insert','DasarHukumController@insertDasarHukum')->name('insertDasarHukum');
+    Route::get('/dasarhukum/detail/{id}','DasarHukumController@detailDasarHukum')->name('detailDasarHukum');
 
     // Akun
         // Super Admin
@@ -46,6 +48,12 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
         Route::get('/superadmin/get/{id}','UserController@getSuperAdmin')->name('getSuperAdmin');
         Route::post('/superadmin/update/{id}','UserController@updateSuperAdmin')->name('updateSuperAdmin');
         Route::post('/superadmin/delete/{id}','UserController@deleteSuperAdmin')->name('deleteSuperAdmin');
+        // Admin
+        Route::get('/admin/data','UserController@dataAdmin')->name('dataAdmin');
+        Route::post('/admin/insert','UserController@insertAdmin')->name('insertAdmin');
+        Route::get('/admin/get/{id}','UserController@getAdmin')->name('getAdmin');
+        Route::post('/admin/update/{id}','UserController@updateAdmin')->name('updateAdmin');
+        Route::post('/admin/delete/{id}','UserController@deleteAdmin')->name('deleteAdmin');
         // Tim Administratif
         Route::get('/timadministratif/data','UserController@dataTimAdministratif')->name('dataTimAdministratif');
         Route::post('/timadministratif/insert','UserController@insertTimAdministratif')->name('insertTimAdministratif');

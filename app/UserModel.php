@@ -23,6 +23,11 @@ class UserModel extends Authenticatable
         return $this->hasMany(SuperAdminModel::class, 'id_user', 'id');
     }
 
+    public function Admin()
+    {
+        return $this->hasMany(AdminModel::class, 'id_user', 'id');
+    }
+
     public function TimAdministratif()
     {
         return $this->hasMany(TimAdministratifModel::class, 'id_user', 'id');

@@ -71,6 +71,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="/admin/data" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="/timadministratif/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Tim Administratif</p>
