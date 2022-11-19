@@ -94,4 +94,37 @@ class DasarHukumController extends Controller
 
         return view("dashboard.dasarhukum.detail", compact("dataUser", "dataDasarHukum"));
     }
+
+    public function downloadDasarHukum($id)
+    {
+        $data = DasarHukumModel::find($id);
+        $nama = $data->nama;
+        $file = '/public/DasarHukum/'. $nama . '.pdf';
+
+        return storage::disk('local')->download($file);
+    }
+
+    public function editDasarHukum($id)
+    {
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
+
+        $dataDasarHukum = DasarHukumModel::find($id);
+
+        return view("dashboard.dasarhukum.edit", compact("dataUser", "dataDasarHukum"));
+    }
+
+    public function updateDasarHukum(Request $request)
+    {
+        
+    }
 }

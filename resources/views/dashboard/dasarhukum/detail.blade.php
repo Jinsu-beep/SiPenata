@@ -1,9 +1,9 @@
 @extends('layouts.dashboard.master')
-@section('title') Buat Dasar Hukum Baru @endsection
+@section('title') Detail Dasar Hukum Baru @endsection
 
 @push('css')
 <style>
-    .pdfobject-container { height: 30rem;}
+    .pdfobject-container { height: 50rem;}
 </style>
 @endpush
 
@@ -45,16 +45,19 @@
                 </div>
                 <div class="form-group">
                     <label for="nama_dasarHukum">File Dasar Hukum</label><br>
-                    <button onclick="createadmin()" class="btn btn btn-primary">
+                    <button onclick="showFile()" class="btn btn-primary">
                         Show File
                     </button>
+                    <a href="/dasarhukum/download/{{ $dataDasarHukum->id }}" class="btn btn-warning">
+                        Download File
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<div class="modal fade" id="modal-createa">
+<div class="modal fade" id="modal-showFile">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,7 +67,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="example1"></div>
+                <div id="file"></div>
             </div>
         </div>
     </div>
@@ -118,13 +121,14 @@
 </script>
 
 <script>
-    function createadmin() {
-        $("#create_form").attr("action", "/admin/insert");
-        $('#modal-createa').modal('show');
+    function showFile() {
+        $('#modal-showFile').modal('show');
     }
-
-    
 </script>
 <script src="/PDFObject/pdfobject.js"></script>
-<script>PDFObject.embed("/storage/DasarHukum/test1.pdf", "#example1");</script>
+<script>
+    var data_DasarHukum = {!! json_encode($dataDasarHukum->toArray()) !!}
+    // console.log(data_DasarHukum);
+    PDFObject.embed(data_DasarHukum.file_DasarHukum, "#file");
+</script>
 @endpush

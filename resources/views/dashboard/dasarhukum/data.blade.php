@@ -71,7 +71,7 @@
                                                 <i class="fas fa-eye"></i>
                                             </span>
                                         </a>
-                                        <a href="" id="" class="btn btn-warning btn-icon-split">
+                                        <a href="/dasarhukum/edit/{{ $ddh->id }}" id="" class="btn btn-warning btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-edit"></i>
                                             </span>
