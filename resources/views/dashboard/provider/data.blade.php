@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Data Akun Super Admin @endsection
+@section('title') Data Akun Admin @endsection
 
 @push('css')
 <!-- SweeAlert2 -->
@@ -11,12 +11,23 @@
 @endpush
 
 @section('content')
+@if (session()->has('statusInput'))
+    <div class="row">
+    <div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
+        {{session()->get('statusInput')}}
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    </div>
+@endif
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Akun Super Admin</h1>
+                <h1>Data Provider</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -28,11 +39,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List Data User</h3>
+                        <h3 class="card-title">List Data Provider</h3>
                         <div class="card-tools btn btn-primary btn-icon-split">
-                            <button class="btn btn-primary" type="button" onclick="createsuperadmin()">
+                            <button class="btn btn-primary" type="button" onclick="createprovider()">
                                 <i class="fas fa-plus"></i>
-                                <span class="text">Tambah User Baru</span>
+                                <span class="text">Tambah Provider Baru</span>
                             </button>
                         </div>
                     </div>
@@ -42,26 +53,24 @@
                                 <tr>
                                     <th width="50px">No.</th>
                                     <th>Nama</th>
-                                    <th width="150px">status</th>
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>                
-                                @foreach ($dataSuperAdmin as $dsa)
+                            <tbody>
+                                @foreach ($dataProvider as $dp)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $dsa->nama}}</td>
-                                        <td></td>
+                                        <td>{{ $dp->nama }}</td>
                                         <td class="text-center">
-                                            <button value="{{ $dsa->id }}" id="edit_SuperAdmin{{ $dsa->id }}" class="btn btn-warning btn-icon-split">
-                                            <span class="icon">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
+                                            <button value="{{ $dp->id }}" id="edit_Provider{{ $dp->id }}" class="btn btn-warning btn-icon-split">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
                                             </button>
-                                            <button onclick="statusdelete({{ $dsa->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
-                                            <span class="icon">
-                                                <i class="fas fa-trash"></i>
-                                            </span>
+                                            <button onclick="statusdelete({{ $dp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
                                             </button>
                                         </td>
                                     </tr>
@@ -75,39 +84,20 @@
     </div>
 </section>
 
-<div class="modal fade" id="modal-createsa">
+<div class="modal fade" id="modal-createp">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="" id="create_form" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Buat Akun Super Admin</h4>
+                    <h4 class="modal-title">Buat Provider</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="no_telp">No Telepon</label>
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" placeholder="No Telepon" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="">
+                        <input type="text" class="form-control" name="provider" id="provider" placeholder="provider" value="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -119,39 +109,20 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-editsa">
+<div class="modal fade" id="modal-editp">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="" id="edit_form" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Akun Super Admin</h4>
+                    <h4 class="modal-title">Edit Provider</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="Nama" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="no_telp">No Telepon</label>
-                        <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="No Telepon" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="edit_username" placeholder="Username" value="">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="edit_password" placeholder="Password" value="">
+                        <input type="text" class="form-control" name="provider" id="edit_provider" placeholder="provider" value="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -169,7 +140,7 @@
             <form action="" id="sdelete" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Akun Super Admin</h4>
+                    <h4 class="modal-title">Delete Provider</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -247,29 +218,25 @@
 </script>
 
 <script>
-    function createsuperadmin() {
-        $("#create_form").attr("action", "/superadmin/insert");
-        $('#modal-createsa').modal('show');
+    function createprovider() {
+        $("#create_form").attr("action", "/provider/insert");
+        $('#modal-createp').modal('show');
     }
 </script>
 
 <script>
-    var data_SuperAdmin = {!! json_encode($dataSuperAdmin->toArray()) !!}
-    data_SuperAdmin.forEach(element => {
-        $('#edit_SuperAdmin'+element.id).click(function () {
-            if ($('edit_SuperAdmin').val() != ""){
+    var data_Provider = {!! json_encode($dataProvider->toArray()) !!}
+    data_Provider.forEach(element => {
+        $('#edit_Provider'+element.id).click(function () {
+            if ($('edit_Provider').val() != ""){
                 let id = $(this).val();
-                // console.log(id);
                 $.ajax({
                     type: 'GET',
-                    url: '/superadmin/get/'+id,
+                    url: '/provider/get/'+id,
                     success:function(response){
-                        // console.log(response.id);
-                        $("#edit_form").attr("action", "/superadmin/update/"+response.id);
-                        $('#edit_nama').val(response.nama);
-                        $('#edit_no_telp').val(response.no_telp);
-                        $('#edit_username').val(response.user.username);
-                        $('#modal-editsa').modal('show');
+                        $("#edit_form").attr("action", "/provider/update/"+response.id);
+                        $('#edit_provider').val(response.nama);
+                        $('#modal-editp').modal('show');
                     }
                 });
             }
@@ -279,7 +246,7 @@
 
 <script>
     function statusdelete(id) {
-    $("#sdelete").attr("action", "/superadmin/delete/"+id);
+    $("#sdelete").attr("action", "/provider/delete/"+id);
     $('#modal-sdelete').modal('show');
     }
 </script>
@@ -296,25 +263,6 @@
                 $(document).ready(function() {
                     Toast.fire({
                         icon: 'success',
-                        text: '{{$message}}'
-                    })
-                });
-        });
-    </script>
-@endif
-
-@if($message = Session::get('failed'))
-    <script>
-        $(function() {
-            var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
-                $(document).ready(function() {
-                    Toast.fire({
-                        icon: 'error',
                         text: '{{$message}}'
                     })
                 });

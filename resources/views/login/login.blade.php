@@ -18,7 +18,7 @@
 
   <div class="card card-outline card-primary">
     <div class="card-header text-center " style="background-color:rgb(231, 231, 234, 1);">
-      <a href="#">
+      <a href="{{ route('landing_page') }}">
         <img src="../../images/logosipenata.png" alt="Logo SiPenata" style="width:75%; height:75%">
       </a>
     </div>
@@ -52,7 +52,7 @@
         <br>  
       </div>
       <p class="mb-0">
-        <a href="{{ route('registrasiPemilikMenara') }}" class="text-center">Register a new user</a>
+        <a href="{{ route('registrasi') }}" class="text-center">Register a new user</a>
       </p>
     </div>
   </div>

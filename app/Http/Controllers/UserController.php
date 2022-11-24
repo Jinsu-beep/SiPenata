@@ -14,6 +14,7 @@ use App\BupatiModel;
 use App\PemilikMenaraModel;
 use App\ProviderModel;
 use App\UserModel;
+use App\OPDModel;
 
 class UserController extends Controller
 {
@@ -26,14 +27,14 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Tim Administratif") {
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         return view("dashboard.dashboard", compact("dataUser"));
@@ -223,15 +224,7 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
-        } 
+        }
 
         $dataSuperAdmin = SuperAdminModel::get();
 
@@ -242,6 +235,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -254,25 +248,21 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $newUser = new UserModel();
-                $newUser->username = $request->username;
-                $newUser->password = $password;
-                $newUser->kategori = 'Super Admin';
-                $newUser->save();
+            $newUser = new UserModel();
+            $newUser->username = $request->username;
+            $newUser->password = $password;
+            $newUser->kategori = 'Super Admin';
+            $newUser->save();
 
-                $newSuperAdmin = new SuperAdminModel();
-                $newSuperAdmin->id_user = $newUser->id;
-                $newSuperAdmin->nama = $request->nama;
-                $newSuperAdmin->save();
+            $newSuperAdmin = new SuperAdminModel();
+            $newSuperAdmin->id_user = $newUser->id;
+            $newSuperAdmin->nama = $request->nama;
+            $newSuperAdmin->no_telp = $request->no_telp;
+            $newSuperAdmin->save();
 
-                return redirect()->back()->with('statusInput', 'Insert Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            return redirect()->back()->with(['success' => 'Super Admin Berhasil Di Tambah']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -299,25 +289,21 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $updateSuperAdmin = SuperAdminModel::find($id);
-                $updateSuperAdmin->nama = $request->nama;
-                $updateSuperAdmin->update();
+            $updateSuperAdmin = SuperAdminModel::find($id);
+            $updateSuperAdmin->nama = $request->nama;
+            $updateSuperAdmin->no_telp = $request->no_telp;
+            $updateSuperAdmin->update();
 
-                $idSuperAdmin = $updateSuperAdmin->id_user;
+            $idSuperAdmin = $updateSuperAdmin->id_user;
 
-                $superAdminUpdate = UserModel::find($idSuperAdmin);
-                $superAdminUpdate->username = $request->username;
-                $superAdminUpdate->password = $password;
-                $superAdminUpdate->update();
-                
-                return redirect()->back()->with('statusInput', 'Update Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            $superAdminUpdate = UserModel::find($idSuperAdmin);
+            $superAdminUpdate->username = $request->username;
+            $superAdminUpdate->password = $password;
+            $superAdminUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Super Admin Berhasil Di Edit']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -330,7 +316,7 @@ class UserController extends Controller
         $dataUser = UserModel::find($idUser);
         $dataUser->delete();
 
-        return redirect()->back()->with('statusInput', 'Delete Success');
+        return redirect()->back()->with(['success' => 'Super Admin Berhasil Di Hapus']);
     }
 
     // Admin
@@ -338,15 +324,9 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
-        } 
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
+        }
 
         $dataAdmin = AdminModel::get();
 
@@ -357,6 +337,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -369,25 +350,21 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $newUser = new UserModel();
-                $newUser->username = $request->username;
-                $newUser->password = $password;
-                $newUser->kategori = 'Admin';
-                $newUser->save();
+            $newUser = new UserModel();
+            $newUser->username = $request->username;
+            $newUser->password = $password;
+            $newUser->kategori = 'Admin';
+            $newUser->save();
 
-                $newAdmin = new AdminModel();
-                $newAdmin->id_user = $newUser->id;
-                $newAdmin->nama = $request->nama;
-                $newAdmin->save();
+            $newAdmin = new AdminModel();
+            $newAdmin->id_user = $newUser->id;
+            $newAdmin->nama = $request->nama;
+            $newAdmin->no_telp = $request->no_telp;
+            $newAdmin->save();
 
-                return redirect()->back()->with('statusInput', 'Insert Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            return redirect()->back()->with(['success' => 'Admin Berhasil Di Tambah']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -402,6 +379,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -414,25 +392,21 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $updateAdmin = AdminModel::find($id);
-                $updateAdmin->nama = $request->nama;
-                $updateAdmin->update();
+            $updateAdmin = AdminModel::find($id);
+            $updateAdmin->nama = $request->nama;
+            $updateAdmin->no_telp = $request->no_telp;
+            $updateAdmin->update();
 
-                $idAdmin = $updateAdmin->id_user;
+            $idAdmin = $updateAdmin->id_user;
 
-                $AdminUpdate = UserModel::find($idAdmin);
-                $AdminUpdate->username = $request->username;
-                $AdminUpdate->password = $password;
-                $AdminUpdate->update();
-                
-                return redirect()->back()->with('statusInput', 'Update Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            $AdminUpdate = UserModel::find($idAdmin);
+            $AdminUpdate->username = $request->username;
+            $AdminUpdate->password = $password;
+            $AdminUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Admin Berhasil Di Edit']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -445,7 +419,7 @@ class UserController extends Controller
         $dataUser = UserModel::find($idUser);
         $dataUser->delete();
 
-        return redirect()->back()->with('statusInput', 'Delete Success');
+        return redirect()->back()->with(['success' => 'Admin Berhasil Di Hapus']);
     }
 
     // Tim Administratif
@@ -453,25 +427,22 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataTimAdministratif = TimAdministratifModel::get();
+        $dataOPD = OPDModel::get();
 
-        return view("dashboard.akun.tim_administratif.data", compact("dataUser", "dataTimAdministratif"));
+        return view("dashboard.akun.tim_administratif.data", compact("dataUser", "dataTimAdministratif", "dataOPD"));
     }
 
     public function insertTimAdministratif(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
+            'id_opd' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -484,25 +455,22 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $newUser = new UserModel();
-                $newUser->username = $request->username;
-                $newUser->password = $password;
-                $newUser->kategori = 'Tim Administratif';
-                $newUser->save();
+            $newUser = new UserModel();
+            $newUser->username = $request->username;
+            $newUser->password = $password;
+            $newUser->kategori = 'Tim Administratif';
+            $newUser->save();
 
-                $newTimAdministratif = new TimAdministratifModel();
-                $newTimAdministratif->id_user = $newUser->id;
-                $newTimAdministratif->nama = $request->nama;
-                $newTimAdministratif->save();
+            $newTimAdministratif = new TimAdministratifModel();
+            $newTimAdministratif->id_user = $newUser->id;
+            $newTimAdministratif->nama = $request->nama;
+            $newTimAdministratif->no_telp = $request->no_telp;
+            $newTimAdministratif->id_opd = $request->id_opd;
+            $newTimAdministratif->save();
 
-                return redirect()->back()->with('statusInput', 'Insert Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            return redirect()->back()->with(['success' => 'Tim Administratif Berhasil Di Tambah']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -517,8 +485,8 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
             'username' => 'required',
-            'password' => 'required',
         ]);
 
         if($validator->fails()){
@@ -526,28 +494,44 @@ class UserController extends Controller
         }
 
         $password = Hash::make($request->password);
-
         $cekUsername = UserModel::where("username", $request->username)->first();
-        if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $updateTimAdministratif = TimAdministratifModel::find($id);
-                $updateTimAdministratif->nama = $request->nama;
-                $updateTimAdministratif->update();
+        $dataTimAdministratif = TimAdministratifModel::find($id);
+        $usernameTimAdministratif = UserModel::find($dataTimAdministratif->id_user);
+        if ($request->username == $usernameTimAdministratif->username) {
+            $updateTimAdministratif = TimAdministratifModel::find($id);
+            $updateTimAdministratif->nama = $request->nama;
+            $updateTimAdministratif->no_telp = $request->no_telp;
+            $updateTimAdministratif->id_opd = $request->id_opd;
+            $updateTimAdministratif->update();
 
-                $idTimAdministratif = $updateTimAdministratif->id_user;
+            $idTimAdministratif = $updateTimAdministratif->id_user;
 
-                $timAdministratifUpdate = UserModel::find($idTimAdministratif);
-                $timAdministratifUpdate->username = $request->username;
+            $timAdministratifUpdate = UserModel::find($idTimAdministratif);
+            if ($request->password) {
                 $timAdministratifUpdate->password = $password;
-                $timAdministratifUpdate->update();
-                
-                return redirect()->back()->with('statusInput', 'Update Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
             }
+            $timAdministratifUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Tim Administratif Berhasil Di Edit']);
+        } elseif ($cekUsername == NULL) {
+            $updateTimAdministratif = TimAdministratifModel::find($id);
+            $updateTimAdministratif->nama = $request->nama;
+            $updateTimAdministratif->no_telp = $request->no_telp;
+            $updateTimAdministratif->id_opd = $request->id_opd;
+            $updateTimAdministratif->update();
+
+            $idTimAdministratif = $updateTimAdministratif->id_user;
+
+            $timAdministratifUpdate = UserModel::find($idTimAdministratif);
+            $timAdministratifUpdate->username = $request->username;
+            if ($request->password) {
+                $timAdministratifUpdate->password = $password;
+            }
+            $timAdministratifUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Tim Administratif Berhasil Di Edit']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -560,7 +544,7 @@ class UserController extends Controller
         $dataUser = UserModel::find($idUser);
         $dataUser->delete();
 
-        return redirect()->back()->with('statusInput', 'Delete Success');
+        return redirect()->back()->with(['success' => 'Tim Administratif Berhasil Di Hapus']);
     }
 
     // Tim Lapangan
@@ -568,25 +552,22 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataTimLapangan = TimLapanganModel::get();
+        $dataOPD = OPDModel::get();
 
-        return view("dashboard.akun.tim_lapangan.data", compact("dataUser", "dataTimLapangan"));
+        return view("dashboard.akun.tim_lapangan.data", compact("dataUser", "dataTimLapangan", "dataOPD"));
     }
 
     public function insertTimLapangan(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
+            'id_opd' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -599,25 +580,22 @@ class UserController extends Controller
 
         $cekUsername = UserModel::where("username", $request->username)->first();
         if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $newUser = new UserModel();
-                $newUser->username = $request->username;
-                $newUser->password = $password;
-                $newUser->kategori = 'Tim Lapangan';
-                $newUser->save();
+            $newUser = new UserModel();
+            $newUser->username = $request->username;
+            $newUser->password = $password;
+            $newUser->kategori = 'Tim Lapangan';
+            $newUser->save();
 
-                $newTimLapangan = new TimLapanganModel();
-                $newTimLapangan->id_user = $newUser->id;
-                $newTimLapangan->nama = $request->nama;
-                $newTimLapangan->save();
+            $newTimLapangan = new TimLapanganModel();
+            $newTimLapangan->id_user = $newUser->id;
+            $newTimLapangan->nama = $request->nama;
+            $newTimLapangan->no_telp = $request->no_telp;
+            $newTimLapangan->id_opd = $request->id_opd;
+            $newTimLapangan->save();
 
-                return redirect()->back()->with('statusInput', 'Insert Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
+            return redirect()->back()->with(['success' => 'Tim Lapangan Berhasil Di Tambah']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -632,8 +610,8 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'no_telp' => 'required',
             'username' => 'required',
-            'password' => 'required',
         ]);
 
         if($validator->fails()){
@@ -641,28 +619,42 @@ class UserController extends Controller
         }
 
         $password = Hash::make($request->password);
-
         $cekUsername = UserModel::where("username", $request->username)->first();
-        if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $updateTimLapangan = TimLapanganModel::find($id);
-                $updateTimLapangan->nama = $request->nama;
-                $updateTimLapangan->update();
+        $dataTimLapangan = TimLapanganModel::find($id);
+        $usernameTimLapangan = UserModel::find($dataTimLapangan->id_user);
+        if ($request->username == $usernameTimLapangan->username) {
+            $updateTimLapangan = TimLapanganModel::find($id);
+            $updateTimLapangan->nama = $request->nama;
+            $updateTimLapangan->no_telp = $request->no_telp;
+            $updateTimLapangan->id_opd = $request->id_opd;
+            $updateTimLapangan->update();
 
-                $idTimLapangan = $updateTimLapangan->id_user;
+            $idTimLapangan = $updateTimLapangan->id_user;
 
-                $timLapanganUpdate = UserModel::find($idTimLapangan);
-                $timLapanganUpdate->username = $request->username;
+            $timLapanganUpdate = UserModel::find($idTimLapangan);
+            if ($request->password) {
                 $timLapanganUpdate->password = $password;
-                $timLapanganUpdate->update();
-                
-                return redirect()->back()->with('statusInput', 'Update Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
             }
+            $timLapanganUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Tim Lapangan Berhasil Di Edit']);
+        } elseif ($cekUsername == NULL) {
+            $updateTimLapangan = TimLapanganModel::find($id);
+            $updateTimLapangan->nama = $request->nama;
+            $updateTimLapangan->update();
+
+            $idTimLapangan = $updateTimLapangan->id_user;
+
+            $timLapanganUpdate = UserModel::find($idTimLapangan);
+            $timLapanganUpdate->username = $request->username;
+            if ($request->password) {
+                $timLapanganUpdate->password = $password;
+            }
+            $timLapanganUpdate->update();
+            
+            return redirect()->back()->with(['success' => 'Tim Lapangan Berhasil Di Edit']);
         } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
+            return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
         }
     }
 
@@ -675,7 +667,7 @@ class UserController extends Controller
         $dataUser = UserModel::find($idUser);
         $dataUser->delete();
 
-        return redirect()->back()->with('statusInput', 'Delete Success');
+        return redirect()->back()->with(['success' => 'Tim Lapangan Berhasil Di Hapus']);
     }
 
     // Pemilik Menara
@@ -696,43 +688,5 @@ class UserController extends Controller
         $dataPemilikMenara = PemilikMenaraModel::get();
 
         return view("dashboard.akun.pemilik_menara.data", compact("dataUser", "dataPemilikMenara"));
-    }
-
-    public function insertPemilikMenara(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return back()->withErrors($validator);
-        }
-
-        $password = Hash::make($request->password);
-
-        $cekUsername = UserModel::where("username", $request->username)->first();
-        if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $newUser = new UserModel();
-                $newUser->username = $request->username;
-                $newUser->password = $password;
-                $newUser->kategori = 'Pemilik Menara';
-                $newUser->save();
-
-                $newPemilikMenara = new PemilikMenaraModel();
-                $newPemilikMenara->id_user = $newUser->id;
-                $newPemilikMenara->nama = $request->nama;
-                $newPemilikMenara->save();
-
-                return redirect()->back()->with('statusInput', 'Insert Success');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
-            }
-        } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
-        }
     }
 }

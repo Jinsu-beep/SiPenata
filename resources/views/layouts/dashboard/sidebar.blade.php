@@ -45,8 +45,8 @@
             </a>
           </li>
 
-          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin']))
-          <li class="nav-header">Master Data</li>
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Admin']))
+            <li class="nav-header">Master Data</li>
             <li class="nav-item">
               <a href="/dasarhukum/data" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
@@ -54,13 +54,21 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/dasarhukum/data" class="nav-link">
+              <a href="/provider/data" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>Provider</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="/zoneplan/data" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Zone Plan</p>
+              </a>
+            </li>
+          @endif
 
-          <li class="nav-header">Akun</li>
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Admin']))
+            <li class="nav-header">Akun</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
@@ -70,12 +78,16 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+          @endif
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin']))
                 <li class="nav-item">
                   <a href="/superadmin/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Super Admin</p>
                   </a>
                 </li>
+          @endif
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Admin']))
                 <li class="nav-item">
                   <a href="/admin/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -103,45 +115,45 @@
               </ul>
             </li>
           @endif
-          
-          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim Lapangan', 'Pemilik Menara', 'Provider']))
+
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin', 'Tim Administratif', 'Tim Lapangan', 'Pemilik Menara', 'Provider']))
           <li class="nav-header">MANAJEMEN MENARA</li>
           @endif
-            @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Pemilik Menara']))
-            <li class="nav-item">
-              <a href="/menara/data" class="nav-link">
-                <i class="nav-icon far fa-solid fa-tower-cell"></i>
-                <p>
-                  Data Menara
-                </p>
-              </a>
-            </li>
-            @endif
-            @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  Lokasi Menara
-                </p>
-              </a>
-            </li>
-            @endif
-            @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim lapangan', 'Pemilik Menara']))
-            <li class="nav-item">
-              <a href="{{ route('dataPengajuan') }}" class="nav-link">
-                <i class="nav-icon fas fa-solid fa-pen"></i>
-                <p>
-                  Pengajuan Menaraa
-                </p>
-              </a>
-            </li>
-            @endif
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin', 'Tim Administratif', 'Tim Lapangan', 'Pemilik Menara']))
+          <li class="nav-item">
+            <a href="/menara/data" class="nav-link">
+              <i class="nav-icon far fa-solid fa-tower-cell"></i>
+              <p>
+                Data Menara
+              </p>
+            </a>
+          </li>
+          @endif
+          {{-- @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Lokasi Menara
+              </p>
+            </a>
+          </li>
+          @endif --}}
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim lapangan', 'Pemilik Menara']))
+          <li class="nav-item">
+            <a href="{{ route('dataPengajuan') }}" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-pen"></i>
+              <p>
+                Pengajuan Menaraa
+              </p>
+            </a>
+          </li>
+          @endif
 
-          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Tim Administratif', 'Pemilik Menara']))
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin', 'Tim Administratif', 'Tim Lapangan', 'Pemilik Menara']))
           <li class="nav-header">PELAPORAN</li>
           @endif
-            @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Pemilik Menara']))
+            @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim Lapangan', 'Pemilik Menara']))
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-reguler fa-file"></i>
@@ -151,7 +163,7 @@
               </a>
             </li>
             @endif
-            @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin']))
+            @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin']))
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-reguler fa-clipboard"></i>

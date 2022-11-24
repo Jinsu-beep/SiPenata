@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/landing', function () {
-    return view('test.home');
+Route::get('/test', function () {
+    return view('registrasi.test');
 });
 
 Route::get('/', 'LandingController@test')->name('landing_page')->middleware('guest');
@@ -26,10 +26,12 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     Route::post('/login', 'LoginController@login')->name('Login');
     Route::get('/logout', 'LoginController@logout')->name('logout');
 
-// Registrasi 
-    // Route::get('/pilihRole', 'RegistrasiController@registrasiRole')->name('pilihRole')->middleware('guest');
-    Route::get('/registrasiPemilikMenara', 'RegistrasiController@registrasiPemilikMenaraForm')->name('registrasiPemilikMenara')->middleware('guest');
-    Route::post('/regisPemilikMenara', 'RegistrasiController@insertRegistrasiPemilikMenara')->name('insertRegistrasiPemilikMenara')->middleware('guest');
+// Registrasi
+    Route::get('/registrasi', 'RegistrasiController@registrasiForm')->name('registrasi')->middleware('guest');
+    Route::post('/registrasi/insert', 'RegistrasiController@insertRegistrasi')->name('insertRegistrasi')->middleware('guest');
+    Route::get('/registrasi/kabupaten/{id}', 'RegistrasiController@getkabupaten')->name('getkabupaten')->middleware('guest');
+    Route::get('/registrasi/kecamatan/{id}', 'RegistrasiController@getKecamatan')->name('getKecamatan')->middleware('guest');
+    Route::get('/registrasi/desa/{id}', 'RegistrasiController@getDesa')->name('getDesa')->middleware('guest');
     Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
 
 // Dashboard 
@@ -44,6 +46,17 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     Route::get('/dasarhukum/edit/{id}','DasarHukumController@editDasarHukum')->name('editDasarHukum');
     Route::post('/dasarhukum/update/{id}','DasarHukumController@updateDasarHukum')->name('updateDasarHukum');
     Route::post('/dasarhukum/delete/{id}','DasarHukumController@deleteDasarHukum')->name('deleteDasarHukum');
+
+    // Provider
+    Route::get('/provider/data','ProviderController@dataProvider')->name('dataProvider');
+    Route::post('/provider/insert','ProviderController@insertProvider')->name('insertProvider');
+    Route::get('/provider/get/{id}','ProviderController@getProvider')->name('getProvider');
+    Route::post('/provider/update/{id}','ProviderController@updateProvider')->name('updateProvider');
+    Route::post('/provider/delete/{id}','ProviderController@deleteProvider')->name('deleteProvider');
+
+    // Zone Plan
+    Route::get('/zoneplan/data','ZonePlanController@dataZonePlan')->name('dataZonePlan');
+    Route::get('/zoneplan/create','ZonePlanController@createZonePlan')->name('createZonePlan');
 
     // Akun
         // Super Admin

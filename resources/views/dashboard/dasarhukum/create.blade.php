@@ -2,9 +2,6 @@
 @section('title') Buat Dasar Hukum Baru @endsection
 
 @push('css')
-{{-- h1 {
-    margin: 50px;
-} --}}
 @endpush
 
 @section('content')

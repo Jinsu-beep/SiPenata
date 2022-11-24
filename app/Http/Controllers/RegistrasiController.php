@@ -8,33 +8,54 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\UserModel;
 use App\PemilikMenaraModel;
-use App\ProviderModel;
+use App\ProvinsiModel;
+use App\KabupatenModel;
+use App\KecamatanModel;
+use App\DesaModel;
+use App\PerusahaanModel;
 
 class RegistrasiController extends Controller
 {
-    public function registrasiRole()
+    public function registrasiForm()
     {
-        return view('registrasi.pilihRole');
+        $dataProvinsi = ProvinsiModel::get();
+        // $dataKabupaten = KababupatenModel::get();
+        // $dataKecamatan = KecamatanModel::get();
+        // $dataDesa = DesaModel::get();
+        // dd($dataProvinsi);
+
+        return view('registrasi.registrasi', compact('dataProvinsi'));
     }
 
-    public function registrasiPemilikMenaraForm()
+    public function getkabupaten($id)
     {
-        return view('registrasi.registrasiPemilikMenara');
+        $dataKabupaten = KabupatenModel::where('id_provinsi', $id)->get();
+
+        return response()->json($dataKabupaten);
     }
 
-    public function registrasiProviderForm()
+    public function getkecamatan($id)
     {
-        return view('registrasi.registrasiProvider');
+        $dataKecamatan = KecamatanModel::where('id_kabupaten', $id)->get();
+
+        return response()->json($dataKecamatan);
     }
 
-    public function insertRegistrasiPemilikMenara(Request $request)
+    public function getDesa($id)
     {
+        $dataDesa = DesaModel::where('id_kecamatan', $id)->get();
+
+        return response()->json($dataDesa);
+    }
+
+    public function insertRegistrasi(Request $request)
+    {
+        dd($request);
         $validator = Validator::make($request->all(), [
-            'NoKTP' => 'required',
-            'NPWP' => 'required',
             'Nama' => 'required',
             'Kewarganegaraan' => 'required',
             'Email' => 'required',
+            'NoKTP' => 'required',
             'NoTelp' => 'required',
             'NPWP' => 'required',
             'KodePos' => 'required',
@@ -43,6 +64,16 @@ class RegistrasiController extends Controller
             'Kecamatan' => 'required',
             'Desa' => 'required',
             'Alamat' => 'required',
+            'nama_perusahaan' => 'required',
+            'email_perusahaan' => 'required',
+            'no_telp_perusahaan' => 'required',
+            'provinsi_perusahaan' => 'required',
+            'kabupaten_perusahaan' => 'required',
+            'kecamatan_perusahaan' => 'required',
+            'desa_perusahaan' => 'required',
+            'alamat_perusahaan' => 'required',
+            'file_aktaPendirian' => 'required',
+            'file_tandaDaftar' => 'required',
             'Username' => 'required',
             'Password' => 'required',
         ]);
@@ -61,76 +92,43 @@ class RegistrasiController extends Controller
         $newUser->kategori = 'Pemilik Menara';
         $newUser->save();
 
+        $file_aktaPendirian = $request->file('file_aktaPendirian');
+        $extension_aktaPendirian = $file_aktaPendirian->getClientOriginalExtension();
+        $nama_aktaPendirian = 'AktaPendirian.' . $extension_aktaPendirian;
+        $file_tandaDaftar = $request->file('file_tandaDaftar');
+        $extension_tandaDaftar = $file_tandaDaftar->getClientOriginalExtension();
+        $nama_tandaDaftar = 'TandaDaftar.' . $extension_tandaDaftar;
+
+        $newPerusahaan = new PerusahaanModel;
+        $newPerusahaan->nama = $request->nama_perusahaan;
+        $newPerusahaan->no_telp = $request->no_telp_perusahaan;
+        $newPerusahaan->id_provinsi = $request->provinsi_perusahaan;
+        $newPerusahaan->id_kabupaten = $request->kabupaten_perusahaan;
+        $newPerusahaan->id_kecamatan = $request->kecamatan_perusahaan;
+        $newPerusahaan->id_desa = $request->desa_perusahaan;
+        $newPerusahaan->alamat = $request->alamat_perusahaan;
+        $newPerusahaan->file_aktaPendirian = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_aktaPendirian;
+        $newPerusahaan->file_tandaDaftar = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_tandaDaftar;
+        $newPerusahaan->save();
+
+        Storage::putFileAs('public/Perusahaan/' . $newPerusahaan->id, $request->file('file_aktaPendirian'), $nama_aktaPendirian);
+        Storage::putFileAs('public/Perusahaan/' . $newPerusahaan->id, $request->file('file_tandaDaftar'), $nama_tandaDaftar);
+
         $newPemilikMenara = new PemilikMenaraModel();
         $newPemilikMenara->id_user = $newUser->id;
+        $newPemilikMenara->id_perusahaan = $newPerusahaan->id;
         $newPemilikMenara->id_provinsi = $request->Provinsi;
         $newPemilikMenara->id_kabupaten = $request->Kabupaten;
         $newPemilikMenara->id_kecamatan = $request->Kecamatan;
         $newPemilikMenara->id_desa = $request->Desa;
         $newPemilikMenara->nama = $request->Nama;
         $newPemilikMenara->no_ktp = $request->NoKTP;
-        $newPemilikMenara->file_ktp = $request->FileKTP;
         $newPemilikMenara->npwp = $request->NPWP;
         $newPemilikMenara->kewarganegaraan = $request->Kewarganegaraan;
         $newPemilikMenara->alamat = $request->Alamat;
-        $newPemilikMenara->kode_pos = $request->KodePos;
         $newPemilikMenara->no_telp = $request->NoTelp;
         $newPemilikMenara->email = $request->Email;
         $newPemilikMenara->save();
-
-        return redirect()->route('registrasiSukses');
-    }
-    
-    public function insertRegistrasiProvider(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'NoKTP' => 'required',
-            'FileKTP' => 'required',
-            'Nama' => 'required',
-            'Kewarganegaraan' => 'required',
-            'Email' => 'required',
-            'NoTelp' => 'required',
-            'NPWP' => 'required',
-            'KodePos' => 'required',
-            'Provinsi' => 'required',
-            'Kabupaten' => 'required',
-            'Kecamatan' => 'required',
-            'Desa' => 'required',
-            'Alamat' => 'required',
-            'Username' => 'required',
-            'Password' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return back()->withErrors($validator);
-        }
-
-        // dd($request);
-
-        $password = Hash::make($request->password);
-
-        $newUser = new UserModel();
-        $newUser->username = $request->Username;
-        $newUser->password = $password;
-        $newUser->kategori = 'Provider';
-        $newUser->save();
-
-        $newProvider = new ProviderModel();
-        $newProvider->id_user = $newUser->id;
-        $newProvider->id_provinsi = $request->Provinsi;
-        $newProvider->id_kabupaten = $request->Kabupaten;
-        $newProvider->id_kecamatan = $request->Kecamatan;
-        $newProvider->id_desa = $request->Desa;
-        $newProvider->nama = $request->Nama;
-        $newProvider->no_ktp = $request->NoKTP;
-        $newProvider->file_ktp = $request->FileKTP;
-        $newProvider->npwp = $request->NPWP;
-        $newProvider->kewarganegaraan = $request->Kewarganegaraan;
-        $newProvider->alamat = $request->Alamat;
-        $newProvider->kode_pos = $request->KodePos;
-        $newProvider->no_telp = $request->NoTelp;
-        $newProvider->email = $request->Email;
-        $newProvider->save();
 
         return redirect()->route('registrasiSukses');
     }

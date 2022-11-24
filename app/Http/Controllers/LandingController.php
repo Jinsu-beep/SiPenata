@@ -8,16 +8,16 @@ class LandingController extends Controller
 {
     public function test()
     {
-        return view("home.index.landing-page");
+        return view("home.landing-page");
     }
 
     public function zone_plan()
     {
-        return view("home.zone_plan.zone_plan");
+        return view("home.zone_plan");
     }
 
     public function data_menara()
     {
-        return view("home.data_menara.data_menara");
+        return view("home.data_menara");
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Dasar Hukum @endsection
+@section('title') Zone Plan @endsection
 
 @push('css')
 {{-- SweeAlert2 --}}
@@ -29,13 +29,13 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-lg-10 align-self-center">
-                                <h3 class="card-title ">List Data Dasar Hukum</h3>
+                                <h3 class="card-title ">List Data Zone Plan</h3>
                             </div>
                             <div class="col-lg-2">
                                 <div class="card-tools btn btn-primary btn-icon-split">
-                                    <a class="btn btn-primary" href="{{ route('createDasarHukum') }}">
+                                    <a class="btn btn-primary" href="{{ route('createZonePlan') }}">
                                         <i class="fas fa-plus"></i>
-                                        <span class="text">Tambah Dasar Hukum Baru</span>
+                                        <span class="text">Tambah Zone Plan Baru</span>
                                     </a>
                                 </div>
                             </div>
@@ -46,29 +46,29 @@
                             <thead class="text-center">
                                 <tr>
                                 <th width="40px">No.</th>
-                                <th>Nama Dasar Hukum</th>
-                                <th width="200px">Tanggal Penambahan</th>
+                                <th width="850px">Nama Zone Plan</th>
+                                <th width="300px">Status</th>
                                 <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataDasarHukum as $ddh)
+                                @foreach ($dataZonePlan as $dzp)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $ddh->nama }}</td>
-                                    <td>{{ $ddh->tanggal }}</td>
+                                    <td>{{ $dzp->nama }}</td>
+                                    <td>{{ $dzp->status }}</td>
                                     <td class="text-center">
-                                        <a href="/dasarhukum/detail/{{ $ddh->id }}" id="" class="btn btn-info btn-icon-split">
+                                        <a href="/dasarhukum/detail/{{ $dzp->id }}" id="" class="btn btn-info btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-eye"></i>
                                             </span>
                                         </a>
-                                        <a href="/dasarhukum/edit/{{ $ddh->id }}" id="" class="btn btn-warning btn-icon-split">
+                                        <a href="/dasarhukum/edit/{{ $dzp->id }}" id="" class="btn btn-warning btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                         </a>
-                                        <button onclick="statusdelete({{ $ddh->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                        <button onclick="statusdelete({{ $dzp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-trash"></i>
                                             </span>
@@ -135,7 +135,6 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-<!-- Page specific script -->
 <script>
     $(function () {
         //Initialize Select2 Elements

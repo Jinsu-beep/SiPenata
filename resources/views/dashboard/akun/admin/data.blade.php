@@ -4,23 +4,13 @@
 @push('css')
 <!-- SweeAlert2 -->
 <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-{{-- h1 {
-    margin: 50px;
-} --}}
+{{-- datatables --}}
+<link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 @endpush
 
 @section('content')
-@if (session()->has('statusInput'))
-    <div class="row">
-    <div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
-        {{session()->get('statusInput')}}
-        <button type="button" class="close" data-dismiss="alert"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    </div>
-@endif
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -98,17 +88,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="nama" value="">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="username" value="">
+                        <label for="no_telp">No Telepon</label>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="password" value="">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -133,17 +132,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="nama" value="">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" id="edit_username" placeholder="username" value="">
+                        <label for="no_telp">No Telepon</label>
+                        <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" id="edit_password" placeholder="password" value="">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="edit_username" placeholder="Username" value="">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="edit_password" placeholder="Password" value="">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -191,6 +199,19 @@
 <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- SweeAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+{{-- DataTables --}}
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Page specific script -->
 <script>
@@ -246,6 +267,7 @@
                         // console.log(response.id);
                         $("#edit_form").attr("action", "/admin/update/"+response.id);
                         $('#edit_nama').val(response.nama);
+                        $('#edit_no_telp').val(response.no_telp);
                         $('#edit_username').val(response.user.username);
                         $('#modal-edita').modal('show');
                     }
@@ -262,21 +284,41 @@
     }
 </script>
 
-<script>
-    $(function() {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
+@if($message = Session::get('success'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+                $(document).ready(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        text: '{{$message}}'
+                    })
+                });
         });
+    </script>
+@endif
 
-        $('.create_form').submit(function() {
-            Toast.fire({
-            icon: 'success',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            })
+@if($message = Session::get('failed'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+                $(document).ready(function() {
+                    Toast.fire({
+                        icon: 'error',
+                        text: '{{$message}}'
+                    })
+                });
         });
-    });
-</script>
+    </script>
+@endif
 @endpush
