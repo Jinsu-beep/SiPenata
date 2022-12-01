@@ -11,6 +11,11 @@ class LandingController extends Controller
         return view("home.landing-page");
     }
 
+    public function DasarHukum()
+    {
+        return view("home.dasar_hukum");
+    }
+
     public function zone_plan()
     {
         return view("home.zone_plan");

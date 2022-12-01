@@ -8,7 +8,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Tim Administratif', 'Tim Lapangan']))
+      @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Admin', 'Tim Administratif', 'Tim Lapangan']))
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <a href="/profile/admin">
@@ -106,13 +106,29 @@
                     <p>Data Tim Lapangan</p>
                   </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <a href="/pemilikmenara/data" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Pemilik Menara</p>
                   </a>
-                </li>
+                </li> --}}
               </ul>
+            </li>
+            <li class="nav-item">
+              <a href="/pemilikmenara/data" class="nav-link">
+                <i class="nav-icon far fa-solid fa-user-tie"></i>
+                <p>
+                  Validasi Pemilik Menara
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/perusahaan/data" class="nav-link">
+                <i class="nav-icon far fa-solid fa-building"></i>
+                <p>
+                  Data Perusahaan
+                </p>
+              </a>
             </li>
           @endif
 

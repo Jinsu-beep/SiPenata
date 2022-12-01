@@ -15,6 +15,7 @@ use App\PemilikMenaraModel;
 use App\ProviderModel;
 use App\UserModel;
 use App\OPDModel;
+use App\PerusahaanModel;
 
 class UserController extends Controller
 {
@@ -45,91 +46,163 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        return view("dashboard.akun.profile.admin.admin", compact("dataUser"));
+        $dataOPD = OPDModel::get();
+
+        return view("dashboard.akun.profile.admin.admin", compact("dataUser", "dataOPD"));
     }
 
-    public function editProfileAdmin()
+    public function updateProfileUserAdmin($id, Request $request)
     {
-        if (Auth::user()->kategori == "Super Admin") {
-            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
-        }
+        $dataUser = UserModel::find($id);
 
-        return view("dashboard.akun.profile.admin.edit", compact("dataUser"));
-    }
+        if ($dataUser->kategori == "Super Admin") {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'username' => 'required',
+                'no_telp' => 'required',
+            ]);
 
-    public function updateProfileAdmin($id, Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return back()->withErrors($validator);
-        }
-
-        $password = Hash::make($request->password);
-
-        $cekUsername = UserModel::where("username", $request->username)->first();
-        if ($cekUsername == NULL) {
-            $cekPassword = UserModel::where("password", $password)->first();
-            if ($cekPassword == NULL) {
-                $dataUser = UserModel::find($id);
-                if ($dataUser->kategori == "Super Admin") {
-                    $editUser = UserModel::find($id);
-                    $editUser->username = $request->username;
-                    $editUser->password = $password;
-                    $editUser->update();
-
-                    $editSuperAdmin = SuperAdminModel::where("id_user", $id)->first();
-                    $editSuperAdmin->nama = $request->nama;
-                    $editSuperAdmin->update();
-                } elseif ($dataUser->kategori == "Tim Administratif") {
-                    $editUser = UserModel::find($id);
-                    $editUser->username = $request->username;
-                    $editUser->password = $password;
-                    $editUser->update();
-
-                    $editTimAdministratif = TimAdministratifModel::where("id_user", $id)->first();
-                    $editTimAdministratif->nama = $request->nama;
-                    $editTimAdministratif->update();
-                } elseif ($dataUser->kategori == "Tim Lapangan") {
-                    $editUser = UserModel::find($id);
-                    $editUser->username = $request->username;
-                    $editUser->password = $password;
-                    $editUser->update();
-
-                    $editTimLapangan = TimLapaganModel::where("id_user", $id)->first();
-                    $editTimLapangan->nama = $request->nama;
-                    $editTimLapangan->update();
-                }
-
-                return redirect('/profile/admin');
-            } else {
-                return redirect()->back()->with('statusInput', 'Password Sudah Dipakai');
+            if($validator->fails()){
+                return back()->withErrors($validator);
             }
-        } else {
-            return redirect()->back()->with('statusInput', 'Username Sudah Dipakai');
-        }
+
+            if ($dataUser->username == $request->username) {
+                $editSuperAdmin = SuperAdminModel::where("id_user", $id)->first();
+                $editSuperAdmin->nama = $request->nama;
+                $editSuperAdmin->no_telp = $request->no_telp;
+                $editSuperAdmin->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            }
+
+            $cekUsername = UserModel::where("username", $request->username)->first();
+            if ($cekUsername == NULL) {
+                $editUser = UserModel::find($id);
+                $editUser->username = $request->username;
+                $editUser->update();
+
+                $editSuperAdmin = SuperAdminModel::where("id_user", $id)->first();
+                $editSuperAdmin->nama = $request->nama;
+                $editSuperAdmin->no_telp = $request->no_telp;
+                $editSuperAdmin->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
+            }
+        } elseif ($dataUser->kategori == "Admin") {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'username' => 'required',
+                'no_telp' => 'required',
+            ]);
+
+            if($validator->fails()){
+                return back()->withErrors($validator);
+            }
+
+            if ($dataUser->username == $request->username) {
+                $editAdmin = AdminModel::where("id_user", $id)->first();
+                $editAdmin->nama = $request->nama;
+                $editAdmin->no_telp = $request->no_telp;
+                $editAdmin->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            }
+
+            $cekUsername = UserModel::where("username", $request->username)->first();
+            if ($cekUsername == NULL) {
+                $editUser = UserModel::find($id);
+                $editUser->username = $request->username;
+                $editUser->update();
+
+                $editAdmin = AdminModel::where("id_user", $id)->first();
+                $editAdmin->nama = $request->nama;
+                $editAdmin->no_telp = $request->no_telp;
+                $editAdmin->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
+            }
+        } elseif ($dataUser->kategori == "Tim Administratif") {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'username' => 'required',
+                'no_telp' => 'required',
+                'id_opd' => 'required',
+            ]);
+
+            if($validator->fails()){
+                return back()->withErrors($validator);
+            }
+
+            if ($dataUser->username == $request->username) {
+                $editTimAdministratif = TimAdministratifModel::where("id_user", $id)->first();
+                $editTimAdministratif->nama = $request->nama;
+                $editTimAdministratif->no_telp = $request->no_telp;
+                $editTimAdministratif->id_opd = $request->id_opd;
+                $editTimAdministratif->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            }
+
+            $cekUsername = UserModel::where("username", $request->username)->first();
+            if ($cekUsername == NULL) {
+                $editUser = UserModel::find($id);
+                $editUser->username = $request->username;
+                $editUser->update();
+
+                $editTimAdministratif = TimAdministratifModel::where("id_user", $id)->first();
+                $editTimAdministratif->nama = $request->nama;
+                $editTimAdministratif->no_telp = $request->no_telp;
+                $editTimAdministratif->id_opd = $request->id_opd;
+                $editTimAdministratif->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
+            }
+        } elseif ($dataUser->kategori == "Tim Lapangan") {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'username' => 'required',
+                'no_telp' => 'required',
+                'id_opd' => 'required',
+            ]);
+
+            if($validator->fails()){
+                return back()->withErrors($validator);
+            }
+
+            if ($dataUser->username == $request->username) {
+                $editTimLapangan = TimLapanganModel::where("id_user", $id)->first();
+                $editTimLapangan->nama = $request->nama;
+                $editTimLapangan->no_telp = $request->no_telp;
+                $editTimLapangan->id_opd = $request->id_opd;
+                $editTimLapangan->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            }
+
+            $cekUsername = UserModel::where("username", $request->username)->first();
+            if ($cekUsername == NULL) {
+                $editUser = UserModel::find($id);
+                $editUser->username = $request->username;
+                $editUser->update();
+
+                $editTimLapangan = TimLapanganModel::where("id_user", $id)->first();
+                $editTimLapangan->nama = $request->nama;
+                $editTimLapangan->no_telp = $request->no_telp;
+                $editTimLapangan->id_opd = $request->id_opd;
+                $editTimLapangan->update();
+                return redirect()->back()->with(['success' => 'Profile Berhasil Di Edit']);
+            } else {
+                return redirect()->back()->with(['failed' => 'Username Sudah Dipakai']);
+            }
+        } 
+    }
+
+    public function updateProfilePasswordAdmin($id, Request $request)
+    {
+        # code...
     }
 
     // Profile User
@@ -143,8 +216,8 @@ class UserController extends Controller
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         // dd($dataUser);
@@ -685,8 +758,39 @@ class UserController extends Controller
             $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        $dataPemilikMenara = PemilikMenaraModel::get();
+        $dataPemilikMenara = PemilikMenaraModel::with('Perusahaan.PemilikMenara')->where('status', 'Non Aktif')->get();
+        // dd($dataPemilikMenara);
 
         return view("dashboard.akun.pemilik_menara.data", compact("dataUser", "dataPemilikMenara"));
+    }
+
+    public function validasiPemilikMenara($id)
+    {
+        if (Auth::user()->kategori == "Super Admin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Pemilik Menara") {
+            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Provider") {
+            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        }
+
+        $userPemilikMenara = PemilikMenaraModel::with('Provinsi.PemilikMenara', 'Kabupaten.PemilikMenara', 'Kecamatan.PemilikMenara', 'Desa.PemilikMenara')->find($id);
+        $perusahaanPemilikMenara = PerusahaanModel::with('Provinsi.Perusahaan', 'Kabupaten.Perusahaan', 'Kecamatan.Perusahaan', 'Desa.Perusahaan')->find($userPemilikMenara->id_perusahaan);
+        // dd($perusahaanPemilikMenara);
+
+        return view("dashboard.akun.pemilik_menara.validasi", compact("dataUser", "userPemilikMenara", "perusahaanPemilikMenara"));
+    }
+
+    public function validatePemilikMenara($id)
+    {
+        $validate = PemilikMenaraModel::find($id);
+        $validate->status = 'Aktif';
+        $validate->update();
+
+        return redirect()->route('dataPemilikMenara')->with(['success' => 'Validasi Berhasil']);
     }
 }

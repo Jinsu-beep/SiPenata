@@ -12,4 +12,9 @@ class TimAdministratifModel extends Model
     {
         return $this->belongsTo(UserModel::class, 'id_user', 'id');
     }
+
+    public function opd()
+    {
+        return $this->belongsTo(OPDModel::class, 'id_opd', 'id');
+    }
 }

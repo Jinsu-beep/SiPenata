@@ -8,7 +8,30 @@
 @endpush
 
 @section('content')
-    <div id="map" style="width: 100%; height: 600px;"></div>
+<section class="content">
+    <div class="row mt-4">
+        <div class="col-md-4 col-12">
+            <div class="card card-primary">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="nama">Nama Zone Plan</label>
+                        <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold">Map</h6>
+                </div>
+                <div class="card-body">
+                    <div id="map" style="width: 100%; height: 600px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
 
 @push('js')

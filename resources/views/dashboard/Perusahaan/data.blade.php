@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Data Akun Pemilik Menara @endsection
+@section('title') Data Perusahaan @endsection
 
 @push('css')
 {{-- SweeAlert2 --}}
@@ -36,20 +36,18 @@
                                 <tr>
                                     <th width="50px">No.</th>
                                     <th>Nama</th>
-                                    <th width="150px">status</th>
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>                
-                                @foreach ($dataPemilikMenara as $dpm)
+                                @foreach ($dataPerusahaan as $dp)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>{{ $dpm->nama}}</td>
-                                        <td>{{ $dpm->status }}</td>
+                                        <td>{{ $dp->Perusahaan->nama}}</td>
                                         <td class="text-center">
-                                            <a href="/pemilikmenara/validasi/{{ $dpm->id }}" id="" class="btn btn-warning btn-icon-split">
+                                            <a href="/perusahaan/detail/{{ $dp->Perusahaan->id }}" class="btn btn-info btn-icon-split">
                                                 <span class="icon">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-eye"></i>
                                                 </span>
                                             </a>
                                         </td>

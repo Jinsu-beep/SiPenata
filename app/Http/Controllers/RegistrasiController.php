@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use App\UserModel;
 use App\PemilikMenaraModel;
 use App\ProvinsiModel;
@@ -19,10 +20,6 @@ class RegistrasiController extends Controller
     public function registrasiForm()
     {
         $dataProvinsi = ProvinsiModel::get();
-        // $dataKabupaten = KababupatenModel::get();
-        // $dataKecamatan = KecamatanModel::get();
-        // $dataDesa = DesaModel::get();
-        // dd($dataProvinsi);
 
         return view('registrasi.registrasi', compact('dataProvinsi'));
     }
@@ -50,7 +47,7 @@ class RegistrasiController extends Controller
 
     public function insertRegistrasi(Request $request)
     {
-        dd($request);
+        // dd($request);
         $validator = Validator::make($request->all(), [
             'Nama' => 'required',
             'Kewarganegaraan' => 'required',
@@ -79,6 +76,7 @@ class RegistrasiController extends Controller
         ]);
 
         if($validator->fails()){
+            // dd($validator);
             return back()->withErrors($validator);
         }
 
@@ -107,13 +105,17 @@ class RegistrasiController extends Controller
         $newPerusahaan->id_kecamatan = $request->kecamatan_perusahaan;
         $newPerusahaan->id_desa = $request->desa_perusahaan;
         $newPerusahaan->alamat = $request->alamat_perusahaan;
-        $newPerusahaan->file_aktaPendirian = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_aktaPendirian;
-        $newPerusahaan->file_tandaDaftar = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_tandaDaftar;
+        $newPerusahaan->email = $request->email_perusahaan;
         $newPerusahaan->save();
 
         Storage::putFileAs('public/Perusahaan/' . $newPerusahaan->id, $request->file('file_aktaPendirian'), $nama_aktaPendirian);
         Storage::putFileAs('public/Perusahaan/' . $newPerusahaan->id, $request->file('file_tandaDaftar'), $nama_tandaDaftar);
 
+        $editPerusahaan = PerusahaanModel::find($newPerusahaan->id);
+        $editPerusahaan->file_AktaPendirianPerusahaan = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_aktaPendirian;
+        $editPerusahaan->file_TandaDaftarPerusahaan = "/storage/Perusahaan/" . $newPerusahaan->id . "/" . $nama_tandaDaftar;
+        $editPerusahaan->update();
+        
         $newPemilikMenara = new PemilikMenaraModel();
         $newPemilikMenara->id_user = $newUser->id;
         $newPemilikMenara->id_perusahaan = $newPerusahaan->id;
@@ -128,6 +130,7 @@ class RegistrasiController extends Controller
         $newPemilikMenara->alamat = $request->Alamat;
         $newPemilikMenara->no_telp = $request->NoTelp;
         $newPemilikMenara->email = $request->Email;
+        $newPemilikMenara->status = 'Non Aktif';
         $newPemilikMenara->save();
 
         return redirect()->route('registrasiSukses');

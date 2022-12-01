@@ -18,6 +18,7 @@ Route::get('/test', function () {
 });
 
 Route::get('/', 'LandingController@test')->name('landing_page')->middleware('guest');
+Route::get('/dasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
 Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
 
@@ -86,15 +87,22 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
         // Pemilik Menara
         Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
         Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
+        Route::get('/pemilikmenara/validasi/{id}','UserController@validasiPemilikMenara')->name('validasiPemilikMenara');
+        Route::get('/pemilikmenara/validate/{id}','UserController@validatePemilikMenara')->name('validatePemilikMenara');
         // Profile
         Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
         Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
-        Route::post('/profile/update/admin/{id}','UserController@updateProfileAdmin')->name('updateProfileAdmin');
+        Route::post('/profile/update/adminUser/{id}','UserController@updateProfileUserAdmin')->name('updateProfileUserAdmin');
+        Route::post('/profile/update/adminPassword/{id}','UserController@updateProfilePasswordAdmin')->name('updateProfilePasswordAdmin');
 
         Route::get('/profile/user','UserController@dataProfileUser')->name('dataProfileUser');
         Route::get('/profile/edit/user','UserController@editProfileUser')->name('editProfileUser');
         Route::post('/profile/update/user/{id}','UserController@updateProfileUser')->name('updateProfileUser');
 
+    // Perusahaan
+    Route::get('/perusahaan/data','PerusahaanController@dataPerusahaan')->name('dataPerusahaan');
+    Route::get('/perusahaan/detail/{id}','PerusahaanController@detailPerusahaan')->name('detailPerusahaan');
+    
     // Menara
     Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
 

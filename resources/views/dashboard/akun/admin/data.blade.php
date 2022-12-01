@@ -47,7 +47,7 @@
                                 </tr>
                             </thead>
                             <tbody>                
-                                @foreach ($dataAdmin as $dsa)
+                                @foreach ($dataAdmin as $da)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $da->nama}}</td>

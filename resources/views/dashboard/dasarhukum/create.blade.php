@@ -43,7 +43,12 @@
                     </div>
                     <div class="form-group">
                         <label for="InputFile">File Dasar Hukum</label><br>
-                        <input type="file" name="file_dasarHukum">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -54,3 +59,13 @@
     </div>
 </section>
 @endsection
+
+@push('js')
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+@endpush

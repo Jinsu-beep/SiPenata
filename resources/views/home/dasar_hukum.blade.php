@@ -1,5 +1,9 @@
+@extends('layouts/home/index-layout')
+@section('title') Welcome @endsection
+
+@section('content')
 <section class="section">
-    <div class="container">
+    <div class="container mt-4">
         <div class="row align-items-center">
             <div class="col-sm-12 col-md-6">
                 <div class="title">
@@ -17,3 +21,13 @@
         </div>
     </div>
 </section>
+@endsection
+
+@push('js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#home').addClass('active');
+            $('#menu-home').addClass('active');
+        });
+    </script>
+@endpush

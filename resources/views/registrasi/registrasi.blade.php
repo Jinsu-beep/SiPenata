@@ -194,7 +194,7 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <select class="form-control select2" id="provinsi_perusahaan" name="Provinsi_perusahaan" data-placeholder="id_perusahaan" style="width: 100%;">
+                                            <select class="form-control select2" id="provinsi_perusahaan" name="provinsi_perusahaan" data-placeholder="id_perusahaan" style="width: 100%;">
                                                 <option selected disabled>Pilih Provinsi ...</option>
                                                 @foreach ($dataProvinsi as $dp)
                                                     <option value="{{ $dp->id }}">{{ $dp->nama }}</option>
@@ -204,21 +204,21 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <select class="form-control select2" id="kabupaten_perusahaan" name="Kabupaten_perusahaan" data-placeholder="id_kabupaten" style="width: 100%;">
+                                            <select class="form-control select2" id="kabupaten_perusahaan" name="kabupaten_perusahaan" data-placeholder="id_kabupaten" style="width: 100%;">
                                                 <option selected disabled>Pilih Kabupaten ...</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-12">
                                         <div class="form-group">
-                                            <select class="form-control select2" id="kecamatan_perusahaan" name="Kecamatan_perusahaan" data-placeholder="id_kecamatan" style="width: 100%;">
+                                            <select class="form-control select2" id="kecamatan_perusahaan" name="kecamatan_perusahaan" data-placeholder="id_kecamatan" style="width: 100%;">
                                                 <option selected disabled>Pilih Kecamatan ...</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-12">
                                         <div class="form-group">
-                                            <select class="form-control select2" id="desa_perusahaan" name="Desa_perusahaan" data-placeholder="id_desa" style="width: 100%;">
+                                            <select class="form-control select2" id="desa_perusahaan" name="desa_perusahaan" data-placeholder="id_desa" style="width: 100%;">
                                                 <option selected disabled>Pilih Desa ...</option>
                                             </select>
                                         </div>
@@ -263,11 +263,12 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="password">Password</label>
-                                    <input type="text" class="form-control" placeholder="password" name="Password">
+                                    <input type="password" class="form-control" placeholder="password" id="password" name="Password">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="password">Ulangi Password</label>
-                                    <input type="text" class="form-control" placeholder="password" name="Password">
+                                    <input type="password" class="form-control" placeholder="password" id="confirm_password" name="Password_repeat">
+                                    <div id="status_password"></div>
                                 </div>
                                 <div class="row justify-content-between">
                                     <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
@@ -289,7 +290,6 @@
     <script src="../../plugins/select2/js/select2.full.min.js"></script>
     <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
     <script>
         $(function () {
@@ -402,10 +402,10 @@
                         response.forEach(element => {
                             $('#kabupaten_perusahaan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
                         });
-                        $('#kecamatan_user').empty();
-                        $('#kecamatan_user').append('<option selected disabled>Pilih Kecamatan ...</option>');
-                        $('#desa_user').empty();
-                        $('#desa_user').append('<option selected disabled>Pilih Desa ...</option>');
+                        $('#kecamatan_perusahaan').empty();
+                        $('#kecamatan_perusahaan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                        $('#desa_perusahaan').empty();
+                        $('#desa_perusahaan').append('<option selected disabled>Pilih Desa ...</option>');
                     }
                 });
             } 
@@ -426,8 +426,8 @@
                         response.forEach(element => {
                             $('#kecamatan_perusahaan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
                         });
-                        $('#desa_user').empty();
-                        $('#desa_user').append('<option selected disabled>Pilih Desa ...</option>');
+                        $('#desa_perusahaan').empty();
+                        $('#desa_perusahaan').append('<option selected disabled>Pilih Desa ...</option>');
                     }
                 });
             } 
@@ -452,6 +452,20 @@
                 });
             } 
         });
+    </script>
+
+    <script>
+        $('#confirm_password').keyup(function(){
+            let password = $('#password').val();
+            let konfirm_password = $('#confirm_password').val();
+            $('#status_password').empty();
+            if(konfirm_password == password){
+                $('#status_password').append('<a class="text-success">Password sama</a>');
+            }
+            if(konfirm_password != password){
+                $('#status_password').append('<a class="text-danger">Password tidak sama</a>');
+            }
+        })
     </script>
 </body>
 </html>

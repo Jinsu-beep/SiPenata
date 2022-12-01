@@ -38,7 +38,7 @@
                                         <a class="text-decoration-none" id="menu-tentang" href="#tentang">Tentang</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="text-decoration-none" id="menu-dasarhukum" href="#dasar_hukum">Dasar Hukum</a>
+                                        <a class="text-decoration-none" id="menu-dasarhukum" href="{{ route('dasarhukum') }}">Dasar Hukum</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="text-decoration-none" id="menu-zoneplan" href="{{ route('zone_plan') }}">Zone Plan</a>

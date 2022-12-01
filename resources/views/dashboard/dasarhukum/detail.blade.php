@@ -37,11 +37,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="no_dasarHukum">No Dasar Hukum</label>
-                    <input type="text" class="form-control" name="no_dasarHukum" id="no_dasarHukum" placeholder="No Dasar Hukum" value="{{ $dataDasarHukum->no_DasarHukum }}" disabled>
+                    <input type="text" class="form-control" name="no_dasarHukum" id="no_dasarHukum" placeholder="No Dasar Hukum" value="{{ $dataDasarHukum->no_DasarHukum }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nama_dasarHukum">Nama</label>
-                    <input type="text" class="form-control" name="nama_dasarHukum" id="nama_dasarHukum" placeholder="Nama Dasar Hukum" value="{{ $dataDasarHukum->nama }}" disabled>
+                    <input type="text" class="form-control" name="nama_dasarHukum" id="nama_dasarHukum" placeholder="Nama Dasar Hukum" value="{{ $dataDasarHukum->nama }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nama_dasarHukum">File Dasar Hukum</label><br>
@@ -86,6 +86,8 @@
 <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- SweeAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+{{-- PDFObject --}}
+<script src="/PDFObject/pdfobject.js"></script>
 
 <!-- Page specific script -->
 <script>
@@ -122,13 +124,9 @@
 
 <script>
     function showFile() {
+        var data_DasarHukum = {!! json_encode($dataDasarHukum->toArray()) !!}
+        PDFObject.embed(data_DasarHukum.file_DasarHukum, "#file");
         $('#modal-showFile').modal('show');
     }
-</script>
-<script src="/PDFObject/pdfobject.js"></script>
-<script>
-    var data_DasarHukum = {!! json_encode($dataDasarHukum->toArray()) !!}
-    // console.log(data_DasarHukum);
-    PDFObject.embed(data_DasarHukum.file_DasarHukum, "#file");
 </script>
 @endpush
