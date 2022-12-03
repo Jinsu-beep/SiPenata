@@ -91,13 +91,15 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
         Route::get('/pemilikmenara/validate/{id}','UserController@validatePemilikMenara')->name('validatePemilikMenara');
         // Profile
         Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
-        Route::get('/profile/edit/admin','UserController@editProfileAdmin')->name('editProfileAdmin');
         Route::post('/profile/update/adminUser/{id}','UserController@updateProfileUserAdmin')->name('updateProfileUserAdmin');
         Route::post('/profile/update/adminPassword/{id}','UserController@updateProfilePasswordAdmin')->name('updateProfilePasswordAdmin');
 
         Route::get('/profile/user','UserController@dataProfileUser')->name('dataProfileUser');
-        Route::get('/profile/edit/user','UserController@editProfileUser')->name('editProfileUser');
-        Route::post('/profile/update/user/{id}','UserController@updateProfileUser')->name('updateProfileUser');
+        Route::post('/profile/update/userUser/{id}','UserController@updateProfileUserUser')->name('updateProfileUserUser');
+        Route::post('/profile/update/userPassword/{id}','UserController@updateProfilePasswordUser')->name('updateProfilePasswordUser');
+        Route::get('/profile/kabupaten/{id}', 'UserController@getkabupaten')->name('getkabupatenUser');
+        Route::get('/profile/kecamatan/{id}', 'UserController@getKecamatan')->name('getKecamatanUser');
+        Route::get('/profile/desa/{id}', 'UserController@getDesa')->name('getDesaUser');
 
     // Perusahaan
     Route::get('/perusahaan/data','PerusahaanController@dataPerusahaan')->name('dataPerusahaan');

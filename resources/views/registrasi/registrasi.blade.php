@@ -112,12 +112,6 @@
                                             <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12">
-                                        <div class="form-group mb-3">
-                                            <label for="KodePos">Kode Pos</label>
-                                            <input type="text" class="form-control" placeholder="Kode Pos" name="KodePos">
-                                        </div>
-                                    </div>
                                 </div>
                                 <label for="alamat">Alamat</label>
                                 <div class="row">

@@ -238,7 +238,7 @@
 
     function edit_password() {
         var data_user = {!! json_encode($dataUser->toArray()) !!}
-        $("#edit_formPassword").attr("action", "/profile/update/adminPassword/"+data_user.id);
+        $("#edit_formPassword").attr("action", "/profile/update/adminPassword/"+data_user.user.id);
         $('#modal-editPassword').modal('show');
     }
 

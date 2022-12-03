@@ -55,7 +55,6 @@ class RegistrasiController extends Controller
             'NoKTP' => 'required',
             'NoTelp' => 'required',
             'NPWP' => 'required',
-            'KodePos' => 'required',
             'Provinsi' => 'required',
             'Kabupaten' => 'required',
             'Kecamatan' => 'required',
