@@ -220,37 +220,52 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="nama">Nama</label>
                         <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="kewarganegaraan" id="edit_kewarganegaraan" placeholder="Nama" value="">
+                        <label for="kewarganegaraan">Kewarganegaraan</label>
+                        <select class="form-control select2" name="Kewarganegaraan" data-placeholder="Kewarganegaraan" style="width: 100%;">
+                            @if ($dataUser->Kewarganegaraan == 'WNI')
+                                <option value="WNI" selected>WNI</option>
+                                <option value="WNA">WNA</option>
+                            @else
+                                <option value="WNI">WNI</option>
+                                <option value="WNA" selected>WNA</option>
+                            @endif
+                        </select>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="edit_email" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="no_telp">No Telepon</label>
                         <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="noKTP">No KTP</label>
                         <input type="text" class="form-control" name="noKTP" id="edit_noKTP" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="npwp">NPWP</label>
                         <input type="text" class="form-control" name="NPWP" id="edit_NPWP" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                        <label for="provinsi">Provinsi</label>
+                        <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
                             @foreach($provinsi as $p)  
                                 <option value="{{ $p->id }}" @if($dataUser->id_provinsi == $p->id) selected @endif>{{ $p->nama }}</option>
                             @endforeach
@@ -259,38 +274,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
-                            @foreach($kabupaten as $kb)  
-                                <option value="{{ $kb->id }}" @if($dataUser->id_kabupaten == $kb->id) selected @endif>{{ $kb->nama }}</option>
-                            @endforeach
+                        <label for="kabupaten">Kabupaten</label>
+                        <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih Kabupaten ...</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
-                            @foreach($kecamatan as $kc)  
-                                <option value="{{ $kc->id }}" @if($dataUser->id_kecamatan == $kc->id) selected @endif>{{ $kc->nama }}</option>
-                            @endforeach
+                        <label for="kecamatan">Kecamatan</label>
+                        <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih Kecamatan ...</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <select class="form-control select2" name="desa" id="desa" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
-                            @foreach($desa as $d)  
-                                <option value="{{ $d->id }}" @if($dataUser->id_desa == $d->id) selected @endif>{{ $d->nama }}</option>
-                            @endforeach
+                        <label for="desa">Desa</label>
+                        <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih Desa ...</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="alamat">Alamat</label>
                         <input type="text" class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="usernmae">Username</label>
                         <input type="text" class="form-control" name="username" id="edit_username" placeholder="No Telepon" value="">
                     </div>
                 </div>
@@ -316,16 +330,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordLama">Password Lama</label>
                         <input type="password" class="form-control" name="passwordLama" id="edit_passworrdLama" placeholder="Password Lama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordBaru">Password Baru</label>
                         <input type="password" class="form-control" name="passwordBaru" id="edit_passwordBaru" placeholder="Password Baru" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordRepeat">Ulang Password</label>
                         <input type="password" class="form-control" name="passwordConfirm" id="edit_passwordConfirm" placeholder="Ulang Password" value="">
                         <div id="status_password"></div>
                     </div>
@@ -402,6 +419,7 @@
 <script>
     function edit_user() {
         var data_user = {!! json_encode($dataUser->toArray()) !!}
+        // console.log(data_user.no_telp);
         $("#edit_formUser").attr("action", "/profile/update/adminUser/"+data_user.user.id);
         $('#edit_nama').val(data_user.nama);
         $('#edit_kewarganegaraan').val(data_user.Kewarganegaraan);
@@ -412,6 +430,58 @@
         $('#edit_alamat').val(data_user.alamat);
         $('#edit_username').val(data_user.user.username);
         $('#modal-editUser').modal('show');
+        
+        // var id_provinsi = data_user.id_provinsi;
+        $.ajax({
+            type: 'GET',
+            url: '/profile/kabupaten/'+data_user.id_provinsi,
+            success: function (response){
+                // console.log(response);
+                response.forEach(element => {
+                    $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
+                    if(element.id == data_user.id_kabupaten){
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+        });
+
+        // var id_kabupaten = $('#edit_kabupaten').val();
+        // console.log(id_kabupaten);
+        $.ajax({
+            type: 'GET',
+            url: '/profile/kecamatan/'+data_user.id_kabupaten,
+            success: function (response){
+                // console.log(response);
+                response.forEach(element => {
+                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    if(element.id == data_user.id_kecamatan){
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+        });
+
+        // var id_kecamatan = $('#edit_kecamatan').val();
+        $.ajax({
+            type: 'GET',
+            url: '/profile/desa/'+data_user.id_kecamatan,
+            success: function (response){
+                // console.log(response);
+                response.forEach(element => {
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                    if(element.id == data_user.id_kabupaten){
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+        });
     }
 
     function edit_password() {
@@ -431,6 +501,72 @@
         $('#status_password').append('<a class="text-danger">Password tidak sama</a>');
       }
     })
+</script>
+
+<script>
+    $('#edit_provinsi').change(function() {
+        if($('#edit_provinsi').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kabupaten/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_kabupaten').empty();
+                    $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
+                    response.forEach(element => {
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#edit_kecamatan').empty();
+                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#edit_kabupaten').change(function() {
+        if($('#edit_kabupaten').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kecamatan/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_kecamatan').empty();
+                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    response.forEach(element => {
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#edit_kecamatan').change(function() {
+        if($('#edit_kecamatan').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/desa/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                    response.forEach(element => {
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                }
+            });
+        } 
+    });
 </script>
 
 @if($message = Session::get('success'))

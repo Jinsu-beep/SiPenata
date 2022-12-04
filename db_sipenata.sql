@@ -270,13 +270,14 @@ CREATE TABLE `tb_pemilik_menara` (
   KEY `id_perusahaan` (`id_perusahaan`),
   CONSTRAINT `tb_pemilik_menara_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_pemilik_menara_ibfk_2` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_pemilik_menara` */
 
 insert  into `tb_pemilik_menara`(`id`,`id_user`,`id_perusahaan`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_ktp`,`NPWP`,`Kewarganegaraan`,`alamat`,`no_telp`,`email`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
 (5,31,2,1,1,1,1,'qwerty','123','456','WNI','jfas','+1256','a@gmail.com','Aktif','2022-11-24 07:22:46','2022-11-28 09:28:33',NULL),
-(6,32,3,1,3,3,3,'asdfgh','456','489','WNI','asdf','45','a@gmail.com','Aktif','2022-11-24 07:26:45','2022-11-24 07:26:45',NULL);
+(6,32,3,1,3,3,3,'asdfgh','456','489','WNI','asdf','45','a@gmail.com','Aktif','2022-11-24 07:26:45','2022-11-24 07:26:45',NULL),
+(7,37,4,2,2,2,2,'asd','45456','456456456','WNA','jkoasjklsdjkl','+456+56+56','sd@gmail.com','Aktif','2022-12-02 06:28:20','2022-12-02 06:31:22',NULL);
 
 /*Table structure for table `tb_pengajuan_menara` */
 
@@ -402,13 +403,14 @@ CREATE TABLE `tb_perusahaan` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_perusahaan` */
 
 insert  into `tb_perusahaan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_telp`,`alamat`,`email`,`file_TandaDaftarPerusahaan`,`file_AktaPendirianPerusahaan`,`created_at`,`updated_at`,`deleted_at`) values 
 (2,1,1,1,1,'fasas','asd','sda',NULL,'/storage/Perusahaan/2/TandaDaftar.pdf','/storage/Perusahaan/2/AktaPendirian.pdf','2022-11-27 23:12:28','2022-11-24 07:22:46',NULL),
-(3,1,3,3,3,'dj','+456','dasd',NULL,'/storage/Perusahaan/3/TandaDaftar.pdf','/storage/Perusahaan/3/AktaPendirian.pdf','2022-11-24 15:26:45','2022-11-24 07:26:45',NULL);
+(3,1,3,3,3,'dj','+456','dasd',NULL,'/storage/Perusahaan/3/TandaDaftar.pdf','/storage/Perusahaan/3/AktaPendirian.pdf','2022-11-24 15:26:45','2022-11-24 07:26:45',NULL),
+(4,1,1,1,1,'dsa','156456','sdsdsdasd','a@gmail.com','/storage/Perusahaan/4/TandaDaftar.pdf','/storage/Perusahaan/4/AktaPendirian.pdf','2022-12-02 14:28:20','2022-12-02 06:28:20',NULL);
 
 /*Table structure for table `tb_provider` */
 
@@ -514,12 +516,12 @@ CREATE TABLE `tb_user` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_user` */
 
 insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,'superadmin','$2y$10$D3kVhq7Pbza1OvqigA6E1uN0dXku7EijIxYbYZDDw1Tugr0xyd0nO','Super Admin',NULL,NULL,NULL),
+(1,'superadmin','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Super Admin',NULL,NULL,NULL),
 (2,'tim_administratif','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Administratif',NULL,NULL,NULL),
 (3,'tim_lapangan','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Tim Lapangan',NULL,NULL,NULL),
 (12,'qwe','$2y$10$u6gakYhnhWCjF47nfLEn6OKvdeD/wGwJXsierCVOfd4kFYcMXl1zq','',NULL,NULL,NULL),
@@ -530,7 +532,8 @@ insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`created_at`,`updat
 (28,'sd','$2y$10$clY9FWvUnShQ0wCsRupQiuxkB/YsPIB4ZT2W1a5GjSHLHR0vU0nXK','Tim Administratif',NULL,NULL,NULL),
 (31,'qwerty','$2y$10$ScCIVrY8ETx3cfq55n.OHO7fnbXQ8AxTiYUJNoOoJE1wDDNFCROdi','Pemilik Menara',NULL,NULL,NULL),
 (32,'asdfgh','$2y$10$QZatLDYGv.9HXLQUXM4creRmLY4BJlxDqpbETn.ESrAnbM0F1BQSy','Pemilik Menara',NULL,NULL,NULL),
-(34,'admin','$2y$10$BLdwxKtgvLz1Y7zuKkksO..GyBTK3vzL.RxoBKlJmrb3Z0S0dJ.N6','Admin',NULL,NULL,NULL);
+(34,'admin','$2y$10$BLdwxKtgvLz1Y7zuKkksO..GyBTK3vzL.RxoBKlJmrb3Z0S0dJ.N6','Admin',NULL,NULL,NULL),
+(37,'jinsu','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Pemilik Menara',NULL,NULL,NULL);
 
 /*Table structure for table `tb_zone_plan` */
 

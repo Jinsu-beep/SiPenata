@@ -142,11 +142,27 @@
     </div>
 </section>
 
-<div class="modal fade" id="modal-showFile">
+<div class="modal fade" id="modal-showFile1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Buat Akun Admin</h4>
+                <h4 class="modal-title">File Akta Pendirian Perusahaan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="file"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-showFile2">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">File Tanda Daftar Perusahaan</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -166,7 +182,7 @@
     function showFile1() {
         var data_perusahaan = {!! json_encode($perusahaanPemilikMenara->toArray()) !!}
         PDFObject.embed(data_perusahaan.file_AktaPendirianPerusahaan, "#file");
-        $('#modal-showFile').modal('show');
+        $('#modal-showFile1').modal('show');
     }
 </script>
 
@@ -174,7 +190,7 @@
     function showFile2() {
         var data_perusahaan = {!! json_encode($perusahaanPemilikMenara->toArray()) !!}
         PDFObject.embed(data_perusahaan.file_TandaDaftarPerusahaan, "#file");
-        $('#modal-showFile').modal('show');
+        $('#modal-showFile2').modal('show');
     }
 </script>
 

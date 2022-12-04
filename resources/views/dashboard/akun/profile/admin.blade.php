@@ -94,17 +94,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="Nama">Nama</label>
                         <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="Nama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="no_telp">No Telepon</label>
                         <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="No Telepon" value="">
                     </div>
                 </div>
                 @if (in_array($dataUser->user->kategori, ['Tim Administratif', 'Tim Lapangan']))
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="opd">OPD</label>
                             <select class="form-control select2" name="id_opd" id="id_opd" data-placeholder="Pilih OPD" style="width: 100%;">
                                 @foreach($dataOPD as $do)  
                                     <option value="{{ $do->id }}" @if($dataUser->opd->id == $do->id) selected @endif>{{ $do->opd }}</option>
@@ -115,6 +118,7 @@
                 @endif
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="username"">Username</label>
                         <input type="text" class="form-control" name="username" id="edit_username" placeholder="Username" value="">
                     </div>
                 </div>
@@ -140,16 +144,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordLama">Password Lama</label>
                         <input type="password" class="form-control" name="passwordLama" id="edit_passworrdLama" placeholder="Password Lama" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordBaru">Password Baru</label>
                         <input type="password" class="form-control" name="passwordBaru" id="edit_passwordBaru" placeholder="Password Baru" value="">
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="passwordRepeat">Ulang Password</label>
                         <input type="password" class="form-control" name="passwordConfirm" id="edit_passwordConfirm" placeholder="Ulang Password" value="">
                         <div id="status_password"></div>
                     </div>
@@ -231,7 +238,7 @@
         $('#edit_no_telp').val(data_user.no_telp);
         $('#edit_username').val(data_user.user.username);
         if (data_user.user.kategori == ['Tim Administratif', 'Tim Lapangan']) {
-            $('#edit_opd').val(data_user.opd.opd);
+            $('#edit_opd').val(data_user.opd.opd).change();
         }
         $('#modal-editUser').modal('show');
     }
