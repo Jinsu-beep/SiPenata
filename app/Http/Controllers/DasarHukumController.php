@@ -6,13 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\DasarHukumModel;
 use App\SuperAdminModel;
-use App\TimAdministratifModel;
-use App\TimLapanganModel;
-use App\BupatiModel;
-use App\PemilikMenaraModel;
-use App\ProviderModel;
+use App\AdminModel;
 
 
 class DasarHukumController extends Controller
@@ -26,14 +23,8 @@ class DasarHukumController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
         
         $dataDasarHukum = DasarHukumModel::get();
@@ -45,14 +36,8 @@ class DasarHukumController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
         
 
@@ -61,6 +46,16 @@ class DasarHukumController extends Controller
 
     public function insertDasarHukum(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'no_dasarHukum' => 'required',
+            'nama_dasarHukum' => 'required',
+            'file_dasarHukum' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
         $file = $request->file('file_dasarHukum');
         $extension = $file->getClientOriginalExtension();
         $nama = $request->nama_dasarHukum . '.' . $extension;
@@ -80,14 +75,8 @@ class DasarHukumController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataDasarHukum = DasarHukumModel::find($id);
@@ -108,14 +97,8 @@ class DasarHukumController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataDasarHukum = DasarHukumModel::find($id);
@@ -125,19 +108,36 @@ class DasarHukumController extends Controller
 
     public function updateDasarHukum($id, Request $request)
     {
-        $file = $request->file('file_dasarHukum');
-        $extension = $file->getClientOriginalExtension();
-        $nama = $request->nama_dasarHukum . '.' . $extension;
-        Storage::putFileAs('public/DasarHukum', $request->file('file_dasarHukum'), $nama);
+        $validator = Validator::make($request->all(), [
+            'no_dasarHukum' => 'required',
+            'nama_dasarHukum' => 'required',
+        ]);
 
-        $updateDasarHukum = DasarHukumModel::find($id);
-        $updateDasarHukum->nama = $request->nama_dasarHukum;
-        $updateDasarHukum->no_DasarHukum = $request->no_dasarHukum;
-        $updateDasarHukum->file_Dasarhukum = "/storage/DasarHukum/" . $nama;
-        $updateDasarHukum->tanggal = Date('Y-m-d');
-        $updateDasarHukum->update();
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
 
-        return redirect()->route('dataDasarHukum')->with(['success' => 'Dasar Hukum Berhasil Diperbarui']);
+        if ($request->file_dasarHukum == NULL) {
+            $file = $request->file('file_dasarHukum');
+            $extension = $file->getClientOriginalExtension();
+            $nama = $request->nama_dasarHukum . '.' . $extension;
+            Storage::putFileAs('public/DasarHukum', $request->file('file_dasarHukum'), $nama);
+
+            $updateDasarHukum = DasarHukumModel::find($id);
+            $updateDasarHukum->nama = $request->nama_dasarHukum;
+            $updateDasarHukum->no_DasarHukum = $request->no_dasarHukum;
+            $updateDasarHukum->file_Dasarhukum = "/storage/DasarHukum/" . $nama;
+            $updateDasarHukum->tanggal = Date('Y-m-d');
+            $updateDasarHukum->update();
+
+            return redirect()->route('dataDasarHukum')->with(['success' => 'Dasar Hukum Berhasil Diperbarui']);
+        } else {
+            $updateDasarHukum = DasarHukumModel::find($id);
+            $updateDasarHukum->nama = $request->nama_dasarHukum;
+            $updateDasarHukum->no_DasarHukum = $request->no_dasarHukum;
+            $updateDasarHukum->tanggal = Date('Y-m-d');
+            $updateDasarHukum->update();
+        }
     }
 
     public function deleteDasarHukum($id)

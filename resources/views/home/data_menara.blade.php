@@ -9,13 +9,18 @@
 
 @section('content')
 <section class="content">
-    <div class="row mt-4">
+    <div class="row mt-4 mx-2">
         <div class="col-md-4 col-12">
             <div class="card card-primary">
+                <div class="card-header align-items-center">
+                    <h3 class="card-title">Data Menara</h3>
+                </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="nama">Nama Zone Plan</label>
-                        <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                        <label for="nama">1. Nama Menara</label><br>
+                        <label for="nama">2. Nama Menara</label><br>
+                        <label for="nama">3. Nama Menara</label><br>
+                        <label for="nama">4. Nama Menara</label>
                     </div>
                 </div>
             </div>
@@ -87,8 +92,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#home').addClass('active');
-            $('#menu-home').addClass('active');
+            $('#menu-datamenara').addClass('active');
         });
     </script>
 @endpush

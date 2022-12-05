@@ -18,7 +18,8 @@ Route::get('/test', function () {
 });
 
 Route::get('/', 'LandingController@test')->name('landing_page')->middleware('guest');
-Route::get('/dasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
+Route::get('/landingdasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
+Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('getDasarhukum')->middleware('guest');
 Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
 
@@ -110,3 +111,4 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
 
     // Pengajuan Menara
     Route::get('/pengajuan/data','PengajuanMenaraController@dataPengajuan')->name('dataPengajuan');
+    Route::get('/pengajuan/create','PengajuanMenaraController@createPengajuan')->name('createPengajuan');

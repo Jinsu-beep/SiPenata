@@ -10,9 +10,7 @@ use App\SuperAdminModel;
 use App\AdminModel;
 use App\TimAdministratifModel;
 use App\TimLapanganModel;
-use App\BupatiModel;
 use App\PemilikMenaraModel;
-use App\ProviderModel;
 use App\UserModel;
 use App\OPDModel;
 use App\PerusahaanModel;
@@ -52,6 +50,10 @@ class UserController extends Controller
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Admin") {
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Administratif") {
+            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Tim Lapangan") {
+            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataOPD = OPDModel::get();
@@ -71,7 +73,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return back()->withErrors($validator);
+                return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
             }
 
             if ($dataUser->username == $request->username) {
@@ -104,7 +106,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return back()->withErrors($validator);
+                return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
             }
 
             if ($dataUser->username == $request->username) {
@@ -138,7 +140,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return back()->withErrors($validator);
+                return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
             }
 
             if ($dataUser->username == $request->username) {
@@ -174,7 +176,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return back()->withErrors($validator);
+                return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
             }
 
             if ($dataUser->username == $request->username) {
@@ -213,7 +215,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $dataUser = UserModel::find($id);
@@ -233,17 +235,7 @@ class UserController extends Controller
     // Profile User
     public function dataProfileUser()
     {
-        if (Auth::user()->kategori == "Super Admin") {
-            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->with('provinsi.PemilikMenara')->with('kabupaten.PemilikMenara')->with('kecamatan.PemilikMenara')->with('desa.PemilikMenara')->with('perusahaan.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Admin") {
-            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
-        }
+        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->with('provinsi.PemilikMenara')->with('kabupaten.PemilikMenara')->with('kecamatan.PemilikMenara')->with('desa.PemilikMenara')->with('perusahaan.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
         $provinsi = ProvinsiModel::get();
         $kabupaten = KabupatenModel::get();
@@ -294,7 +286,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $dataUser = UserModel::find($id);
@@ -350,7 +342,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $dataUser = UserModel::find($id);
@@ -389,7 +381,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -430,7 +422,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -491,7 +483,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -533,7 +525,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -596,7 +588,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -638,7 +630,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -721,7 +713,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -763,7 +755,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Terdapat Field Yang Kosong']);
         }
 
         $password = Hash::make($request->password);
@@ -823,14 +815,8 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataPemilikMenara = PemilikMenaraModel::with('Perusahaan.PemilikMenara')->where('status', 'Non Aktif')->get();
@@ -843,14 +829,8 @@ class UserController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Provider") {
-            $dataUser = ProviderModel::with('user.Provider')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $userPemilikMenara = PemilikMenaraModel::with('Provinsi.PemilikMenara', 'Kabupaten.PemilikMenara', 'Kecamatan.PemilikMenara', 'Desa.PemilikMenara')->find($id);

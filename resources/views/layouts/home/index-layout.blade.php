@@ -59,7 +59,7 @@
 
 	<script src="{{ url("index-template/js/bootstrap.bundle-5.0.0.alpha-min.js")}}"></script>
 	<script src="{{ url("index-template/js/wow.min.js")}}"></script>
-	{{-- <script src="{{ url("index-template/js/tiny-slider.js")}}"></script> --}}
+	<script src="{{ url("index-template/js/tiny-slider.js")}}"></script>
 	<script src="{{ url("index-template/js/main.js")}}"></script>
 
 </body>

@@ -32,15 +32,38 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="no_dasarHukum">No Dasar Hukum</label>
-                        <input type="text" class="form-control" name="no_dasarHukum" id="no_dasarHukum" placeholder="No Dasar Hukum" value="{{ $dataDasarHukum->no_DasarHukum }}">
+                        <input type="text" class="form-control @error('no_dasarHukum') is-invalid @enderror" name="no_dasarHukum" id="no_dasarHukum" placeholder="No Dasar Hukum" value="{{ $dataDasarHukum->no_DasarHukum }}">
+                        @error('no_dasarHukum')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @else
+                            <div class="invalid-feedback">
+                                No Dasar Hukum Wajib Diisi
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="nama_dasarHukum">Nama</label>
-                        <input type="text" class="form-control" name="nama_dasarHukum" id="nama_dasarHukum" placeholder="Nama Dasar Hukum" value="{{ $dataDasarHukum->nama }}">
+                        <input type="text" class="form-control @error('nama_dasarHukum') is-invalid @enderror" name="nama_dasarHukum" id="nama_dasarHukum" placeholder="Nama Dasar Hukum" value="{{ $dataDasarHukum->nama }}">
+                        @error('nama_dasarHukum')
+                            <div class="invalid-feedback text-start">
+                                {{ $message }}
+                            </div>
+                        @else
+                            <div class="invalid-feedback">
+                                No Dasar Hukum Wajib Diisi
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="InputFile">File Dasar Hukum</label><br>
-                        <input type="file" name="file_dasarHukum">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input @error('file_dasarHukum') is-invalid @enderror" id="file_dasarHukum" name="file_dasarHukum">
+                                <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -51,3 +74,13 @@
     </div>
 </section>
 @endsection
+
+@push('js')
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+@endpush

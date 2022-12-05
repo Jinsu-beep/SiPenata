@@ -35,6 +35,10 @@ class PengajuanMenaraController extends Controller
 
         } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
+            $dataMenara = MenaraModel::with("PemilikMenara.Menara")->with("Kecamatan.Menara")->get();
+            // dd($dataMenara);
+
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara"));
         } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
@@ -44,5 +48,12 @@ class PengajuanMenaraController extends Controller
             return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara"));
 
         }
+    }
+
+    public function createPengajuan()
+    {
+        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+
+        return view("dashboard.pengajuanMenara.create", compact("dataUser"));
     }
 }

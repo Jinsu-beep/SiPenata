@@ -1,11 +1,11 @@
 @extends('layouts.dashboard.master')
-@section('title') Buat Dasar Hukum Baru @endsection
+@section('title') Create Pengajuan Menara @endsection
 
 @push('css')
+
 @endpush
 
 @section('content')
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -34,15 +34,15 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="no_dasarHukum">No Dasar Hukum</label>
-                        <input type="text" class="form-control @error('no_dasarHukum') is-invalid @enderror" name="no_dasarHukum" id="no_dasarHukum" placeholder="No Dasar Hukum">
+                        <label for="no_dasarHukum">Nama</label>
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama">
                         @error('no_dasarHukum')
                             <div class="invalid-feedback text-start">
                                 {{ $message }}
                             </div>
                         @else
                             <div class="invalid-feedback">
-                                No Dasar Hukum Wajib Diisi
+                                Nama Wajib Diisi
                             </div>
                         @enderror
                     </div>
@@ -59,15 +59,6 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="InputFile">File Dasar Hukum</label><br>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input @error('file_dasarHukum') is-invalid @enderror" id="file_dasarHukum" name="file_dasarHukum">
-                                <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -79,11 +70,5 @@
 @endsection
 
 @push('js')
-<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
-<script>
-    $(function () {
-        bsCustomFileInput.init();
-    });
-</script>
 @endpush

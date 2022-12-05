@@ -11,16 +11,39 @@
 
 @section('content')
 <section class="content">
-    <div class="row mt-4">
+    <div class="row mt-4 mx-2">
         <div class="col-md-4 col-12">
-            <div class="card card-primary">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="nama">Nama Zone Plan</label>
-                        <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+            <div class="row">
+                <div class="">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Zone Plan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nama">Nama Zone Plan</label>
+                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row mt-2">
+                <div class="">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Analisa Zona Cellplan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nama">Nama Zone Plan</label>
+                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <div class="col-md-8 col-12">
             <div class="card card-primary">
@@ -88,8 +111,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#home').addClass('active');
-            $('#menu-home').addClass('active');
+            $('#menu-zoneplan').addClass('active');
         });
     </script>
 @endpush

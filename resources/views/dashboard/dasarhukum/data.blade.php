@@ -45,10 +45,10 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
-                                <th width="40px">No.</th>
-                                <th>Nama Dasar Hukum</th>
-                                <th width="200px">Tanggal Penambahan</th>
-                                <th>Aksi</th>
+                                    <th width="40px">No.</th>
+                                    <th>Nama Dasar Hukum</th>
+                                    <th width="200px">Tanggal Penambahan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -187,6 +187,25 @@
                 $(document).ready(function() {
                     Toast.fire({
                         icon: 'success',
+                        text: '{{$message}}'
+                    })
+                });
+        });
+    </script>
+@endif
+
+@if($message = Session::get('failed'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+                $(document).ready(function() {
+                    Toast.fire({
+                        icon: 'error',
                         text: '{{$message}}'
                     })
                 });

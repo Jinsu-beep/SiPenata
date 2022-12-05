@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\SuperAdminModel;
 use App\AdminModel;
-use App\TimAdministratifModel;
-use App\TimLapanganModel;
-use App\BupatiModel;
 use App\ProviderModel;
 
 class ProviderController extends Controller
@@ -24,12 +21,8 @@ class ProviderController extends Controller
     {
         if (Auth::user()->kategori == "Super Admin") {
             $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Administratif") {
-            $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Tim Lapangan") {
-            $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Pemilik Menara") {
-            $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        } elseif (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
         $dataProvider = ProviderModel::get();
@@ -44,7 +37,7 @@ class ProviderController extends Controller
         ]);
 
         if($validator->fails()){
-            return back()->withErrors($validator);
+            return redirect()->back()->with(['failed' => 'Field Provider Kosong']);
         }
         
         $newProvider = new ProviderModel();
