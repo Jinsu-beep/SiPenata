@@ -22,12 +22,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List Data Pengajuan Menara</h3>
-                        <div class="card-tools btn btn-primary btn-icon-split">
-                            <a class="btn btn-primary" type="button" href="{{ route('createPengajuan') }}">
-                                <i class="fas fa-plus"></i>
-                                <span class="text">Tambah Provider Baru</span>
-                            </a>
+                        <div class="row">
+                            <div class="col-lg-10 align-self-center">
+                                <h3 class="card-title">List Data Pengajuan Menara</h3>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="card-tools btn btn-primary btn-icon-split">
+                                    <a class="btn btn-primary" type="button" href="{{ route('createPengajuan') }}">
+                                        <i class="fas fa-plus"></i>
+                                        <span class="text">Tambah Pengajuan Menara</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">

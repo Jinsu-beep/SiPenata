@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\PerusahaanModel;
+use App\PemilikMenaraModel;
 use App\SuperAdminModel;
 use App\AdminModel;
 

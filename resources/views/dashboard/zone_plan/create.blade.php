@@ -4,7 +4,6 @@
 @push('css')
 {{-- Leaflet --}}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 <!-- Select2 -->
@@ -31,12 +30,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-11">
-                <h1>Dasar Hukum</h1>
+                <h1>Zone Plan</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
         <div class="col-lg-1 align-self-center">
-            <a href="{{ route('dataDasarHukum') }}" class="btn btn-default btn-icon-split">
+            <a href="{{ route('dataZonePlan') }}" class="btn btn-default btn-icon-split">
                 <span class="icon">
                     <i class="fas fa-arrow-left"></i>
                 </span>
@@ -50,25 +49,14 @@
         <div class="col-md-4 col-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold">Data Tempat Ibadah</h6>
+                    <h6 class="m-0 font-weight-bold">Data Zone Plan</h6>
                 </div>
                 <div class="card-body">
-                    <form action="" id="form-desa" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <form action="/zoneplan/insert" id="form-desa" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="nama">Nama Zone Plan</label>
-                            <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Lokasi Tempat Ibadah</label>
-                            <div class="input-group mb-2 mr-sm-2">
-                                <input type="text" readonly class="form-control" id="marker-sekolah" placeholder="Masukkan lokasi tempat ibadah">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <a href="javascript:void(0)" id="set-koordinat"><i class="fas fa-map-marker-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Zone Plan">
                         </div>
                         <div class="form-group">
                             <label for="">Latitude</label>
@@ -79,7 +67,7 @@
                             <input type="text" class="form-control" name="lng" id="lng" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="">Radius</label>
+                            <label for="">Radius (Meter)</label>
                             <input type="text" class="form-control" name="rad" id="rad" readonly>
                         </div>
                         <div class="form-group">
@@ -164,18 +152,13 @@
         iconSize:     [32, 32],
     });
 
-    // var circle2 = L.circle(1000, {
-    //     opacity: 1,
-    //     fillOpacity: 0,
-    // });
-
     //MAP INIT
     var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
     L.Map.include({
         getMarkerById: function (id) {
             var marker = null;
             this.eachLayer(function (layer) {
-                if (layer instanceof L.Marker) {
+                if (layer instanceof L.Circle) {
                     if (layer.options.id === id) {
                         marker = layer;
                     }
@@ -185,102 +168,99 @@
         }
     });
 
+    let test = 123.345 + '';
+    let hasil = test.split(".");
+
+    console.log(hasil);
+
+
     //ADD CONTROLL
     mymap.pm.addControls({  
         position: 'topleft',
         drawCircle: true,
         drawMarker: false,
-        drawCircleMarker:true,
+        drawCircleMarker:false,
         drawRectangle: false,
         drawPolyline: false,
         drawPolygon: false,
         dragMode:false,
+        drawText:false,
         editMode: false,
         cutPolygon: false,
-        removalMode: true,
+        removalMode: false,
         rotateMode: false,
     });
 
     //SET MARKER BUTTON
-    $('#set-koordinat').on('click', function(){
-        mymap.pm.enableDraw('Circle', {
-            snappable: true,
-            snapDistance: 20,
-            markerStyle: {
-                move: true,
-                icon: ibadahIcon,
-            },
-        });
-
-    });
-
-    // var circle1 = L.circle([42.53, -93.50], 1000).
-    // addTo(mymap);
-
-    // mymap.on('click', function(e){
-    //     console.log(e);
-    //     var circle2 = L.circle([e.latlng.lat, e.latlng.lng], 1000, {
-    //         opacity: 1,
-    //         fillOpacity: 0,
+    // $('#set-koordinat').on('click', function(){
+    //     mymap.pm.enableDraw('Circle', {
+    //         snappable: true,
+    //         snapDistance: 20,
     //         markerStyle: {
     //             move: true,
+    //             icon: ibadahIcon,
     //         },
-    //     }).addTo(mymap);
+    //     });
+
+    // });
+
+    // var circle = L.circle([-8.344840432675312, 115.01931444793775], 1000).addTo(mymap);
+    // circle.on('move', function(e){
+    //     console.log(e);
     // });
 
     //HANDLER PM CREATE
     mymap.on('pm:create', e => {
     let shape = e.shape;
-    // console.log(e);
-        if (shape == 'Marker') {
+    console.log(e);
+        if (shape == 'Circle') {
             let lat = e.marker._latlng.lat;
             let lng = e.marker._latlng.lng;
+            let rad = e.marker._mRadius + '';
+
+            let radFinal = rad.split(".");
+
             $('#lat').val(lat);
             $('#lng').val(lng);
+            $('#rad').val(radFinal[0]);
 
-            var circle2 = L.circle([lat, lng], 1000, {
-                opacity: 1,
-                fillOpacity: 0,
-                draggable : 'true',
-                markerStyle: {
-                    move: true,
-                },
-            }).addTo(mymap);
-
-            console.log(circle2);
-
-            mymap.pm.disableDraw('Marker', {
+            mymap.pm.disableDraw('Circle', {
                 snappable: true,
                 snapDistance: 20,
             });
 
             mymap.pm.addControls({
                 editMode: false,
-                drawMarker: false,
+                drawCircle: false,
                 removalMode: true,
             });
 
             e.marker.on('pm:remove', ({layer}) => {
                 $('#lat').val('');
                 $('#lng').val('');
+                $('#rad').val('');
                 mymap.pm.addControls({
                     editMode: false,
-                    drawMarker: true,
                     removalMode: false,
+                    drawCircle: true,
                 });
             });
 
             e.marker.pm.enable({  
                 allowSelfIntersection: false,  
             });
-            
+
+            e.marker.on('pm:edit', ({layer}) => {
+                console.log(e);
+                let rad = e.marker._mRadius + '';
+                let radFinal = rad.split(".");
+                $('#rad').val(radFinal[0]);
+            });
+                      
             e.marker.on('move', function(e){
+                console.log(e);
                 $('#lat').val(e.latlng.lat);
                 $('#lng').val(e.latlng.lng);
-                var circle2 = L.circle([e.latlng.lat, e.latlng.lng], 1000, {
-                    opacity: 1,
-                    fillOpacity: 0,
-                }).addTo(mymap);
             });  
         }
     });

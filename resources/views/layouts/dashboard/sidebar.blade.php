@@ -160,7 +160,7 @@
             <a href="{{ route('dataPengajuan') }}" class="nav-link">
               <i class="nav-icon fas fa-solid fa-pen"></i>
               <p>
-                Pengajuan Menaraa
+                Pengajuan Menara
               </p>
             </a>
           </li>

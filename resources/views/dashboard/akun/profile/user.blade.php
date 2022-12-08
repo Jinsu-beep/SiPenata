@@ -266,6 +266,7 @@
                     <div class="form-group">
                         <label for="provinsi">Provinsi</label>
                         <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih Provinsi ...</option>
                             @foreach($provinsi as $p)  
                                 <option value="{{ $p->id }}" @if($dataUser->id_provinsi == $p->id) selected @endif>{{ $p->nama }}</option>
                             @endforeach
@@ -299,7 +300,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <input type="text" class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon" value="">
+                        <textarea type="text" class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon"></textarea>
                     </div>
                 </div>
                 <div class="modal-body">
@@ -437,8 +438,9 @@
             url: '/profile/kabupaten/'+data_user.id_provinsi,
             success: function (response){
                 // console.log(response);
+                $('#edit_kabupaten').empty();
+                $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
                 response.forEach(element => {
-                    $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
                     if(element.id == data_user.id_kabupaten){
                         $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
                     } else{
@@ -454,9 +456,10 @@
             type: 'GET',
             url: '/profile/kecamatan/'+data_user.id_kabupaten,
             success: function (response){
-                // console.log(response);
+                console.log(response);
+                $('#edit_kecamatan').empty();
+                $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
                 response.forEach(element => {
-                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
                     if(element.id == data_user.id_kecamatan){
                         $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
                     } else{
@@ -472,8 +475,9 @@
             url: '/profile/desa/'+data_user.id_kecamatan,
             success: function (response){
                 // console.log(response);
+                $('#edit_desa').empty();
+                $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
                 response.forEach(element => {
-                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
                     if(element.id == data_user.id_kabupaten){
                         $('#edit_desa').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
                     } else{

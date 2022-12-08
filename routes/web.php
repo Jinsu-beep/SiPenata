@@ -59,6 +59,11 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     // Zone Plan
     Route::get('/zoneplan/data','ZonePlanController@dataZonePlan')->name('dataZonePlan');
     Route::get('/zoneplan/create','ZonePlanController@createZonePlan')->name('createZonePlan');
+    Route::post('/zoneplan/insert','ZonePlanController@insertZonePlan')->name('insertZonePlan');
+    Route::get('/zoneplan/detail/{id}','ZonePlanController@detailZonePlan')->name('detailZonePlan');
+    Route::get('/zoneplan/edit/{id}','ZonePlanController@editZonePlan')->name('editZonePlan');
+    Route::post('/zoneplan/update/{id}','ZonePlanController@updateZonePlan')->name('updateZonePlan');
+    Route::post('/zoneplan/delete/{id}','ZonePlanController@deleteZonePlan')->name('deleteZonePlan');
 
     // Akun
         // Super Admin

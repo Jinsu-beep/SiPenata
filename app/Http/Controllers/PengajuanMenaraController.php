@@ -10,11 +10,12 @@ use App\MenaraModel;
 use App\SuperAdminModel;
 use App\TimAdministratifModel;
 use App\TimLapanganModel;
-use App\BupatiModel;
 use App\PemilikMenaraModel;
-use App\ProviderModel;
-use App\UserModel;
+use App\ProvinsiModel;
+use App\KabupatenModel;
 use App\KecamatanModel;
+use App\DesaModel;
+use App\ZonePlanModel;
 
 class PengajuanMenaraController extends Controller
 {
@@ -54,6 +55,13 @@ class PengajuanMenaraController extends Controller
     {
         $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
-        return view("dashboard.pengajuanMenara.create", compact("dataUser"));
+        $dataZonePlan = ZonePlanModel::get();
+
+        $provinsi = ProvinsiModel::get();
+        $kabupaten = KabupatenModel::get();
+        $kecamatan = KecamatanModel::get();
+        $desa = DesaModel::get();
+
+        return view("dashboard.pengajuanMenara.create", compact("dataUser", "dataZonePlan", "provinsi", "kabupaten", "kecamatan", "desa"));
     }
 }

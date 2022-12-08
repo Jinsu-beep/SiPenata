@@ -2,10 +2,32 @@
 @section('title') Create Pengajuan Menara @endsection
 
 @push('css')
-
+{{-- Leaflet --}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+<style>
+    #mymap { height: 590px; }
+</style>
+<!-- Select2 -->
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- Bootstrap4 Duallistbox -->
+<link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!-- SweeAlert2 -->
+<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+{{-- datatables --}}
+<link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<!-- BS Stepper -->
+<link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
 @endpush
 
-@section('content')
+@section('content')     
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -15,7 +37,7 @@
             </div>
         </div>
         <div class="col-lg-1 align-self-center">
-            <a href="{{ route('dataDasarHukum') }}" class="btn btn-default btn-icon-split">
+            <a href="{{ route('dataPengajuan') }}" class="btn btn-default btn-icon-split">
                 <span class="icon">
                     <i class="fas fa-arrow-left"></i>
                 </span>
@@ -30,45 +52,565 @@
             <div class="card-header">
                 <h3 class="card-title">Create Dasar Hukum</h3>
             </div>
-            <form action="{{ route('insertDasarHukum') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="no_dasarHukum">Nama</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama">
-                        @error('no_dasarHukum')
-                            <div class="invalid-feedback text-start">
-                                {{ $message }}
-                            </div>
-                        @else
-                            <div class="invalid-feedback">
-                                Nama Wajib Diisi
-                            </div>
-                        @enderror
+            <div class="card-body p-0">
+                <div class="bs-stepper">
+                    <div class="bs-stepper-header" role="tablist">
+                        <div class="step" data-target="#user-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="user-part" id="user-part-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">Data Diri</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#menara-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="menara-part" id="menara-part-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">Data Menara</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#file-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="file-part" id="file-part-trigger">
+                                <span class="bs-stepper-circle">3</span>
+                                <span class="bs-stepper-label">File Pendukung</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="nama_dasarHukum">Nama</label>
-                        <input type="text" class="form-control @error('nama_dasarHukum') is-invalid @enderror" name="nama_dasarHukum" id="nama_dasarHukum" placeholder="Nama Dasar Hukum">
-                        @error('nama_dasarHukum')
-                            <div class="invalid-feedback text-start">
-                                {{ $message }}
+                    <div class="bs-stepper-content">
+                        <div id="user-part" class="content" role="tabpanel" aria-labelledby="user-part-trigger">
+                            <div class="card-body">
+                                <label for="User" class="">User</label>
                             </div>
-                        @else
-                            <div class="invalid-feedback">
-                                No Dasar Hukum Wajib Diisi
+                            <div class="form-group row">
+                                <label for="Nama" class="col-sm-2 col-form-label">Nama</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Nama" placeholder="Name" value="{{ $dataUser->nama }}" disabled>
+                                </div>
                             </div>
-                        @enderror
+                            <div class="form-group row">
+                                <label for="Kewarganegaraan" class="col-sm-2 col-form-label">Kewarganegaraan</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="Kewarganegaraan" placeholder="Kewarganegaraan" value="{{ $dataUser->Kewarganegaraan }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="Email" placeholder="Email" value="{{ $dataUser->email }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-2 col-form-label">No Telepon</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="no_telp" placeholder="no_telp" value="{{ $dataUser->no_telp }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="NoKTP" class="col-sm-2 col-form-label">No KTP</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="NoKTP" placeholder="Name" value="{{ $dataUser->no_ktp }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="NPWP" class="col-sm-2 col-form-label">NPWP</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="NPWP" placeholder="Name" value="{{ $dataUser->NPWP }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" id="provinsi" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($provinsi as $p)  
+                                            <option value="{{ $p->id }}" @if($dataUser->id_provinsi == $p->id) selected @endif>{{ $p->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Kabupten" class="col-sm-2 col-form-label">Kabupten</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" id="kabupaten" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($kabupaten as $kb)  
+                                        <option value="{{ $kb->id }}" @if($dataUser->id_kabupaten == $kb->id) selected @endif>{{ $kb->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" id="kecamatan" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($kecamatan as $kc)  
+                                            <option value="{{ $kc->id }}" @if($dataUser->id_kecamatan == $kc->id) selected @endif>{{ $kc->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Desa" class="col-sm-2 col-form-label">Desa</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" id="desa" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($desa as $d)  
+                                            <option value="{{ $d->id }}" @if($dataUser->id_desa == $d->id) selected @endif>{{ $d->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Alamat" class="col-sm-2 col-form-label">Alamat</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" id="Alamat" placeholder="Name" disabled>{{ $dataUser->alamat }}</textarea>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="card-body">
+                                <label for="Perusahaan" class="col-sm-2 col-form-label">Perusahaan</label>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama_perusahaan" class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="nama_perusahaan" placeholder="Name" value="{{ $dataUser->perusahaan->nama }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email_perusahaan" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="email_perusahaan" placeholder="Name" value="{{ $dataUser->perusahaan->email }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="noTelp_perusahaan" class="col-sm-2 col-form-label">No Telepon</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="noTelp_perusahaan" placeholder="Email" value="{{ $dataUser->perusahaan->no_telp }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="provinsi_perusahaan" class="col-sm-2 col-form-label">Provinsi</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" name="id_provinsi" id="id_provinsi" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($provinsi as $p)  
+                                            <option value="{{ $p->id }}" @if($dataUser->perusahaan->id_provinsi == $p->id) selected @endif>{{ $p->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kabupatenPerusahaan" class="col-sm-2 col-form-label">Kabupten</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" name="id_kabupaten" id="id_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($kabupaten as $kb)  
+                                            <option value="{{ $kb->id }}" @if($dataUser->perusahaan->id_kabupaten == $kb->id) selected @endif>{{ $kb->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kecamatan_perusahaan" class="col-sm-2 col-form-label">Kecamatan</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($kecamatan as $kc)  
+                                            <option value="{{ $kc->id }}" @if($dataUser->perusahaan->id_kecamatan == $kc->id) selected @endif>{{ $kc->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="desa_perusahaan" class="col-sm-2 col-form-label">Desa</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" name="id_desa" id="id_desa" data-placeholder="Pilih OPD" style="width: 100%;" disabled>
+                                        @foreach($desa as $d)  
+                                            <option value="{{ $d->id }}" @if($dataUser->perusahaan->id_desa == $d->id) selected @endif>{{ $d->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="alamat_perusahaan" class="col-sm-2 col-form-label">Alamat</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="alamat_perusahaan" placeholder="Name" value="{{ $dataUser->perusahaan->alamat }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="mx-2">
+                                    <button class="btn btn-primary" type="button" id="user_button" onclick="stepper.next()">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="{{ route('insertRegistrasi') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div id="menara-part" class="content" role="tabpanel" aria-labelledby="menara-part-trigger">
+                            <div class="card ">
+                                <div id="mymap"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3">
+                                        <label for="Latitude">Latitude</label>
+                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3">
+                                        <label for="Longitude">Longitude</label>
+                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Jenis Menara</label>
+                                <select class="form-control select2" name="id_opd" id="edit_id_opd" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option value="Tower 4 Kaki">Tower 4 Kaki</option>
+                                    <option value="Tower 3 Kaki">Tower 3 Kaki</option>
+                                    <option value="Tower 1 Kaki">Tower 1 Kaki</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Tinggi Menara</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Tinggi Antena</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Provinsi</label>
+                                <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option selected disabled>Pilih Provinsi ...</option>
+                                    @foreach($provinsi as $p)  
+                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Kabupaten</label>
+                                <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option selected disabled>Pilih Kabupaten ...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Kecamatan</label>
+                                <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option selected disabled>Pilih Kecamatan ...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Desa</label>
+                                <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option selected disabled>Pilih Desa ...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Alamat</label>
+                                <textarea type="text" class="form-control" placeholder="NPWP" name="NPWP"></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Luas Area (Meter Persegi)</label>
+                                <input type="number" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Akses Jalan</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Status Lahan</label>
+                                <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option value="sewa">Sewa</option>
+                                    <option value="milik perusahaan">Milik Perusahaan</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Nama Kepemilikan Tanah</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="row justify-content-between mx-1">
+                                <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                                <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
+                            </div>
+                        </div>
+                        <div id="file-part" class="content" role="tabpanel" aria-labelledby="file-part-trigger">
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Surat Kuasa</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Gambar Rancang Bangun</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Denah Bangunan</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Gambar KTP Pemohon</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Gambar NPWP Pemohon</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Gambar Foto Pemohon</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Surat Tanah</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="row justify-content-between mx-1">
+                                <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
+            </div>
         </div>
+    </div>
+    <div class="card">
+        {{-- <div id="mymap"></div> --}}
     </div>
 </section>
 @endsection
 
 @push('js')
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- SweeAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+{{-- Select2 --}}
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
+{{-- DataTables --}}
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+{{-- Leaflet --}}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+{{-- BsStepper --}}
+<script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+
+
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+        
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+        theme: 'bootstrap4'
+        })
+        //Bootstrap Duallistbox
+        $('.duallistbox').bootstrapDualListbox()
+        
+        $("input[data-bootstrap-switch]").each(function(){
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        })
+    })
+</script>
+
+<script>
+    $("#mymap").hide(); 
+
+    //MAP INIT
+    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    
+    $('#user_button').click(function () {
+        setTimeout(function() {
+            $('#mymap').show();
+            mymap.invalidateSize();
+        }, 100);
+    });
+
+    var zonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
+    zonePlan.forEach(element => {
+        if (element.status == 'available') {
+            var circle = L.circle([element.lat, element.long], element.radius).addTo(mymap);
+        }
+    });
+    
+    L.Map.include({
+        getMarkerById: function (id) {
+            var marker = null;
+            this.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    if (layer.options.id === id) {
+                        marker = layer;
+                    }
+                }
+            });
+            return marker;
+        }
+    });
+
+    //ADD CONTROLL
+    mymap.pm.addControls({  
+        position: 'topleft',
+        drawCircle: false,
+        drawMarker: true,
+        drawCircleMarker:false,
+        drawRectangle: false,
+        drawPolyline: false,
+        drawPolygon: false,
+        dragMode:false,
+        drawText:false,
+        editMode: false,
+        cutPolygon: false,
+        removalMode: false,
+        rotateMode: false,
+    });
+
+    //HANDLER PM CREATE
+    mymap.on('pm:create', e => {
+    let shape = e.shape;
+    console.log(e);
+        if (shape == 'Marker') {
+            let lat = e.marker._latlng.lat;
+            let lng = e.marker._latlng.lng;
+
+            $('#lat').val(lat);
+            $('#lng').val(lng);
+
+            mymap.pm.disableDraw('Marker', {
+                snappable: true,
+                snapDistance: 20,
+            });
+
+            mymap.pm.addControls({
+                editMode: false,
+                drawMarker: false,
+                removalMode: true,
+            });
+
+            e.marker.on('pm:remove', ({layer}) => {
+                $('#lat').val('');
+                $('#lng').val('');
+                mymap.pm.addControls({
+                    editMode: false,
+                    removalMode: false,
+                    drawMarker: true,
+                });
+            });
+
+            e.marker.pm.enable({  
+                allowSelfIntersection: false,  
+            });
+                      
+            e.marker.on('move', function(e){
+                console.log(e);
+                $('#lat').val(e.latlng.lat);
+                $('#lng').val(e.latlng.lng);
+            });  
+        }
+    });
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
+    }).addTo(mymap);
+</script>
+
+<script>
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+</script>
+
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+
+<script>
+    $('#edit_provinsi').change(function() {
+        if($('#edit_provinsi').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kabupaten/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_kabupaten').empty();
+                    $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
+                    response.forEach(element => {
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#edit_kecamatan').empty();
+                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#edit_kabupaten').change(function() {
+        if($('#edit_kabupaten').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kecamatan/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_kecamatan').empty();
+                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    response.forEach(element => {
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#edit_kecamatan').change(function() {
+        if($('#edit_kecamatan').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/desa/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#edit_desa').empty();
+                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                    response.forEach(element => {
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                }
+            });
+        } 
+    });
+</script>
 
 @endpush

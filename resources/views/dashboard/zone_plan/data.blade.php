@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Dasar Hukum</h1>
+                <h1>Zone Plan</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -58,12 +58,12 @@
                                     <td>{{ $dzp->nama }}</td>
                                     <td>{{ $dzp->status }}</td>
                                     <td class="text-center">
-                                        <a href="/dasarhukum/detail/{{ $dzp->id }}" id="" class="btn btn-info btn-icon-split">
+                                        <a href="/zoneplan/detail/{{ $dzp->id }}" id="" class="btn btn-info btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-eye"></i>
                                             </span>
                                         </a>
-                                        <a href="/dasarhukum/edit/{{ $dzp->id }}" id="" class="btn btn-warning btn-icon-split">
+                                        <a href="/zoneplan/edit/{{ $dzp->id }}" id="" class="btn btn-warning btn-icon-split">
                                             <span class="icon">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -91,7 +91,7 @@
             <form action="" id="sdelete" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Dasar Hukum</h4>
+                    <h4 class="modal-title">Delete Zone Plan</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -169,7 +169,7 @@
 
 <script>
     function statusdelete(id) {
-    $("#sdelete").attr("action", "/dasarhukum/delete/"+id);
+    $("#sdelete").attr("action", "/zoneplan/delete/"+id);
     $('#modal-sdelete').modal('show');
     }
 </script>
@@ -186,6 +186,25 @@
                 $(document).ready(function() {
                     Toast.fire({
                         icon: 'success',
+                        text: '{{$message}}'
+                    })
+                });
+        });
+    </script>
+@endif
+
+@if($message = Session::get('failed'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+                $(document).ready(function() {
+                    Toast.fire({
+                        icon: 'error',
                         text: '{{$message}}'
                     })
                 });
