@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 @endpush
 
 @section('content')
@@ -51,7 +52,9 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $dsa->nama}}</td>
-                                        <td></td>
+                                        <td>
+                                            <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                        </td>
                                         <td class="text-center">
                                             <button value="{{ $dsa->id }}" id="edit_SuperAdmin{{ $dsa->id }}" class="btn btn-warning btn-icon-split">
                                             <span class="icon">
@@ -212,6 +215,7 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 <!-- Page specific script -->
 <script>
@@ -227,7 +231,7 @@
         $('.duallistbox').bootstrapDualListbox()
 
         $("input[data-bootstrap-switch]").each(function(){
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
     })
 </script>

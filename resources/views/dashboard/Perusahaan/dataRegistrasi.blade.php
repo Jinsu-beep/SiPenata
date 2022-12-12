@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Data Perusahaan @endsection
+@section('title') Data Akun Pemilik Menara @endsection
 
 @push('css')
 {{-- SweeAlert2 --}}
@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Akun Pemilik Menara</h1>
+                <h1>Data Registrasi</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -36,6 +36,7 @@
                                 <tr>
                                     <th width="50px">No.</th>
                                     <th>Nama</th>
+                                    <th width="150px">status</th>
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
@@ -44,10 +45,11 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $dp->nama}}</td>
+                                        <td>{{ $dp->status }}</td>
                                         <td class="text-center">
-                                            <a href="/perusahaan/detail/{{ $dp->id }}" class="btn btn-info btn-icon-split">
+                                            <a href="/perusahaan/validasi/{{ $dp->id }}" id="" class="btn btn-warning btn-icon-split">
                                                 <span class="icon">
-                                                    <i class="fas fa-eye"></i>
+                                                    <i class="fas fa-edit"></i>
                                                 </span>
                                             </a>
                                         </td>

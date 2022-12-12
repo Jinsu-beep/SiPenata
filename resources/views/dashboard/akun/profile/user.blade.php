@@ -300,7 +300,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea type="text" class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon"></textarea>
+                        <textarea class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon"></textarea>
                     </div>
                 </div>
                 <div class="modal-body">

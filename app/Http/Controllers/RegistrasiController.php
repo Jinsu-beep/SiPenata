@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\VerifikasiMail;
+use App\AdminModel;
 use App\UserModel;
 use App\PemilikMenaraModel;
 use App\ProvinsiModel;
@@ -46,6 +50,68 @@ class RegistrasiController extends Controller
     }
 
     public function insertRegistrasi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'noKTP' => 'required',
+            'email' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            // dd($validator);
+            return back()->withErrors($validator);
+        }
+
+        $password = Hash::make($request->password);
+        $token = str::random(16);
+
+        $newUser = new UserModel();
+        $newUser->username = $request->username;
+        $newUser->password = $password;
+        $newUser->kategori = 'Pemilik Menara';
+        $newUser->token = $token;
+        $newUser->save();
+
+        $newPemilikMenara = new PemilikMenaraModel();
+        $newPemilikMenara->id_user = $newUser->id;
+        $newPemilikMenara->nama = $request->nama;
+        $newPemilikMenara->no_ktp = $request->noKTP;
+        $newPemilikMenara->email = $request->email;
+        $newPemilikMenara->save();
+
+        $details = [
+            'title' => 'Verifikasi Email SiPenata',
+            'body' => 'Silahkan klik pada link berikut untuk mengaktifkan Akun',
+            'token' => $token,
+        ];
+           
+        Mail::to($request->email)->send(new \App\Mail\VerifikasiMail($details));
+
+        return redirect()->route('registrasiSukses');
+    }
+
+    public function verifikasi($token)
+    {
+        $user = UserModel::where('token', $token)->first();
+        $user->verified_at = date("Y-m-d H:i:s");
+        $user->update();
+
+        return redirect()->route('verifikasiSukses');
+    }
+    
+    public function registrasiSukses()
+    {
+        return view('registrasi.regisSukses');
+    }
+    
+    public function verifikasiSukses()
+    {
+        return view('registrasi.verifikasiSukses');
+    }
+
+    public function insert(Request $request)
     {
         // dd($request);
         $validator = Validator::make($request->all(), [
@@ -135,8 +201,34 @@ class RegistrasiController extends Controller
         return redirect()->route('registrasiSukses');
     }
 
-    public function registrasiSukses()
+    public function test()
     {
-        return view('registrasi.regisSukses');
+        return view('registrasi.test');
+    }
+
+    public function test2()
+    {
+        if (Auth::user()->kategori == "Admin") {
+            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
+        }
+        $dataProvinsi = ProvinsiModel::get();
+
+        return view('registrasi.test2', compact('dataUser', 'dataProvinsi'));
+    }
+
+    public function testEmail()
+    {
+        $test = now();
+        dd($test);
+
+        $details = [
+            'title' => 'Verifikasi Email SiPenata',
+            'body' => 'Silahkan klik pada link berikut untuk mengaktifkan Akun',
+            'token' => '1234567890',
+        ];
+           
+        Mail::to('tyagijisnubagas222@gmail.com')->send(new \App\Mail\VerifikasiMail($details));
+        
+        dd("Email sudah terkirim.");
     }
 }

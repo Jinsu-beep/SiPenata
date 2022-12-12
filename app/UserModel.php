@@ -2,10 +2,11 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Authenticatable
+class UserModel extends Authenticatable 
 {
     protected $table = 'tb_user';
 
@@ -16,6 +17,10 @@ class UserModel extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+    ];
+
+    protected $casts = [
+        'verified_at' => 'datetime',
     ];
 
     public function SuperAdmin()

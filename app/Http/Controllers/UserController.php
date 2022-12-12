@@ -23,7 +23,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware(['auth:admin', 'verified']);
     }
     
     public function dashboard()
@@ -38,9 +38,63 @@ class UserController extends Controller
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
         } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+            // dd($dataUser);
+            if ($dataUser->NPWP == NULL) {
+                return redirect()->route('biodata');
+            }
+
+            $perusahaan = PerusahaanModel::find($dataUser->id);
+
+            return view("dashboard.dashboard", compact("dataUser", "perusahaan"));
         }
 
+        
+
         return view("dashboard.dashboard", compact("dataUser"));
+    }
+
+    public function biodata()
+    {
+        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        // dd($dataUser);
+        $dataProvinsi = ProvinsiModel::get();
+
+        return view('dashboard.akun.pemilik_menara.biodata', compact("dataUser", "dataProvinsi"));
+    }
+
+    public function insertBiodata($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'kewarganegaraan' => 'required',
+            'email' => 'required',
+            'noKTP' => 'required',
+            'noTelp' => 'required',
+            'NPWP' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+            dd($validator);
+        }
+
+        $dataPemilikMenara = PemilikMenaraModel::find($id);
+        $dataPemilikMenara->Kewarganegaraan = $request->kewarganegaraan;
+        $dataPemilikMenara->no_telp = $request->noTelp;
+        $dataPemilikMenara->NPWP = $request->NPWP;
+        $dataPemilikMenara->id_provinsi = $request->provinsi;
+        $dataPemilikMenara->id_kabupaten = $request->kabupaten;
+        $dataPemilikMenara->id_kecamatan = $request->kecamatan;
+        $dataPemilikMenara->id_desa = $request->desa;
+        $dataPemilikMenara->alamat = $request->alamat;
+        $dataPemilikMenara->update();
+
+        return redirect()->route('dashboard');
     }
 
     // Profile Admin
@@ -237,6 +291,10 @@ class UserController extends Controller
     {
         $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->with('provinsi.PemilikMenara')->with('kabupaten.PemilikMenara')->with('kecamatan.PemilikMenara')->with('desa.PemilikMenara')->with('perusahaan.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
+        if ($dataUser->NPWP == NULL) {
+            return redirect()->route('biodata');
+        }
+
         $provinsi = ProvinsiModel::get();
         $kabupaten = KabupatenModel::get();
         $kecamatan = KecamatanModel::get();
@@ -392,6 +450,7 @@ class UserController extends Controller
             $newUser->username = $request->username;
             $newUser->password = $password;
             $newUser->kategori = 'Super Admin';
+            $newUser->verified_at = date("Y-m-d H:i:s");
             $newUser->save();
 
             $newSuperAdmin = new SuperAdminModel();
@@ -494,6 +553,7 @@ class UserController extends Controller
             $newUser->username = $request->username;
             $newUser->password = $password;
             $newUser->kategori = 'Admin';
+            $newUser->verified_at = date("Y-m-d H:i:s");
             $newUser->save();
 
             $newAdmin = new AdminModel();
@@ -599,6 +659,7 @@ class UserController extends Controller
             $newUser->username = $request->username;
             $newUser->password = $password;
             $newUser->kategori = 'Tim Administratif';
+            $newUser->verified_at = date("Y-m-d H:i:s");
             $newUser->save();
 
             $newTimAdministratif = new TimAdministratifModel();
@@ -724,6 +785,7 @@ class UserController extends Controller
             $newUser->username = $request->username;
             $newUser->password = $password;
             $newUser->kategori = 'Tim Lapangan';
+            $newUser->verified_at = date("Y-m-d H:i:s");
             $newUser->save();
 
             $newTimLapangan = new TimLapanganModel();
@@ -808,44 +870,5 @@ class UserController extends Controller
         $dataUser->delete();
 
         return redirect()->back()->with(['success' => 'Tim Lapangan Berhasil Di Hapus']);
-    }
-
-    // Pemilik Menara
-    public function dataPemilikMenara()
-    {
-        if (Auth::user()->kategori == "Super Admin") {
-            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Admin") {
-            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
-        }
-
-        $dataPemilikMenara = PemilikMenaraModel::with('Perusahaan.PemilikMenara')->where('status', 'Non Aktif')->get();
-        // dd($dataPemilikMenara);
-
-        return view("dashboard.akun.pemilik_menara.data", compact("dataUser", "dataPemilikMenara"));
-    }
-
-    public function validasiPemilikMenara($id)
-    {
-        if (Auth::user()->kategori == "Super Admin") {
-            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
-        } elseif (Auth::user()->kategori == "Admin") {
-            $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
-        }
-
-        $userPemilikMenara = PemilikMenaraModel::with('Provinsi.PemilikMenara', 'Kabupaten.PemilikMenara', 'Kecamatan.PemilikMenara', 'Desa.PemilikMenara')->find($id);
-        $perusahaanPemilikMenara = PerusahaanModel::with('Provinsi.Perusahaan', 'Kabupaten.Perusahaan', 'Kecamatan.Perusahaan', 'Desa.Perusahaan')->find($userPemilikMenara->id_perusahaan);
-        // dd($perusahaanPemilikMenara);
-
-        return view("dashboard.akun.pemilik_menara.validasi", compact("dataUser", "userPemilikMenara", "perusahaanPemilikMenara"));
-    }
-
-    public function validatePemilikMenara($id)
-    {
-        $validate = PemilikMenaraModel::find($id);
-        $validate->status = 'Aktif';
-        $validate->update();
-
-        return redirect()->route('dataPemilikMenara')->with(['success' => 'Validasi Berhasil']);
     }
 }

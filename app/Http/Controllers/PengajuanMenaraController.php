@@ -16,6 +16,7 @@ use App\KabupatenModel;
 use App\KecamatanModel;
 use App\DesaModel;
 use App\ZonePlanModel;
+use App\PersetujuanPendampingModel;
 
 class PengajuanMenaraController extends Controller
 {
@@ -63,5 +64,31 @@ class PengajuanMenaraController extends Controller
         $desa = DesaModel::get();
 
         return view("dashboard.pengajuanMenara.create", compact("dataUser", "dataZonePlan", "provinsi", "kabupaten", "kecamatan", "desa"));
+    }
+
+    public function test()
+    {
+        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+
+        return view("dashboard.pengajuanMenara.test", compact("dataUser")); 
+    }
+
+    public function insertTest(Request $request)
+    {
+        // $i = 1;
+        // dd($request->lat[$i]);
+
+        $jumlahData = $request->jumlahData;
+
+        for ($i=1; $i <= $jumlahData; $i++) { 
+            $newPendamping = new PersetujuanPendampingModel();
+            $newPendamping->nama = $request->lat[$i];
+            $newPendamping->no_ktp = $request->lot[$i];
+            $newPendamping->jarak = $request->let[$i];
+            $newPendamping->file_suratPersetujuan = $request->lit[$i];
+            $newPendamping->save();
+        }
+
+        return redirect()->back()->with(['success' => 'Provider Berhasil Di Hapus']);
     }
 }

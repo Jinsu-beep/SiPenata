@@ -35,9 +35,19 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     Route::get('/registrasi/kecamatan/{id}', 'RegistrasiController@getKecamatan')->name('getKecamatan')->middleware('guest');
     Route::get('/registrasi/desa/{id}', 'RegistrasiController@getDesa')->name('getDesa')->middleware('guest');
     Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
+    Route::get('/verifikasi/{token}', 'RegistrasiController@verifikasi')->name('verifikasi')->middleware('guest');
+    Route::get('/verifikasiSukses', 'RegistrasiController@verifikasiSukses')->name('verifikasiSukses')->middleware('guest');
+
+    Route::get('/test', 'RegistrasiController@test')->middleware('guest');
+    Route::get('/test2', 'RegistrasiController@test2');
+    // Route::get('/verifikasi', 'RegistrasiController@testEmail');
+    
 
 // Dashboard 
     Route::get('/dashboard','UserController@dashboard')->name('dashboard');
+    
+    Route::get('/biodata', 'UserController@biodata')->name('biodata');
+    Route::post('/biodata/insert/{id}', 'UserController@insertBiodata')->name('insertBiodata');
 
     // Dasar Hukum
     Route::get('/dasarhukum/data','DasarHukumController@dataDasarHukum')->name('dataDasarHukum');
@@ -91,10 +101,10 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
         Route::post('/timlapangan/update/{id}','UserController@updateTimLapangan')->name('updateTimLapangan');
         Route::post('/timlapangan/delete/{id}','UserController@deleteTimLapangan')->name('deleteTimLapangan');
         // Pemilik Menara
-        Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
-        Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
-        Route::get('/pemilikmenara/validasi/{id}','UserController@validasiPemilikMenara')->name('validasiPemilikMenara');
-        Route::get('/pemilikmenara/validate/{id}','UserController@validatePemilikMenara')->name('validatePemilikMenara');
+        // Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
+        // Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
+        // Route::get('/pemilikmenara/validasi/{id}','UserController@validasiPemilikMenara')->name('validasiPemilikMenara');
+        // Route::get('/pemilikmenara/validate/{id}','UserController@validatePemilikMenara')->name('validatePemilikMenara');
         // Profile
         Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
         Route::post('/profile/update/adminUser/{id}','UserController@updateProfileUserAdmin')->name('updateProfileUserAdmin');
@@ -110,6 +120,14 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     // Perusahaan
     Route::get('/perusahaan/data','PerusahaanController@dataPerusahaan')->name('dataPerusahaan');
     Route::get('/perusahaan/detail/{id}','PerusahaanController@detailPerusahaan')->name('detailPerusahaan');
+    Route::get('/perusahaan/create','PerusahaanController@createPerusahaan')->name('createPerusahaan');
+    Route::post('/perusahaan/insert/{id}','PerusahaanController@insertPerusahaan')->name('insertPerusahaan');
+    Route::get('/perusahaan/detailRegistrasi/{id}','PerusahaanController@detailRegistrasi')->name('detailRegistrasi');
+    Route::get('/perusahaan/dataRegistrasi','PerusahaanController@dataRegistrasiPerusahaan')->name('dataRegistrasiPerusahaan');
+    Route::get('/perusahaan/validasi/{id}','PerusahaanController@validasiPerusahaan')->name('validasiPerusahaan');
+    Route::post('/perusahaan/validate/{id}','PerusahaanController@validatePerusahaan')->name('validatePerusahaan');
+    Route::get('/perusahaan/edit/{id}','PerusahaanController@editPerusahaan')->name('editPerusahaan');
+    Route::post('/perusahaan/update/{id}','PerusahaanController@updateRegistrasi')->name('updateRegistrasi');
     
     // Menara
     Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
@@ -117,3 +135,8 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     // Pengajuan Menara
     Route::get('/pengajuan/data','PengajuanMenaraController@dataPengajuan')->name('dataPengajuan');
     Route::get('/pengajuan/create','PengajuanMenaraController@createPengajuan')->name('createPengajuan');
+
+
+    // Test
+    Route::get('/pengajuan/test','PengajuanMenaraController@test');
+    Route::post('/pengajuan/insert', 'PengajuanMenaraController@insertTest');

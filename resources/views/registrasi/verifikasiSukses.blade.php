@@ -48,12 +48,13 @@
     <div class="col-lg-6 col-md-8 col-sm-12">
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
-          <a class="h1">Registrasi</a>
+          <a class="h1">Verifikasi Sukses</a>
         </div>
         <div class="card-body mx-5" >
             <div class="row">
-                <div class="col-lg-12 col-sm-12">
-                    <a>Registrasi Berhasil. Silahkan Periksa Email Anda Untuk Verifikasi</a>
+                <div class="col-lg-6 col-sm-12">
+                    <a>Verifikasi Berhasil. kembali ke Menu </a>
+                    <a href="/">Login</a>
                 </div>
             </div>
         </div>

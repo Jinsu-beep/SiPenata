@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\UserModel;
 
 class LoginController extends Controller
@@ -16,10 +17,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
-            return redirect()->route('dashboard');
+        $user = UserModel::where('username', $request->username)->first();
+        // dd($user);
+        if ($user->verified_at != NULL) {
+            if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->back()->with('message', 'Email atau Password Anda Salah');
+            }
         } else {
-            return redirect()->back()->with('message', 'Email atau Password Anda Salah');
+            return redirect()->route('registrasiSukses');
         }
     }
 

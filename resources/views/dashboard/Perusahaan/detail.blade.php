@@ -106,16 +106,20 @@
 
 <script>
     function showFile1() {
-        var data_perusahaan = {!! json_encode($dataPerusahaan->toArray()) !!}
-        PDFObject.embed(data_perusahaan.file_AktaPendirianPerusahaan, "#file");
+        var data_perusahaan1 = {!! json_encode($detailPerusahaan1->toArray()) !!}
+        // console.log(data_perusahaan1.patch);
+        PDFObject.embed(data_perusahaan1.patch, "#file");
+        $('#judul').append('File Akta Pendirian Perusahaan');
         $('#modal-showFile').modal('show');
     }
 </script>
 
 <script>
     function showFile2() {
-        var data_perusahaan = {!! json_encode($dataPerusahaan->toArray()) !!}
-        PDFObject.embed(data_perusahaan.file_TandaDaftarPerusahaan, "#file");
+        var data_perusahaan2 = {!! json_encode($detailPerusahaan2->toArray()) !!}
+        // console.log(data_perusahaan2);
+        PDFObject.embed(data_perusahaan2.patch, "#file");
+        $('#judul').append('File Tanda Daftar Perusahaan');
         $('#modal-showFile').modal('show');
     }
 </script>

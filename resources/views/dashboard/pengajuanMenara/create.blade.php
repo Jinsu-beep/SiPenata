@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
 @endpush
 
-@section('content')     
+@section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -258,22 +258,6 @@
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NPWP">Jenis Menara</label>
-                                <select class="form-control select2" name="id_opd" id="edit_id_opd" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option value="Tower 4 Kaki">Tower 4 Kaki</option>
-                                    <option value="Tower 3 Kaki">Tower 3 Kaki</option>
-                                    <option value="Tower 1 Kaki">Tower 1 Kaki</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Tinggi Menara</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Tinggi Antena</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="NPWP">Provinsi</label>
                                 <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Provinsi ...</option>
@@ -305,6 +289,22 @@
                                 <textarea type="text" class="form-control" placeholder="NPWP" name="NPWP"></textarea>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="NPWP">Jenis Menara</label>
+                                <select class="form-control select2" name="id_opd" id="edit_id_opd" data-placeholder="Pilih OPD" style="width: 100%;">
+                                    <option value="Tower 4 Kaki">Tower 4 Kaki</option>
+                                    <option value="Tower 3 Kaki">Tower 3 Kaki</option>
+                                    <option value="Tower 1 Kaki">Tower 1 Kaki</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Tinggi Menara</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Tinggi Antena</label>
+                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="NPWP">Luas Area (Meter Persegi)</label>
                                 <input type="number" class="form-control" placeholder="NPWP" name="NPWP">
                             </div>
@@ -330,36 +330,100 @@
                         </div>
                         <div id="file-part" class="content" role="tabpanel" aria-labelledby="file-part-trigger">
                             <div class="form-group mb-3">
-                                <label for="NPWP">File Surat Kuasa</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Gambar Rancang Bangun</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Denah Bangunan</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="NPWP">Gambar KTP Pemohon</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Gambar NPWP Pemohon</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Gambar Foto Pemohon</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Surat Kuasa</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Gambar Rancang Bangun</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input " id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">File Denah Bangunan</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input " id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">File Surat Tanah</label>
-                                <input type="text" class="form-control" placeholder="NPWP" name="NPWP">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input @error('file_dasarHukum') is-invalid @enderror" id="file_dasarHukum" name="file_dasarHukum">
+                                        <label class="custom-file-label" for="file_dasarHukum">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="NPWP">Persetujuan pendamping</label> 
+                                <button type="button" onclick="tambahPendamping()" id="tambah_pendamping" class="btn btn-danger btn-icon-split mb-2">
+                                    <span class="icon">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    tambah data
+                                </button>
+                                <div class="input-group">
+                                    <table id="input_pendamping" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">nama</th>
+                                                <th class="text-center">no ktp</th>
+                                                <th class="text-center">jarak</th>
+                                                <th class="text-center">file</th>
+                                                <th class="text-center">aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabel_pendamping">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="row justify-content-between mx-1">
                                 <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
@@ -371,9 +435,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card">
-        {{-- <div id="mymap"></div> --}}
     </div>
 </section>
 @endsection
@@ -430,14 +491,12 @@
 </script>
 
 <script>
-    $("#mymap").hide(); 
 
     //MAP INIT
     var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
     
     $('#user_button').click(function () {
         setTimeout(function() {
-            $('#mymap').show();
             mymap.invalidateSize();
         }, 100);
     });
@@ -611,6 +670,22 @@
             });
         } 
     });
+</script>
+
+<script>
+    var id = 0;
+
+    function tambahPendamping() {
+        id = parseInt(id) + 1;
+        console.log(id);
+        $('#tabel_pendamping').append('<tr id="tr' + id + '"> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat"> </td> <td class="text-center"> <button type="button" onclick="deleteKolom(' + id + ')" id="delete_akun" class="btn btn-danger btn-icon-split"> <span class="icon"> <i class="fas fa-trash"></i> </span> </button> </td> </tr>');
+    }
+</script>
+
+<script>
+    function deleteKolom(id) {
+        $('#tr' + id).empty();
+    }
 </script>
 
 @endpush

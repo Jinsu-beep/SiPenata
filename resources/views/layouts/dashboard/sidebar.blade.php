@@ -115,10 +115,10 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="/pemilikmenara/data" class="nav-link">
+              <a href="/perusahaan/dataRegistrasi" class="nav-link">
                 <i class="nav-icon far fa-solid fa-user-tie"></i>
                 <p>
-                  Validasi Pemilik Menara
+                  Validasi Perusahaan
                 </p>
               </a>
             </li>

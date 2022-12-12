@@ -13,6 +13,11 @@ class PerusahaanModel extends Model
         return $this->hasOne(PemilikMenaraModel::class, 'id_perusahaan', 'id');
     }
 
+    public function DetailPerusahaan()
+    {
+        return $this->hasOne(DetailPerusahaanModel::class, 'id_perusahaan', 'id');
+    }
+
     public function Provinsi()
     {
         return $this->belongsTo(ProvinsiModel::class, 'id_provinsi', 'id');

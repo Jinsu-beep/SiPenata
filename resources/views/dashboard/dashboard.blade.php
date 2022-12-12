@@ -84,9 +84,30 @@
           
           </div>
         <!-- /.row -->
-        <div class="row">
-          
-        </div>
+        @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
+            @if ($dataUser->id_perusahaan == NULL)
+              <div class="callout callout-danger">
+                <h5>Perusahaan Belum Didaftarkan</h5>
+                <p><a href="{{ route('createPerusahaan') }}">Daftar Perusahaab</a></p>
+              </div>
+            @elseif ($perusahaan->status == 'tunggu persetujuan')
+              <div class="callout callout-info">
+                <h5>Pendaftaran Perusahaan Berhasil</h5>
+                <p>Menunggu validasi dari Admin. Untuk Melihat detail klik <a href="/perusahaan/detailRegistrasi/{{ $dataUser->id_perusahaan }}">di sini</a>.</p>
+              </div>
+            @elseif ($perusahaan->status == 'perbaiki')
+              <div class="callout callout-warning">
+                <h5>Status Pendaftaran Perusahaan : Diperbaiki</h5>
+                <p>Terdapat data yang harus diperbaiki. Untuk memperbaiki data klik <a href="/perusahaan/edit/{{ $dataUser->id_perusahaan }}">di sini</a>.</p>
+              </div>
+            @elseif ($perusahaan->status == 'diterima')
+              <div class="callout callout-success">
+                <h5>Status Pendaftaran Perusahaan : Diterima</h5>
+                <p>Pendaftaran perusahaan diterima. Anda dapat melanjutkan proses selanjutnya.</p>
+              </div>
+            @endif
+        @endif
+        
         <div class="row">
             
         </div>
@@ -94,3 +115,9 @@
     </section>
     <!-- /.content -->
 @endsection
+
+@push('js')
+  <script>
+    console.log()
+  </script>
+@endpush
