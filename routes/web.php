@@ -131,10 +131,25 @@ Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')
     
     // Menara
     Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
+    Route::get('/menara/detail/{id}','MenaraController@detailMenara')->name('detailMenara');
+    Route::post('/menara/update/{id}','MenaraController@updateMenara')->name('updateMenara');
 
     // Pengajuan Menara
     Route::get('/pengajuan/data','PengajuanMenaraController@dataPengajuan')->name('dataPengajuan');
     Route::get('/pengajuan/create','PengajuanMenaraController@createPengajuan')->name('createPengajuan');
+    Route::post('/pengajuan/insert/{id}','PengajuanMenaraController@insertPengajuan')->name('insertPengajuan');
+    Route::get('/pengajuan/draftPengajuan/{id}','PengajuanMenaraController@draftPengajuan')->name('draftPengajuan');
+    Route::get('/pengajuan/editDraft/{id}','PengajuanMenaraController@editDraft')->name('editDraft');
+    Route::post('/pengajuan/updateDraft/{id}','PengajuanMenaraController@updateDraft')->name('updateDraft');
+    Route::get('/pengajuan/deletePendamping/{id}','PengajuanMenaraController@deletePendamping')->name('deletePendamping');
+    Route::get('/pengajuan/detailPengajuan/{id}','PengajuanMenaraController@detailPengajuan')->name('detailPengajuan');
+    Route::get('/pengajuan/validasiPengajuan/{id}','PengajuanMenaraController@validasiPengajuan')->name('validasiPengajuan');
+    Route::post('/pengajuan/validateTimAdministratif/{id}','PengajuanMenaraController@validateTimAdministratif')->name('validateTimAdministratif');
+    Route::post('/pengajuan/validateTimLapangan/{id}','PengajuanMenaraController@validateTimLapangan')->name('validateTimLapangan');
+    Route::get('/pengajuan/editPengajuan/{id}','PengajuanMenaraController@editPengajuan')->name('editPengajuan');
+    Route::post('/pengajuan/updatePengajuan/{id}','PengajuanMenaraController@updatePengajuan')->name('updatePengajuan');
+    Route::post('/pengajuan/akhirPengajuan/{id}','PengajuanMenaraController@akhirPengajuan')->name('akhirPengajuan');
+    Route::get('/pengajuan/download/{id}','PengajuanMenaraController@downloadFile')->name('downloadFile');
 
 
     // Test

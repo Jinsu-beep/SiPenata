@@ -208,7 +208,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Disposisi">Disposisi</label>
-                        <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi"></textarea>
+                        <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi">{{ $perusahaanPemilikMenara->disposisi }}</textarea>
                     </div>
                 </div>
                 <div class="card-footer">

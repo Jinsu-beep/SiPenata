@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.master')
-@section('title') Create Pengajuan Menara @endsection
+@section('title') Draft Pengajuan Menara @endsection
 
 @push('css')
 {{-- Leaflet --}}
@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 <style>
     #mymap { height: 590px; }
+</style>
+<style>
+    .pdfobject-container { height: 50rem;}
 </style>
 <!-- Select2 -->
 <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
@@ -32,7 +35,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-11">
-                <h1>Pengajuan Menara</h1>
+                <h1>Draft Pengajuan Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -46,38 +49,71 @@
         </div>
     </div>
 </section>
+{{-- <section class="content">
+    <div class="container-fluid">
+        <div class="col-12 col-sm-12">
+            <div class="card card-primary">
+
+            </div>
+        </div>
+    </div>
+</section> --}}
 <section class="content">
     <div class="container-fluid">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Create Pengajuan Menara</h3>
-            </div>
-            <div class="card-body p-0">
-                <div class="bs-stepper">
-                    <div class="bs-stepper-header" role="tablist">
-                        <div class="step" data-target="#user-part">
-                            <button type="button" class="step-trigger" role="tab" aria-controls="user-part" id="user-part-trigger">
-                                <span class="bs-stepper-circle">1</span>
-                                <span class="bs-stepper-label">Data Pemohon</span>
-                            </button>
-                        </div>
-                        <div class="line"></div>
-                        <div class="step" data-target="#menara-part">
-                            <button type="button" class="step-trigger" role="tab" aria-controls="menara-part" id="menara-part-trigger">
-                                <span class="bs-stepper-circle">2</span>
-                                <span class="bs-stepper-label">Data Menara</span>
-                            </button>
-                        </div>
-                        <div class="line"></div>
-                        <div class="step" data-target="#file-part">
-                            <button type="button" class="step-trigger" role="tab" aria-controls="file-part" id="file-part-trigger">
-                                <span class="bs-stepper-circle">3</span>
-                                <span class="bs-stepper-label">File Pendukung</span>
-                            </button>
+        <div class="col-12 col-sm-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="row justify-content-end">
+                        <div class="col-1">
+                            <a href="/pengajuan/editDraft/{{ $detailPengajuan->id }}" class="btn btn-warning">
+                                Edit Pengajuan
+                            </a>
                         </div>
                     </div>
-                    <div class="bs-stepper-content">
-                        <div id="user-part" class="content" role="tabpanel" aria-labelledby="user-part-trigger">
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="Nama" class="col-sm-2 col-form-label">Tanggal Pengajuan</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Tanggal Pengajuan" value="{{ $detailPengajuan->PengajuanStatusTerakhir->tanggal_status }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Nama" class="col-sm-2 col-form-label">Status Pengajuan</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Status Pengajuan" value="{{ $detailPengajuan->PengajuanStatusTerakhir->Status->status }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Nama" class="col-sm-2 col-form-label">Disposisi</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" id="tanggalPengajuan" placeholder="Disposisi" disabled>{{ $detailPengajuan->PengajuanStatusTerakhir->disposisi }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header p-0 border-bottom-0">
+                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="dataPemohon-tab" data-toggle="pill" href="#dataPemohon" role="tab" aria-controls="dataPemohon" aria-selected="true">Data Pemohon</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="dataMenara-tab" data-toggle="pill" href="#dataMenara" role="tab" aria-controls="dataMenara" aria-selected="false">Data Menara</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="filePendukung-tab" data-toggle="pill" href="#filePendukung" role="tab" aria-controls="filePendukung" aria-selected="false">File Pendukung</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                        <div class="tab-pane fade show active" id="dataPemohon" role="tabpanel" aria-labelledby="dataPemohon-tab">
                             <div class="card-body">
                                 <label for="User" class="">Data User</label>
                             </div>
@@ -196,18 +232,11 @@
                             <div class="form-group row">
                                 <label for="alamat_perusahaan" class="col-sm-2 col-form-label">Alamat</label>
                                 <div class="col-sm-10">
-                                    <textarea type="text" class="form-control" id="alamat_perusahaan" placeholder="Name" disabled>{{ $dataUser->perusahaan->alamat }}</textarea>
-                                </div>
-                            </div>
-                            <div class="row justify-content-end">
-                                <div class="mx-2">
-                                    <button class="btn btn-primary" type="button" id="user_button" onclick="stepper.next()">Next</button>
+                                    <textarea type="text" class="form-control" id="alamat_perusahaan" placeholder="Name"disabled>{{ $dataUser->perusahaan->alamat }}</textarea>
                                 </div>
                             </div>
                         </div>
-                        <form action="/pengajuan/insert/{{ $dataUser->id }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div id="menara-part" class="content" role="tabpanel" aria-labelledby="menara-part-trigger">
+                        <div class="tab-pane fade" id="dataMenara" role="tabpanel" aria-labelledby="dataMenara-tab">
                             <div class="card ">
                                 <div id="mymap"></div>
                             </div>
@@ -215,166 +244,155 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Latitude">Latitude</label>
-                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat">
+                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat" value="{{ $detailPengajuan->lat }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Longitude">Longitude</label>
-                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng">
+                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng" value="{{ $detailPengajuan->long }}" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Provinsi</label>
-                                <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option selected disabled>Pilih Provinsi ...</option>
-                                    @foreach($provinsi as $p)  
-                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" placeholder="Provinsi" name="provinsi" id="provinsi" value="{{ $detailPengajuan->Provinsi->nama }}" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Kabupaten</label>
-                                <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
+                                <input type="text" class="form-control" placeholder="Kabupaten" name="kabupaten" id="kabupaten" value="{{ $detailPengajuan->Kabupaten->nama }}" readonly>
+                                {{-- <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Kabupaten ...</option>
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Kecamatan</label>
-                                <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
+                                <input type="text" class="form-control" placeholder="Kecamatan" name="kecamatan" id="kecamatan" value="{{ $detailPengajuan->Kecamatan->nama }}" readonly>
+                                {{-- <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Kecamatan ...</option>
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Desa</label>
-                                <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
+                                <input type="text" class="form-control" placeholder="Desa" name="desa" id="desa" value="{{ $detailPengajuan->Desa->nama }}" readonly>
+                                {{-- <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Desa ...</option>
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Jenis Menara</label>
-                                <select class="form-control select2" name="jenisMenara" id="jenisMenara" data-placeholder="Pilih OPD" style="width: 100%;">
+                                <input type="text" class="form-control" placeholder="Jenis Menara" name="jenisMenara" id="jenisMenara" value="{{ $detailPengajuan->jenis_menara }}" readonly>
+                                {{-- <select class="form-control select2" name="jenisMenara" id="jenisMenara" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Jenis Menara ...</option>
-                                    <option value="Menara 4 Kaki">Menara 4 Kaki</option>
-                                    <option value="Menara 3 Kaki">Menara 3 Kaki</option>
-                                    <option value="Menara 1 Kaki">Menara 1 Kaki</option>
-                                </select>
+                                    <option value="Tower 4 Kaki">Tower 4 Kaki</option>
+                                    <option value="Tower 3 Kaki">Tower 3 Kaki</option>
+                                    <option value="Tower 1 Kaki">Tower 1 Kaki</option>
+                                </select> --}}
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Menara (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara">
+                                <input type="text" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara" value="{{ $detailPengajuan->tinggi_menara }}" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Antena (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena">
+                                <input type="text" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena" value="{{ $detailPengajuan->tinggi_antena }}" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Luas Area (Meter Persegi)</label>
-                                <input type="number" class="form-control" placeholder="Luas Area" name="luasArea">
+                                <input type="number" class="form-control" placeholder="Luas Area" name="luasArea" value="{{ $detailPengajuan->luas_area }}" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Akses Jalan</label>
-                                <input type="text" class="form-control" placeholder="Akses Jalan" name="aksesJalan">
+                                <input type="text" class="form-control" placeholder="Akses Jalan" name="aksesJalan" value="{{ $detailPengajuan->akses_jalan }}" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Status Lahan</label>
-                                <select class="form-control select2" name="statusLahan" id="statusLahan" data-placeholder="Status Lahan" style="width: 100%;">
+                                <input type="text" class="form-control" placeholder="Status Lahan" name="statusLahan" id="statusLahan" value="{{ $detailPengajuan->status_lahan }}" readonly>
+                                {{-- <select class="form-control select2" name="statusLahan" id="statusLahan" data-placeholder="Status Lahan" style="width: 100%;">
                                     <option selected disabled>Pilih Status Lahan ...</option>
                                     <option value="sewa">Sewa</option>
                                     <option value="milik perusahaan">Milik Perusahaan</option>
-                                </select>
+                                </select> --}}
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Nama Kepemilikan Tanah</label>
-                                <input type="text" class="form-control" placeholder="Nama Kepemilikan Tanah" name="namaPemilikTanah">
-                            </div>
-                            <div class="row justify-content-between mx-1">
-                                <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
-                                <button class="btn btn-primary" type="button" onclick="stepper.next()">Next</button>
+                                <input type="text" class="form-control" placeholder="Nama Kepemilikan Tanah" name="namaPemilikTanah" value="{{ $detailPengajuan->kepemilikan_tanah }}" readonly>
                             </div>
                         </div>
-                        <div id="file-part" class="content" role="tabpanel" aria-labelledby="file-part-trigger">
+                        <div class="tab-pane fade" id="filePendukung" role="tabpanel" aria-labelledby="filePendukung-tab">
                             <div class="form-group mb-3">
-                                <label for="NPWP">Gambar KTP Pemohon</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_KTPPemohon" name="file_KTPPemohon">
-                                        <label class="custom-file-label" for="file_KTPPemohon">Choose file</label>
-                                    </div>
-                                </div>
+                                <label for="NPWP">File Pendukung</label>
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">Gambar KTP Pemohon</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile1()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">Gambar NPWP Pemohon</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile2()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">Gambar Foto Pemohon</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile3()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">File Surat Kuasa</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile4()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">File Gambar Rancang Bangun</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile5()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">File Denah Bangunan</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile6()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">Gambar Lokasi dan Situasi</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile7()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width='1180px'><label for="NPWP">File Surat Tanah</label></td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile8()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NPWP">Gambar NPWP Pemohon</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_NPWPPemohon" name="file_NPWPPemohon">
-                                        <label class="custom-file-label" for="file_NPWPPemohon">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Foto Pemohon</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_fotoPemohon" name="file_fotoPemohon">
-                                        <label class="custom-file-label" for="file_fotoPemohon">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Surat Kuasa</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_suratKuasa" name="file_suratKuasa">
-                                        <label class="custom-file-label" for="file_suratKuasa">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Gambar Rancang Bangun</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input " id="file_rancangBangun" name="file_rancangBangun">
-                                        <label class="custom-file-label" for="file_rancangBangun">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Denah Bangunan</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input " id="file_denahBangunan" name="file_denahBangunan">
-                                        <label class="custom-file-label" for="file_denahBangunan">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_lokasiDanSituasi" name="file_lokasiDanSituasi">
-                                        <label class="custom-file-label" for="file_lokasiDanSituasi">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">File Surat Tanah</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="file_suratTanah" name="file_suratTanah">
-                                        <label class="custom-file-label" for="file_suratTanah">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="NPWP">Persetujuan pendamping</label> <br>
-                                <button type="button" onclick="tambahPendamping()" id="tambah_pendamping" class="btn btn-primary btn-icon-split mb-2">
-                                    <span class="icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    tambah data
-                                </button>
+                                <label for="NPWP">Persetujuan pendamping</label>
                                 <div class="input-group">
                                     <table id="input_pendamping" class="table table-bordered table-hover">
                                         <thead>
@@ -382,35 +400,51 @@
                                                 <th class="text-center" width="320px">nama</th>
                                                 <th class="text-center" width="250px">no ktp</th>
                                                 <th class="text-center" width="150px">jarak</th>
-                                                <th class="text-center" width="300px">file</th>
-                                                <th class="text-center" width="80px">aksi</th>
+                                                <th class="text-center" width="80px">file</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tabel_pendamping">
+                                            @foreach ($detailPengajuan->PersetujuanPendamping as $pp)
+                                                <tr>
+                                                    <td class="text-center">{{ $pp->nama }}</td>
+                                                    <td class="text-center">{{ $pp->no_ktp }}</td>
+                                                    <td class="text-center">{{ $pp->jarak }}</td>
+                                                    <td class="text-center"><button type="button" id="filePendamping{{ $loop->iteration }}" class="btn btn-primary">
+                                                        Show File
+                                                    </button></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                                 <input type="number" id="jumlahData" name="jumlahData" hidden>
                             </div>
-                            <div class="row justify-content-between mx-1">
-                                <div class="col-lg-6">
-                                    <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
-                                </div>
-                                <div>
-                                    <button type="submit" name="action" class="btn btn-warning" value="draft">draft</button>
-                                    <button type="submit" name="action" class="btn btn-primary" value="ajukan">Submit</button>
-                                </div>
-                            </div>
                         </div>
-                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
+                <div class="card-footer">
+                    
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modal-showFile">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="judul" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="file"></div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
@@ -445,6 +479,7 @@
 {{-- BsStepper --}}
 <script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
 
+<script src="/PDFObject/pdfobject.js"></script>
 
 <script>
     $(function () {
@@ -469,18 +504,16 @@
     //MAP INIT
     var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
     
-    $('#user_button').click(function () {
+    $('#dataMenara-tab').click(function () {
+        console.log('1');
         setTimeout(function() {
             mymap.invalidateSize();
-        }, 100);
+        }, 200);
     });
 
-    var zonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
-    zonePlan.forEach(element => {
-        if (element.status == 'available') {
-            var circle = L.circle([element.lat, element.long], element.radius).addTo(mymap);
-        }
-    });
+    let marker = {!! json_encode($detailPengajuan->toArray()) !!}
+    console.log(marker);
+    L.marker([marker.lat, marker.long]).addTo(mymap);
     
     L.Map.include({
         getMarkerById: function (id) {
@@ -500,7 +533,7 @@
     mymap.pm.addControls({  
         position: 'topleft',
         drawCircle: false,
-        drawMarker: true,
+        drawMarker: false,
         drawCircleMarker:false,
         drawRectangle: false,
         drawPolyline: false,
@@ -511,50 +544,6 @@
         cutPolygon: false,
         removalMode: false,
         rotateMode: false,
-    });
-
-    //HANDLER PM CREATE
-    mymap.on('pm:create', e => {
-    let shape = e.shape;
-    console.log(e);
-        if (shape == 'Marker') {
-            let lat = e.marker._latlng.lat;
-            let lng = e.marker._latlng.lng;
-
-            $('#lat').val(lat);
-            $('#lng').val(lng);
-
-            mymap.pm.disableDraw('Marker', {
-                snappable: true,
-                snapDistance: 20,
-            });
-
-            mymap.pm.addControls({
-                editMode: false,
-                drawMarker: false,
-                removalMode: true,
-            });
-
-            e.marker.on('pm:remove', ({layer}) => {
-                $('#lat').val('');
-                $('#lng').val('');
-                mymap.pm.addControls({
-                    editMode: false,
-                    removalMode: false,
-                    drawMarker: true,
-                });
-            });
-
-            e.marker.pm.enable({  
-                allowSelfIntersection: false,  
-            });
-                      
-            e.marker.on('move', function(e){
-                console.log(e);
-                $('#lat').val(e.latlng.lat);
-                $('#lng').val(e.latlng.lng);
-            });  
-        }
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -568,99 +557,93 @@
 </script>
 
 <script>
-    $('#edit_provinsi').change(function() {
-        if($('#edit_provinsi').val() != ""){ 
-            let id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '/profile/kabupaten/'+id,
-                success: function (response){
-                    // console.log(response);
-                    $('#edit_kabupaten').empty();
-                    $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
-                    response.forEach(element => {
-                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
-                    });
-                    $('#edit_kecamatan').empty();
-                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
-                    $('#edit_desa').empty();
-                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
-                }
-            });
-        } 
-    });
-</script>
+    function showFile1() {
+        let file = {!! json_encode($detailFile1->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File KTP Pemohon');
+        $('#modal-showFile').modal('show');
+    }
 
-<script>
-    $('#edit_kabupaten').change(function() {
-        if($('#edit_kabupaten').val() != ""){ 
-            let id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '/profile/kecamatan/'+id,
-                success: function (response){
-                    // console.log(response);
-                    $('#edit_kecamatan').empty();
-                    $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
-                    response.forEach(element => {
-                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
-                    });
-                    $('#edit_desa').empty();
-                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
-                }
-            });
-        } 
-    });
-</script>
+    function showFile2() {
+        let file = {!! json_encode($detailFile2->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File NPWP Pemohon');
+        $('#modal-showFile').modal('show');
+    }
 
-<script>
-    $('#edit_kecamatan').change(function() {
-        if($('#edit_kecamatan').val() != ""){ 
-            let id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '/profile/desa/'+id,
-                success: function (response){
-                    // console.log(response);
-                    $('#edit_desa').empty();
-                    $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
-                    response.forEach(element => {
-                        $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
-                    });
-                }
-            });
-        } 
-    });
-</script>
+    function showFile3() {
+        let file = {!! json_encode($detailFile3->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Foto Pemohon');
+        $('#modal-showFile').modal('show');
+    }
 
-<script>
-    var id = 0;
+    function showFile4() {
+        let file = {!! json_encode($detailFile4->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Surat Kuasa');
+        $('#modal-showFile').modal('show');
+    }
 
-    function tambahPendamping() {
-        id = parseInt(id) + 1;
-        console.log(id);
-        $('#tabel_pendamping').append('<tr id="tr' + id + '"> <td> <input type="text" class="form-control" placeholder="Nama Pendamping" name="nama[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="No KTP Pendamping" name="ktp[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Jarak (Meter)" name="jarak[' + id + ']" id="lat"> </td> <td> <input type="file" id="file_pendamping[' + id + ']" name="file_pendamping[' + id + ']"> </td> <td class="text-center"> <button type="button" onclick="deleteKolom(' + id + ')" id="delete_akun" class="btn btn-danger btn-icon-split"> <span class="icon"> <i class="fas fa-trash"></i> </span> </button> </td> </tr>');
-        $('#jumlahData').val(id).change();
+    function showFile5() {
+        let file = {!! json_encode($detailFile5->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Rancang Bangun');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile6() {
+        let file = {!! json_encode($detailFile6->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Denah Bangunan');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile7() {
+        let file = {!! json_encode($detailFile7->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Lokasi dan Situasi');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile8() {
+        let file = {!! json_encode($detailFile8->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Surat Tananh');
+        $('#modal-showFile').modal('show');
     }
 </script>
 
 <script>
-    function deleteKolom(id) {
-        $('#tr' + id).empty();
+    let detailPengajuan = {!! json_encode($detailPengajuan->toArray()) !!}
+    let jumlahPendamping = detailPengajuan.jumlah_pendamping;
+    let data_Pengajuan = {!! json_encode($detailPengajuan->PersetujuanPendamping->toArray()) !!}
+    // console.log(jumlahPendamping);
+    for (let i = 1; i <= jumlahPendamping; i++) {
+        $('#filePendamping' + i).click(function () {
+            let u = i - 1;
+            // console.log(Pendamping.file_suratPersetujuan);
+            PDFObject.embed(data_Pengajuan[u].file_suratPersetujuan, "#file");
+            $('#judul').empty();
+            $('#judul').append('File Persetujuan Pendamping');
+            $('#modal-showFile').modal('show');
+        });
     }
 </script>
-
-<script>
-    // BS-Stepper Init
-    document.addEventListener('DOMContentLoaded', function () {
-        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
-</script>
-
-<script>
-    $(function () {
-        bsCustomFileInput.init();
-    });
-</script>
-
 @endpush

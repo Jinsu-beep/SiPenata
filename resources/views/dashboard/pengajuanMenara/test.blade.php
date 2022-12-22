@@ -55,12 +55,20 @@
                 </table>
             </div>
         </div>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input " id="file_denahBangunan" name="file_denahBangunan">
+                <label class="custom-file-label" for="file_denahBangunan">Choose file</label>
+            </div>
+        </div>
         <input type="number" id="jumlahData" name="jumlahData" hidden>
         <div class="row justify-content-between mx-1">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
 </section>
+
+
 @endsection
 
 @push('js')
@@ -114,18 +122,25 @@
 </script>
 
 <script>
-    var id = 0;
+    var i = 0;
 
     function tambahPendamping() {
-        id = parseInt(id) + 1;
-        // console.log(id);
-        $('#tabel_pendamping').append('<tr id="tr' + id + '"> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lot[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="let[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lit[' + id + ']" id="lat"> </td> <td class="text-center"> <button type="button" onclick="deleteKolom(' + id + ')" id="delete_akun" class="btn btn-danger btn-icon-split"> <span class="icon"> <i class="fas fa-trash"></i> </span> </button> </td> </tr>');
-        $('#jumlahData').val(id).change();
+        i = i + 1;
+        console.log(i);
+        $('#tabel_pendamping').append('<tr id="tr' + i + '"> <td> <input type="text" class="form-control" placeholder="Latitude" name="lat[' + i + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lot[' + i + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="let[' + i + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Latitude" name="lit[' + i + ']" id="lat"> </td> <td class="text-center"> <button type="button" onclick="deleteKolom(' + i + ')" id="delete_akun" class="btn btn-danger btn-icon-split"> <span class="icon"> <i class="fas fa-trash"></i> </span> </button> </td> </tr>');
+        $('#jumlahData').val(i).change();
+    }
+
+    function deleteKolom(id) {
+        $('#tr' + id).empty();
+        i = i - 1;
+        console.log(i);
     }
 </script>
 
-<script>
+{{-- <script>
     function deleteKolom(id) {
         $('#tr' + id).empty();
     }
-</script>
+</script> --}}
+@endpush

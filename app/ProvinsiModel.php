@@ -17,4 +17,14 @@ class ProvinsiModel extends Model
     {
         return $this->hasMany(PerusahaanModel::class, 'id_provinsi', 'id');
     }
+    
+    public function PengajuanMenara()
+    {
+        return $this->hasMany(PengajuanMenaraModel::class, 'id_provinsi', 'id');
+    }
+
+    public function Menara()
+    {
+        return $this->hasMany(MenaraModel::class, 'id_kecamatan', 'id');
+    }
 }

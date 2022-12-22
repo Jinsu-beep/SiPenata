@@ -51,7 +51,7 @@
             <div class="card-header">
                 <h3 class="card-title">Perbaiki Data Perusahaan</h3>
             </div>
-            <form action="/perusahaan/update/{{ $dataUser->id }}" method="POST" enctype="multipart/form-data">
+            <form action="/perusahaan/update/{{ $dataUser->Perusahaan->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group mb-3">

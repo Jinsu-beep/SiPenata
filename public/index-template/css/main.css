@@ -390,7 +390,7 @@ p {
   height: 100%;
   border-style: solid;
   /* Spinner Color */
-  border-color: #00ADB5 #00ADB5 #8C96A7;
+  border-color: #007bff #007bff #8C96A7;
   border-radius: 50%;
   border-width: 6px;
 }

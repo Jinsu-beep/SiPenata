@@ -155,7 +155,7 @@
             </a>
           </li>
           @endif --}}
-          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim lapangan', 'Pemilik Menara']))
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Tim Administratif', 'Tim Lapangan', 'Pemilik Menara']))
           <li class="nav-item">
             <a href="{{ route('dataPengajuan') }}" class="nav-link">
               <i class="nav-icon fas fa-solid fa-pen"></i>

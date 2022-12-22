@@ -19,7 +19,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-md-3">
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
@@ -33,7 +33,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header p-2">
@@ -227,13 +226,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="kewarganegaraan">Kewarganegaraan</label>
-                        <select class="form-control select2" name="Kewarganegaraan" data-placeholder="Kewarganegaraan" style="width: 100%;">
+                        <select class="form-control select2" name="kewarganegaraan" data-placeholder="Kewarganegaraan" style="width: 100%;">
                             @if ($dataUser->Kewarganegaraan == 'WNI')
                                 <option value="WNI" selected>WNI</option>
                                 <option value="WNA">WNA</option>
-                            @else
+                            @elseif ($dataUser->Kewarganegaraan == 'WNA')
                                 <option value="WNI">WNI</option>
                                 <option value="WNA" selected>WNA</option>
+                            @else
+                                <option value="WNI">WNI</option>
+                                <option value="WNA">WNA</option>
                             @endif
                         </select>
                     </div>
@@ -421,7 +423,7 @@
     function edit_user() {
         var data_user = {!! json_encode($dataUser->toArray()) !!}
         // console.log(data_user.no_telp);
-        $("#edit_formUser").attr("action", "/profile/update/adminUser/"+data_user.user.id);
+        $("#edit_formUser").attr("action", "/profile/update/userUser/"+data_user.user.id);
         $('#edit_nama').val(data_user.nama);
         $('#edit_kewarganegaraan').val(data_user.Kewarganegaraan);
         $('#edit_email').val(data_user.email);
@@ -466,7 +468,7 @@
                         $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
                     }
                 });
-        }
+            }
         });
 
         // var id_kecamatan = $('#edit_kecamatan').val();
@@ -478,7 +480,7 @@
                 $('#edit_desa').empty();
                 $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
                 response.forEach(element => {
-                    if(element.id == data_user.id_kabupaten){
+                    if(element.id == data_user.id_desa){
                         $('#edit_desa').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
                     } else{
                         $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');

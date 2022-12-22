@@ -21,8 +21,8 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="nama">Nama Zone Plan</label>
-                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                                <label for="nama">Zone Plan exist</label><br>
+                                <label for="nama">Zone Plan Digunakan</label>
                             </div>
                         </div>
                     </div>
@@ -36,14 +36,19 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="nama">Nama Zone Plan</label>
-                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="Nama Zone Plan">
+                                <label for="nama">Latitude</label>
+                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="">
                             </div>
+                            <div class="form-group">
+                                <label for="nama">Longitude</label>
+                                <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
         <div class="col-md-8 col-12">
             <div class="card card-primary">

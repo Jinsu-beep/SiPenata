@@ -43,7 +43,7 @@ class UserController extends Controller
                 return redirect()->route('biodata');
             }
 
-            $perusahaan = PerusahaanModel::find($dataUser->id);
+            $perusahaan = PerusahaanModel::find($dataUser->id_perusahaan);
 
             return view("dashboard.dashboard", compact("dataUser", "perusahaan"));
         }
@@ -326,7 +326,7 @@ class UserController extends Controller
         return response()->json($dataDesa);
     }
 
-    public function updateProfileUserUser()
+    public function updateProfileUserUser($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',

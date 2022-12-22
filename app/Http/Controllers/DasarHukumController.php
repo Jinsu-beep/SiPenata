@@ -117,7 +117,7 @@ class DasarHukumController extends Controller
             return back()->withErrors($validator);
         }
 
-        if ($request->file_dasarHukum == NULL) {
+        if ($request->file_dasarHukum) {
             $file = $request->file('file_dasarHukum');
             $extension = $file->getClientOriginalExtension();
             $nama = $request->nama_dasarHukum . '.' . $extension;

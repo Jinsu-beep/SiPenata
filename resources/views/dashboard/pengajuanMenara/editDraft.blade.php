@@ -10,6 +10,9 @@
 <style>
     #mymap { height: 590px; }
 </style>
+<style>
+    .pdfobject-container { height: 50rem;}
+</style>
 <!-- Select2 -->
 <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -205,7 +208,7 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="/pengajuan/insert/{{ $dataUser->id }}" method="POST" enctype="multipart/form-data">
+                        <form action="/pengajuan/updateDraft/{{ $detailPengajuan->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div id="menara-part" class="content" role="tabpanel" aria-labelledby="menara-part-trigger">
                             <div class="card ">
@@ -215,13 +218,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Latitude">Latitude</label>
-                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat">
+                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat" value="{{ $detailPengajuan->lat }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Longitude">Longitude</label>
-                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng">
+                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng" value="{{ $detailPengajuan->long }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +233,7 @@
                                 <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Provinsi ...</option>
                                     @foreach($provinsi as $p)  
-                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                        <option value="{{ $p->id }}" @if($detailPengajuan->id_provinsi == $p->id) selected @endif>{{ $p->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -256,38 +259,38 @@
                                 <label for="NPWP">Jenis Menara</label>
                                 <select class="form-control select2" name="jenisMenara" id="jenisMenara" data-placeholder="Pilih OPD" style="width: 100%;">
                                     <option selected disabled>Pilih Jenis Menara ...</option>
-                                    <option value="Menara 4 Kaki">Menara 4 Kaki</option>
-                                    <option value="Menara 3 Kaki">Menara 3 Kaki</option>
-                                    <option value="Menara 1 Kaki">Menara 1 Kaki</option>
+                                    <option value="Menara 4 Kaki" @if($detailPengajuan->jenis_menara == "Menara 4 Kaki") selected @endif>Menara 4 Kaki</option>
+                                    <option value="Menara 3 Kaki" @if($detailPengajuan->jenis_menara == "Menara 3 Kaki") selected @endif>Menara 3 Kaki</option>
+                                    <option value="Menara 1 Kaki" @if($detailPengajuan->jenis_menara == "Menara 1 Kaki") selected @endif>Menara 1 Kaki</option>
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Menara (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara">
+                                <input type="text" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara" value="{{ $detailPengajuan->tinggi_menara }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Antena (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena">
+                                <input type="text" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena" value="{{ $detailPengajuan->tinggi_antena }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Luas Area (Meter Persegi)</label>
-                                <input type="number" class="form-control" placeholder="Luas Area" name="luasArea">
+                                <input type="number" class="form-control" placeholder="Luas Area" name="luasArea" value="{{ $detailPengajuan->luas_area }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Akses Jalan</label>
-                                <input type="text" class="form-control" placeholder="Akses Jalan" name="aksesJalan">
+                                <input type="text" class="form-control" placeholder="Akses Jalan" name="aksesJalan" value="{{ $detailPengajuan->akses_jalan }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Status Lahan</label>
                                 <select class="form-control select2" name="statusLahan" id="statusLahan" data-placeholder="Status Lahan" style="width: 100%;">
                                     <option selected disabled>Pilih Status Lahan ...</option>
-                                    <option value="sewa">Sewa</option>
-                                    <option value="milik perusahaan">Milik Perusahaan</option>
+                                    <option value="sewa" @if($detailPengajuan->status_lahan == "sewa") selected @endif>Sewa</option>
+                                    <option value="milik perusahaan" @if($detailPengajuan->status_lahan == "milik perusahaan") selected @endif>Milik Perusahaan</option>
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Nama Kepemilikan Tanah</label>
-                                <input type="text" class="form-control" placeholder="Nama Kepemilikan Tanah" name="namaPemilikTanah">
+                                <input type="text" class="form-control" placeholder="Nama Kepemilikan Tanah" name="namaPemilikTanah" value="{{ $detailPengajuan->kepemilikan_tanah }}">
                             </div>
                             <div class="row justify-content-between mx-1">
                                 <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
@@ -303,6 +306,18 @@
                                         <label class="custom-file-label" for="file_KTPPemohon">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Gambar KTP Pemohon</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile1()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Gambar NPWP Pemohon</label>
@@ -312,6 +327,18 @@
                                         <label class="custom-file-label" for="file_NPWPPemohon">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Gambar NPWP Pemohon</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile2()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Gambar Foto Pemohon</label>
@@ -321,6 +348,18 @@
                                         <label class="custom-file-label" for="file_fotoPemohon">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Gambar Foto Pemohon</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile3()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">File Surat Kuasa</label>
@@ -330,6 +369,18 @@
                                         <label class="custom-file-label" for="file_suratKuasa">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Surat Kuasa</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile4()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">File Gambar Rancang Bangun</label>
@@ -339,6 +390,18 @@
                                         <label class="custom-file-label" for="file_rancangBangun">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Gambar Rancang Bangun</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile5()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">File Denah Bangunan</label>
@@ -348,6 +411,18 @@
                                         <label class="custom-file-label" for="file_denahBangunan">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Denah Bangunan</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile6()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Gambar Lokasi dan Situasi</label>
@@ -357,6 +432,18 @@
                                         <label class="custom-file-label" for="file_lokasiDanSituasi">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Gambar Lokasi Dan Situasi</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile7()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">File Surat Tanah</label>
@@ -366,6 +453,18 @@
                                         <label class="custom-file-label" for="file_suratTanah">Choose file</label>
                                     </div>
                                 </div>
+                                <table id="example2" class="table table-bordered table-hover mt-1">
+                                    <tbody>
+                                        <tr>
+                                            <td width='1180px'>File Surat Tanah</td>
+                                            <td class="text-center" width='150px'>
+                                                <button type="button" onclick="showFile8()" class="btn btn-primary">
+                                                    Show File
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Persetujuan pendamping</label> <br>
@@ -387,10 +486,29 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tabel_pendamping">
+                                            @foreach ($detailPengajuan->PersetujuanPendamping as $pp)
+                                                <tr id="tr{{ $loop->iteration }}">
+                                                    <td class="text-center">{{ $pp->nama }}</td>
+                                                    <td class="text-center">{{ $pp->no_ktp }}</td>
+                                                    <td class="text-center">{{ $pp->jarak }}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" id="filePendamping{{ $loop->iteration }}" class="btn btn-primary">
+                                                            Show File
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button" onclick="deleteData({{ $pp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                                            <span class="icon">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                <input type="number" id="jumlahData" name="jumlahData" hidden>
+                                <input type="number" id="jumlahData" name="jumlahData" value="{{ $detailPengajuan->jumlah_pendamping }}" hidden>
                             </div>
                             <div class="row justify-content-between mx-1">
                                 <div class="col-lg-6">
@@ -411,6 +529,22 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modal-showFile">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="judul" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="file"></div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
@@ -444,6 +578,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 {{-- BsStepper --}}
 <script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+
+<script src="/PDFObject/pdfobject.js"></script>
 
 
 <script>
@@ -496,27 +632,47 @@
         }
     });
 
+    let data = {!! json_encode($detailPengajuan->toArray()) !!}
+    // console.log(data);
+    let marker =  L.marker([data.lat, data.long]).addTo(mymap);
+    // console.log(marker);
+
+    marker.on('pm:remove', ({layer}) => {
+        $('#lat').val('');
+        $('#lng').val('');
+        mymap.pm.addControls({
+            dragMode: false,
+            removalMode: false,
+            drawMarker: true,
+        });
+    });
+
+    marker.on('move', function(e){
+        $('#lat').val(e.latlng.lat);
+        $('#lng').val(e.latlng.lng);;
+    });
+
     //ADD CONTROLL
     mymap.pm.addControls({  
         position: 'topleft',
         drawCircle: false,
-        drawMarker: true,
-        drawCircleMarker:false,
+        drawMarker: false,
+        drawCircleMarker: false,
         drawRectangle: false,
         drawPolyline: false,
         drawPolygon: false,
-        dragMode:false,
-        drawText:false,
+        dragMode: true,
+        drawText: false,
         editMode: false,
         cutPolygon: false,
-        removalMode: false,
+        removalMode: true,
         rotateMode: false,
     });
 
     //HANDLER PM CREATE
     mymap.on('pm:create', e => {
     let shape = e.shape;
-    console.log(e);
+    // console.log(e);
         if (shape == 'Marker') {
             let lat = e.marker._latlng.lat;
             let lng = e.marker._latlng.lng;
@@ -565,6 +721,60 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
     }).addTo(mymap);
+</script>
+
+<script>
+    let dataPengajuan = {!! json_encode($detailPengajuan->toArray()) !!}
+    $.ajax({
+            type: 'GET',
+            url: '/profile/kabupaten/'+dataPengajuan.id_provinsi,
+            success: function (response){
+                // console.log(response);
+                $('#edit_kabupaten').empty();
+                $('#edit_kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
+                response.forEach(element => {
+                    if(element.id == dataPengajuan.id_kabupaten){
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+    });
+
+    $.ajax({
+            type: 'GET',
+            url: '/profile/kecamatan/'+dataPengajuan.id_kabupaten,
+            success: function (response){
+                // console.log(response);
+                $('#edit_kecamatan').empty();
+                $('#edit_kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                response.forEach(element => {
+                    if(element.id == dataPengajuan.id_kecamatan){
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+    });
+
+    $.ajax({
+            type: 'GET',
+            url: '/profile/desa/'+dataPengajuan.id_kecamatan,
+            success: function (response){
+                // console.log(response);
+                $('#edit_desa').empty();
+                $('#edit_desa').append('<option selected disabled>Pilih Desa ...</option>');
+                response.forEach(element => {
+                    if(element.id == dataPengajuan.id_desa){
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +' selected>' + element['nama'] + '</option>');
+                    } else{
+                        $('#edit_desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    }
+                });
+        }
+    });
 </script>
 
 <script>
@@ -634,11 +844,17 @@
 </script>
 
 <script>
-    var id = 0;
+    if ($('#jumlahData').val() == '') {
+        var id = 0;
+    } else {
+        var id = $('#jumlahData').val();
+    }
+
+    console.log(id);
 
     function tambahPendamping() {
         id = parseInt(id) + 1;
-        console.log(id);
+        // console.log(id);
         $('#tabel_pendamping').append('<tr id="tr' + id + '"> <td> <input type="text" class="form-control" placeholder="Nama Pendamping" name="nama[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="No KTP Pendamping" name="ktp[' + id + ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="Jarak (Meter)" name="jarak[' + id + ']" id="lat"> </td> <td> <input type="file" id="file_pendamping[' + id + ']" name="file_pendamping[' + id + ']"> </td> <td class="text-center"> <button type="button" onclick="deleteKolom(' + id + ')" id="delete_akun" class="btn btn-danger btn-icon-split"> <span class="icon"> <i class="fas fa-trash"></i> </span> </button> </td> </tr>');
         $('#jumlahData').val(id).change();
     }
@@ -647,6 +863,16 @@
 <script>
     function deleteKolom(id) {
         $('#tr' + id).empty();
+    }
+
+    function deleteData(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/pengajuan/deletePendamping/'+id,
+            success:function(response){
+                location.reload();
+            }
+        });
     }
 </script>
 
@@ -663,4 +889,94 @@
     });
 </script>
 
+<script>
+    function showFile1() {
+        let file = {!! json_encode($detailFile1->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File KTP Pemohon');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile2() {
+        let file = {!! json_encode($detailFile2->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File NPWP Pemohon');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile3() {
+        let file = {!! json_encode($detailFile3->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Foto Pemohon');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile4() {
+        let file = {!! json_encode($detailFile4->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Surat Kuasa');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile5() {
+        let file = {!! json_encode($detailFile5->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Rancang Bangun');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile6() {
+        let file = {!! json_encode($detailFile6->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Denah Bangunan');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile7() {
+        let file = {!! json_encode($detailFile7->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Lokasi dan Situasi');
+        $('#modal-showFile').modal('show');
+    }
+
+    function showFile8() {
+        let file = {!! json_encode($detailFile8->toArray()) !!}
+        console.log(file);
+        PDFObject.embed(file.patch, "#file");
+        $('#judul').empty();
+        $('#judul').append('File Surat Tananh');
+        $('#modal-showFile').modal('show');
+    }
+</script>
+
+<script>
+    let detailPengajuan = {!! json_encode($detailPengajuan->toArray()) !!}
+    let jumlahPendamping = detailPengajuan.jumlah_pendamping;
+    let data_Pengajuan = {!! json_encode($detailPengajuan->PersetujuanPendamping->toArray()) !!}
+    // console.log(jumlahPendamping);
+    for (let i = 1; i <= jumlahPendamping; i++) {
+        $('#filePendamping' + i).click(function () {
+            let u = i - 1;
+            // console.log(Pendamping.file_suratPersetujuan);
+            PDFObject.embed(data_Pengajuan[u].file_suratPersetujuan, "#file");
+            $('#judul').empty();
+            $('#judul').append('File Persetujuan Pendamping');
+            $('#modal-showFile').modal('show');
+        });
+    }
+</script>
 @endpush

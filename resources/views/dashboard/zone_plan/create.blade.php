@@ -145,28 +145,8 @@
 </script>
 
 <script>
-    // icon init
-    var ibadahIcon = L.icon({
-        iconUrl: '/images/circleBlack.png',
-
-        iconSize:     [32, 32],
-    });
-
     //MAP INIT
     var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
-    L.Map.include({
-        getMarkerById: function (id) {
-            var marker = null;
-            this.eachLayer(function (layer) {
-                if (layer instanceof L.Circle) {
-                    if (layer.options.id === id) {
-                        marker = layer;
-                    }
-                }
-            });
-            return marker;
-        }
-    });
 
     let test = 123.345 + '';
     let hasil = test.split(".");
@@ -190,24 +170,6 @@
         removalMode: false,
         rotateMode: false,
     });
-
-    //SET MARKER BUTTON
-    // $('#set-koordinat').on('click', function(){
-    //     mymap.pm.enableDraw('Circle', {
-    //         snappable: true,
-    //         snapDistance: 20,
-    //         markerStyle: {
-    //             move: true,
-    //             icon: ibadahIcon,
-    //         },
-    //     });
-
-    // });
-
-    // var circle = L.circle([-8.344840432675312, 115.01931444793775], 1000).addTo(mymap);
-    // circle.on('move', function(e){
-    //     console.log(e);
-    // });
 
     //HANDLER PM CREATE
     mymap.on('pm:create', e => {

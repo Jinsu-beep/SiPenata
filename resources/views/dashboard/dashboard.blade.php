@@ -28,7 +28,7 @@
           <!-- /.card -->
         <!-- Small boxes (Stat box) -->
 
-          <div class="row">
+          {{-- <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
@@ -57,7 +57,6 @@
             </div>
             
             
-            {{-- <div class="clearfix hidden-md-up"></div> --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
@@ -82,7 +81,7 @@
               
             </div>
           
-          </div>
+          </div> --}}
         <!-- /.row -->
         @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
             @if ($dataUser->id_perusahaan == NULL)

@@ -93,7 +93,7 @@ class PerusahaanController extends Controller
         $newDetail2->tanggal = date("Y-m-d");
         $newDetail2->save();
 
-        return redirect()->route('detailRegistrasi', ['id' => $perusahaan->id]);
+        return redirect()->route('detailRegistrasi', ['id' => $newPerusahaan->id]);
     }
 
     public function detailRegistrasi($id)

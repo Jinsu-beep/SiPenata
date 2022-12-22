@@ -7,16 +7,17 @@
 
   @include('layouts.dashboard.style')
   @stack('css')
+	{{-- <link rel="stylesheet" href="{{ url('index-template/css/main.css')}}"> --}}
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <!-- Preloader
+  <!-- Preloader-->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="/images/logosipenata.png" alt="AdminLTELogo" height="30">
   </div>
-  -->
+  
   
   <!-- Navbar -->
   @include('layouts.dashboard.topbar')
@@ -38,6 +39,8 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<script src="{{ url("index-template/js/main.js")}}"></script>
 
 @include('layouts.dashboard.script')
 @stack('js')
