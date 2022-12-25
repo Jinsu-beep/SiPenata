@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="anonymous"/>
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 @endpush
 
 @section('content')
@@ -17,10 +18,24 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="nama">1. Nama Menara</label><br>
-                        <label for="nama">2. Nama Menara</label><br>
-                        <label for="nama">3. Nama Menara</label><br>
-                        <label for="nama">4. Nama Menara</label>
+                        @foreach ($listPerusahaan as $lp)
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="icheck-primary d-inline">
+                                        <input type="checkbox" id="namaPerusahaan{{ $lp->perusahaan->id }}">
+                                        <label for="checkboxPrimary2">
+                                            {{ $lp->perusahaan->nama }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-1">
+                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="{{ $warna[1] }}" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -31,7 +46,7 @@
                     <h6 class="m-0 font-weight-bold">Map</h6>
                 </div>
                 <div class="card-body">
-                    <div id="map" style="width: 100%; height: 600px;"></div>
+                    <div id="mymap" style="width: 100%; height: 600px;"></div>
                 </div>
             </div>
         </div>
@@ -40,59 +55,69 @@
 @endsection
 
 @push('js')
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin="anonymous"></script>
-
+    {{-- Leaflet --}}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
     <script>
-        var peta1 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                id: 'mapbox/streets-v11'
-            });
-
-        var peta2 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                id: 'mapbox/satellite-v9'
-            });
-
-
-        var peta3 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
-
-        var peta4 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                id: 'mapbox/dark-v10'
-            });
-        
-        var desa = L.layerGroup();
-        var map = L.map('map', {
-        center: [-8.482422431008075, 115.51989631657665],
-        zoom: 14,
-        layers: [peta2, desa]
+        //MAP INIT
+        var mymap = L.map('mymap').setView([-8.620616586325221, 115.23332286413316], 16);
+        L.Map.include({
+            getMarkerById: function (id) {
+                var marker = null;
+                this.eachLayer(function (layer) {
+                    if (layer instanceof L.Circle) {
+                        if (layer.options.id === id) {
+                            marker = layer;
+                        }
+                    }
+                });
+                return marker;
+            }
         });
 
-        var baseMaps = {
-        "Grayscale": peta1,
-        "satellite": peta2,
-        "Streets": peta3,
-        "Dark": peta4
-        };
+        var markers = []
 
-        L.control.layers(baseMaps).addTo(map);
+        var dataPerusahaan = {!! json_encode($listPerusahaan->toArray()) !!}
+        dataPerusahaan.forEach(element => {
+            $('#namaPerusahaan' + element.perusahaan.id).change(function() {
+                var idperusahaan = element.perusahaan.id;
+                var box = this.checked;
+                element.menara.forEach(element =>{
+                    if (box == true) {
+                        marker = L.marker([element.lat, element.long], {
+                            id : idperusahaan,
+                        });
+                        mymap.addLayer(marker);
+                        markers.push(marker)
+                    } else if (box == false) {
+                        markers.forEach(element => {
+                            if (element.options.id == idperusahaan) {
+                                mymap.removeLayer(element)
+                            }
+                            console.log(element.options.id);
+                        })
+                    }
+                });
+            })
+        });
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
+        }).addTo(mymap);
     </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#menu-datamenara').addClass('active');
+            $('#dataMenara').addClass('active');
         });
     </script>
+
+
 @endpush

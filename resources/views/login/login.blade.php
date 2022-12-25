@@ -18,7 +18,7 @@
 
   <div class="card card-outline card-primary">
     <div class="card-header text-center " style="background-color:rgb(231, 231, 234, 1);">
-      <a href="{{ route('landing_page') }}">
+      <a href="{{ route('home') }}">
         <img src="../../images/logosipenata.png" alt="Logo SiPenata" style="width:75%; height:75%">
       </a>
     </div>

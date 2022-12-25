@@ -40,17 +40,17 @@
 	// Get the navbar
 
 	//======= tiny slider for slider-active
-	tns({
-		container: '.slider-active',
-		items: 1,
-		slideBy: 'page',
-		autoplay: true,
-		mouseDrag: true,
-		gutter: 0,
-		nav: true,
-		controls: false,
-		autoplayButtonOutput: false,
-	});
+	// tns({
+	// 	container: '.slider-active',
+	// 	items: 1,
+	// 	slideBy: 'page',
+	// 	autoplay: true,
+	// 	mouseDrag: true,
+	// 	gutter: 0,
+	// 	nav: true,
+	// 	controls: false,
+	// 	autoplayButtonOutput: false,
+	// });
 
 	// for menu scroll 
 	var pageLink = document.querySelectorAll('.page-scroll');

@@ -17,11 +17,12 @@ Route::get('/test', function () {
     return view('registrasi.test');
 });
 
-Route::get('/', 'LandingController@test')->name('landing_page')->middleware('guest');
+Route::get('/', 'LandingController@home')->name('home')->middleware('guest');
 Route::get('/landingdasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
 Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('getDasarhukum')->middleware('guest');
 Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
+Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->middleware('guest');
 
 // Login 
     Route::get('/login_form', 'LoginController@loginForm')->name('loginForm')->middleware('guest');

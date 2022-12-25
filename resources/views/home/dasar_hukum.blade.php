@@ -8,37 +8,32 @@
 @endpush
 
 @section('content')
-<section class="section">
+<!-- ======= F.A.Q Section ======= -->
+<section id="faq" class="faq section-bg">
     <div class="container mt-4">
-        <div class="row align-items-center justify-content-center text-center">
-            <div class="col-sm-12 col-md-6 col-lg-12">
-                <div class="title">
-                    <h2>Dasar Hukum</h2>
-                    <p>
-                        <ul>
-                            <table id="example2" class="table table-bordered table-hover">
-                                <tbody>
-                                    @foreach ($dataDasarHukum as $ddh)
-                                    <tr>
-                                        <td><li><a onclick="showFile({{ $ddh->id }})" href="#">{{ $ddh->nama }}</a> </li></td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </ul>
-                    </p>
-                </div>
-            </div>
+        <div class="section-title" data-aos="fade-up">
+            <p>Dasar Hukum</p>
+        </div>
+        <div class="faq-list">
+            <ul>
+                @foreach ($dataDasarHukum as $ddh)
+                    <li data-aos="fade-up">
+                        <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                            <a onclick="showFile({{ $ddh->id }})" href="#">{{ $ddh->nama }}</a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
     </div>
 </section>
+<!-- End F.A.Q Section -->
 
 <div class="modal fade" id="modal-showFile">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">File Dasar Hukum</h4>
-                </button>
             </div>
             <div class="modal-body">
                 <div id="file"></div>
@@ -54,7 +49,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#menu-dasarhukum').addClass('active');
+        $('#dasarHukum').addClass('active');
     });
 </script>
 
@@ -69,9 +64,6 @@
                 $('#modal-showFile').modal('show');
             }
         });
-        // var data_DasarHukum = {!! json_encode($dataDasarHukum->toArray()) !!}
-        // PDFObject.embed(data_DasarHukum.file_DasarHukum, "#file");
-        // $('#modal-showFile').modal('show');
     }
 </script>
 @endpush

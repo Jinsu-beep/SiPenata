@@ -1,66 +1,80 @@
-<!doctype html>
-<html class="no-js" lang="">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>SiPenata - @yield('title')</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-	<link rel="stylesheet" href="{{ url('index-template/css/bootstrap-5.0.5-alpha.min.css')}}">
-	<link rel="stylesheet" href="{{ url('index-template/css/LineIcons.2.0.css')}}">
-	<link rel="stylesheet" href="{{ url('index-template/css/animate.css')}}">
-	{{-- <link rel="stylesheet" href="{{ url('index-template/css/tiny-slider.css')}}"> --}}
-	<link rel="stylesheet" href="{{ url('index-template/css/main.css')}}">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-	@stack('css')
+  <title>Inner Page - Bootslander Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="landing/img/favicon.png" rel="icon">
+  <link href="landing/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="landing/vendor/aos/aos.css" rel="stylesheet">
+  <link href="landing/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="landing/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="landing/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="landing/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="landing/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="landing/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="landing/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Bootslander - v4.10.0
+  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+  @stack('css')
 </head>
+
 <body>
-	{{-- Preload Start --}}
-	<div class="preloader">
-		<div class="loader">
-			<div class="ytp-spinner">
-				<div class="ytp-spinner-container">
-					<div class="ytp-spinner-rotator">
-						<div class="ytp-spinner-left">
-							<div class="ytp-spinner-circle"></div>
-						</div>
-						<div class="ytp-spinner-right">
-							<div class="ytp-spinner-circle"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- preloader end -->
 
-	{{-- Header Start --}}
-		@include('layouts/home/navbar-layout')
-	{{-- Header End --}}
+  <!-- ======= Header ======= -->
+  @include('layouts/home/navbar-layout')
+  <!-- End Header -->
 
-		@yield('content')
+  	<main id="main">
 
-	{{-- Footer Start --}}
-		@include('layouts/home/footer-layout')
-	{{-- Footer End --}}
+		  @yield('content')
 
-	{{-- Scroll Up Buttom Start --}}
-	<a href="#" class="scroll-top" style="z-index: 99999">
-		<i class="lni lni-arrow-up"></i>
-	</a>
-	{{-- Scroll Up Buttom End --}}
+  	</main><!-- End #main -->
 
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <!-- ======= Footer ======= -->
+  @include('layouts/home/footer-layout')
+  <!-- End Footer -->
 
-	@stack('js')
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
 
-	<script src="{{ url("index-template/js/bootstrap.bundle-5.0.0.alpha-min.js")}}"></script>
-	<script src="{{ url("index-template/js/wow.min.js")}}"></script>
-	<script src="{{ url("index-template/js/tiny-slider.js")}}"></script>
-	<script src="{{ url("index-template/js/main.js")}}"></script>
+  <!-- Vendor JS Files -->
+  <script src="landing/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="landing/vendor/aos/aos.js"></script>
+  <script src="landing/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="landing/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="landing/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="landing/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="landing/js/main.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  @stack('js')
 
 </body>
+
 </html>

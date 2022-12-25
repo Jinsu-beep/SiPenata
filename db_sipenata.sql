@@ -22,19 +22,59 @@ DROP TABLE IF EXISTS `tb_admin`;
 
 CREATE TABLE `tb_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` bigint(20) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_admin` */
 
 insert  into `tb_admin`(`id`,`id_user`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
 (1,44,'admin','01','2022-12-16 17:36:43','2022-12-01 16:33:36',NULL);
+
+/*Table structure for table `tb_detail_pengajuan` */
+
+DROP TABLE IF EXISTS `tb_detail_pengajuan`;
+
+CREATE TABLE `tb_detail_pengajuan` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `id_pengajuan_menara` int(11) DEFAULT NULL,
+  `file` enum('SuratKuasa','RancangBangun','DenahBangunan','GambarLokasiDanSituasi','KTPPemohon','NPWPPemohon','FotoPemohon','SuratTanah') DEFAULT NULL,
+  `patch` varchar(255) DEFAULT NULL,
+  `status` enum('disetujui','perbaiki','tunggu persetujuan') DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
+  CONSTRAINT `tb_detail_pengajuan_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `tb_detail_pengajuan` */
+
+insert  into `tb_detail_pengajuan`(`id`,`id_pengajuan_menara`,`file`,`patch`,`status`,`tanggal`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,'KTPPemohon','/storage/Pengajuan/1/KTPPemohon.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(2,1,'NPWPPemohon','/storage/Pengajuan/1/NPWPPemohon.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(3,1,'FotoPemohon','/storage/Pengajuan/1/FotoPemohon.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(4,1,'SuratKuasa','/storage/Pengajuan/1/SuratKuasa.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(5,1,'RancangBangun','/storage/Pengajuan/1/RancangBangun.pdf','disetujui','2022-12-19','2022-12-20 03:38:26','2022-12-19 19:38:26',NULL),
+(6,1,'DenahBangunan','/storage/Pengajuan/1/DenahBangunan.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(7,1,'GambarLokasiDanSituasi','/storage/Pengajuan/1/LokasiDanSituasi.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(8,1,'SuratTanah','/storage/Pengajuan/1/SuratTanah.pdf','disetujui','2022-12-16','2022-12-20 00:26:47','2022-12-19 16:26:47',NULL),
+(11,2,'KTPPemohon','/storage/Pengajuan/2/KTPPemohon.jpg','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(12,2,'NPWPPemohon','/storage/Pengajuan/2/NPWPPemohon.jpg','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(13,2,'FotoPemohon','/storage/Pengajuan/2/FotoPemohon.jpg','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(14,2,'SuratKuasa','/storage/Pengajuan/2/SuratKuasa.pdf','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(15,2,'RancangBangun','/storage/Pengajuan/2/RancangBangun.pdf','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(16,2,'DenahBangunan','/storage/Pengajuan/2/DenahBangunan.pdf','disetujui','2022-12-21','2022-12-21 10:22:36','2022-12-21 02:22:36',NULL),
+(17,2,'GambarLokasiDanSituasi','/storage/Pengajuan/2/LokasiDanSituasi.pdf','disetujui','2022-12-21','2022-12-21 10:24:44','2022-12-21 02:24:44',NULL),
+(18,2,'SuratTanah','/storage/Pengajuan/2/SuratTanah.pdf','disetujui','2022-12-21','2022-12-21 10:24:44','2022-12-21 02:24:44',NULL);
 
 /*Table structure for table `tb_detail_perusahaan` */
 
@@ -50,14 +90,16 @@ CREATE TABLE `tb_detail_perusahaan` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_perusahaan` (`id_perusahaan`),
+  CONSTRAINT `tb_detail_perusahaan_ibfk_1` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_detail_perusahaan` */
 
 insert  into `tb_detail_perusahaan`(`id`,`id_perusahaan`,`file`,`patch`,`status`,`tanggal`,`created_at`,`updated_at`,`deleted_at`) values 
-(13,12,'TandaDaftarPerusahaan','/storage/Perusahaan/12/TandaDaftar.pdf','tunggu persetujuan','2022-12-16','2022-12-16 09:46:25','2022-12-16 09:46:25',NULL),
-(14,12,'AktaPendirianPerusahaan','/storage/Perusahaan/12/AktaPendirian.pdf','tunggu persetujuan','2022-12-16','2022-12-16 09:46:25','2022-12-16 09:46:25',NULL);
+(13,12,'TandaDaftarPerusahaan','/storage/Perusahaan/12/TandaDaftar.pdf','disetujui','2022-12-16','2022-12-16 21:34:47','2022-12-16 13:34:47',NULL),
+(14,12,'AktaPendirianPerusahaan','/storage/Perusahaan/12/AktaPendirian.pdf','disetujui','2022-12-16','2022-12-16 21:34:47','2022-12-16 13:34:47',NULL);
 
 /*Table structure for table `tb_laporan_kondisi` */
 
@@ -73,7 +115,11 @@ CREATE TABLE `tb_laporan_kondisi` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_tim_lapangan` (`id_tim_lapangan`),
+  KEY `id_menara` (`id_menara`),
+  CONSTRAINT `tb_laporan_kondisi_ibfk_1` FOREIGN KEY (`id_tim_lapangan`) REFERENCES `tb_tim_lapangan` (`id`),
+  CONSTRAINT `tb_laporan_kondisi_ibfk_2` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_laporan_kondisi` */
@@ -111,7 +157,9 @@ CREATE TABLE `tb_m_desa` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  CONSTRAINT `tb_m_desa_ibfk_1` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=738 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_desa` */
@@ -867,7 +915,9 @@ CREATE TABLE `tb_m_kabupaten` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_provinsi` (`id_provinsi`),
+  CONSTRAINT `tb_m_kabupaten_ibfk_1` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_kabupaten` */
@@ -894,7 +944,9 @@ CREATE TABLE `tb_m_kecamatan` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_kabupaten` (`id_kabupaten`),
+  CONSTRAINT `tb_m_kecamatan_ibfk_1` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=905 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_kecamatan` */
@@ -958,6 +1010,25 @@ insert  into `tb_m_kecamatan`(`id`,`id_kabupaten`,`nama`,`created_at`,`updated_a
 (903,9,'DENPASAR BARAT','2022-12-16 17:33:31',NULL,NULL),
 (904,9,'DENPASAR UTARA','2022-12-16 17:33:31',NULL,NULL);
 
+/*Table structure for table `tb_m_provider` */
+
+DROP TABLE IF EXISTS `tb_m_provider`;
+
+CREATE TABLE `tb_m_provider` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Data for the table `tb_m_provider` */
+
+insert  into `tb_m_provider`(`id`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
+(12,'Telkomsel','2022-12-14 08:39:09','2022-12-14 08:39:09',NULL),
+(13,'Indosat','2022-12-14 08:39:16','2022-12-14 08:39:16',NULL);
+
 /*Table structure for table `tb_m_provinsi` */
 
 DROP TABLE IF EXISTS `tb_m_provinsi`;
@@ -1020,9 +1091,43 @@ CREATE TABLE `tb_m_status` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_status` */
+
+insert  into `tb_m_status`(`id`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,'Draft','2022-12-19 01:26:57',NULL,NULL),
+(2,'Pemeriksaan Oleh Tim Administrasi','2022-12-19 01:26:53',NULL,NULL),
+(3,'Disetujui Tim Administratif','2022-12-19 01:27:51',NULL,NULL),
+(4,'Disetujui Tim Lapangan','2022-12-19 01:28:05',NULL,NULL),
+(5,'Pengajuan Disetujui','2022-12-19 01:28:14',NULL,NULL),
+(6,'Selesai','2022-12-19 01:28:17',NULL,NULL),
+(7,'Perbaikan Administrasi','2022-12-19 01:28:23',NULL,NULL),
+(8,'Ditolak','2022-12-19 01:28:26',NULL,NULL),
+(9,'Pemeriksaan Oleh Tim Lapangan','2022-12-19 15:21:47',NULL,NULL);
+
+/*Table structure for table `tb_m_zoneplan` */
+
+DROP TABLE IF EXISTS `tb_m_zoneplan`;
+
+CREATE TABLE `tb_m_zoneplan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) DEFAULT NULL,
+  `lat` varchar(255) DEFAULT NULL,
+  `long` varchar(255) DEFAULT NULL,
+  `radius` int(11) DEFAULT NULL,
+  `status` enum('available','used') DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Data for the table `tb_m_zoneplan` */
+
+insert  into `tb_m_zoneplan`(`id`,`nama`,`lat`,`long`,`radius`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(9,'penatih','-8.620616586325221','115.23332286413316',271,'available','2022-12-20 20:07:20','2022-12-20 20:07:20',NULL),
+(10,'Peguyangan','-8.622276344839914','115.21202418113997',85,'available','2022-12-21 02:01:22','2022-12-21 02:01:22',NULL);
 
 /*Table structure for table `tb_menara` */
 
@@ -1035,26 +1140,38 @@ CREATE TABLE `tb_menara` (
   `id_kecamatan` int(11) DEFAULT NULL,
   `id_desa` int(11) DEFAULT NULL,
   `id_pemilik_menara` int(11) DEFAULT NULL,
+  `no_menara` varchar(10) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
-  `nama` varchar(255) DEFAULT NULL,
   `tanggal_pembuatan` date DEFAULT NULL,
-  `alamat` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
-  `jenisMenara` enum('Menara 4 Kaki','Menara 3 Kaki','Menara 1 Kaki') DEFAULT NULL,
-  `tinggiMenara` varchar(255) DEFAULT NULL,
-  `tinggiAntena` varchar(255) DEFAULT NULL,
-  `luasArea` varchar(255) DEFAULT NULL,
-  `aksesJalan` varchar(255) DEFAULT NULL,
-  `suratIzinPembanguna` varchar(255) DEFAULT NULL,
-  `suratIzinOperasional` varchar(255) DEFAULT NULL,
+  `jenis_menara` enum('Menara 4 Kaki','Menara 3 Kaki','Menara 1 Kaki') DEFAULT NULL,
+  `tinggi_menara` varchar(255) DEFAULT NULL,
+  `tinggi_antena` varchar(255) DEFAULT NULL,
+  `luas_area` varchar(255) DEFAULT NULL,
+  `akses_jalan` varchar(255) DEFAULT NULL,
+  `file_suratIzinPembangunan` varchar(255) DEFAULT NULL,
+  `file_suratIzinOperasional` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_provinsi` (`id_provinsi`),
+  KEY `id_kabupaten` (`id_kabupaten`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_desa` (`id_desa`),
+  KEY `id_pemilik_menara` (`id_pemilik_menara`),
+  CONSTRAINT `tb_menara_ibfk_1` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`),
+  CONSTRAINT `tb_menara_ibfk_2` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
+  CONSTRAINT `tb_menara_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
+  CONSTRAINT `tb_menara_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`),
+  CONSTRAINT `tb_menara_ibfk_5` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_menara` */
+
+insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`no_menara`,`foto`,`tanggal_pembuatan`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`file_suratIzinPembangunan`,`file_suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
+(6,51,9,902,707,12,'121','/storage/Menara/6/FotoMenara.webp','2022-12-21','-8.620151341614356','115.23247629404071','Menara 4 Kaki','200','4','500','Aspal','/storage/Menara/6/Pembangunan.pdf','/storage/Menara/6/Operasional.pdf','2022-12-21 01:47:12','2022-12-20 17:47:12',NULL);
 
 /*Table structure for table `tb_opd` */
 
@@ -1067,9 +1184,13 @@ CREATE TABLE `tb_opd` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_opd` */
+
+insert  into `tb_opd`(`id`,`opd`,`created_at`,`updated_at`,`deleted_at`) values 
+(3,'Dinas Lingkungan','2022-12-16 21:38:23',NULL,NULL),
+(4,'Dinas Kominfo','2022-12-16 21:38:29',NULL,NULL);
 
 /*Table structure for table `tb_pemilik_menara` */
 
@@ -1077,7 +1198,7 @@ DROP TABLE IF EXISTS `tb_pemilik_menara`;
 
 CREATE TABLE `tb_pemilik_menara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` bigint(20) DEFAULT NULL,
   `id_perusahaan` int(11) DEFAULT NULL,
   `id_provinsi` int(11) DEFAULT NULL,
   `id_kabupaten` int(11) DEFAULT NULL,
@@ -1093,13 +1214,24 @@ CREATE TABLE `tb_pemilik_menara` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_perusahaan` (`id_perusahaan`),
+  KEY `id_provinsi` (`id_provinsi`),
+  KEY `id_kabupaten` (`id_kabupaten`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_desa` (`id_desa`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_1` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_2` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_3` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
+  CONSTRAINT `tb_pemilik_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pemilik_menara` */
 
 insert  into `tb_pemilik_menara`(`id`,`id_user`,`id_perusahaan`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_ktp`,`NPWP`,`Kewarganegaraan`,`alamat`,`no_telp`,`email`,`created_at`,`updated_at`,`deleted_at`) values 
-(12,47,12,51,7,705,501,'Tyagi Jisnu','0123456789','0123','WNI','jln. lettu dugdugan','0123','tyagijisnubagas222@gmail.com','2022-12-16 09:43:53','2022-12-16 09:46:25',NULL);
+(12,47,12,51,7,705,501,'Tyagi Jisnu','0123456789','0123','WNI','jln. lettu dugdugan','0123','tyagijisnubagas222@gmail.com','2022-12-16 09:43:53','2022-12-18 18:16:48',NULL);
 
 /*Table structure for table `tb_pengajuan_menara` */
 
@@ -1112,50 +1244,80 @@ CREATE TABLE `tb_pengajuan_menara` (
   `id_kabupaten` int(11) DEFAULT NULL,
   `id_kecamatan` int(11) DEFAULT NULL,
   `id_desa` int(11) DEFAULT NULL,
-  `id_persetujuan_pendamping` int(11) DEFAULT NULL,
-  `alamat` varchar(255) DEFAULT NULL,
+  `kode_registrasi` int(10) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
-  `jenis_menara` enum('Tower 4 Kaki','Tower 3 Kaki','Tower 1 Kaki') DEFAULT NULL,
+  `jenis_menara` enum('Menara 4 Kaki','Menara 3 Kaki','Menara 1 Kaki') DEFAULT NULL,
   `tinggi_menara` varchar(255) DEFAULT NULL,
   `tinggi_antena` varchar(255) DEFAULT NULL,
   `luas_area` varchar(255) DEFAULT NULL,
   `akses_jalan` varchar(255) DEFAULT NULL,
   `status_lahan` enum('sewa','milik perusahaan') DEFAULT NULL,
   `kepemilikan_tanah` varchar(255) DEFAULT NULL,
-  `file_SuratKuasa` varchar(255) DEFAULT NULL,
-  `file_GambarRancanganPondasi` varchar(255) DEFAULT NULL,
-  `file_DenahBangunan` varchar(255) DEFAULT NULL,
-  `file_GambarLokasiDanSituasi` varchar(255) DEFAULT NULL,
-  `file_KTPPemohon` varchar(255) DEFAULT NULL,
-  `file_NPWPPemohon` varchar(255) DEFAULT NULL,
-  `file_FotoPemohon` varchar(255) DEFAULT NULL,
-  `file_SuratTanah` varchar(255) DEFAULT NULL,
+  `jumlah_pendamping` int(10) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `file_rekomendasiPembangunanMenara` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_pemilik_menara` (`id_pemilik_menara`),
+  KEY `id_provinsi` (`id_provinsi`),
+  KEY `id_kabupaten` (`id_kabupaten`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_desa` (`id_desa`),
+  CONSTRAINT `tb_pengajuan_menara_ibfk_1` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`),
+  CONSTRAINT `tb_pengajuan_menara_ibfk_2` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`),
+  CONSTRAINT `tb_pengajuan_menara_ibfk_3` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
+  CONSTRAINT `tb_pengajuan_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
+  CONSTRAINT `tb_pengajuan_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_menara` */
+
+insert  into `tb_pengajuan_menara`(`id`,`id_pemilik_menara`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`kode_registrasi`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`status_lahan`,`kepemilikan_tanah`,`jumlah_pendamping`,`tanggal`,`file_rekomendasiPembangunanMenara`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,12,51,9,902,707,1,'-8.620151341614356','115.23247629404071','Menara 4 Kaki','200','4','500','Aspal','milik perusahaan','PT. Jaya Kusuma',12,'2022-12-19','/storage/Pengajuan/1/FileSurat/RekomendasiPembangunanMenara.pdf','2022-12-21 10:33:40','2022-12-20 09:17:22',NULL),
+(2,12,51,9,904,734,2,'-8.622490319568302','115.2115121483803','Menara 3 Kaki','100','3','300','Jalan Ber Aspal','milik perusahaan','PT. Jaya Kusuma',5,'2022-12-21','/storage/Pengajuan/2/FileSurat/RekomendasiPembangunanMenara.pdf','2022-12-21 10:40:43','2022-12-21 02:40:43',NULL);
 
 /*Table structure for table `tb_pengajuan_status` */
 
 DROP TABLE IF EXISTS `tb_pengajuan_status`;
 
 CREATE TABLE `tb_pengajuan_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `id_status` int(11) DEFAULT NULL,
   `id_pengajuan_menara` int(11) DEFAULT NULL,
-  `tanggal_status` date DEFAULT NULL,
-  `disposisi` varchar(255) DEFAULT NULL,
+  `tanggal_status` datetime DEFAULT NULL,
+  `disposisi` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_status` (`id_status`),
+  KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
+  CONSTRAINT `tb_pengajuan_status_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `tb_m_status` (`id`),
+  CONSTRAINT `tb_pengajuan_status_ibfk_2` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_status` */
+
+insert  into `tb_pengajuan_status`(`id`,`id_status`,`id_pengajuan_menara`,`tanggal_status`,`disposisi`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,1,'2022-12-19 00:11:26',NULL,'2022-12-20 03:40:52','2022-12-16 18:30:41',NULL),
+(5,2,1,'2022-12-19 01:11:15',NULL,'2022-12-20 03:40:48','2022-12-19 01:36:43',NULL),
+(12,7,1,'2022-12-19 02:11:09','File Rancang Bangun masih kurang Jelas. Mohon Untuk diperbaiki','2022-12-20 03:40:45','2022-12-19 17:50:42',NULL),
+(14,2,1,'2022-12-19 03:11:07','File Rancang Bangun masih kurang Jelas. Mohon Untuk diperbaiki','2022-12-20 03:40:42','2022-12-19 19:06:56',NULL),
+(15,3,1,'2022-12-19 19:38:26','data dan file pendukun diterima','2022-12-19 19:38:26','2022-12-19 19:38:26',NULL),
+(16,9,1,'2022-12-19 19:38:26','data dan file pendukun diterima','2022-12-20 03:39:06','2022-12-19 19:38:26',NULL),
+(17,3,1,'2022-12-20 06:31:23','Data dan file pendukung sesuai dengan situasi di lapangan. Situasi di lapangan sudah sesuai dengan pengajuan','2022-12-20 06:31:23','2022-12-20 06:31:23',NULL),
+(18,5,1,'2022-12-20 06:31:23','Data dan file pendukung sesuai dengan situasi di lapangan. Situasi di lapangan sudah sesuai dengan pengajuan','2022-12-20 06:31:23','2022-12-20 06:31:23',NULL),
+(32,6,1,'2022-12-20 09:17:22','Data dan file pendukung sesuai dengan situasi di lapangan. Situasi di lapangan sudah sesuai dengan pengajuan','2022-12-20 09:17:22','2022-12-20 09:17:22',NULL),
+(33,1,2,NULL,NULL,'2022-12-21 02:14:57','2022-12-21 02:14:57',NULL),
+(34,2,2,'2022-12-21 02:17:01',NULL,'2022-12-21 02:17:01','2022-12-21 02:17:01',NULL),
+(35,7,2,'2022-12-21 02:22:36','File Gambar lokasi dan situasi dan file surat tanah masih kurang jelas. Mohon untuk diperbaiki','2022-12-21 02:22:36','2022-12-21 02:22:36',NULL),
+(36,2,2,'2022-12-21 02:23:28','File Gambar lokasi dan situasi dan file surat tanah masih kurang jelas. Mohon untuk diperbaiki','2022-12-21 02:23:28','2022-12-21 02:23:28',NULL),
+(37,3,2,'2022-12-21 02:24:44','Data dan Berkas sudah lengkap','2022-12-21 02:24:44','2022-12-21 02:24:44',NULL),
+(38,9,2,'2022-12-21 02:24:44','Data dan Berkas sudah lengkap','2022-12-21 02:24:44','2022-12-21 02:24:44',NULL),
+(44,8,2,'2022-12-21 02:43:34','Situasi lapangan tidak sesuai dengan data. Situasi lapangan tidak cocok untuk dibangun menara','2022-12-21 02:43:34','2022-12-21 02:43:34',NULL);
 
 /*Table structure for table `tb_penggunaan_menara` */
 
@@ -1168,7 +1330,11 @@ CREATE TABLE `tb_penggunaan_menara` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updatedt_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_menara` (`id_menara`),
+  KEY `id_provider` (`id_provider`),
+  CONSTRAINT `tb_penggunaan_menara_ibfk_1` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
+  CONSTRAINT `tb_penggunaan_menara_ibfk_2` FOREIGN KEY (`id_provider`) REFERENCES `tb_m_provider` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_penggunaan_menara` */
@@ -1178,7 +1344,7 @@ CREATE TABLE `tb_penggunaan_menara` (
 DROP TABLE IF EXISTS `tb_persetujuan_pendamping`;
 
 CREATE TABLE `tb_persetujuan_pendamping` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `id_pengajuan_menara` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `no_ktp` varchar(16) DEFAULT NULL,
@@ -1187,10 +1353,23 @@ CREATE TABLE `tb_persetujuan_pendamping` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
+  CONSTRAINT `tb_persetujuan_pendamping_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_persetujuan_pendamping` */
+
+insert  into `tb_persetujuan_pendamping`(`id`,`id_pengajuan_menara`,`nama`,`no_ktp`,`file_suratPersetujuan`,`jarak`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,1,'Juna','01','/storage/Pengajuan/1/Pendamping/Pendamping1.pdf','100','2022-12-17 15:32:01','2022-12-16 18:30:41',NULL),
+(2,1,'ningsih','02','/storage/Pengajuan/1/Pendamping/Pendamping2.pdf','76','2022-12-17 15:32:04','2022-12-16 18:30:41',NULL),
+(3,1,'Parto','03','/storage/Pengajuan/1/Pendamping/Pendamping3.pdf','200','2022-12-17 15:32:13','2022-12-16 18:30:41',NULL),
+(5,1,'Jaya','05','/storage/Pengajuan/1/Pendamping/Pendamping12.pdf','399','2022-12-19 05:13:15','2022-12-19 05:13:15',NULL),
+(7,2,'Putra','01','/storage/Pengajuan/2/Pendamping/Pendamping1.pdf','80','2022-12-21 02:14:58','2022-12-21 02:14:58',NULL),
+(8,2,'Hartono','02','/storage/Pengajuan/2/Pendamping/Pendamping2.pdf','66','2022-12-21 02:14:58','2022-12-21 02:14:58',NULL),
+(9,2,'Budi','03','/storage/Pengajuan/2/Pendamping/Pendamping3.pdf','93','2022-12-21 02:14:58','2022-12-21 02:14:58',NULL),
+(10,2,'Wira','04','/storage/Pengajuan/2/Pendamping/Pendamping4.pdf','82','2022-12-21 02:14:58','2022-12-21 02:14:58',NULL),
+(11,2,'Wahyu','05','/storage/Pengajuan/2/Pendamping/Pendamping5.pdf','81','2022-12-21 02:17:01','2022-12-21 02:17:01',NULL);
 
 /*Table structure for table `tb_perusahaan` */
 
@@ -1212,31 +1391,12 @@ CREATE TABLE `tb_perusahaan` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_perusahaan` */
 
 insert  into `tb_perusahaan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_telp`,`alamat`,`email`,`status`,`disposisi`,`created_at`,`updated_at`,`deleted_at`) values 
-(12,51,9,901,685,'PT. Jaya Kusuma','0123','Jln. Pulau Moyo','JayaKusuma@gmail.com','tunggu persetujuan',NULL,'2022-12-16 09:46:25','2022-12-16 09:46:25',NULL);
-
-/*Table structure for table `tb_provider` */
-
-DROP TABLE IF EXISTS `tb_provider`;
-
-CREATE TABLE `tb_provider` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
-/*Data for the table `tb_provider` */
-
-insert  into `tb_provider`(`id`,`nama`,`created_at`,`updated_at`,`deleted_at`) values 
-(12,'Telkomsel','2022-12-14 08:39:09','2022-12-14 08:39:09',NULL),
-(13,'Indosat','2022-12-14 08:39:16','2022-12-14 08:39:16',NULL);
+(12,51,9,901,685,'PT. Jaya Kusuma','0123','Jln. Pulau Moyo','JayaKusuma@gmail.com','diterima','pengajuan diterima','2022-12-16 21:34:47','2022-12-16 13:34:47',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
@@ -1244,13 +1404,14 @@ DROP TABLE IF EXISTS `tb_super_admin`;
 
 CREATE TABLE `tb_super_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` bigint(20) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_super_admin` */
@@ -1264,17 +1425,23 @@ DROP TABLE IF EXISTS `tb_tim_administratif`;
 
 CREATE TABLE `tb_tim_administratif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` bigint(20) DEFAULT NULL,
   `id_opd` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_opd` (`id_opd`),
+  CONSTRAINT `tb_tim_administratif_ibfk_2` FOREIGN KEY (`id_opd`) REFERENCES `tb_opd` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_tim_administratif` */
+
+insert  into `tb_tim_administratif`(`id`,`id_user`,`id_opd`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
+(8,48,3,'Jaya','081231231231','2022-12-16 13:39:07','2022-12-16 13:39:07',NULL);
 
 /*Table structure for table `tb_tim_lapangan` */
 
@@ -1282,24 +1449,30 @@ DROP TABLE IF EXISTS `tb_tim_lapangan`;
 
 CREATE TABLE `tb_tim_lapangan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` bigint(20) DEFAULT NULL,
   `id_opd` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `no_telp` varchar(13) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_opd` (`id_opd`),
+  CONSTRAINT `tb_tim_lapangan_ibfk_2` FOREIGN KEY (`id_opd`) REFERENCES `tb_opd` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_tim_lapangan` */
+
+insert  into `tb_tim_lapangan`(`id`,`id_user`,`id_opd`,`nama`,`no_telp`,`created_at`,`updated_at`,`deleted_at`) values 
+(4,49,3,'Adi','082312312312','2022-12-16 13:39:43','2022-12-16 13:39:43',NULL);
 
 /*Table structure for table `tb_user` */
 
 DROP TABLE IF EXISTS `tb_user`;
 
 CREATE TABLE `tb_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `kategori` enum('Super Admin','Admin','Tim Administratif','Tim Lapangan','Pemilik Menara') DEFAULT NULL,
@@ -1309,33 +1482,16 @@ CREATE TABLE `tb_user` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_user` */
 
 insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`token`,`created_at`,`verified_at`,`updated_at`,`deleted_at`) values 
 (43,'superadmin','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Super Admin',NULL,'2022-12-16 17:36:06','2022-12-16 17:39:22',NULL,NULL),
 (44,'admin','$2y$10$uRqgcA9x9kfY6USLkFqJxeUZbe4FdVGl3uXH3J0Aj9m6f99q.fk6S','Admin',NULL,'2022-12-16 17:36:10','2022-12-16 17:39:25',NULL,NULL),
-(47,'tyagi','$2y$10$VLOO7HOE5VXaR/ztBcSdhOwtuX8oqMbzHcx3LYNbOcpEoA453ISti','Pemilik Menara','DzFXB8wfZz88ZDeT',NULL,'2022-12-16 09:44:09',NULL,NULL);
-
-/*Table structure for table `tb_zone_plan` */
-
-DROP TABLE IF EXISTS `tb_zone_plan`;
-
-CREATE TABLE `tb_zone_plan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(255) DEFAULT NULL,
-  `lat` varchar(255) DEFAULT NULL,
-  `long` varchar(255) DEFAULT NULL,
-  `radius` int(11) DEFAULT NULL,
-  `status` enum('available','used') DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
-/*Data for the table `tb_zone_plan` */
+(47,'tyagi','$2y$10$VLOO7HOE5VXaR/ztBcSdhOwtuX8oqMbzHcx3LYNbOcpEoA453ISti','Pemilik Menara','DzFXB8wfZz88ZDeT',NULL,'2022-12-16 09:44:09',NULL,NULL),
+(48,'timadministratif','$2y$10$aOBg/5k8ZuAlhU5/a1WFE.mR7Z3WpLm35cscs/iuJIQlvFkHwqwhO','Tim Administratif',NULL,NULL,'2022-12-16 13:39:07',NULL,NULL),
+(49,'timlapangan','$2y$10$jdN6rBQe/pmX18GIEuUUeucpfurdMrddm8mYCmAv.8E99ivMLkCuy','Tim Lapangan',NULL,NULL,'2022-12-16 13:39:43',NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

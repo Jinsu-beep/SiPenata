@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProviderModel extends Model
 {
-    protected $table = 'tb_provider';
+    protected $table = 'tb_m_provider';
 
     public function user()
     {

@@ -143,18 +143,6 @@
 
 <script>
     var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
-    $('#status').val(dataZonePlan.status).change();
-</script>
-
-<script>
-    // icon init
-    var ibadahIcon = L.icon({
-        iconUrl: '/images/circleBlack.png',
-
-        iconSize:     [32, 32],
-    });
-
-    var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
 
     var lat = dataZonePlan.lat;
     var lng = dataZonePlan.long;
@@ -198,57 +186,6 @@
         removalMode: false,
         rotateMode: false,
     });
-
-    //HANDLER PM CREATE
-    // mymap.on('pm:create', e => {
-    // let shape = e.shape;
-    // console.log(e);
-    //     if (shape == 'Circle') {
-    //         let lat = e.marker._latlng.lat;
-    //         let lng = e.marker._latlng.lng;
-    //         let rad = e.marker._mRadius;
-    //         $('#lat').val(lat);
-    //         $('#lng').val(lng);
-    //         $('#rad').val(rad);
-
-    //         mymap.pm.disableDraw('Circle', {
-    //             snappable: true,
-    //             snapDistance: 20,
-    //         });
-
-    //         mymap.pm.addControls({
-    //             editMode: false,
-    //             drawCircle: false,
-    //             removalMode: true,
-    //         });
-
-    //         e.marker.on('pm:remove', ({layer}) => {
-    //             $('#lat').val('');
-    //             $('#lng').val('');
-    //             $('#rad').val('');
-    //             mymap.pm.addControls({
-    //                 editMode: false,
-    //                 removalMode: false,
-    //                 drawCircle: true,
-    //             });
-    //         });
-
-    //         e.marker.pm.enable({  
-    //             allowSelfIntersection: false,  
-    //         });
-
-    //         e.marker.on('pm:edit', ({layer}) => {
-    //             console.log(e);
-    //             $('#rad').val(e.marker._mRadius);
-    //         });
-                      
-    //         e.marker.on('move', function(e){
-    //             console.log(e);
-    //             $('#lat').val(e.latlng.lat);
-    //             $('#lng').val(e.latlng.lng);
-    //         });  
-    //     }
-    // });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
