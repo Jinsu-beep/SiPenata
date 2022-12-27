@@ -32,4 +32,9 @@ class MenaraModel extends Model
     {
         return $this->belongsTo(DesaModel::class, 'id_desa', 'id');
     }
+
+    public function PenggunaanMenara()
+    {
+        return $this->hasMany(PenggunaanMenaraModel::class, 'id_menara', 'id');
+    }
 }

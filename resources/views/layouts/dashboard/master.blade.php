@@ -14,9 +14,9 @@
 <div class="wrapper">
 
   <!-- Preloader-->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/images/logosipenata.png" alt="AdminLTELogo" height="30">
-  </div>
+  {{-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div> --}}
   
   
   <!-- Navbar -->
@@ -40,7 +40,7 @@
 </div>
 <!-- ./wrapper -->
 
-<script src="{{ url("index-template/js/main.js")}}"></script>
+{{-- <script src="{{ url("index-template/js/main.js")}}"></script> --}}
 
 @include('layouts.dashboard.script')
 @stack('js')

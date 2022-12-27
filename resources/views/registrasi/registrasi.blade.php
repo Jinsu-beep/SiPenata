@@ -17,12 +17,15 @@
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center" style="background-color:rgb(231, 231, 234, 1);">
-                <a href="{{ route('landing_page') }}">
+                <a href="{{ route('home') }}">
                     <img src="../../images/logosipenata.png" alt="Logo SiPenata" style="width:75%; height:75%">
                 </a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Register a new membership</p>
+                @if ($message = Session::get('failed'))
+                    <p class="text-danger text-center">{{ $message }}</p>
+                @endif
                 <form action="{{ route('insertRegistrasi') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">

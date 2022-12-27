@@ -87,7 +87,7 @@
             @if ($dataUser->id_perusahaan == NULL)
               <div class="callout callout-danger">
                 <h5>Perusahaan Belum Didaftarkan</h5>
-                <p><a href="{{ route('createPerusahaan') }}">Daftar Perusahaab</a></p>
+                <p><a href="{{ route('createPerusahaan') }}">Daftar Perusahaan</a></p>
               </div>
             @elseif ($perusahaan->status == 'tunggu persetujuan')
               <div class="callout callout-info">

@@ -49,7 +49,7 @@
                                 <tr>
                                     <th width="50px">No.</th>
                                     <th>Nama</th>
-                                    <th width="150px">status</th>
+                                    {{-- <th width="150px">status</th> --}}
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
@@ -58,7 +58,7 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $dtl->nama}}</td>
-                                        <td></td>
+                                        {{-- <td></td> --}}
                                         <td class="text-center">
                                             <button value="{{ $dtl->id }}" id="edit_TimLapangan{{ $dtl->id }}" class="btn btn-warning btn-icon-split">
                                             <span class="icon">

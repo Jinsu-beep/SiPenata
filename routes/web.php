@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
-    return view('registrasi.test');
-});
+// Route::get('/test', function () {
+//     return view('registrasi.test');
+// });
 
 Route::get('/', 'LandingController@home')->name('home')->middleware('guest');
 Route::get('/landingdasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
 Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('getDasarhukum')->middleware('guest');
-Route::get('/zone_plan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
-Route::get('/data_menara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
-Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->middleware('guest');
+Route::get('/landingzoneplan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
+Route::get('/landingdatamenara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
+Route::get('/landingmenara/{id}', 'LandingController@getMenara')->name('getMenara')->middleware('guest');
 
 // Login 
     Route::get('/login_form', 'LoginController@loginForm')->name('loginForm')->middleware('guest');
@@ -38,11 +38,6 @@ Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->mi
     Route::get('/registrasiSukses', 'RegistrasiController@registrasiSukses')->name('registrasiSukses')->middleware('guest');
     Route::get('/verifikasi/{token}', 'RegistrasiController@verifikasi')->name('verifikasi')->middleware('guest');
     Route::get('/verifikasiSukses', 'RegistrasiController@verifikasiSukses')->name('verifikasiSukses')->middleware('guest');
-
-    Route::get('/test', 'RegistrasiController@test')->middleware('guest');
-    Route::get('/test2', 'RegistrasiController@test2');
-    // Route::get('/verifikasi', 'RegistrasiController@testEmail');
-    
 
 // Dashboard 
     Route::get('/dashboard','UserController@dashboard')->name('dashboard');
@@ -101,11 +96,6 @@ Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->mi
         Route::get('/timlapangan/get/{id}','UserController@getTimLapangan')->name('getTimLapangan');
         Route::post('/timlapangan/update/{id}','UserController@updateTimLapangan')->name('updateTimLapangan');
         Route::post('/timlapangan/delete/{id}','UserController@deleteTimLapangan')->name('deleteTimLapangan');
-        // Pemilik Menara
-        // Route::get('/pemilikmenara/data','UserController@dataPemilikMenara')->name('dataPemilikMenara');
-        // Route::post('/pemilikmenara/insert','UserController@insertPemilikMenara')->name('insertPemilikMenara');
-        // Route::get('/pemilikmenara/validasi/{id}','UserController@validasiPemilikMenara')->name('validasiPemilikMenara');
-        // Route::get('/pemilikmenara/validate/{id}','UserController@validatePemilikMenara')->name('validatePemilikMenara');
         // Profile
         Route::get('/profile/admin','UserController@dataProfileAdmin')->name('dataProfileAdmin');
         Route::post('/profile/update/adminUser/{id}','UserController@updateProfileUserAdmin')->name('updateProfileUserAdmin');
@@ -134,6 +124,8 @@ Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->mi
     Route::get('/menara/data','MenaraController@dataMenara')->name('dataMenara');
     Route::get('/menara/detail/{id}','MenaraController@detailMenara')->name('detailMenara');
     Route::post('/menara/update/{id}','MenaraController@updateMenara')->name('updateMenara');
+    Route::post('/menara/tambahPengguna/{id}','MenaraController@tambahPengguna')->name('tambahPengguna');
+    Route::get('/menara/deletePengguna/{id}','MenaraController@deletePengguna')->name('deletePengguna');
 
     // Pengajuan Menara
     Route::get('/pengajuan/data','PengajuanMenaraController@dataPengajuan')->name('dataPengajuan');
@@ -151,8 +143,3 @@ Route::get('/menara/{id}', 'LandingController@getMenara')->name('getMenara')->mi
     Route::post('/pengajuan/updatePengajuan/{id}','PengajuanMenaraController@updatePengajuan')->name('updatePengajuan');
     Route::post('/pengajuan/akhirPengajuan/{id}','PengajuanMenaraController@akhirPengajuan')->name('akhirPengajuan');
     Route::get('/pengajuan/download/{id}','PengajuanMenaraController@downloadFile')->name('downloadFile');
-
-
-    // Test
-    Route::get('/pengajuan/test','PengajuanMenaraController@test');
-    Route::post('/pengajuan/insert', 'PengajuanMenaraController@insertTest');

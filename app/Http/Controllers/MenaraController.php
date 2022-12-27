@@ -14,7 +14,8 @@ use App\TimAdministratifModel;
 use App\TimLapanganModel;
 use App\PemilikMenaraModel;
 use App\UserModel;
-use App\KecamatanModel;
+use App\ProviderModel;
+use App\PenggunaanMenaraModel;
 
 class MenaraController extends Controller
 {
@@ -29,7 +30,6 @@ class MenaraController extends Controller
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
 
             $dataMenara = MenaraModel::with("PemilikMenara.Menara")->with("Kecamatan.Menara")->get();
-            // dd($dataMenara);
 
             return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
 
@@ -45,7 +45,7 @@ class MenaraController extends Controller
             return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
         } elseif (Auth::user()->kategori == "Admin") {
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
-            $dataMenara = MenaraModel::with("PemilikMenara.Menara")->with("Kecamatan.Menara")->get();
+            $dataMenara = MenaraModel::with("PemilikMenara.Menara")->get();
 
             return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
         }
@@ -63,9 +63,12 @@ class MenaraController extends Controller
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        $detailMenara = MenaraModel::with('Provinsi.Menara')->with('kabupaten.Menara')->with('Kecamatan.Menara')->with('Desa.Menara')->find($id);
+        $provider = ProviderModel::get();
 
-        return view("dashboard.menara.detail", compact("dataUser", "detailMenara"));
+        $detailMenara = MenaraModel::with('Provinsi.Menara')->with('kabupaten.Menara')->with('Kecamatan.Menara')->with('Desa.Menara')->find($id);
+        $dataPengguna = PenggunaanMenaraModel::with('Menara.PenggunaanMenara')->with('Provider.PenggunaanMenara')->where('id_menara', $id)->get();
+
+        return view("dashboard.menara.detail", compact("dataUser", "detailMenara", "dataPengguna", "provider"));
     }
 
     public function updateMenara($id, Request $request)
@@ -108,5 +111,23 @@ class MenaraController extends Controller
         $updateMenara->update();
 
         return redirect()->back()->with(['success' => 'Menara Berhasil Diupdate']);
+    }
+
+    public function tambahPengguna($id, Request $request)
+    {
+        $pengguna = new PenggunaanMenaraModel();
+        $pengguna->id_provider = $request->pengguna;
+        $pengguna->id_menara = $id;
+        $pengguna->save();
+
+        return redirect()->back()->with(['success' => 'Pengguna Berhasil Ditambah']);
+    }
+
+    public function deletePengguna($id)
+    {
+        $pengguna = PenggunaanMenaraModel::find($id);
+        $pengguna->delete();
+
+        return redirect()->back()->with(['success' => 'Pengguna Berhasil Dihapus']);
     }
 }

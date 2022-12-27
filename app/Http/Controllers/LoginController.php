@@ -19,14 +19,18 @@ class LoginController extends Controller
     {
         $user = UserModel::where('username', $request->username)->first();
         // dd($user);
-        if ($user->verified_at != NULL) {
-            if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
-                return redirect()->route('dashboard');
+        if ($user) {
+            if ($user->verified_at != NULL) {
+                if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
+                    return redirect()->route('dashboard');
+                } else {
+                    return redirect()->back()->with('message', 'Username atau Password Anda Salah');
+                }
             } else {
-                return redirect()->back()->with('message', 'Email atau Password Anda Salah');
+                return redirect()->route('registrasiSukses');
             }
         } else {
-            return redirect()->route('registrasiSukses');
+            return redirect()->back()->with(['failed' => 'Username atau Password Anda Salah']);
         }
     }
 

@@ -127,12 +127,15 @@
 
         var dataZonePlanAvailable = {!! json_encode($zonePlanAvailable->toArray()) !!}
         var dataZonePlanUsed = {!! json_encode($zonePlanUsed->toArray()) !!}
+        console.log(dataZonePlanUsed);
 
         $('#checkboxPrimary2').change(function() {
             if (this.checked == true) {
                 dataZonePlanAvailable.forEach(element => {
                     console.log()
-                    circleAvailable = L.circle([element.lat, element.long], element.radius).addTo(mymap);
+                    circleAvailable = L.circle([element.lat, element.long], element.radius, {
+                        color: '#0505f7',
+                    }).addTo(mymap);
                     available.push(circleAvailable)
                 });
             } else if (this.checked == false) {
@@ -141,11 +144,13 @@
                 })
             }
         })
-        $('#checkboxPrimary').change(function() {
+        $('#checkboxPrimary1').change(function() {
             if (this.checked == true) {
                 dataZonePlanUsed.forEach(element => {
                     console.log()
-                    circleUsed = L.circle([element.lat, element.long], element.radius).addTo(mymap);
+                    circleUsed = L.circle([element.lat, element.long], element.radius, {
+                        color: '#f70505',
+                    }).addTo(mymap);
                     used.push(circleUsed)
                 });
             } else if (this.checked == false) {

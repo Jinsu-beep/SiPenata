@@ -6,6 +6,12 @@
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+    <link rel="stylesheet" href="Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
 @endpush
 
 @section('content')
@@ -23,7 +29,7 @@
                                 <div class="col-lg-10">
                                     <div class="icheck-primary d-inline">
                                         <input type="checkbox" id="namaPerusahaan{{ $lp->perusahaan->id }}">
-                                        <label for="checkboxPrimary2">
+                                        <label for="namaPerusahaan{{ $lp->perusahaan->id }}">
                                             {{ $lp->perusahaan->nama }}
                                         </label>
                                     </div>
@@ -31,7 +37,7 @@
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-1">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                        <path fill="{{ $warna[1] }}" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
+                                        <path fill="lightblue" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
                                     </svg>
                                 </div>
                             </div>
@@ -60,6 +66,8 @@
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
+    <script src="Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+
     <script>
         //MAP INIT
         var mymap = L.map('mymap').setView([-8.620616586325221, 115.23332286413316], 16);
@@ -87,6 +95,7 @@
                 element.menara.forEach(element =>{
                     if (box == true) {
                         marker = L.marker([element.lat, element.long], {
+                            icon : L.AwesomeMarkers.icon({markerColor: 'lightblue'}),
                             id : idperusahaan,
                         });
                         mymap.addLayer(marker);

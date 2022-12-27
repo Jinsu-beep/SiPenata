@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-6 pt-5 align-self-center" data-aos="fade-up">
               <h1 class="display-4"> <dt> Tentang SiPENATA </dt></h1> <br>
-              <p class="h4">Si Penata merupakan media online dari Dinas Komunikasi dan Informatika Kabupaten Karangasem untuk melihat data menara yang ada dan untuk melihat Zona Lokasi atau Zona pendirian menara telekomunikasi.</p>
+              <p class="h4">Si Penata merupakan media online dari Dinas Komunikasi dan Informatika Kabupaten Karangasem untuk melihat data menara yang ada, melihat Zona Lokasi atau Zona pendirian menara telekomunikasi dan pendaftaran menara telekomuniasi. </p>
             </div>
           </div>
     </section>

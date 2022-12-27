@@ -199,14 +199,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="Status">Status</label>
-                        <select class="form-control select2" name="status" id="status" data-placeholder="Pilih Status" style="width: 100%;">
-                            <option selected disabled>Pilih Status ....</option>
-                            <option value="perbaiki">perbaiki</option>
-                            <option value="diterima">diterima</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="Disposisi">Disposisi</label>
                         <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi">{{ $perusahaanPemilikMenara->disposisi }}</textarea>
                     </div>

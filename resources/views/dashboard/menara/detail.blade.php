@@ -176,6 +176,45 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-7">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Pengguna Menara</th>
+                                        <th width="100px">
+                                            <button type="button" onclick="tambahPengguna({{ $detailMenara->id }})" class="btn btn-info">
+                                                <span class="icon">
+                                                    <i class="fas fa-solid fa-plus"></i>
+                                                </span>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($dataPengguna as $dp)
+                                        <tr>
+                                            <td>{{ $dp->Provider->nama }}</td>
+                                            <td class="text-center">
+                                                <button onclick="deletePengguna({{ $dp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    {{-- <tr>
+                                        <td class="text-center">  
+                                            <button type="button" onclick="tambahPengguna({{ $detailMenara->id }})" class="btn btn-info">
+                                                Tambah Pengguna Menara
+                                            </button>
+                                        </td>
+                                    </tr> --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,6 +233,37 @@
             <div class="modal-body">
                 <div id="file"></div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-tambahPengguna">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="" id="tambahPengguna" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h4 id="judulPengguna" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="desa">Provider</label>
+                        <select class="form-control select2" name="pengguna" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih Provider .....</option>
+                            @foreach ($provider as $p)
+                                <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -395,6 +465,23 @@
         
         $('#modal-edit').modal('show');
     }
+
+    function tambahPengguna(id) {
+        $('#judulPengguna').empty();
+        $('#judulPengguna').append('Tambah Pengguna Menara');
+        $("#tambahPengguna").attr("action", "/menara/tambahPengguna/"+id);
+        $('#modal-tambahPengguna').modal('show');
+    }
+
+    function deletePengguna(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/menara/deletePengguna/'+id,
+            success:function(response){
+                location.reload();
+            }
+        });
+    }
 </script>
 
 <script>
@@ -402,4 +489,23 @@
         bsCustomFileInput.init();
     });
 </script>
+
+@if($message = Session::get('success'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+                $(document).ready(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        text: '{{$message}}'
+                    })
+                });
+        });
+    </script>
+@endif
 @endpush

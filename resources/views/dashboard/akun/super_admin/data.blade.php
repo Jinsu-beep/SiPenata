@@ -43,7 +43,7 @@
                                 <tr>
                                     <th width="50px">No.</th>
                                     <th>Nama</th>
-                                    <th width="150px">status</th>
+                                    {{-- <th width="150px">status</th> --}}
                                     <th width="150px">Aksi</th>
                                 </tr>
                             </thead>
@@ -52,9 +52,9 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $dsa->nama}}</td>
-                                        <td>
+                                        {{-- <td>
                                             <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                                        </td>
+                                        </td> --}}
                                         <td class="text-center">
                                             <button value="{{ $dsa->id }}" id="edit_SuperAdmin{{ $dsa->id }}" class="btn btn-warning btn-icon-split">
                                             <span class="icon">

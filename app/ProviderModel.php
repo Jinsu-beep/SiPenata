@@ -8,8 +8,10 @@ class ProviderModel extends Model
 {
     protected $table = 'tb_m_provider';
 
-    public function user()
+    public function PenggunaanMenara()
     {
-        return $this->belongsTo(UserModel::class, 'id_user', 'id');
+        return $this->hasMany(PenggunaanMenaraModel::class, 'id_menara', 'id');
     }
+
+
 }

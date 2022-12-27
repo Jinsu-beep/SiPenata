@@ -173,7 +173,6 @@ class PerusahaanController extends Controller
 
     public function validatePerusahaan($id, Request $request)
     {   
-        // dd($request->input('action'));
         switch ($request->input('action')) {
             case 'perbaiki':
                 $detailValidate1 = DetailPerusahaanModel::where('id_perusahaan', $id)->where('file', 'AktaPendirianPerusahaan')->first();
@@ -186,7 +185,7 @@ class PerusahaanController extends Controller
 
                 $validate = PerusahaanModel::find($id);
                 $validate->disposisi = $request->disposisi;
-                $validate->status = $request->status;
+                $validate->status = 'perbaiki';
                 $validate->update();
 
                 return redirect()->route('dataRegistrasiPerusahaan')->with(['success' => 'Status Berhasil Dirubah']);
@@ -203,7 +202,8 @@ class PerusahaanController extends Controller
 
                 $validate = PerusahaanModel::find($id);
                 $validate->disposisi = $request->disposisi;
-                $validate->status = $request->status;
+                $validate->status = 'diterima';
+                // $validate->warna = ;
                 $validate->update();
 
                 return redirect()->route('dataRegistrasiPerusahaan')->with(['success' => 'Validasi Perusahaan Berhasil']);
