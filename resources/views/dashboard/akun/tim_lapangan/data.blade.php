@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Akun Tim Lapangan</h1>
+                <h1>Tim Lapangan</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -109,6 +109,7 @@
                     <div class="form-group">
                         <label for="id_opd">OPD</label>
                         <select class="form-control select2" name="id_opd" id="id_opd" data-placeholder="Pilih OPD" style="width: 100%;">
+                            <option selected disabled>Pilih OPD ...</option>
                             @foreach($dataOPD as $do)  
                                 <option value="{{ $do->id }}">{{ $do->opd }}</option>
                             @endforeach

@@ -37,11 +37,11 @@
 </section>
 <section class="content">
     <div class="container-fluid">
-        <form action="/perusahaan/validate/{{ $perusahaanPemilikMenara->id }}" method="POST">
+        <form action="/perusahaan/validate/{{ $perusahaanPemilikMenara->id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Create Dasar Hukum</h3>
+                    <h3 class="card-title">Detail Validasi Perusahaan</h3>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -132,11 +132,11 @@
                                 <input type="text" class="form-control" placeholder="Nama Dasar Hukum" value="{{ $perusahaanPemilikMenara->alamat }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="file_aktaPendirian">File Akta Pendiriian Perusahaan</label>
+                                <label for="file_aktaPendirian">File Akta Pendirian Perusahaan</label>
                                 <table id="example2" class="table table-bordered table-hover">
                                     <tbody>
                                         <tr>
-                                            <td width='1180px'>File Akta Pendiriian Perusahaan</td>
+                                            <td width='1180px'>File Akta Pendirian Perusahaan</td>
                                             <td class="text-center" width='150px'>
                                                 <button type="button" onclick="showFile1()" class="btn btn-primary">
                                                     Show File
@@ -198,6 +198,13 @@
             </div>
             <div class="card">
                 <div class="card-body">
+                    <div class="form-group">
+                        <label for="marker">Marker</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file_marker" name="file_marker">
+                            <label class="custom-file-label" for="file_marker">Choose file</label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="Disposisi">Disposisi</label>
                         <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi">{{ $perusahaanPemilikMenara->disposisi }}</textarea>
@@ -286,6 +293,12 @@
         "autoWidth": false,
         "responsive": true,
     });
+    });
+</script>
+
+<script>
+    $(function () {
+        bsCustomFileInput.init();
     });
 </script>
 

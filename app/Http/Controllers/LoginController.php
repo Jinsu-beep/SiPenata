@@ -24,7 +24,7 @@ class LoginController extends Controller
                 if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])){
                     return redirect()->route('dashboard');
                 } else {
-                    return redirect()->back()->with('message', 'Username atau Password Anda Salah');
+                    return redirect()->back()->with('failed', 'Username atau Password Anda Salah');
                 }
             } else {
                 return redirect()->route('registrasiSukses');

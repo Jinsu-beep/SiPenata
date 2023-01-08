@@ -35,7 +35,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-11">
-                <h1>Draft Pengajuan Menara</h1>
+                <h1>Pengajuan Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -431,7 +431,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width='1180px'><label for="NPWP">Gambar Lokasi dan Situasi</label></td>
+                                            <td width='1180px'><label for="NPWP">File Gambar Lokasi dan Situasi</label></td>
                                             <td class="text-center" width='150px'>
                                                 <button type="button" onclick="showFile7()" class="btn btn-primary">
                                                     Show File
@@ -558,9 +558,9 @@
 </script>
 
 <script>
-
+    let marker = {!! json_encode($detailPengajuan->toArray()) !!}
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([marker.lat, marker.long], 15);
     
     $('#dataMenara-tab').click(function () {
         setTimeout(function() {
@@ -568,7 +568,7 @@
         }, 200);
     });
 
-    let marker = {!! json_encode($detailPengajuan->toArray()) !!}
+    
     console.log(marker);
     L.marker([marker.lat, marker.long]).addTo(mymap);
     

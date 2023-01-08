@@ -1,5 +1,5 @@
 @extends('layouts/home/index-layout')
-@section('title') Data Menara @endsection
+@section('title')<title>SiPenata | Data Menara</title>@endsection
 
 @push('css')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -7,7 +7,7 @@
     crossorigin="anonymous"/>
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    {{-- <link rel="stylesheet" href="../../dist/css/adminlte.min.css"> --}}
     <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
@@ -19,8 +19,8 @@
     <div class="row mt-4 mx-2">
         <div class="col-md-4 col-12">
             <div class="card card-primary">
-                <div class="card-header align-items-center">
-                    <h3 class="card-title">Data Menara</h3>
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold">Data Menara</h6>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -36,9 +36,7 @@
                                 </div>
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-1">
-                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                        <path fill="lightblue" d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" />
-                                    </svg>
+                                    <img src="{{ $lp->perusahaan->marker }}" alt="image" height="30">
                                 </div>
                             </div>
                         @endforeach
@@ -52,7 +50,7 @@
                     <h6 class="m-0 font-weight-bold">Map</h6>
                 </div>
                 <div class="card-body">
-                    <div id="mymap" style="width: 100%; height: 600px;"></div>
+                    <div id="mymap" style="width: 100%; height: 623px;"></div>
                 </div>
             </div>
         </div>
@@ -70,7 +68,7 @@
 
     <script>
         //MAP INIT
-        var mymap = L.map('mymap').setView([-8.620616586325221, 115.23332286413316], 16);
+        var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
         L.Map.include({
             getMarkerById: function (id) {
                 var marker = null;
@@ -85,17 +83,26 @@
             }
         });
 
+        
+
         var markers = []
 
         var dataPerusahaan = {!! json_encode($listPerusahaan->toArray()) !!}
         dataPerusahaan.forEach(element => {
+            var icon = new L.Icon({
+                iconUrl: element.perusahaan.marker,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
             $('#namaPerusahaan' + element.perusahaan.id).change(function() {
                 var idperusahaan = element.perusahaan.id;
                 var box = this.checked;
                 element.menara.forEach(element =>{
                     if (box == true) {
                         marker = L.marker([element.lat, element.long], {
-                            icon : L.AwesomeMarkers.icon({markerColor: 'lightblue'}),
+                            icon : icon,
                             id : idperusahaan,
                         });
                         mymap.addLayer(marker);

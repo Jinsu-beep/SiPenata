@@ -200,10 +200,15 @@ class PerusahaanController extends Controller
                 $detailValidate2->status = $request->status2;
                 $detailValidate2->update();
 
+                $file_marker = $request->file('file_marker');
+                $extension_marker = $file_marker->getClientOriginalExtension();
+                $nama_marker = 'Marker.' . $extension_marker;
+                Storage::putFileAs('public/Perusahaan/' . $id, $request->file('file_marker'), $nama_marker);
+
                 $validate = PerusahaanModel::find($id);
                 $validate->disposisi = $request->disposisi;
                 $validate->status = 'diterima';
-                // $validate->warna = ;
+                $validate->marker = "/storage/Perusahaan/" . $id . "/" . $nama_marker;
                 $validate->update();
 
                 return redirect()->route('dataRegistrasiPerusahaan')->with(['success' => 'Validasi Perusahaan Berhasil']);

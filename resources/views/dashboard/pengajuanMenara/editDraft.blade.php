@@ -603,7 +603,7 @@
 <script>
 
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
     
     $('#user_button').click(function () {
         setTimeout(function() {

@@ -38,7 +38,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-11">
-                <h1>Detail Menara</h1>
+                <h1>Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <label for="luasArea" class="col-sm-2 col-form-label">Luas Are</label>
+                                <label for="luasArea" class="col-sm-2 col-form-label">Luas Area</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="Tanggal Pengajuan" value="{{ $detailMenara->luas_area }}" disabled>
                                 </div>

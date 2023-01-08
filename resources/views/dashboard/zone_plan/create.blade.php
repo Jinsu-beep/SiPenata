@@ -146,7 +146,7 @@
 
 <script>
     //MAP INIT
-    var mymap = L.map('mapid').setView([-8.375319619905975, 115.18006704436591], 9);
+    var mymap = L.map('mapid').setView([-8.367760, 115.547787], 11);
 
     let test = 123.345 + '';
     let hasil = test.split(".");

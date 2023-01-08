@@ -63,7 +63,7 @@
         @csrf
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Create Pengajuan Menara</h3>
+                <h3 class="card-title">Detail Pengajuan Menara</h3>
             </div>
             <div class="card-body p-0">
                 <div class="bs-stepper">
@@ -419,7 +419,7 @@
                                 </table>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
+                                <label for="NPWP">File Gambar Lokasi dan Situasi</label>
                                 <table id="example2" class="table table-bordered table-hover mt-1">
                                     <tbody>
                                         <tr>
@@ -517,7 +517,7 @@
                 @endif
                 <div class="form-group">
                     <label for="Disposisi">Disposisi</label>
-                    <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi">{{ $detailPengajuan->PengajuanStatusTerakhir->disposisi }}</textarea>
+                    <textarea name="disposisi" id="disposisi" rows="5" class="form-control" placeholder="Disposisi"></textarea>
                 </div>
             </div>
             <div class="card-footer">
@@ -615,9 +615,9 @@
 </script>
 
 <script>
-
+    let data = {!! json_encode($detailPengajuan->toArray()) !!}
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([data.lat, data.long], 15);
     
     $('#user_button').click(function () {
         setTimeout(function() {
@@ -646,7 +646,7 @@
         }
     });
 
-    let data = {!! json_encode($detailPengajuan->toArray()) !!}
+    
     // console.log(data);
     let marker =  L.marker([data.lat, data.long]).addTo(mymap);
     // console.log(marker);

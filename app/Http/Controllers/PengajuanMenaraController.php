@@ -38,7 +38,7 @@ class PengajuanMenaraController extends Controller
             $dataUser = TimAdministratifModel::with('user.TimAdministratif')->whereIn("id_user", [Auth::user()->id])->first();
             $dataPengajuan = PengajuanMenaraModel::with("PengajuanStatusTerakhir.PengajuanMenara")->get();
             // $waktu = Carbon::now();
-            // dd($waktu);
+            // dd($dataPengajuan);
 
             return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataPengajuan"));
 
@@ -110,7 +110,11 @@ class PengajuanMenaraController extends Controller
         }
 
         $pengajuan = PengajuanMenaraModel::latest('id')->first();
-        $kodeRegistrasi = $pengajuan->kode_registrasi + 1;
+        if ($pengajuan) {
+            $kodeRegistrasi = $pengajuan->kode_registrasi + 1;
+        } else {
+            $kodeRegistrasi = 1;
+        }
 
         $newPengajuan = new PengajuanMenaraModel();
         $newPengajuan->id_pemilik_menara = $id;
@@ -129,21 +133,21 @@ class PengajuanMenaraController extends Controller
         $newPengajuan->status_lahan = $request->statusLahan;
         $newPengajuan->kepemilikan_tanah = $request->namaPemilikTanah;
         $newPengajuan->jumlah_pendamping = $request->jumlahData;
-        $newPengajuan->save();
+        
 
         switch ($request->input('action')) {
             case 'draft':
-                $status = MasterStatusModel::where('status', 'draft')->first();
-
-                $newStatus = new PengajuanStatusModel;
-                $newStatus->id_status = $status->id;
-                $newStatus->id_pengajuan_menara = $newPengajuan->id;
-                $newStatus->save();
+                $newPengajuan->status = 'draft';
+                $newPengajuan->save();
 
                 break;
             
             case 'ajukan':
-                $status = MasterStatusModel::where('status', 'pengajuan')->first();
+                $newPengajuan->status = 'diajukan';
+                $newPengajuan->tanggal = Carbon::now();
+                $newPengajuan->save();
+
+                $status = MasterStatusModel::where('status', 'Pemeriksaan Oleh Tim Administrasi')->first();
 
                 $newStatus = new PengajuanStatusModel;
                 $newStatus->id_status = $status->id;
@@ -457,6 +461,7 @@ class PengajuanMenaraController extends Controller
                 break;
             case 'ajukan':
                 $editPengajuan->tanggal = Carbon::now();
+                $editPengajuan->status = 'diajukan';
                 $editPengajuan->save();
 
                 $status = MasterStatusModel::where('status', 'Pemeriksaan Oleh Tim Administrasi')->first();

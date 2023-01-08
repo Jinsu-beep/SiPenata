@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Data Pengajuan Menara</h1>
+                <h1>Pengajuan Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -114,27 +114,33 @@
                                             <td>{{ $dp->kode_registrasi }}</td>
                                             <td>{{ $dp->tanggal }}</td>
                                             <td>
-                                                {{ $dp->PengajuanStatusTerakhir->Status->status }}
+                                                @if ($dp->status == "draft")
+                                                    draft
+                                                @elseif ($dp->status == "diajukan")
+                                                    {{ $dp->PengajuanStatusTerakhir->Status->status }}
+                                                @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($dp->PengajuanStatusTerakhir->Status->status == "Draft")
+                                                @if ($dp->status == "draft")
                                                     <a href="/pengajuan/draftPengajuan/{{ $dp->id }}" class="btn btn-info btn-icon-split">
                                                         <span class="icon">
                                                             <i class="fas fa-eye"></i>
                                                         </span>
                                                     </a>
-                                                @elseif ($dp->PengajuanStatusTerakhir->Status->status == "Perbaikan Administrasi")
-                                                <a href="/pengajuan/editPengajuan/{{ $dp->id }}" class="btn btn-info btn-icon-split">
-                                                    <span class="icon">
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </a>
-                                                @else
-                                                    <a href="/pengajuan/detailPengajuan/{{ $dp->id }}" class="btn btn-info btn-icon-split">
+                                                @elseif ($dp->status == "diajukan")
+                                                    @if ($dp->PengajuanStatusTerakhir->Status->status == "Perbaikan Administrasi")
+                                                    <a href="/pengajuan/editPengajuan/{{ $dp->id }}" class="btn btn-info btn-icon-split">
                                                         <span class="icon">
                                                             <i class="fas fa-eye"></i>
                                                         </span>
                                                     </a>
+                                                    @else
+                                                        <a href="/pengajuan/detailPengajuan/{{ $dp->id }}" class="btn btn-info btn-icon-split">
+                                                            <span class="icon">
+                                                                <i class="fas fa-eye"></i>
+                                                            </span>
+                                                        </a>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>

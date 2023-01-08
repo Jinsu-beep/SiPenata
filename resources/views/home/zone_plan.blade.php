@@ -1,5 +1,5 @@
 @extends('layouts/home/index-layout')
-@section('title') Zone Plan @endsection
+@section('title')<title>SiPenata | Zone Plan</title>@endsection
 
 @push('css')
 {{-- Leaflet --}}
@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 
 <!-- Theme style -->
-<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+{{-- <link rel="stylesheet" href="../../dist/css/adminlte.min.css"> --}}
 <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 @endpush
@@ -23,7 +23,7 @@
                     <div class="col">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Data Zone Plan</h3>
+                                <h6 class="m-0 font-weight-bold">Data Zone Plan</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -66,7 +66,7 @@
                     <div class="col">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Analisa Zona Cellplan</h3>
+                                <h6 class="m-0 font-weight-bold">Analisa Zona Cellplan</h6>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
@@ -90,7 +90,7 @@
                         <h6 class="m-0 font-weight-bold">Map</h6>
                     </div>
                     <div class="card-body">
-                        <div id="map" style="width: 100%; height: 600px;"></div>
+                        <div id="map" style="width: 100%; height: 655px;"></div>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
     
     <script>
         //MAP INIT
-        var mymap = L.map('map').setView([-8.620616586325221, 115.23332286413316], 16);
+        var mymap = L.map('map').setView([-8.367760, 115.547787], 11);
         L.Map.include({
             getMarkerById: function (id) {
                 var marker = null;

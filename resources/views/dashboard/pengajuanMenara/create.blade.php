@@ -215,13 +215,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Latitude">Latitude</label>
-                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat">
+                                        <input type="text" class="form-control" placeholder="Latitude" name="lat" id="lat" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
                                         <label for="Longitude">Longitude</label>
-                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng">
+                                        <input type="text" class="form-control" placeholder="Longitude" name="lng" id="lng" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -350,7 +350,7 @@
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
+                                <label for="NPWP">File Gambar Lokasi dan Situasi</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="file_lokasiDanSituasi" name="file_lokasiDanSituasi">
@@ -467,7 +467,7 @@
 <script>
 
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
     
     $('#user_button').click(function () {
         setTimeout(function() {

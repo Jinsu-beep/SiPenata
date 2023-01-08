@@ -31,20 +31,24 @@
 @endpush
 
 @section('content')
-{{-- <section class="content-header">
-    <div class="card card-primary">
-        <div class="card-body">
-            <div class="row">
-                <div class="">
-                    <span class="fas fa-solid fa-circle-exclamation fa-3x" style="color: red"></span>
-                </div>
-                <div class="col-lg-10 align-self-center">
-                    <h1>Biodata Belum Lengkap</h1>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-11">
+                <h1>Perusahaan</h1>
+                <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
+        <div class="col-lg-1 align-self-center">
+            <a href="{{ route('dashboard') }}" class="btn btn-default btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Kembali</span>
+            </a>
+        </div>
     </div>
-</section> --}}
+</section>
 <section class="content">
     <div class="container-fluid">
         <div class="card card-primary mt-2">
@@ -93,11 +97,11 @@
                     <textarea type="text" class="form-control" placeholder="Alamat Lengkap" name="alamat" readonly>{{ $dataRegistrasi->alamat }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="file_aktaPendirian">File Akta Pendiriian Perusahaan</label>
+                    <label for="file_aktaPendirian">File Akta Pendirian Perusahaan</label>
                     <table id="example2" class="table table-bordered table-hover">
                         <tbody>
                             <tr>
-                                <td width='1180px'>File Akta Pendiriian Perusahaan</td>
+                                <td width='1180px'>File Akta Pendirian Perusahaan</td>
                                 <td class="text-center" width='150px'>
                                     <button type="button" onclick="showFile1()" class="btn btn-primary">
                                         Show File

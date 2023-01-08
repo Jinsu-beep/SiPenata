@@ -35,7 +35,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-11">
-                <h1>Draft Pengajuan Menara</h1>
+                <h1>Pengajuan Menara</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -75,19 +75,19 @@
                     <div class="form-group row">
                         <label for="Nama" class="col-sm-2 col-form-label">Tanggal Pengajuan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Tanggal Pengajuan" value="{{ $detailPengajuan->PengajuanStatusTerakhir->tanggal_status }}" disabled>
+                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Tanggal Pengajuan" value="" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="Nama" class="col-sm-2 col-form-label">Status Pengajuan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Status Pengajuan" value="{{ $detailPengajuan->PengajuanStatusTerakhir->Status->status }}" disabled>
+                            <input type="text" class="form-control" id="tanggalPengajuan" placeholder="Status Pengajuan" value="{{ $detailPengajuan->status }}" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="Nama" class="col-sm-2 col-form-label">Disposisi</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="tanggalPengajuan" placeholder="Disposisi" disabled>{{ $detailPengajuan->PengajuanStatusTerakhir->disposisi }}</textarea>
+                            <textarea type="text" class="form-control" id="tanggalPengajuan" placeholder="Disposisi" disabled></textarea>
                         </div>
                     </div>
                 </div>
@@ -373,7 +373,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td width='1180px'><label for="NPWP">Gambar Lokasi dan Situasi</label></td>
+                                            <td width='1180px'><label for="NPWP">File Gambar Lokasi dan Situasi</label></td>
                                             <td class="text-center" width='150px'>
                                                 <button type="button" onclick="showFile7()" class="btn btn-primary">
                                                     Show File
@@ -502,7 +502,7 @@
 <script>
 
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
     
     $('#dataMenara-tab').click(function () {
         console.log('1');

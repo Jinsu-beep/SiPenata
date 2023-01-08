@@ -10,14 +10,14 @@
                 <h1>Dasar Hukum</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
-            <div class="col-lg-1 align-self-center">
-                <a href="{{ route('dataDasarHukum') }}" class="btn btn-default btn-icon-split">
-                    <span class="icon">
-                        <i class="fas fa-arrow-left"></i>
-                    </span>
-                    <span class="text">Kembali</span>
-                </a>
-            </div>
+        </div>
+        <div class="col-lg-1 align-self-center">
+            <a href="{{ route('dataDasarHukum') }}" class="btn btn-default btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Kembali</span>
+            </a>
         </div>
     </div>
 </section>

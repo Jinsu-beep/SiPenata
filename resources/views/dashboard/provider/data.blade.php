@@ -27,7 +27,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Data Provider</h1>
+                <h1>Provider</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -38,9 +38,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">List Data Provider</h3>
-                        <div class="card-tools btn btn-primary btn-icon-split">
+                    <div class="row card-header">
+                        <div class="col-lg-10 align-self-center">
+                            <h3 class="card-title ">List Data Provider</h3>
+                        </div>
+                        <div class="col-lg-2 card-tools btn btn-primary btn-icon-split">
                             <button class="btn btn-primary" type="button" onclick="createprovider()">
                                 <i class="fas fa-plus"></i>
                                 <span class="text">Tambah Provider Baru</span>

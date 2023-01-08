@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Data Registrasi</h1>
+                <h1>Validasi Perusahaan</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List Data User</h3>
+                        <h3 class="card-title">List Data Validasi Perusahaan</h3>
                     </div>
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">

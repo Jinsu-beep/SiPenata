@@ -95,7 +95,7 @@
                         <textarea type="text" class="form-control" placeholder="Alamat Lengkap" name="alamat"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="file_aktaPendirian">File Akta Pendiriian Perusahaan</label>
+                        <label for="file_aktaPendirian">File Akta Pendirian Perusahaan</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="file_aktaPendirian" name="file_aktaPendirian">

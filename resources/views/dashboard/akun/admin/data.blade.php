@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h1>Akun Admin</h1>
+                <h1>Admin</h1>
                 <p>Sistem Penataan Menara Telekomunikasi</p>
             </div>
         </div>

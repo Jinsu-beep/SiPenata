@@ -50,7 +50,7 @@
         <div class="col-md-4 col-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h6 class="m-0 font-weight-bold">Data Tempat Ibadah</h6>
+                    <h6 class="m-0 font-weight-bold">Data Zone Plan</h6>
                 </div>
                 <div class="card-body">
                     <div class="form-group">

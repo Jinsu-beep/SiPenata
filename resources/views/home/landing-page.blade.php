@@ -1,5 +1,5 @@
 @extends('layouts/home/index-layout')
-@section('title') Welcome @endsection
+@section('title')<title>SiPenata</title>@endsection
 
 @section('content')
 

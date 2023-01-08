@@ -1,5 +1,5 @@
 @extends('layouts/home/index-layout')
-@section('title') Dasar Hukum @endsection
+@section('title')<title>SiPenata | Dasar Hukum</title>@endsection
 
 @push('css')
 <style>

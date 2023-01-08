@@ -443,7 +443,7 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
-                                <label for="NPWP">Gambar Lokasi dan Situasi</label>
+                                <label for="NPWP">File Gambar Lokasi dan Situasi</label>
                                 @if ($detailFile7->status == 'perbaiki')
                                     <div class="input-group">
                                         <div class="custom-file">
@@ -640,9 +640,9 @@
 </script>
 
 <script>
-
+    let data = {!! json_encode($detailPengajuan->toArray()) !!}
     //MAP INIT
-    var mymap = L.map('mymap').setView([-8.375319619905975, 115.18006704436591], 10);
+    var mymap = L.map('mymap').setView([data.lat, data.long], 15);
     
     $('#user_button').click(function () {
         setTimeout(function() {
@@ -671,7 +671,7 @@
         }
     });
 
-    let data = {!! json_encode($detailPengajuan->toArray()) !!}
+    
     // console.log(data);
     let marker =  L.marker([data.lat, data.long]).addTo(mymap);
     // console.log(marker);

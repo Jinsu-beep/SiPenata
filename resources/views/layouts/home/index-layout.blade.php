@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Inner Page - Bootslander Bootstrap Template</title>
+  @yield('title')
+  {{-- <title>SiPenata</title> --}}
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -14,7 +15,7 @@
   <link href="landing/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Font Awesome -->
-<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -30,6 +31,8 @@
 
   <!-- Template Main CSS File -->
   <link href="landing/css/style.css" rel="stylesheet">
+
+  
 
   <!-- =======================================================
   * Template Name: Bootslander - v4.10.0
