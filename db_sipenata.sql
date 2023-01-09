@@ -55,7 +55,7 @@ CREATE TABLE `tb_detail_pengajuan` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_detail_pengajuan_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tb_detail_pengajuan` */
 
@@ -93,8 +93,8 @@ CREATE TABLE `tb_detail_perusahaan` (
 insert  into `tb_detail_perusahaan`(`id`,`id_perusahaan`,`file`,`patch`,`status`,`tanggal`,`created_at`,`updated_at`,`deleted_at`) values 
 (1,16,'TandaDaftarPerusahaan','/storage/Perusahaan/16/TandaDaftar.pdf','disetujui','2023-01-08','2023-01-08 17:23:19','2023-01-08 09:23:19',NULL),
 (2,16,'AktaPendirianPerusahaan','/storage/Perusahaan/16/AktaPendirian.pdf','disetujui','2023-01-08','2023-01-08 17:23:19','2023-01-08 09:23:19',NULL),
-(3,17,'TandaDaftarPerusahaan','/storage/Perusahaan/17/TandaDaftar.pdf','tunggu persetujuan','2023-01-08','2023-01-09 01:32:55','2023-01-08 15:17:29',NULL),
-(4,17,'AktaPendirianPerusahaan','/storage/Perusahaan/17/AktaPendirian.pdf','disetujui','2023-01-08','2023-01-08 23:17:29','2023-01-08 15:17:29',NULL);
+(3,17,'TandaDaftarPerusahaan','/storage/Perusahaan/17/TandaDaftar.pdf','tunggu persetujuan','2023-01-08','2023-01-09 22:33:27','2023-01-09 13:55:04',NULL),
+(4,17,'AktaPendirianPerusahaan','/storage/Perusahaan/17/AktaPendirian.pdf','tunggu persetujuan','2023-01-08','2023-01-09 22:33:23','2023-01-09 13:55:04',NULL);
 
 /*Table structure for table `tb_laporan_kondisi` */
 
@@ -1164,13 +1164,14 @@ CREATE TABLE `tb_menara` (
   CONSTRAINT `tb_menara_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_menara_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`),
   CONSTRAINT `tb_menara_ibfk_5` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_menara` */
 
 insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`no_menara`,`foto`,`tanggal_pembuatan`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`file_suratIzinPembangunan`,`file_suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
 (12,51,7,705,497,16,'161','/storage/Menara/12/FotoMenara.jpeg','2023-01-08','-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','/storage/Menara/12/Pembangunan.pdf','/storage/Menara/12/Operasional.pdf','2023-01-08 17:50:22','2023-01-08 09:50:22',NULL),
-(13,51,7,705,509,17,'171','/storage/Menara/13/FotoMenara.jpeg','2023-01-08','-8.382912802965762','115.59715747833253','Menara 4 Kaki','70','2','200','Aspal','/storage/Menara/13/Pembangunan.pdf','/storage/Menara/13/Operasional.pdf','2023-01-08 23:37:39','2023-01-08 15:37:39',NULL);
+(13,51,7,705,509,17,'171','/storage/Menara/13/FotoMenara.jpeg','2023-01-08','-8.382912802965762','115.59715747833253','Menara 4 Kaki','70','2','200','Aspal','/storage/Menara/13/Pembangunan.pdf','/storage/Menara/13/Operasional.pdf','2023-01-08 23:37:39','2023-01-08 15:37:39',NULL),
+(14,51,7,705,509,17,'172','/storage/Menara/14/FotoMenara.jpeg','2023-01-09','-8.3841865057937','115.59818744659425','Menara 4 Kaki','70','2','200','jalan setapak','/storage/Menara/14/Pembangunan.pdf','/storage/Menara/14/Operasional.pdf','2023-01-09 22:08:45','2023-01-09 14:08:45',NULL);
 
 /*Table structure for table `tb_opd` */
 
@@ -1273,7 +1274,7 @@ CREATE TABLE `tb_pengajuan_menara` (
   CONSTRAINT `tb_pengajuan_menara_ibfk_3` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_menara` */
 
@@ -1298,7 +1299,7 @@ CREATE TABLE `tb_pengajuan_status` (
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_pengajuan_status_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `tb_m_status` (`id`),
   CONSTRAINT `tb_pengajuan_status_ibfk_2` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_status` */
 
@@ -1326,13 +1327,14 @@ CREATE TABLE `tb_penggunaan_menara` (
   KEY `id_provider` (`id_provider`),
   CONSTRAINT `tb_penggunaan_menara_ibfk_1` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
   CONSTRAINT `tb_penggunaan_menara_ibfk_2` FOREIGN KEY (`id_provider`) REFERENCES `tb_m_provider` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_penggunaan_menara` */
 
 insert  into `tb_penggunaan_menara`(`id`,`id_provider`,`id_menara`,`created_at`,`updated_at`,`deleted_at`) values 
 (1,12,12,'2023-01-08 09:50:37','2023-01-08 09:50:37',NULL),
-(2,14,12,'2023-01-08 09:50:45','2023-01-08 09:50:45',NULL);
+(2,14,12,'2023-01-08 09:50:45','2023-01-08 09:50:45',NULL),
+(4,12,14,'2023-01-09 14:09:12','2023-01-09 14:09:12',NULL);
 
 /*Table structure for table `tb_persetujuan_pendamping` */
 
@@ -1351,7 +1353,7 @@ CREATE TABLE `tb_persetujuan_pendamping` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_persetujuan_pendamping_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_persetujuan_pendamping` */
 
@@ -1394,7 +1396,7 @@ CREATE TABLE `tb_perusahaan` (
 
 insert  into `tb_perusahaan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_telp`,`alamat`,`email`,`status`,`marker`,`disposisi`,`created_at`,`updated_at`,`deleted_at`) values 
 (16,51,9,901,685,'PT. Asri','0321456987','Jl. Pulau Kawe','a@gmail.com','diterima','/storage/Perusahaan/16/Marker.png','pendaftaran diterima','2023-01-09 01:32:12','2023-01-08 09:23:19',NULL),
-(17,51,9,901,685,'PT. Bintang','036155684','Jl. Pulau Moyo','b@gmail.com','tunggu persetujuan','/storage/Perusahaan/17/Marker.png',NULL,'2023-01-09 01:32:44','2023-01-08 15:17:29',NULL);
+(17,51,9,901,685,'PT. Bintang','036155684','Jl. Pulau Moyo','b@gmail.com','tunggu persetujuan',NULL,NULL,'2023-01-09 22:34:11','2023-01-09 13:55:04',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
