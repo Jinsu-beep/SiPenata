@@ -78,7 +78,7 @@
                     </div>
                     @if ($detailPengajuan->PengajuanStatusTerakhir->Status->status == 'Selesai')
                         <div class="form-group row">
-                            <label for="Nama" class="col-sm-2 col-form-label">File Rekomendasi Pengajuan Menara</label>
+                            <label for="Nama" class="col-sm-2 col-form-label">File Rekomendasi Pembuatan Menara</label>
                             <div class="col-sm-10">
                                 <table id="example2" class="table table-bordered table-hover">
                                     <tbody>
