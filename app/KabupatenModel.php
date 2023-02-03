@@ -25,6 +25,11 @@ class KabupatenModel extends Model
 
     public function Menara()
     {
-        return $this->hasMany(MenaraModel::class, 'id_kecamatan', 'id');
+        return $this->hasMany(MenaraModel::class, 'id_kabupaten', 'id');
+    }
+
+    public function ZonePlan()
+    {
+        return $this->hasMany(ZonePlanModel::class, 'id_kabupaten', 'id');
     }
 }

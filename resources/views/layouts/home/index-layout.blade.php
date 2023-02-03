@@ -11,8 +11,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="landing/img/favicon.png" rel="icon">
-  <link href="landing/img/apple-touch-icon.png" rel="apple-touch-icon">
+  {{-- <link href="landing/img/favicon.png" rel="icon">
+  <link href="landing/img/apple-touch-icon.png" rel="apple-touch-icon"> --}}
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">

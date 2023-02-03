@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use App\ZonePlanModel;
 use App\SuperAdminModel;
 use App\AdminModel;
+use App\ProvinsiModel;
+use App\MenaraModel;
 
 class ZonePlanController extends Controller
 {
@@ -39,7 +41,12 @@ class ZonePlanController extends Controller
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        return view("dashboard.zone_plan.create", compact("dataUser"));
+        $dataProvinsi = ProvinsiModel::get();
+        $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
+
+        return view("dashboard.zone_plan.create", compact("dataUser", "dataProvinsi", "zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
 
     public function insertZonePlan(Request $request)
@@ -50,6 +57,11 @@ class ZonePlanController extends Controller
             'lng' => 'required',
             'rad' => 'required',
             'status' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'batasMenara' => 'required',
         ]);
 
         if($validator->fails()){
@@ -62,6 +74,12 @@ class ZonePlanController extends Controller
         $newZonePlan->long = $request->lng;
         $newZonePlan->radius = $request->rad;
         $newZonePlan->status = $request->status;
+        $newZonePlan->id_provinsi = $request->provinsi;
+        $newZonePlan->id_kabupaten = $request->kabupaten;
+        $newZonePlan->id_kecamatan = $request->kecamatan;
+        $newZonePlan->id_desa = $request->desa;
+        $newZonePlan->batas_menara = $request->batasMenara;
+        $newZonePlan->jumlah_menara = 0;
         $newZonePlan->save();
 
         return redirect()->route('dataZonePlan')->with(['success' => 'Zone Plan Berhasil Dibuat']);
@@ -75,9 +93,10 @@ class ZonePlanController extends Controller
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        $dataZonePlan = ZoneplanModel::find($id);
+        $dataZonePlan = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->find($id);
+        $menara = MenaraModel::where('id_zonePlan', $id)->get();
 
-        return view("dashboard.zone_plan.detail", compact("dataUser", "dataZonePlan"));
+        return view("dashboard.zone_plan.detail", compact("dataUser", "dataZonePlan", "menara"));
     }
 
     public function editZonePlan($id)
@@ -88,9 +107,14 @@ class ZonePlanController extends Controller
             $dataUser = AdminModel::with('user.Admin')->whereIn("id_user", [Auth::user()->id])->first();
         }
 
-        $dataZonePlan = ZoneplanModel::find($id);
+        $dataProvinsi = ProvinsiModel::get();
+        $dataZonePlan = ZonePlanModel::find($id);
+        
+        $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
 
-        return view("dashboard.zone_plan.edit", compact("dataUser", "dataZonePlan"));
+        return view("dashboard.zone_plan.edit", compact("dataUser", "dataZonePlan", "dataProvinsi", "zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
 
     public function updateZonePlan($id, Request $request)
@@ -101,19 +125,29 @@ class ZonePlanController extends Controller
             'lng' => 'required',
             'rad' => 'required',
             'status' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'batasMenara' => 'required',
         ]);
 
         if($validator->fails()){
             return back()->withErrors($validator);
         }
 
-        $newZonePlan = ZonePlanModel::find($id);
-        $newZonePlan->nama = $request->nama;
-        $newZonePlan->lat = $request->lat;
-        $newZonePlan->long = $request->lng;
-        $newZonePlan->radius = $request->rad;
-        $newZonePlan->status = $request->status;
-        $newZonePlan->update();
+        $updateZonePlan = ZonePlanModel::find($id);
+        $updateZonePlan->nama = $request->nama;
+        $updateZonePlan->lat = $request->lat;
+        $updateZonePlan->long = $request->lng;
+        $updateZonePlan->radius = $request->rad;
+        $updateZonePlan->status = $request->status;
+        $updateZonePlan->id_provinsi = $request->provinsi;
+        $updateZonePlan->id_kabupaten = $request->kabupaten;
+        $updateZonePlan->id_kecamatan = $request->kecamatan;
+        $updateZonePlan->id_desa = $request->desa;
+        $updateZonePlan->batas_menara = $request->batasMenara;
+        $updateZonePlan->update();
 
         return redirect()->route('dataZonePlan')->with(['success' => 'Zone Plan Berhasil Diperbarui']);
     }

@@ -211,6 +211,11 @@
                             <div class="card ">
                                 <div id="mymap"></div>
                             </div>
+                            <div id="status">
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" name="idZone" id="idZone" readonly hidden>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
@@ -227,29 +232,22 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Provinsi</label>
-                                <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option selected disabled>Pilih Provinsi ...</option>
-                                    @foreach($provinsi as $p)  
-                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
-                                    @endforeach
+                                <select class="form-control select2" name="provinsi" id="menara_provinsi" data-placeholder=" Provinsi " style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Kabupaten</label>
-                                <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option selected disabled>Pilih Kabupaten ...</option>
+                                <select class="form-control select2" name="kabupaten" id="menara_kabupaten" data-placeholder=" Kabupaten " style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Kecamatan</label>
-                                <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option selected disabled>Pilih Kecamatan ...</option>
+                                <select class="form-control select2" name="kecamatan" id="menara_kecamatan" data-placeholder=" Kecamatan " style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Desa</label>
-                                <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
-                                    <option selected disabled>Pilih Desa ...</option>
+                                <select class="form-control select2" name="desa" id="menara_desa" data-placeholder=" Desa " style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group mb-3">
@@ -263,11 +261,11 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Menara (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara">
+                                <input type="number" class="form-control" placeholder="Tinggi Menara" name="tinggiMenara" id="tinggiMenara">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Tinggi Antena (Meter)</label>
-                                <input type="text" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena">
+                                <input type="number" class="form-control" placeholder="Tinggi Antena" name="tinggiAntena">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="NPWP">Luas Area (Meter Persegi)</label>
@@ -465,7 +463,7 @@
 </script>
 
 <script>
-
+    let kerusakanZona = [];
     //MAP INIT
     var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
     
@@ -475,10 +473,13 @@
         }, 100);
     });
 
+    var circles = []
+
     var zonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
     zonePlan.forEach(element => {
         if (element.status == 'available') {
             var circle = L.circle([element.lat, element.long], element.radius).addTo(mymap);
+            circles.push(circle);
         }
     });
     
@@ -516,13 +517,65 @@
     //HANDLER PM CREATE
     mymap.on('pm:create', e => {
     let shape = e.shape;
-    console.log(e);
+    // console.log(e);
         if (shape == 'Marker') {
             let lat = e.marker._latlng.lat;
             let lng = e.marker._latlng.lng;
 
+            $.ajax({
+                type: 'GET',
+                url: '/pengajuan/getDistance/'+lat+'/'+lng,
+                success: function (response){
+                    console.log(response);
+                    if (response.statusZona == 1) {
+                        if (response.zp.status != 'available') {
+                            $('#status').append('<h6 style="color: red">*Lokasi Yang Dipilih Diluar Zona Pembangunan Yang Ada</h6>');
+                        } else {
+                            $('#menara_provinsi').empty();
+                            $('#menara_provinsi').append('<option value="' + response.zp.id_provinsi + '"' +' selected>' + response.zp.provinsi.nama + '</option>');
+                            $('#menara_kabupaten').empty();
+                            $('#menara_kabupaten').append('<option value="' + response.zp.id_kabupaten + '"' +' selected>' + response.zp.kabupaten.nama + '</option>');
+                            $('#menara_kecamatan').empty();
+                            $('#menara_kecamatan').append('<option value="' + response.zp.id_kecamatan + '"' +' selected>' + response.zp.kecamatan.nama + '</option>');
+                            $('#menara_desa').empty();
+                            $('#menara_desa').append('<option value="' + response.zp.id_desa + '"' +' selected>' + response.zp.desa.nama + '</option>');
+                            $('#idZone').empty();
+                            $('#idZone').val(response.zp.id);
+                        }
+                    } else if (response.statusZona == 0) {
+                        $('#status').append('<h6 style="color: red">*Lokasi Yang Dipilih Diluar Zona Pembangunan Yang Ada</h6>');
+                    }
+
+                    if (response.statusMenara == 1) {
+                        $('#status').append('<h6 style="color: red">**Lokasi Yang Dipilih Berjarak Kurang Dari Atau Sama Dengan 350 Meter Dengan Menara BTS Terdekat</h6>');
+                    }
+                }
+            });
+
             $('#lat').val(lat);
             $('#lng').val(lng);
+
+            let tinggiMenara = $('#tinggiMenara').val();
+
+            if (tinggiMenara != '') {
+                zonaKerusakan = L.circle([lat, lng], {radius: tinggiMenara, color: '#ff0000'}).addTo(mymap);
+                kerusakanZona.push(zonaKerusakan);
+            }
+
+            $('#tinggiMenara').keyup(function(){
+                kerusakanZona.forEach(element => {
+                    mymap.removeLayer(element);
+                });
+                let kerusakan = $('#tinggiMenara').val();
+                console.log(kerusakan);
+                zonaKerusakan = L.circle([lat, lng], {radius: kerusakan, color: '#ff0000'}).addTo(mymap);
+                kerusakanZona.push(zonaKerusakan);
+                if (kerusakan == '') {
+                    kerusakanZona.forEach(element => {
+                        mymap.removeLayer(element);
+                    });
+                }
+            });
 
             mymap.pm.disableDraw('Marker', {
                 snappable: true,
@@ -538,10 +591,18 @@
             e.marker.on('pm:remove', ({layer}) => {
                 $('#lat').val('');
                 $('#lng').val('');
+                $('#menara_provinsi').empty();
+                $('#menara_kabupaten').empty();
+                $('#menara_kecamatan').empty();
+                $('#menara_desa').empty();
+                $('#status').empty();
                 mymap.pm.addControls({
                     editMode: false,
                     removalMode: false,
                     drawMarker: true,
+                });
+                kerusakanZona.forEach(element => {
+                    mymap.removeLayer(element);
                 });
             });
 
@@ -550,9 +611,17 @@
             });
                       
             e.marker.on('move', function(e){
-                console.log(e);
+                // console.log(e);
                 $('#lat').val(e.latlng.lat);
                 $('#lng').val(e.latlng.lng);
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/pengajuan/getDistance/'+e.latlng.lat+'/'+e.latlng.lng,
+                    success: function (response){
+                        console.log(response[0]);
+                    }
+                });
             });  
         }
     });

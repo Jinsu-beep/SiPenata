@@ -52,4 +52,9 @@ class PengajuanMenaraModel extends Model
     {
         return $this->belongsTo(DesaModel::class, 'id_desa', 'id');
     }
+
+    public function ZonePlan()
+    {
+        return $this->belongsTo(ZonePlanModel::class, 'id_zonePlan', 'id');
+    }
 }

@@ -57,6 +57,30 @@
                         <label for="nama">Nama Zone Plan</label>
                         <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Zone Plan" value="{{ $dataZonePlan->nama }}" readonly>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="Provinsi">Provinsi</label>
+                        <select class="form-control select2" id="provinsi" name="provinsi" data-placeholder="Provinsi" style="width: 100%;" disabled>
+                            <option selected disabled>{{ $dataZonePlan->Provinsi->nama }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="Kabupaten">Kabupaten</label>
+                        <select class="form-control select2" id="kabupaten" name="kabupaten" data-placeholder="Kabupaten" style="width: 100%;" disabled>
+                            <option selected disabled>{{ $dataZonePlan->Kabupaten->nama }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Kecamatan">Kecamatan</label>
+                        <select class="form-control select2" id="kecamatan" name="kecamatan" data-placeholder="Kecamatan" style="width: 100%;" disabled>
+                            <option selected disabled>{{ $dataZonePlan->Kecamatan->nama }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Desa">Desa</label>
+                        <select class="form-control select2" id="desa" name="desa" data-placeholder="Desa" style="width: 100%;" disabled>
+                            <option selected disabled>{{ $dataZonePlan->Desa->nama }}</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="">Latitude</label>
                         <input type="text" class="form-control" name="lat" id="lat" value="{{ $dataZonePlan->lat }}" readonly>
@@ -70,10 +94,15 @@
                         <input type="text" class="form-control" name="rad" id="rad" value="{{ $dataZonePlan->radius }}" readonly>
                     </div>
                     <div class="form-group">
+                        <label for="">Batas Menara</label>
+                        <input type="number" class="form-control" name="batasMenara" id="batasMenara" value="{{ $dataZonePlan->batas_menara }}" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control select2" name="status" id="status" data-placeholder="Status" style="width: 100%;" disabled>
-                            <option value="available">available</option>
-                            <option value="used">used</option>
+                            <option value="available" @if ($dataZonePlan->status == 'available') selected @endif>Available</option>
+                            <option value="used" @if ($dataZonePlan->status == 'used') selected @endif>Used</option>
+                            <option value="terlarang" @if ($dataZonePlan->status == 'terlarang') selected @endif>Terlarang</option>
                         </select>
                     </div>
                 </div>
@@ -143,6 +172,8 @@
 
 <script>
     var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
+    let menara = {!! json_encode($menara->toArray()) !!}
+    // console.log(menara)
 
     var lat = dataZonePlan.lat;
     var lng = dataZonePlan.long;
@@ -164,11 +195,17 @@
         }
     });
 
-    console.log(lat);
-    console.log(lng);
-    console.log(rad);
+    // console.log(lat);
+    // console.log(lng);
+    // console.log(rad);
 
     var circle = L.circle([lat, lng], rad).addTo(mymap);
+
+    menara.forEach(element => {
+        console.log(element)
+        marker = L.marker([element.lat, element.long]);
+        mymap.addLayer(marker);
+    });
 
     //ADD CONTROLL
     mymap.pm.addControls({  

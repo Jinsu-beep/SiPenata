@@ -25,6 +25,11 @@ class DesaModel extends Model
 
     public function Menara()
     {
-        return $this->hasMany(MenaraModel::class, 'id_kecamatan', 'id');
+        return $this->hasMany(MenaraModel::class, 'id_desa', 'id');
+    }
+
+    public function ZonePlan()
+    {
+        return $this->hasMany(ZonePlanModel::class, 'id_desa', 'id');
     }
 }

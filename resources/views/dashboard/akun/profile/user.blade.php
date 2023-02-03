@@ -449,7 +449,7 @@
                         $('#edit_kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
                     }
                 });
-        }
+            }
         });
 
         // var id_kabupaten = $('#edit_kabupaten').val();

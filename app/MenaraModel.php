@@ -37,4 +37,9 @@ class MenaraModel extends Model
     {
         return $this->hasMany(PenggunaanMenaraModel::class, 'id_menara', 'id');
     }
+
+    public function ZonePlan()
+    {
+        return $this->belongsTo(ZonePlanModel::class, 'id_zonePlan', 'id');
+    }
 }

@@ -54,6 +54,22 @@
                                     <div class="col-lg-1"></div>
                                     <div class="col-lg-1">
                                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="#ffff00" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <div class="icheck-primary d-inline">
+                                            <input type="checkbox" id="checkboxPrimary3">
+                                            <label for="checkboxPrimary3">
+                                                Zone Plan Terlarang
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-1">
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                             <path fill="#f70505" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
                                         </svg>
                                     </div>
@@ -71,11 +87,11 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nama">Latitude</label>
-                                    <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="">
+                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="Latitude">
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Longitude</label>
-                                    <input type="text" class="form-control" name="nama" id="no_dasarHukum" placeholder="">
+                                    <input type="text" class="form-control" name="lng" id="lng" placeholder="Longitude">
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -124,9 +140,11 @@
 
         var available = []
         var used = []
+        var terlarang = []
 
         var dataZonePlanAvailable = {!! json_encode($zonePlanAvailable->toArray()) !!}
         var dataZonePlanUsed = {!! json_encode($zonePlanUsed->toArray()) !!}
+        var dataZonePlanTerlarang = {!! json_encode($zonePlanTerlarang->toArray()) !!}
         console.log(dataZonePlanUsed);
 
         $('#checkboxPrimary2').change(function() {
@@ -149,12 +167,27 @@
                 dataZonePlanUsed.forEach(element => {
                     console.log()
                     circleUsed = L.circle([element.lat, element.long], element.radius, {
-                        color: '#f70505',
+                        color: '#ffff00',
                     }).addTo(mymap);
                     used.push(circleUsed)
                 });
             } else if (this.checked == false) {
                 used.forEach(element => {
+                    mymap.removeLayer(element);
+                })
+            }
+        })
+        $('#checkboxPrimary3').change(function() {
+            if (this.checked == true) {
+                dataZonePlanTerlarang.forEach(element => {
+                    console.log()
+                    circleTerlarang = L.circle([element.lat, element.long], element.radius, {
+                        color: '#f70505',
+                    }).addTo(mymap);
+                    terlarang.push(circleTerlarang)
+                });
+            } else if (this.checked == false) {
+                terlarang.forEach(element => {
                     mymap.removeLayer(element);
                 })
             }

@@ -102,6 +102,7 @@ class PengajuanMenaraController extends Controller
             'file_denahBangunan' => 'required',
             'file_lokasiDanSituasi' => 'required',
             'file_suratTanah' => 'required',
+            'idZone' => 'required',
         ]);
 
         if($validator->fails()){
@@ -133,6 +134,7 @@ class PengajuanMenaraController extends Controller
         $newPengajuan->status_lahan = $request->statusLahan;
         $newPengajuan->kepemilikan_tanah = $request->namaPemilikTanah;
         $newPengajuan->jumlah_pendamping = $request->jumlahData;
+        $newPengajuan->id_zonePlan = $request->idZone;
         
 
         switch ($request->input('action')) {
@@ -156,6 +158,13 @@ class PengajuanMenaraController extends Controller
                 $newStatus->save();
                 break;
         }
+
+        $zonePlan = ZonePlanModel::find($request->idZone);
+        $zonePlan->jumlah_menara = $zonePlan->jumlah_menara + 1;
+        if ($zonePlan->jumlah_menara == $zonePlan->batas_menara) {
+            $zonePlan->status = 'used';
+        }
+        $zonePlan->save();
 
         $fileKTP = $request->file('file_KTPPemohon');
         $extensionKTP = $fileKTP->getClientOriginalExtension();
@@ -361,7 +370,8 @@ class PengajuanMenaraController extends Controller
             'luasArea' => 'required',
             'aksesJalan' => 'required',
             'statusLahan' => 'required',
-            'namaPemilikTanah' => 'required'
+            'namaPemilikTanah' => 'required',
+            'idZone' => 'required'
         ]);
 
         if($validator->fails()){
@@ -440,6 +450,23 @@ class PengajuanMenaraController extends Controller
 
         // dd($request);
 
+        if ($detailPengajuan->id_zonePlan != $request->idZone) {
+            $zonaLama = ZonePlanModel::find($detailPengajuan->id_zonePlan);
+            $zonaLama->jumlah_menara = $zonaLama->jumlah_menara - 1;
+            if ($zonaLama->status == 'used') {
+                $zonaLama->status = 'available';
+            }
+            $zonaLama->update();
+
+            $zonaBaru = ZonePlanModel::find($request->idZone);
+            // dd($zonaBaru);
+            $zonaBaru->jumlah_menara = $zonaBaru->jumlah_menara + 1;
+            if ($zonaBaru->jumlah_menara == $zonaBaru->batas_menara) {
+                $zonaBaru->status = 'used';
+            }
+            $zonaBaru->update();
+        }
+
         $editPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->find($id);
         $editPengajuan->id_provinsi = $request->provinsi;
         $editPengajuan->id_kabupaten = $request->kabupaten;
@@ -455,6 +482,7 @@ class PengajuanMenaraController extends Controller
         $editPengajuan->status_lahan = $request->statusLahan;
         $editPengajuan->kepemilikan_tanah = $request->namaPemilikTanah;
         $editPengajuan->jumlah_pendamping = $request->jumlahData;
+        $editPengajuan->id_zonePlan = $request->idZone;
         switch ($request->input('action')) {
             case 'draft':
                 $editPengajuan->save();
@@ -473,7 +501,6 @@ class PengajuanMenaraController extends Controller
                 $newStatus->save();
                 break;
         }
-
 
         $fileKTP = $request->file('file_KTPPemohon');
         if ($fileKTP != NULL) {
@@ -930,6 +957,14 @@ class PengajuanMenaraController extends Controller
                 $validate->disposisi = $request->disposisi;
                 $validate->save();
 
+                $pengajuan = PengajuanMenaraModel::find($id);
+                $zonePlan = ZonePlanModel::find($pengajuan->id_zonePlan);
+                $zonePlan->jumlah_menara = $zonePlan->jumlah_menara - 1;
+                if ($zonePlan->jumlah_menara != $zonePlan->batas_menara) {
+                    $zonePlan->status = 'available';
+                }
+                $zonePlan->update();
+
                 return redirect()->route('dataPengajuan')->with(['success' => 'Status Berhasil Dirubah']);
                 break;
             
@@ -959,7 +994,7 @@ class PengajuanMenaraController extends Controller
     {
         $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->with('Provinsi.PemilikMenara')->with('Kabupaten.PemilikMenara')->with('Kecamatan.PemilikMenara')->with('Desa.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
-        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->with('PengajuanStatusTerakhir.PengajuanMenara')->find($id);
+        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->with('PengajuanStatusTerakhir.PengajuanMenara')->with('ZonePlan.PengajuanMenara')->find($id);
         $status = PengajuanStatusModel::with('Status.PengajuanStatus')->where('id_pengajuan_menara', $id)->first();
         // dd($status);
 
@@ -1086,6 +1121,23 @@ class PengajuanMenaraController extends Controller
 
         // dd($request);
 
+        if ($detailPengajuan->id_zonePlan != $request->idZone) {
+            $zonaLama = ZonePlanModel::find($detailPengajuan->id_zonePlan);
+            $zonaLama->jumlah_menara = $zonaLama->jumlah_menara - 1;
+            if ($zonaLama->status == 'used') {
+                $zonaLama->status = 'available';
+            }
+            $zonaLama->update();
+
+            $zonaBaru = ZonePlanModel::find($request->idZone);
+            // dd($zonaBaru);
+            $zonaBaru->jumlah_menara = $zonaBaru->jumlah_menara + 1;
+            if ($zonaBaru->jumlah_menara == $zonaBaru->batas_menara) {
+                $zonaBaru->status = 'used';
+            }
+            $zonaBaru->update();
+        }
+
         $editPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->find($id);
         $editPengajuan->id_provinsi = $request->provinsi;
         $editPengajuan->id_kabupaten = $request->kabupaten;
@@ -1101,7 +1153,7 @@ class PengajuanMenaraController extends Controller
         $editPengajuan->status_lahan = $request->statusLahan;
         $editPengajuan->kepemilikan_tanah = $request->namaPemilikTanah;
         $editPengajuan->jumlah_pendamping = $request->jumlahData;
-        $editPengajuan->tanggal = Carbon::now();
+        $editPengajuan->id_zonePlan = $request->idZone;
         $editPengajuan->save();
 
         $status = MasterStatusModel::where('status', 'Pemeriksaan Oleh Tim Administrasi')->first();
@@ -1327,9 +1379,6 @@ class PengajuanMenaraController extends Controller
 
     public function akhirPengajuan($id, Request $request)
     {
-        // $filePengajuanMenara = PengajuanMenaraModel::find($id);
-        // $jumlahMenara = MenaraModel::where('id_pemilik_menara', $filePengajuanMenara->id_pemilik_menara)->count();
-        // dd($jumlahMenara);
         $validator = Validator::make($request->all(), [
             'disposisi' => 'required',
             'file_rekomendasiPembangunan' => 'required',
@@ -1376,6 +1425,7 @@ class PengajuanMenaraController extends Controller
         $newMenara->tinggi_antena = $filePengajuanMenara->tinggi_antena;
         $newMenara->luas_area = $filePengajuanMenara->luas_area;
         $newMenara->akses_jalan = $filePengajuanMenara->akses_jalan;
+        $newMenara->id_zonePlan = $filePengajuanMenara->id_zonePlan;
         $newMenara->save();
 
         return redirect()->route('dataPengajuan')->with(['success' => 'Status Berhasil Dirubah']);
@@ -1391,31 +1441,49 @@ class PengajuanMenaraController extends Controller
         return storage::disk('local')->download($file);
     }
 
-    public function test()
+    public function getDistance($lat, $lng)
     {
-        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        $statusZona = 0;
+        $statusMenara = 0;
+        $data = [];
 
-        return view("dashboard.pengajuanMenara.test", compact("dataUser")); 
-    }
+        $zoneplan = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->get();
+        $menara = MenaraModel::get();
 
-    public function insertTest(Request $request)
-    {
-        // $i = 1;
-        // dd($request->lat[$i]);
+        foreach ($zoneplan as $zp) {
+            $theta = $zp->long - $lng;
+            $miles = (sin(deg2rad($zp->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($zp->lat)) * cos(deg2rad($lat)) * cos(deg2rad($theta)));
+            $miles = acos($miles);
+            $miles = rad2deg($miles);
+            $miles = $miles * 60 *1.1515;
+            $km = $miles * 1.609344;
+            $meter = $km * 1000;
 
-        dd($request);
+            if ($meter <= $zp->radius) {
+                foreach ($menara as $m) {
+                    $thetas = $m->long - $lng;
+                    $mile = (sin(deg2rad($m->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($m->lat)) * cos(deg2rad($lat)) * cos(deg2rad($thetas)));
+                    $mile = acos($mile);
+                    $mile = rad2deg($mile);
+                    $mile = $mile * 60 *1.1515;
+                    $kms = $mile * 1.609344;
+                    $meters = $kms * 1000;
 
-        $jumlahData = $request->jumlahData;
-
-        for ($i=1; $i <= $jumlahData; $i++) { 
-            $newPendamping = new PersetujuanPendampingModel();
-            $newPendamping->nama = $request->lat[$i];
-            $newPendamping->no_ktp = $request->lot[$i];
-            $newPendamping->jarak = $request->let[$i];
-            $newPendamping->file_suratPersetujuan = $request->lit[$i];
-            $newPendamping->save();
+                    if ($meters <= 350) {
+                        $statusMenara = 1;
+                    }
+                }
+                $statusZona = 1;
+                $data['statusZona'] = $statusZona;
+                $data['statusMenara'] = $statusMenara;
+                $data['zp'] = $zp;
+                // $data = [$status, $zp, $zp->Provinsi, $zp->Kabupaten, $zp->Kecamatan, $zp->Desa];
+                return response()->json($data);
+            }
         }
+        
+        $data['statusZona'] = $statusZona;
 
-        return redirect()->back()->with(['success' => 'Provider Berhasil Di Hapus']);
+        return response()->json($data);
     }
 }

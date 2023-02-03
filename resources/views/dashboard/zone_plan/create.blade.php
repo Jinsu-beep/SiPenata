@@ -58,6 +58,33 @@
                             <label for="nama">Nama Zone Plan</label>
                             <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Zone Plan">
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="Provinsi">Provinsi</label>
+                            <select class="form-control select2" id="provinsi" name="provinsi" data-placeholder="Provinsi" style="width: 100%;">
+                                <option selected disabled>Pilih Provinsi ...</option>
+                                @foreach ($dataProvinsi as $dp)
+                                <option value="{{ $dp->id }}">{{ $dp->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="Kabupaten">Kabupaten</label>
+                            <select class="form-control select2" id="kabupaten" name="kabupaten" data-placeholder="Kabupaten" style="width: 100%;">
+                                <option selected disabled>Pilih Kabupaten ...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Kecamatan">Kecamatan</label>
+                            <select class="form-control select2" id="kecamatan" name="kecamatan" data-placeholder="Kecamatan" style="width: 100%;">
+                                <option selected disabled>Pilih Kecamatan ...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Desa">Desa</label>
+                            <select class="form-control select2" id="desa" name="desa" data-placeholder="Desa" style="width: 100%;">
+                                <option selected disabled>Pilih Desa ...</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Latitude</label>
                             <input type="text" class="form-control" name="lat" id="lat" readonly>
@@ -71,10 +98,16 @@
                             <input type="text" class="form-control" name="rad" id="rad" readonly>
                         </div>
                         <div class="form-group">
+                            <label for="">Batas Menara</label>
+                            <input type="number" class="form-control" name="batasMenara" id="batasMenara">
+                        </div>
+                        <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control select2" name="status" id="status" data-placeholder="Status" style="width: 100%;">
-                                <option value="available">available</option>
-                                <option value="used">used</option>
+                                <option selected disabled>Pilih Status...</option>
+                                <option value="available">Available</option>
+                                <option value="used">Used</option>
+                                <option value="terlarang">Terlarang</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -89,6 +122,14 @@
                 </div>
                 <div class="card-body">
                     <div id="mapid"></div>
+                    <div class="row">
+                        <div class="icheck-primary d-inline ml-2">
+                            <input type="checkbox" id="checkboxPrimary1">
+                            <label for="checkboxPrimary1">
+                                Zone Plan Tersedia
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,6 +268,50 @@
         }
     });
 
+    var available = []
+    var used = []
+    var terlarang = []
+
+    var dataZonePlanAvailable = {!! json_encode($zonePlanAvailable->toArray()) !!}
+    var dataZonePlanUsed = {!! json_encode($zonePlanUsed->toArray()) !!}
+    var dataZonePlanTerlarang = {!! json_encode($zonePlanTerlarang->toArray()) !!}
+
+    $('#checkboxPrimary1').change(function() {
+        if (this.checked == true) {
+            dataZonePlanAvailable.forEach(element => {
+                console.log()
+                circleAvailable = L.circle([element.lat, element.long], element.radius, {
+                    color: '#0505f7',
+                }).addTo(mymap);
+                available.push(circleAvailable)
+            });
+            dataZonePlanUsed.forEach(element => {
+                console.log()
+                circleUsed = L.circle([element.lat, element.long], element.radius, {
+                    color: '#ffff00',
+                }).addTo(mymap);
+                used.push(circleUsed)
+            });
+            dataZonePlanTerlarang.forEach(element => {
+                console.log()
+                circleTerlarang = L.circle([element.lat, element.long], element.radius, {
+                    color: '#f70505',
+                }).addTo(mymap);
+                terlarang.push(circleTerlarang)
+            });
+        } else if (this.checked == false) {
+            available.forEach(element => {
+                mymap.removeLayer(element);
+            })
+            used.forEach(element => {
+                mymap.removeLayer(element);
+            })
+            terlarang.forEach(element => {
+                mymap.removeLayer(element);
+            })
+        }
+    })
+
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -235,5 +320,71 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
     }).addTo(mymap);
+</script>
+
+<script>
+    $('#provinsi').change(function() {
+        if($('#provinsi').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kabupaten/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#kabupaten').empty();
+                    $('#kabupaten').append('<option selected disabled>Pilih Kabupaten ...</option>');
+                    response.forEach(element => {
+                        $('#kabupaten').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#kecamatan').empty();
+                    $('#kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    $('#desa').empty();
+                    $('#desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#kabupaten').change(function() {
+        if($('#kabupaten').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/kecamatan/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#kecamatan').empty();
+                    $('#kecamatan').append('<option selected disabled>Pilih Kecamatan ...</option>');
+                    response.forEach(element => {
+                        $('#kecamatan').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                    $('#desa').empty();
+                    $('#desa').append('<option selected disabled>Pilih Desa ...</option>');
+                }
+            });
+        } 
+    });
+</script>
+
+<script>
+    $('#kecamatan').change(function() {
+        if($('#kecamatan').val() != ""){ 
+            let id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/profile/desa/'+id,
+                success: function (response){
+                    // console.log(response);
+                    $('#desa').empty();
+                    $('#desa').append('<option selected disabled>Pilih Desa ...</option>');
+                    response.forEach(element => {
+                        $('#desa').append('<option value="' + element['id'] + '"' +'>' + element['nama'] + '</option>');
+                    });
+                }
+            });
+        } 
+    });
 </script>
 @endpush

@@ -21,6 +21,7 @@ Route::get('/', 'LandingController@home')->name('home')->middleware('guest');
 Route::get('/landingdasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
 Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('getDasarhukum')->middleware('guest');
 Route::get('/landingzoneplan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
+Route::get('/landingzoneplan/analisaLokasi/{lat}/{lng}','PengajuanMenaraController@analisaLokasi')->name('analisaLokasi');
 Route::get('/landingdatamenara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
 Route::get('/landingmenara/{id}', 'LandingController@getMenara')->name('getMenara')->middleware('guest');
 
@@ -143,3 +144,4 @@ Route::get('/landingmenara/{id}', 'LandingController@getMenara')->name('getMenar
     Route::post('/pengajuan/updatePengajuan/{id}','PengajuanMenaraController@updatePengajuan')->name('updatePengajuan');
     Route::post('/pengajuan/akhirPengajuan/{id}','PengajuanMenaraController@akhirPengajuan')->name('akhirPengajuan');
     Route::get('/pengajuan/download/{id}','PengajuanMenaraController@downloadFile')->name('downloadFile');
+    Route::get('/pengajuan/getDistance/{lat}/{lng}','PengajuanMenaraController@getDistance')->name('getDistance');

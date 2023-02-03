@@ -39,8 +39,9 @@ class LandingController extends Controller
     {
         $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
         $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
 
-        return view("home.zone_plan", compact("zonePlanAvailable", "zonePlanUsed"));
+        return view("home.zone_plan", compact("zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
 
     public function data_menara()
@@ -57,5 +58,51 @@ class LandingController extends Controller
         $menara = MenaraModel::where('id_pemilik_menara', $id)->get();
 
         return response()->json($menara);
+    }
+    
+    public function analisaLokasi($lat, $lng)
+    {
+        $statusZona = 0;
+        $statusMenara = 0;
+        $data = [];
+
+        $zoneplan = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->get();
+        $menara = MenaraModel::get();
+
+        foreach ($zoneplan as $zp) {
+            $theta = $zp->long - $lng;
+            $miles = (sin(deg2rad($zp->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($zp->lat)) * cos(deg2rad($lat)) * cos(deg2rad($theta)));
+            $miles = acos($miles);
+            $miles = rad2deg($miles);
+            $miles = $miles * 60 *1.1515;
+            $km = $miles * 1.609344;
+            $meter = $km * 1000;
+
+            if ($meter <= $zp->radius) {
+                foreach ($menara as $m) {
+                    $thetas = $m->long - $lng;
+                    $mile = (sin(deg2rad($m->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($m->lat)) * cos(deg2rad($lat)) * cos(deg2rad($thetas)));
+                    $mile = acos($mile);
+                    $mile = rad2deg($mile);
+                    $mile = $mile * 60 *1.1515;
+                    $kms = $mile * 1.609344;
+                    $meters = $kms * 1000;
+
+                    if ($meters <= 350) {
+                        $statusMenara = 1;
+                    }
+                }
+                $statusZona = 1;
+                $data['statusZona'] = $statusZona;
+                $data['statusMenara'] = $statusMenara;
+                $data['zp'] = $zp;
+                // $data = [$status, $zp, $zp->Provinsi, $zp->Kabupaten, $zp->Kecamatan, $zp->Desa];
+                return response()->json($data);
+            }
+        }
+        
+        $data['statusZona'] = $statusZona;
+
+        return response()->json($data);
     }
 }

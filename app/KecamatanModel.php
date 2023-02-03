@@ -28,5 +28,8 @@ class KecamatanModel extends Model
         return $this->hasMany(MenaraModel::class, 'id_kecamatan', 'id');
     }
 
-
+    public function ZonePlan()
+    {
+        return $this->hasMany(ZonePlanModel::class, 'id_kecamatan', 'id');
+    }
 }
