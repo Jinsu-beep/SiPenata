@@ -55,7 +55,7 @@ CREATE TABLE `tb_detail_pengajuan` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_detail_pengajuan_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tb_detail_pengajuan` */
 
@@ -67,7 +67,31 @@ insert  into `tb_detail_pengajuan`(`id`,`id_pengajuan_menara`,`file`,`patch`,`st
 (5,8,'RancangBangun','/storage/Pengajuan/8/RancangBangun.pdf','disetujui','2023-01-08','2023-01-08 17:44:41','2023-01-08 09:44:41',NULL),
 (6,8,'DenahBangunan','/storage/Pengajuan/8/DenahBangunan.pdf','disetujui','2023-01-08','2023-01-08 17:44:41','2023-01-08 09:44:41',NULL),
 (7,8,'GambarLokasiDanSituasi','/storage/Pengajuan/8/LokasiDanSituasi.pdf','disetujui','2023-01-08','2023-01-08 17:44:41','2023-01-08 09:44:41',NULL),
-(8,8,'SuratTanah','/storage/Pengajuan/8/SuratTanah.pdf','disetujui','2023-01-08','2023-01-08 17:44:41','2023-01-08 09:44:41',NULL);
+(8,8,'SuratTanah','/storage/Pengajuan/8/SuratTanah.pdf','disetujui','2023-01-08','2023-01-08 17:44:41','2023-01-08 09:44:41',NULL),
+(25,11,'KTPPemohon','/storage/Pengajuan/11/KTPPemohon.jpg','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(26,11,'NPWPPemohon','/storage/Pengajuan/11/NPWPPemohon.jpeg','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(27,11,'FotoPemohon','/storage/Pengajuan/11/FotoPemohon.jpg','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(28,11,'SuratKuasa','/storage/Pengajuan/11/SuratKuasa.pdf','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(29,11,'RancangBangun','/storage/Pengajuan/11/RancangBangun.pdf','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(30,11,'DenahBangunan','/storage/Pengajuan/11/DenahBangunan.pdf','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(31,11,'GambarLokasiDanSituasi','/storage/Pengajuan/11/LokasiDanSituasi.pdf','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(32,11,'SuratTanah','/storage/Pengajuan/11/SuratTanah.pdf','disetujui','2023-01-30','2023-01-31 02:15:31','2023-01-30 18:15:31',NULL),
+(33,12,'KTPPemohon','/storage/Pengajuan/12/KTPPemohon.jpg','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(34,12,'NPWPPemohon','/storage/Pengajuan/12/NPWPPemohon.jpeg','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(35,12,'FotoPemohon','/storage/Pengajuan/12/FotoPemohon.jpg','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(36,12,'SuratKuasa','/storage/Pengajuan/12/SuratKuasa.pdf','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(37,12,'RancangBangun','/storage/Pengajuan/12/RancangBangun.pdf','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(38,12,'DenahBangunan','/storage/Pengajuan/12/DenahBangunan.pdf','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(39,12,'GambarLokasiDanSituasi','/storage/Pengajuan/12/LokasiDanSituasi.pdf','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(40,12,'SuratTanah','/storage/Pengajuan/12/SuratTanah.pdf','disetujui','2023-02-02','2023-02-02 17:56:42','2023-02-02 09:56:42',NULL),
+(41,13,'KTPPemohon','/storage/Pengajuan/13/KTPPemohon.jpg','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(42,13,'NPWPPemohon','/storage/Pengajuan/13/NPWPPemohon.jpeg','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(43,13,'FotoPemohon','/storage/Pengajuan/13/FotoPemohon.jpg','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(44,13,'SuratKuasa','/storage/Pengajuan/13/SuratKuasa.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(45,13,'RancangBangun','/storage/Pengajuan/13/RancangBangun.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(46,13,'DenahBangunan','/storage/Pengajuan/13/DenahBangunan.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(47,13,'GambarLokasiDanSituasi','/storage/Pengajuan/13/LokasiDanSituasi.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
+(48,13,'SuratTanah','/storage/Pengajuan/13/SuratTanah.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL);
 
 /*Table structure for table `tb_detail_perusahaan` */
 
@@ -93,8 +117,8 @@ CREATE TABLE `tb_detail_perusahaan` (
 insert  into `tb_detail_perusahaan`(`id`,`id_perusahaan`,`file`,`patch`,`status`,`tanggal`,`created_at`,`updated_at`,`deleted_at`) values 
 (1,16,'TandaDaftarPerusahaan','/storage/Perusahaan/16/TandaDaftar.pdf','disetujui','2023-01-08','2023-01-08 17:23:19','2023-01-08 09:23:19',NULL),
 (2,16,'AktaPendirianPerusahaan','/storage/Perusahaan/16/AktaPendirian.pdf','disetujui','2023-01-08','2023-01-08 17:23:19','2023-01-08 09:23:19',NULL),
-(3,17,'TandaDaftarPerusahaan','/storage/Perusahaan/17/TandaDaftar.pdf','tunggu persetujuan','2023-01-08','2023-01-09 22:33:27','2023-01-09 13:55:04',NULL),
-(4,17,'AktaPendirianPerusahaan','/storage/Perusahaan/17/AktaPendirian.pdf','tunggu persetujuan','2023-01-08','2023-01-09 22:33:23','2023-01-09 13:55:04',NULL);
+(3,17,'TandaDaftarPerusahaan','/storage/Perusahaan/17/TandaDaftar.pdf','disetujui','2023-01-08','2023-01-10 12:28:35','2023-01-10 04:28:35',NULL),
+(4,17,'AktaPendirianPerusahaan','/storage/Perusahaan/17/AktaPendirian.pdf','disetujui','2023-01-08','2023-01-10 12:28:35','2023-01-10 04:28:35',NULL);
 
 /*Table structure for table `tb_laporan_kondisi` */
 
@@ -1108,24 +1132,38 @@ DROP TABLE IF EXISTS `tb_m_zoneplan`;
 
 CREATE TABLE `tb_m_zoneplan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_provinsi` int(11) DEFAULT NULL,
+  `id_kabupaten` int(11) DEFAULT NULL,
+  `id_kecamatan` int(11) DEFAULT NULL,
+  `id_desa` int(11) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
   `radius` int(11) DEFAULT NULL,
-  `status` enum('available','used') DEFAULT NULL,
+  `batas_menara` int(11) DEFAULT NULL,
+  `jumlah_menara` int(11) DEFAULT NULL,
+  `status` enum('available','used','terlarang') DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  PRIMARY KEY (`id`),
+  KEY `id_provinsi` (`id_provinsi`),
+  KEY `id_kabupaten` (`id_kabupaten`),
+  KEY `id_kecamatan` (`id_kecamatan`),
+  KEY `id_desa` (`id_desa`),
+  CONSTRAINT `tb_m_zoneplan_ibfk_1` FOREIGN KEY (`id_provinsi`) REFERENCES `tb_m_provinsi` (`id`),
+  CONSTRAINT `tb_m_zoneplan_ibfk_2` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
+  CONSTRAINT `tb_m_zoneplan_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
+  CONSTRAINT `tb_m_zoneplan_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_zoneplan` */
 
-insert  into `tb_m_zoneplan`(`id`,`nama`,`lat`,`long`,`radius`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,'Seraya Timur','-8.396299741738005','115.6995957076312',642,'available','2023-01-08 08:57:07','2023-01-08 08:57:07',NULL),
-(2,'Kerta Mandala','-8.368702772995874','115.61488137602332',529,'available','2023-01-08 08:58:17','2023-01-08 08:58:17',NULL),
-(3,'kesimpar','-8.382352903110704','115.59926063008142',434,'available','2023-01-08 17:28:34','2023-01-08 09:28:34',NULL),
-(4,'Ababi','-8.400375435618203','115.58737271010638',290,'used','2023-01-08 17:51:15','2023-01-08 09:51:15',NULL);
+insert  into `tb_m_zoneplan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`lat`,`long`,`radius`,`batas_menara`,`jumlah_menara`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(1,51,7,704,492,'Seraya Timur','-8.396299741738005','115.6995957076312',642,1,0,'available','2023-02-04 03:39:27','2023-01-08 08:57:07',NULL),
+(4,51,7,705,497,'Ababi','-8.400375435618203','115.58737271010638',290,2,2,'used','2023-02-04 03:45:34','2023-02-03 19:45:34',NULL),
+(6,51,7,708,533,'Tulamben','-8.283776784611558','115.59719977460378',640,1,0,'available','2023-02-02 17:59:11','2023-02-02 09:59:11',NULL),
+(7,51,7,704,492,'Seraya Barat 1','-8.439862138683022','115.63816825638409',340,1,1,'used','2023-02-01 16:46:49','2023-02-01 08:46:49',NULL);
 
 /*Table structure for table `tb_menara` */
 
@@ -1138,6 +1176,7 @@ CREATE TABLE `tb_menara` (
   `id_kecamatan` int(11) DEFAULT NULL,
   `id_desa` int(11) DEFAULT NULL,
   `id_pemilik_menara` int(11) DEFAULT NULL,
+  `id_zonePlan` int(11) DEFAULT NULL,
   `no_menara` varchar(10) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `tanggal_pembuatan` date DEFAULT NULL,
@@ -1164,14 +1203,14 @@ CREATE TABLE `tb_menara` (
   CONSTRAINT `tb_menara_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_menara_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`),
   CONSTRAINT `tb_menara_ibfk_5` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_menara` */
 
-insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`no_menara`,`foto`,`tanggal_pembuatan`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`file_suratIzinPembangunan`,`file_suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
-(12,51,7,705,497,16,'161','/storage/Menara/12/FotoMenara.jpeg','2023-01-08','-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','/storage/Menara/12/Pembangunan.pdf','/storage/Menara/12/Operasional.pdf','2023-01-08 17:50:22','2023-01-08 09:50:22',NULL),
-(13,51,7,705,509,17,'171','/storage/Menara/13/FotoMenara.jpeg','2023-01-08','-8.382912802965762','115.59715747833253','Menara 4 Kaki','70','2','200','Aspal','/storage/Menara/13/Pembangunan.pdf','/storage/Menara/13/Operasional.pdf','2023-01-08 23:37:39','2023-01-08 15:37:39',NULL),
-(14,51,7,705,509,17,'172','/storage/Menara/14/FotoMenara.jpeg','2023-01-09','-8.3841865057937','115.59818744659425','Menara 4 Kaki','70','2','200','jalan setapak','/storage/Menara/14/Pembangunan.pdf','/storage/Menara/14/Operasional.pdf','2023-01-09 22:08:45','2023-01-09 14:08:45',NULL);
+insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`id_zonePlan`,`no_menara`,`foto`,`tanggal_pembuatan`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`file_suratIzinPembangunan`,`file_suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
+(12,51,7,705,497,16,4,'161','/storage/Menara/12/FotoMenara.jpeg','2023-01-08','-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','/storage/Menara/12/Pembangunan.pdf','/storage/Menara/12/Operasional.pdf','2023-02-04 03:41:12','2023-01-08 09:50:22',NULL),
+(15,51,7,704,492,17,7,'173',NULL,NULL,'-8.441052411616912','115.63937544822694','Menara 4 Kaki','75','2','200','Aspal',NULL,NULL,'2023-02-02 09:33:13','2023-02-02 09:33:13',NULL),
+(16,51,7,705,497,17,4,'172',NULL,NULL,'-8.398691497299039','115.58898746967317','Menara 4 Kaki','73','2','300','Jalan Setapak',NULL,NULL,'2023-02-03 19:47:33','2023-02-03 19:47:33',NULL);
 
 /*Table structure for table `tb_opd` */
 
@@ -1246,6 +1285,7 @@ CREATE TABLE `tb_pengajuan_menara` (
   `id_kabupaten` int(11) DEFAULT NULL,
   `id_kecamatan` int(11) DEFAULT NULL,
   `id_desa` int(11) DEFAULT NULL,
+  `id_zonePlan` int(11) DEFAULT NULL,
   `kode_registrasi` int(10) DEFAULT NULL,
   `lat` varchar(255) DEFAULT NULL,
   `long` varchar(255) DEFAULT NULL,
@@ -1274,12 +1314,15 @@ CREATE TABLE `tb_pengajuan_menara` (
   CONSTRAINT `tb_pengajuan_menara_ibfk_3` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_menara` */
 
-insert  into `tb_pengajuan_menara`(`id`,`id_pemilik_menara`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`kode_registrasi`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`status_lahan`,`kepemilikan_tanah`,`jumlah_pendamping`,`tanggal`,`file_rekomendasiPembangunanMenara`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
-(8,16,51,7,705,497,1,'-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','milik perusahaan','PT. A',2,'2023-01-08','/storage/Pengajuan/8/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-01-08 17:45:47','2023-01-08 09:45:47',NULL);
+insert  into `tb_pengajuan_menara`(`id`,`id_pemilik_menara`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_zonePlan`,`kode_registrasi`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`status_lahan`,`kepemilikan_tanah`,`jumlah_pendamping`,`tanggal`,`file_rekomendasiPembangunanMenara`,`status`,`created_at`,`updated_at`,`deleted_at`) values 
+(8,16,51,7,705,497,NULL,1,'-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','milik perusahaan','PT. A',2,'2023-01-08','/storage/Pengajuan/8/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-01-08 17:45:47','2023-01-08 09:45:47',NULL),
+(11,17,51,7,704,492,7,2,'-8.441052411616912','115.63937544822694','Menara 4 Kaki','75','2','200','Aspal','milik perusahaan','PT. Bintang',1,'2023-02-01','/storage/Pengajuan/11/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-02-02 17:33:13','2023-02-02 09:33:13',NULL),
+(12,17,51,7,708,533,6,3,'-8.286509299265775','115.59825181961061','Menara 4 Kaki','74','2','200','aspal','milik perusahaan','Pt. Bintang',NULL,'2023-02-02',NULL,'diajukan','2023-02-02 09:55:10','2023-02-02 09:55:10',NULL),
+(13,17,51,7,705,497,4,4,'-8.398691497299039','115.58898746967317','Menara 4 Kaki','73','2','300','Jalan Setapak','milik perusahaan','PT. Bintang',1,'2023-02-03','/storage/Pengajuan/13/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-02-04 03:47:33','2023-02-03 19:47:33',NULL);
 
 /*Table structure for table `tb_pengajuan_status` */
 
@@ -1299,7 +1342,7 @@ CREATE TABLE `tb_pengajuan_status` (
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_pengajuan_status_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `tb_m_status` (`id`),
   CONSTRAINT `tb_pengajuan_status_ibfk_2` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_status` */
 
@@ -1309,7 +1352,35 @@ insert  into `tb_pengajuan_status`(`id`,`id_status`,`id_pengajuan_menara`,`tangg
 (3,9,8,'2023-01-08 09:44:41','data sudah benar','2023-01-08 09:44:41','2023-01-08 09:44:41',NULL),
 (4,4,8,'2023-01-08 09:45:19','lokasi sesuai dibangun menara','2023-01-08 09:45:19','2023-01-08 09:45:19',NULL),
 (5,5,8,'2023-01-08 09:45:19','lokasi sesuai dibangun menara','2023-01-08 09:45:19','2023-01-08 09:45:19',NULL),
-(6,6,8,'2023-01-08 09:45:47','pengajuan menara selesai','2023-01-08 09:45:47','2023-01-08 09:45:47',NULL);
+(6,6,8,'2023-01-08 09:45:47','pengajuan menara selesai','2023-01-08 09:45:47','2023-01-08 09:45:47',NULL),
+(19,2,11,'2023-01-30 15:05:35',NULL,'2023-01-30 15:05:35','2023-01-30 15:05:35',NULL),
+(20,7,11,'2023-01-30 18:15:31','perbaiki','2023-01-30 18:15:31','2023-01-30 18:15:31',NULL),
+(21,2,11,'2023-02-01 08:13:34','perbaiki','2023-02-01 08:13:34','2023-02-01 08:13:34',NULL),
+(22,7,11,'2023-02-01 08:14:57','perbaiki','2023-02-01 08:14:57','2023-02-01 08:14:57',NULL),
+(23,2,11,'2023-02-01 08:18:45','perbaiki','2023-02-01 08:18:45','2023-02-01 08:18:45',NULL),
+(24,7,11,'2023-02-01 08:22:34','perbaiki','2023-02-01 08:22:34','2023-02-01 08:22:34',NULL),
+(25,2,11,'2023-02-01 08:29:01','perbaiki','2023-02-01 08:29:01','2023-02-01 08:29:01',NULL),
+(26,7,11,'2023-02-01 08:30:16','perbaiki','2023-02-01 08:30:16','2023-02-01 08:30:16',NULL),
+(27,2,11,'2023-02-01 08:38:25','perbaiki','2023-02-01 08:38:25','2023-02-01 08:38:25',NULL),
+(28,7,11,'2023-02-01 08:41:01','perbaiki','2023-02-01 08:41:01','2023-02-01 08:41:01',NULL),
+(29,2,11,'2023-02-01 08:42:36','perbaiki','2023-02-01 08:42:36','2023-02-01 08:42:36',NULL),
+(30,7,11,'2023-02-01 08:46:19','perbaiki','2023-02-01 08:46:19','2023-02-01 08:46:19',NULL),
+(31,2,11,'2023-02-01 08:46:49','perbaiki','2023-02-01 08:46:49','2023-02-01 08:46:49',NULL),
+(32,3,11,'2023-02-02 09:31:28','Diterima','2023-02-02 09:31:28','2023-02-02 09:31:28',NULL),
+(33,9,11,'2023-02-02 09:31:28','Diterima','2023-02-02 09:31:28','2023-02-02 09:31:28',NULL),
+(34,4,11,'2023-02-02 09:32:17','diterima','2023-02-02 09:32:17','2023-02-02 09:32:17',NULL),
+(35,5,11,'2023-02-02 09:32:17','diterima','2023-02-02 09:32:17','2023-02-02 09:32:17',NULL),
+(36,6,11,'2023-02-02 09:33:13','selesai','2023-02-02 09:33:13','2023-02-02 09:33:13',NULL),
+(37,2,12,'2023-02-02 09:55:10',NULL,'2023-02-02 09:55:10','2023-02-02 09:55:10',NULL),
+(38,3,12,'2023-02-02 09:56:42','setuju','2023-02-02 09:56:42','2023-02-02 09:56:42',NULL),
+(39,9,12,'2023-02-02 09:56:42','setuju','2023-02-02 09:56:42','2023-02-02 09:56:42',NULL),
+(41,8,12,'2023-02-02 09:59:11','tolak','2023-02-02 09:59:11','2023-02-02 09:59:11',NULL),
+(42,2,13,'2023-02-03 19:45:34',NULL,'2023-02-03 19:45:34','2023-02-03 19:45:34',NULL),
+(43,3,13,'2023-02-03 19:46:14','setuju','2023-02-03 19:46:14','2023-02-03 19:46:14',NULL),
+(44,9,13,'2023-02-03 19:46:14','setuju','2023-02-03 19:46:14','2023-02-03 19:46:14',NULL),
+(45,4,13,'2023-02-03 19:46:53','setuju','2023-02-03 19:46:53','2023-02-03 19:46:53',NULL),
+(46,5,13,'2023-02-03 19:46:53','setuju','2023-02-03 19:46:53','2023-02-03 19:46:53',NULL),
+(47,6,13,'2023-02-03 19:47:33','selesai','2023-02-03 19:47:33','2023-02-03 19:47:33',NULL);
 
 /*Table structure for table `tb_penggunaan_menara` */
 
@@ -1332,9 +1403,7 @@ CREATE TABLE `tb_penggunaan_menara` (
 /*Data for the table `tb_penggunaan_menara` */
 
 insert  into `tb_penggunaan_menara`(`id`,`id_provider`,`id_menara`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,12,12,'2023-01-08 09:50:37','2023-01-08 09:50:37',NULL),
-(2,14,12,'2023-01-08 09:50:45','2023-01-08 09:50:45',NULL),
-(4,12,14,'2023-01-09 14:09:12','2023-01-09 14:09:12',NULL);
+(1,12,12,'2023-01-08 09:50:37','2023-01-08 09:50:37',NULL);
 
 /*Table structure for table `tb_persetujuan_pendamping` */
 
@@ -1353,13 +1422,15 @@ CREATE TABLE `tb_persetujuan_pendamping` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_persetujuan_pendamping_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_persetujuan_pendamping` */
 
 insert  into `tb_persetujuan_pendamping`(`id`,`id_pengajuan_menara`,`nama`,`no_ktp`,`file_suratPersetujuan`,`jarak`,`created_at`,`updated_at`,`deleted_at`) values 
 (1,8,'budi','1155616','/storage/Pengajuan/8/Pendamping/Pendamping1.pdf','66','2023-01-08 09:41:46','2023-01-08 09:41:46',NULL),
-(2,8,'dira','6168468','/storage/Pengajuan/8/Pendamping/Pendamping2.pdf','70','2023-01-08 09:41:46','2023-01-08 09:41:46',NULL);
+(2,8,'dira','6168468','/storage/Pengajuan/8/Pendamping/Pendamping2.pdf','70','2023-01-08 09:41:46','2023-01-08 09:41:46',NULL),
+(7,11,'Dito','123','/storage/Pengajuan/11/Pendamping/Pendamping1.pdf','63','2023-01-30 15:05:36','2023-01-30 15:05:36',NULL),
+(8,13,'Budi','123123','/storage/Pengajuan/13/Pendamping/Pendamping1.pdf','30','2023-02-03 19:45:34','2023-02-03 19:45:34',NULL);
 
 /*Table structure for table `tb_perusahaan` */
 
@@ -1396,7 +1467,7 @@ CREATE TABLE `tb_perusahaan` (
 
 insert  into `tb_perusahaan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`no_telp`,`alamat`,`email`,`status`,`marker`,`disposisi`,`created_at`,`updated_at`,`deleted_at`) values 
 (16,51,9,901,685,'PT. Asri','0321456987','Jl. Pulau Kawe','a@gmail.com','diterima','/storage/Perusahaan/16/Marker.png','pendaftaran diterima','2023-01-09 01:32:12','2023-01-08 09:23:19',NULL),
-(17,51,9,901,685,'PT. Bintang','036155684','Jl. Pulau Moyo','b@gmail.com','tunggu persetujuan',NULL,NULL,'2023-01-09 22:34:11','2023-01-09 13:55:04',NULL);
+(17,51,9,901,685,'PT. Bintang','036155684','Jl. Pulau Moyo','b@gmail.com','diterima','/storage/Perusahaan/17/Marker.png','dis','2023-01-10 12:28:35','2023-01-10 04:28:35',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
