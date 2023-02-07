@@ -126,7 +126,37 @@
                         <div class="icheck-primary d-inline ml-2">
                             <input type="checkbox" id="checkboxPrimary1">
                             <label for="checkboxPrimary1">
+                                Zone Plan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <svg style="width:26px;height:26px" viewBox="0 0 24 24">
+                                <path fill="#0505f7" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                            </svg>
+                            <label>
                                 Zone Plan Tersedia
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <svg style="width:26px;height:26px" viewBox="0 0 24 24">
+                                <path fill="#0fde00" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                            </svg>
+                            <label>
+                                Zone Plan Terisi
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <svg style="width:26px;height:26px" viewBox="0 0 24 24">
+                                <path fill="#f70505" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                            </svg>
+                            <label>
+                                Zone Plan Terlarang
                             </label>
                         </div>
                     </div>
@@ -288,7 +318,7 @@
             dataZonePlanUsed.forEach(element => {
                 console.log()
                 circleUsed = L.circle([element.lat, element.long], element.radius, {
-                    color: '#ffff00',
+                    color: '#0fde00',
                 }).addTo(mymap);
                 used.push(circleUsed)
             });

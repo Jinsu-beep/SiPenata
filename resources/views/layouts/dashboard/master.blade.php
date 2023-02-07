@@ -8,7 +8,7 @@
   @include('layouts.dashboard.style')
   @stack('css')
 	{{-- <link rel="stylesheet" href="{{ url('index-template/css/main.css')}}"> --}}
-
+  <link href="images/logo_krasem.png" rel="icon">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

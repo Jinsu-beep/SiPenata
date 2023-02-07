@@ -37,20 +37,20 @@ class LandingController extends Controller
 
     public function zone_plan()
     {
-        $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
-        $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
-        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
+        $zonePlanAvailable = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'terlarang')->get();
 
         return view("home.zone_plan", compact("zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
 
     public function data_menara()
     {
-        $listPerusahaan = PemilikMenaraModel::with('perusahaan.PemilikMenara')->with('Menara.PemilikMenara')->get();
+        $listPerusahaan = PemilikMenaraModel::with('perusahaan.PemilikMenara')->with('Menara.PemilikMenara')->with('Provinsi.PemilikMenara')->with('Kabupaten.PemilikMenara')->with('Kecamatan.PemilikMenara')->with('Desa.PemilikMenara')->get();
         // dd($listPerusahaan);
-        $warna =["#E51DF0", "#eb4034"];
+        $menara = MenaraModel::with('PemilikMenara.Menara')->with('Provinsi.Menara')->with('Kabupaten.Menara')->with('Kecamatan.Menara')->with('Desa.Menara')->get();
 
-        return view("home.data_menara", compact("listPerusahaan", "warna"));
+        return view("home.data_menara", compact("listPerusahaan", "menara"));
     }
 
     public function getMenara($id)

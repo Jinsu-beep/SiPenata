@@ -1155,7 +1155,7 @@ CREATE TABLE `tb_m_zoneplan` (
   CONSTRAINT `tb_m_zoneplan_ibfk_2` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_m_zoneplan_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_m_zoneplan_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_zoneplan` */
 
@@ -1163,7 +1163,8 @@ insert  into `tb_m_zoneplan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`i
 (1,51,7,704,492,'Seraya Timur','-8.396299741738005','115.6995957076312',642,1,0,'available','2023-02-04 03:39:27','2023-01-08 08:57:07',NULL),
 (4,51,7,705,497,'Ababi','-8.400375435618203','115.58737271010638',290,2,2,'used','2023-02-04 03:45:34','2023-02-03 19:45:34',NULL),
 (6,51,7,708,533,'Tulamben','-8.283776784611558','115.59719977460378',640,1,0,'available','2023-02-02 17:59:11','2023-02-02 09:59:11',NULL),
-(7,51,7,704,492,'Seraya Barat 1','-8.439862138683022','115.63816825638409',340,1,1,'used','2023-02-01 16:46:49','2023-02-01 08:46:49',NULL);
+(7,51,7,704,492,'Seraya Barat 1','-8.439862138683022','115.63816825638409',340,1,1,'used','2023-02-01 16:46:49','2023-02-01 08:46:49',NULL),
+(8,51,7,705,497,'Daerah Budidaya','-8.412389992325839','115.58694369032985',258,0,0,'terlarang','2023-02-07 14:56:26','2023-02-07 14:56:26',NULL);
 
 /*Table structure for table `tb_menara` */
 
