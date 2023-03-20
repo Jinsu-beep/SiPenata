@@ -42,9 +42,9 @@ class ZonePlanController extends Controller
         }
 
         $dataProvinsi = ProvinsiModel::get();
-        $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
-        $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
-        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
+        $zonePlanAvailable = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'terlarang')->get();
 
         return view("dashboard.zone_plan.create", compact("dataUser", "dataProvinsi", "zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
@@ -62,6 +62,7 @@ class ZonePlanController extends Controller
             'kecamatan' => 'required',
             'desa' => 'required',
             'batasMenara' => 'required',
+            'detail' => 'required',
         ]);
 
         if($validator->fails()){
@@ -80,6 +81,7 @@ class ZonePlanController extends Controller
         $newZonePlan->id_desa = $request->desa;
         $newZonePlan->batas_menara = $request->batasMenara;
         $newZonePlan->jumlah_menara = 0;
+        $newZonePlan->detail = $request->detail;
         $newZonePlan->save();
 
         return redirect()->route('dataZonePlan')->with(['success' => 'Zone Plan Berhasil Dibuat']);
@@ -94,7 +96,7 @@ class ZonePlanController extends Controller
         }
 
         $dataZonePlan = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->find($id);
-        $menara = MenaraModel::where('id_zonePlan', $id)->get();
+        $menara = MenaraModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('id_zonePlan', $id)->get();
 
         return view("dashboard.zone_plan.detail", compact("dataUser", "dataZonePlan", "menara"));
     }
@@ -110,9 +112,9 @@ class ZonePlanController extends Controller
         $dataProvinsi = ProvinsiModel::get();
         $dataZonePlan = ZonePlanModel::find($id);
         
-        $zonePlanAvailable = ZonePlanModel::where('status', 'available')->get();
-        $zonePlanUsed = ZonePlanModel::where('status', 'used')->get();
-        $zonePlanTerlarang = ZonePlanModel::where('status', 'terlarang')->get();
+        $zonePlanAvailable = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'used')->get();
+        $zonePlanTerlarang = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'terlarang')->get();
 
         return view("dashboard.zone_plan.edit", compact("dataUser", "dataZonePlan", "dataProvinsi", "zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
     }
@@ -130,6 +132,7 @@ class ZonePlanController extends Controller
             'kecamatan' => 'required',
             'desa' => 'required',
             'batasMenara' => 'required',
+            'detail' => 'required',
         ]);
 
         if($validator->fails()){
@@ -147,6 +150,7 @@ class ZonePlanController extends Controller
         $updateZonePlan->id_kecamatan = $request->kecamatan;
         $updateZonePlan->id_desa = $request->desa;
         $updateZonePlan->batas_menara = $request->batasMenara;
+        $updateZonePlan->detail = $request->detail;
         $updateZonePlan->update();
 
         return redirect()->route('dataZonePlan')->with(['success' => 'Zone Plan Berhasil Diperbarui']);

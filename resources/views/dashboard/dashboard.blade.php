@@ -28,60 +28,51 @@
           <!-- /.card -->
         <!-- Small boxes (Stat box) -->
 
-          {{-- <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">CPU Traffic</span>
-                  <span class="info-box-number">
-                  10
-                  <small>%</small>
-                  </span>
-                </div>
-              
-              </div>
-            
-            </div>
-            
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Likes</span>
-                  <span class="info-box-number">41,410</span>
-                </div>
-              
-              </div>
-            
-            </div>
-            
-            
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Sales</span>
-                  <span class="info-box-number">760</span>
-                </div>
-              
-              </div>
-            
-            </div>
-            
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">New Members</span>
-                  <span class="info-box-number">2,000</span>
-                </div>
-              
-              </div>
-              
-            </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-6">
           
-          </div> --}}
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ $menara->count('id') }}</h3>
+                <p>Jumlah Menara</p>
+              </div>
+              <div class="icon">
+                <i class="nav-icon far fa-solid fa-tower-cell"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 col-6">
+          
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ $zoneplan->count('id') }}</h3>
+                <p>Jumlah Zone Plan</p>
+              </div>
+              <div class="icon">
+                <i class="nav-icon fas fa-map-location-dot"></i>
+              </div>
+            </div>
+          </div>
+
+          @if (in_array(auth()->guard('admin')->user()->kategori, ['Super Admin', 'Admin', 'Tim Administratif', 'Tim Lapangan']))
+            <div class="col-lg-4 col-6">
+            
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>{{ $perusahaan->count('id') }}</h3>
+                  <p>Jumlah Perusahaan</p>
+                </div>
+                <div class="icon">
+                  <i class="nav-icon far fa-solid fa-building"></i>
+                </div>
+              </div>
+            </div>
+          @endif
+          
+          
+        </div>  
+
         <!-- /.row -->
         @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
             @if ($dataUser->id_perusahaan == NULL)

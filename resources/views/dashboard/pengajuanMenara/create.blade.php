@@ -515,6 +515,14 @@
     });
 
     //HANDLER PM CREATE
+    let menaraTerdekat = [];
+    var icon = new L.Icon({
+        iconUrl: '/images/marker-icon-red.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
     mymap.on('pm:create', e => {
     let shape = e.shape;
     // console.log(e);
@@ -547,6 +555,10 @@
                     }
 
                     if (response.statusMenara == 1) {
+                        dekatMenara = L.marker([response.menaraDekat.lat, response.menaraDekat.long], {
+                            icon : icon,
+                        }).addTo(mymap);
+                        menaraTerdekat.push(dekatMenara);
                         $('#status').append('<h6 style="color: red">**Lokasi Yang Dipilih Berjarak Kurang Dari Atau Sama Dengan 350 Meter Dengan Menara BTS Terdekat</h6>');
                     }
                 }
@@ -596,6 +608,9 @@
                 $('#menara_kecamatan').empty();
                 $('#menara_desa').empty();
                 $('#status').empty();
+                menaraTerdekat.forEach(element => {
+                    mymap.removeLayer(element);
+                })
                 mymap.pm.addControls({
                     editMode: false,
                     removalMode: false,
@@ -606,23 +621,23 @@
                 });
             });
 
-            e.marker.pm.enable({  
-                allowSelfIntersection: false,  
-            });
+            // e.marker.pm.enable({  
+            //     allowSelfIntersection: false,  
+            // });
                       
-            e.marker.on('move', function(e){
-                // console.log(e);
-                $('#lat').val(e.latlng.lat);
-                $('#lng').val(e.latlng.lng);
+            // e.marker.on('move', function(e){
+            //     // console.log(e);
+            //     $('#lat').val(e.latlng.lat);
+            //     $('#lng').val(e.latlng.lng);
 
-                $.ajax({
-                    type: 'GET',
-                    url: '/pengajuan/getDistance/'+e.latlng.lat+'/'+e.latlng.lng,
-                    success: function (response){
-                        console.log(response[0]);
-                    }
-                });
-            });  
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: '/pengajuan/getDistance/'+e.latlng.lat+'/'+e.latlng.lng,
+            //         success: function (response){
+            //             console.log(response[0]);
+            //         }
+            //     });
+            // });  
         }
     });
 

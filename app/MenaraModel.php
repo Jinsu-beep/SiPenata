@@ -42,4 +42,9 @@ class MenaraModel extends Model
     {
         return $this->belongsTo(ZonePlanModel::class, 'id_zonePlan', 'id');
     }
+
+    public function LaporanBerkala()
+    {
+        return $this->hasMany(LaporanBerkalaModel::class, 'id_menara', 'id');
+    }
 }

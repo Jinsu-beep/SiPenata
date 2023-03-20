@@ -558,7 +558,9 @@
 </script>
 
 <script>
+    let kerusakanZona = [];
     let marker = {!! json_encode($detailPengajuan->toArray()) !!}
+
     //MAP INIT
     var mymap = L.map('mymap').setView([marker.lat, marker.long], 15);
     
@@ -571,6 +573,9 @@
     
     console.log(marker);
     L.marker([marker.lat, marker.long]).addTo(mymap);
+
+    zonaKerusakan = L.circle([marker.lat, marker.long], {radius: marker.tinggi_menara, color: '#ff0000'}).addTo(mymap);
+    kerusakanZona.push(zonaKerusakan);
     
     L.Map.include({
         getMarkerById: function (id) {

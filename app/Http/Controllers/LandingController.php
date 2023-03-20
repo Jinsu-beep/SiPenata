@@ -9,6 +9,8 @@ use App\DasarHukumModel;
 use App\MenaraModel;
 use App\PerusahaanModel;
 use App\ZonePlanModel;
+use App\PenggunaanMenaraModel;
+use App\KecamatanModel;
 
 class LandingController extends Controller
 {
@@ -37,8 +39,8 @@ class LandingController extends Controller
 
     public function zone_plan()
     {
-        $zonePlanAvailable = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'available')->get();
-        $zonePlanUsed = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'used')->get();
+        $zonePlanAvailable = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'available')->get();
+        $zonePlanUsed = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->with('Menara.ZonePlan')->where('status', 'used')->get();
         $zonePlanTerlarang = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->where('status', 'terlarang')->get();
 
         return view("home.zone_plan", compact("zonePlanAvailable", "zonePlanUsed", "zonePlanTerlarang"));
@@ -48,16 +50,94 @@ class LandingController extends Controller
     {
         $listPerusahaan = PemilikMenaraModel::with('perusahaan.PemilikMenara')->with('Menara.PemilikMenara')->with('Provinsi.PemilikMenara')->with('Kabupaten.PemilikMenara')->with('Kecamatan.PemilikMenara')->with('Desa.PemilikMenara')->get();
         // dd($listPerusahaan);
-        $menara = MenaraModel::with('PemilikMenara.Menara')->with('Provinsi.Menara')->with('Kabupaten.Menara')->with('Kecamatan.Menara')->with('Desa.Menara')->get();
 
-        return view("home.data_menara", compact("listPerusahaan", "menara"));
+        $pemilikMenaraIds = [];
+        $kecamatanMenaraIds = [];
+
+        $menara = MenaraModel::with('PemilikMenara.Menara')
+        ->with('Provinsi.Menara')->with('Kabupaten.Menara')
+        ->with('Kecamatan.Menara')
+        ->with('Desa.Menara')
+        ->with('PenggunaanMenara.Menara')
+        ->get();
+
+        $kecamatan = KecamatanModel::where('id_kabupaten', 7)
+        ->get();
+
+        $penggunaMenara = PenggunaanMenaraModel::with('Menara.PenggunaanMenara')->with('Provider.PenggunaanMenara')->get();
+
+        // dd(csrf_token());
+
+        $csrf =  csrf_token();
+
+        return view("home.data_menara", compact("listPerusahaan", "menara", "penggunaMenara", "csrf", "kecamatan"));
     }
 
-    public function getMenara($id)
+    public function getMenara(Request $request)
     {
-        $menara = MenaraModel::where('id_pemilik_menara', $id)->get();
+        $pemilikMenaraIds = $request->idPemilikMenara;
+        $kecamatanMenaraIds = $request->idKecamatan;
+
+        if ($request->idPemilikMenara) {
+            if ($request->idKecamatan) {
+                $menara = MenaraModel::with('PemilikMenara.Menara')
+                ->with('Provinsi.Menara')
+                ->with('Kabupaten.Menara')
+                ->with('Kecamatan.Menara')
+                ->with('Desa.Menara')
+                ->with('PenggunaanMenara.Menara')
+                ->whereHas('PemilikMenara', function($query) use ($pemilikMenaraIds) {
+                    $query->whereIn('id', $pemilikMenaraIds);
+                })
+                ->whereHas('Kecamatan', function($query) use ($kecamatanMenaraIds) {
+                    $query->whereIn('id', $kecamatanMenaraIds);
+                })->get();
+            } else {
+                $menara = MenaraModel::with('PemilikMenara.Menara')
+                ->with('Provinsi.Menara')
+                ->with('Kabupaten.Menara')
+                ->with('Kecamatan.Menara')
+                ->with('Desa.Menara')
+                ->with('PenggunaanMenara.Menara')
+                ->whereHas('PemilikMenara', function($query) use ($pemilikMenaraIds) {
+                    $query->whereIn('id', $pemilikMenaraIds);
+                })->get();
+            }
+        } elseif ($request->idKecamatan) {
+            $menara = MenaraModel::with('PemilikMenara.Menara')
+            ->with('Provinsi.Menara')
+            ->with('Kabupaten.Menara')
+            ->with('Kecamatan.Menara')
+            ->with('Desa.Menara')
+            ->with('PenggunaanMenara.Menara')
+            ->whereHas('Kecamatan', function($query) use ($kecamatanMenaraIds) {
+                $query->whereIn('id', $kecamatanMenaraIds);
+            })->get();
+        } else {
+            $menara = [];
+        }
+
+        // $menara = MenaraModel::with('PemilikMenara.Menara')
+        // ->with('Provinsi.Menara')
+        // ->with('Kabupaten.Menara')
+        // ->with('Kecamatan.Menara')
+        // ->with('Desa.Menara')
+        // ->with('PenggunaanMenara.Menara')
+        // ->whereHas('PemilikMenara', function($query) use ($pemilikMenaraIds) {
+        //     $query->whereIn('id', $pemilikMenaraIds);
+        // })
+        // ->whereHas('Kecamatan', function($query) use ($kecamatanMenaraIds) {
+        //     $query->whereIn('id', $kecamatanMenaraIds);
+        // })->get();
 
         return response()->json($menara);
+    }
+
+    public function test()
+    {
+        $test = view('home.mapMenara')->render();
+
+        return response()->json($test);
     }
     
     public function analisaLokasi($lat, $lng)

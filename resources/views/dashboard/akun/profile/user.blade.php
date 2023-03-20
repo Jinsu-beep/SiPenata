@@ -24,7 +24,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user2-160x160.jpg" alt="User profile picture">
+                        <img class="profile-user-img img-fluid img-circle" src="../../dist/img/AdminLTELogo.png" alt="User profile picture">
                     </div>
                     <h3 class="profile-username text-center">{{ $dataUser->nama }}</h3>
                     <p class="text-muted text-center">{{ $dataUser->user->kategori }}</p>
@@ -222,8 +222,6 @@
                         <label for="nama">Nama</label>
                         <input type="text" class="form-control" name="nama" id="edit_nama" placeholder="Nama" value="">
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="kewarganegaraan">Kewarganegaraan</label>
                         <select class="form-control select2" name="kewarganegaraan" data-placeholder="Kewarganegaraan" style="width: 100%;">
@@ -239,32 +237,22 @@
                             @endif
                         </select>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="edit_email" placeholder="Nama" value="">
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="no_telp">No Telepon</label>
                         <input type="text" class="form-control" name="no_telp" id="edit_no_telp" placeholder="Nama" value="">
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="noKTP">No KTP</label>
                         <input type="text" class="form-control" name="noKTP" id="edit_noKTP" placeholder="No Telepon" value="">
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="npwp">NPWP</label>
                         <input type="text" class="form-control" name="NPWP" id="edit_NPWP" placeholder="No Telepon" value="">
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="provinsi">Provinsi</label>
                         <select class="form-control select2" name="provinsi" id="edit_provinsi" data-placeholder="Pilih OPD" style="width: 100%;">
@@ -274,38 +262,28 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="kabupaten">Kabupaten</label>
                         <select class="form-control select2" name="kabupaten" id="edit_kabupaten" data-placeholder="Pilih OPD" style="width: 100%;">
                             <option selected disabled>Pilih Kabupaten ...</option>
                         </select>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="kecamatan">Kecamatan</label>
                         <select class="form-control select2" name="kecamatan" id="edit_kecamatan" data-placeholder="Pilih OPD" style="width: 100%;">
                             <option selected disabled>Pilih Kecamatan ...</option>
                         </select>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="desa">Desa</label>
                         <select class="form-control select2" name="desa" id="edit_desa" data-placeholder="Pilih OPD" style="width: 100%;">
                             <option selected disabled>Pilih Desa ...</option>
                         </select>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control" name="alamat" id="edit_alamat" placeholder="No Telepon"></textarea>
                     </div>
-                </div>
-                <div class="modal-body">
                     <div class="form-group">
                         <label for="usernmae">Username</label>
                         <input type="text" class="form-control" name="username" id="edit_username" placeholder="No Telepon" value="">

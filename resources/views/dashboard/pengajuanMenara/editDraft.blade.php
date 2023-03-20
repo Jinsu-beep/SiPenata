@@ -214,6 +214,9 @@
                             <div class="card ">
                                 <div id="mymap"></div>
                             </div>
+                            <div>
+                                <input type="text" class="form-control" name="idZone" id="idZone" value="{{ $detailPengajuan->id_zonePlan }}" readonly hidden>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">

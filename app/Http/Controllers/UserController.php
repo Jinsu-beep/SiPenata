@@ -18,6 +18,8 @@ use App\ProvinsiModel;
 use App\KabupatenModel;
 use App\KecamatanModel;
 use App\DesaModel;
+use App\MenaraModel;
+use App\ZonePlanModel;
 
 class UserController extends Controller
 {
@@ -43,14 +45,19 @@ class UserController extends Controller
                 return redirect()->route('biodata');
             }
 
+            $menara = MenaraModel::get();
+            $zoneplan = ZonePlanModel::get();
+
             $perusahaan = PerusahaanModel::find($dataUser->id_perusahaan);
 
-            return view("dashboard.dashboard", compact("dataUser", "perusahaan"));
+            return view("dashboard.dashboard", compact("dataUser", "perusahaan", "menara", "zoneplan"));
         }
-
         
+        $menara = MenaraModel::get();
+        $zoneplan = ZonePlanModel::get();
+        $perusahaan = PerusahaanModel::get();
 
-        return view("dashboard.dashboard", compact("dataUser"));
+        return view("dashboard.dashboard", compact("dataUser", "menara", "zoneplan", "perusahaan"));
     }
 
     public function biodata()

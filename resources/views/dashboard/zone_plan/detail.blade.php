@@ -105,6 +105,10 @@
                             <option value="terlarang" @if ($dataZonePlan->status == 'terlarang') selected @endif>Terlarang</option>
                         </select>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="alamat">Detail Zone Plan</label>
+                        <textarea type="text" class="form-control" placeholder="Detail Zone Plan" name="detail" disabled>{{ $dataZonePlan->detail }}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,6 +124,106 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Menara</h5>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> --}}
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="gambarMenara" class="col-lg-5 align-self-center text-center">
+                        {{-- <img src="" width="600"> --}}
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row mb-2">  
+                            <label for="noMenara" class="col-sm-2 col-form-label">No Menara</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="noMenara" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="provinsi" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="kabupaten" class="col-sm-2 col-form-label">Kabupaten</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="kabupaten" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="kecamatan" class="col-sm-2 col-form-label">Kecamatan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="kecamatan" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="desa" class="col-sm-2 col-form-label">Desa</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="desa" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="tanggalPembuatan" class="col-sm-2 col-form-label">Tanggal Pembuatan</label>
+                            <div class="col-sm-10 align-self-center">
+                                <input type="text" class="form-control" placeholder="Tanggal Pembuatan" id="tanggalPembuatan" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="lat" class="col-sm-2 col-form-label">Latitude</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="lat" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="long" class="col-sm-2 col-form-label">Longitude</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="lng" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="jenisMenara" class="col-sm-2 col-form-label">Jenis Menara</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="jenisMenara" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="tinggiMenara" class="col-sm-2 col-form-label">Tinggi Menara</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="tinggiMenara" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="tinggiAntena" class="col-sm-2 col-form-label">Tinggi Antena</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="tinggiAntena" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="luasArea" class="col-sm-2 col-form-label">Luas Area</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="luasArea" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="aksesJalan" class="col-sm-2 col-form-label">Akses Jalan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Tanggal Pengajuan" id="aksesJalan" value="" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
@@ -173,7 +277,7 @@
 <script>
     var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
     let menara = {!! json_encode($menara->toArray()) !!}
-    // console.log(menara)
+    console.log(menara)
 
     var lat = dataZonePlan.lat;
     var lng = dataZonePlan.long;
@@ -202,10 +306,34 @@
     var circle = L.circle([lat, lng], rad).addTo(mymap);
 
     menara.forEach(element => {
-        console.log(element)
-        marker = L.marker([element.lat, element.long]);
+        // console.log(element)
+        marker = L.marker([element.lat, element.long]).bindPopup('<div class="row"> <div class="col align-self-start"> No Menara : '+element.no_menara+'<br>Jenis Menara : '+element.jenis_menara+'<hr></div> <div class="w-100"></div> <div class="col align-self-center"> <button onclick="detailMenara('+element.id+')" class="btn btn-primary float-center">Detail</button> </div> </div>');
         mymap.addLayer(marker);
     });
+
+    function detailMenara(id) {
+        menara.forEach(element => {
+            if (element.id == id) {
+                console.log(element)
+                $('#gambarMenara').empty();
+                $('#gambarMenara').append('<img src="'+element.foto+'" width="400">');
+                $('#noMenara').val(element.no_menara);
+                $('#provinsi').val(element.provinsi.nama);
+                $('#kabupaten').val(element.kabupaten.nama);
+                $('#kecamatan').val(element.kecamatan.nama);
+                $('#desa').val(element.desa.nama);
+                $('#tanggalPembuatan').val(element.tanggal_pembuatan);
+                $('#lat').val(element.lat);
+                $('#lng').val(element.long);
+                $('#jenisMenara').val(element.jenis_menara);
+                $('#tinggiMenara').val(element.tinggi_menara);
+                $('#tinggiAntena').val(element.tinggi_antena);
+                $('#luasArea').val(element.luas_area);
+                $('#aksesJalan').val(element.akses_jalan);
+                $('#exampleModal').modal('show');
+            }
+        });
+    }
 
     //ADD CONTROLL
     mymap.pm.addControls({  

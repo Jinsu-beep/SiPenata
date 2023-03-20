@@ -23,7 +23,9 @@ Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('
 Route::get('/landingzoneplan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/landingzoneplan/analisaLokasi/{lat}/{lng}','LandingController@analisaLokasi')->name('analisaLokasi')->middleware('guest');
 Route::get('/landingdatamenara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
-Route::get('/landingmenara/{id}', 'LandingController@getMenara')->name('getMenara')->middleware('guest');
+Route::get('/test', 'LandingController@test')->middleware('guest');
+
+Route::post('/getMenara', 'LandingController@getMenara')->middleware('guest');
 
 // Login 
     Route::get('/login_form', 'LoginController@loginForm')->name('loginForm')->middleware('guest');
@@ -145,3 +147,15 @@ Route::get('/landingmenara/{id}', 'LandingController@getMenara')->name('getMenar
     Route::post('/pengajuan/akhirPengajuan/{id}','PengajuanMenaraController@akhirPengajuan')->name('akhirPengajuan');
     Route::get('/pengajuan/download/{id}','PengajuanMenaraController@downloadFile')->name('downloadFile');
     Route::get('/pengajuan/getDistance/{lat}/{lng}','PengajuanMenaraController@getDistance')->name('getDistance');
+
+    // Laporan Berkala 
+    Route::get('/laporanBerkala/data','LaporanBerkalaController@dataLaporanBerkala')->name('dataLaporanBerkala');
+    Route::get('/laporanBerkala/create','LaporanBerkalaController@createLaporanBerkala')->name('createLaporanBerkala');
+    Route::post('/laporanBerkala/insert/{id}','LaporanBerkalaController@insertLaporanBerkala')->name('insertLaporanBerkala');
+    Route::get('/laporanBerkala/getMenara/{id}','LaporanBerkalaController@getMenara')->name('getMenara');
+    Route::get('/laporanBerkala/detail/{id}','LaporanBerkalaController@detailLaporanBerkala')->name('detailLaporanBerkala');
+
+    // Laporan Menara 
+    Route::get('/laporan','LaporanController@laporan')->name('laporan');
+    Route::get('/laporan/getMenara/{id}','LaporanController@getLaporanMenara')->name('getLaporanMenara');
+    Route::get('/laporan/downloadLaporan/{id}','LaporanController@downloadLaporan')->name('downloadLaporan');

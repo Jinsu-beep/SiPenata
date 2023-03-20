@@ -649,6 +649,8 @@
     
     // console.log(data);
     let marker =  L.marker([data.lat, data.long]).addTo(mymap);
+
+    zonaKerusakan = L.circle([data.lat, data.long], {radius: data.tinggi_menara, color: '#ff0000'}).addTo(mymap);
     // console.log(marker);
 
     marker.on('pm:remove', ({layer}) => {

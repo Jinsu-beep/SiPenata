@@ -24,7 +24,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user2-160x160.jpg" alt="User profile picture">
+                        <img class="profile-user-img img-fluid img-circle" src="../../dist/img/AdminLTELogo.png" alt="User profile picture">
                     </div>
                     <h3 class="profile-username text-center">{{ $dataUser->nama }}</h3>
                     <p class="text-muted text-center">{{ $dataUser->user->kategori }}</p>

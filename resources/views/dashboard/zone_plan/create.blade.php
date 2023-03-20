@@ -110,6 +110,10 @@
                                 <option value="terlarang">Terlarang</option>
                             </select>
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="alamat">Detail Zone Plan</label>
+                            <textarea type="text" class="form-control" placeholder="Detail Zone Plan" name="detail"></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -312,21 +316,21 @@
                 console.log()
                 circleAvailable = L.circle([element.lat, element.long], element.radius, {
                     color: '#0505f7',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                 available.push(circleAvailable)
             });
             dataZonePlanUsed.forEach(element => {
                 console.log()
                 circleUsed = L.circle([element.lat, element.long], element.radius, {
                     color: '#0fde00',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                 used.push(circleUsed)
             });
             dataZonePlanTerlarang.forEach(element => {
                 console.log()
                 circleTerlarang = L.circle([element.lat, element.long], element.radius, {
                     color: '#f70505',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br> </div>').addTo(mymap);
                 terlarang.push(circleTerlarang)
             });
         } else if (this.checked == false) {

@@ -37,4 +37,9 @@ class PerusahaanModel extends Model
     {
         return $this->belongsTo(DesaModel::class, 'id_desa', 'id');
     }
+
+    public function LaporanBerkala()
+    {
+        return $this->hasMany(LaporanBerkalaModel::class, 'id_perusahaan', 'id');
+    }
 }

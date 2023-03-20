@@ -48,6 +48,11 @@ class MenaraController extends Controller
             $dataMenara = MenaraModel::with("PemilikMenara.Menara")->get();
 
             return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
+        } elseif (Auth::user()->kategori == "SuperAdmin") {
+            $dataUser = SuperAdminModel::with('user.SuperAdmin')->whereIn("id_user", [Auth::user()->id])->first();
+            $dataMenara = MenaraModel::with("PemilikMenara.Menara")->get();
+
+            return view("dashboard.menara.data", compact("dataUser", "dataMenara"));
         }
     }
 

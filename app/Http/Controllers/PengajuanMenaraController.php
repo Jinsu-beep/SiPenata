@@ -1452,12 +1452,16 @@ class PengajuanMenaraController extends Controller
 
         foreach ($zoneplan as $zp) {
             $theta = $zp->long - $lng;
-            $miles = (sin(deg2rad($zp->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($zp->lat)) * cos(deg2rad($lat)) * cos(deg2rad($theta)));
-            $miles = acos($miles);
-            $miles = rad2deg($miles);
-            $miles = $miles * 60 *1.1515;
-            $km = $miles * 1.609344;
-            $meter = $km * 1000;
+            if ($theta == 0.0) {
+                $meter = 0;
+            } else {
+                $miles = (sin(deg2rad($zp->lat)) * sin(deg2rad($lat))) + (cos(deg2rad($zp->lat)) * cos(deg2rad($lat)) * cos(deg2rad($theta)));
+                $miles = acos($miles);
+                $miles = rad2deg($miles);
+                $miles = $miles * 60 *1.1515;
+                $km = $miles * 1.609344;
+                $meter = $km * 1000;
+            }
 
             if ($meter <= $zp->radius) {
                 foreach ($menara as $m) {
@@ -1469,14 +1473,19 @@ class PengajuanMenaraController extends Controller
                     $kms = $mile * 1.609344;
                     $meters = $kms * 1000;
 
+                    $menaraDekat = 0;
+
                     if ($meters <= 350) {
                         $statusMenara = 1;
+                        $menaraDekat = $m;
                     }
+                    
                 }
                 $statusZona = 1;
                 $data['statusZona'] = $statusZona;
                 $data['statusMenara'] = $statusMenara;
                 $data['zp'] = $zp;
+                $data['menaraDekat'] = $menaraDekat;
                 // $data = [$status, $zp, $zp->Provinsi, $zp->Kabupaten, $zp->Kecamatan, $zp->Desa];
                 return response()->json($data);
             }

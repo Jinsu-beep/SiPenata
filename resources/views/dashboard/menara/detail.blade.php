@@ -182,35 +182,32 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>Pengguna Menara</th>
-                                        <th width="100px">
-                                            <button type="button" onclick="tambahPengguna({{ $detailMenara->id }})" class="btn btn-info">
-                                                <span class="icon">
-                                                    <i class="fas fa-solid fa-plus"></i>
-                                                </span>
-                                            </button>
-                                        </th>
+                                        @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
+                                            <th width="100px">
+                                                <button type="button" onclick="tambahPengguna({{ $detailMenara->id }})" class="btn btn-info">
+                                                    <span class="icon">
+                                                        <i class="fas fa-solid fa-plus"></i>
+                                                    </span>
+                                                </button>
+                                            </th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($dataPengguna as $dp)
                                         <tr>
                                             <td>{{ $dp->Provider->nama }}</td>
-                                            <td class="text-center">
-                                                <button onclick="deletePengguna({{ $dp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
-                                                    <span class="icon">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                </button>
-                                            </td>
+                                            @if (in_array(auth()->guard('admin')->user()->kategori, ['Pemilik Menara']))
+                                                <td class="text-center">
+                                                    <button onclick="deletePengguna({{ $dp->id }})" id="delete_akun" class="btn btn-danger btn-icon-split">
+                                                        <span class="icon">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
-                                    {{-- <tr>
-                                        <td class="text-center">  
-                                            <button type="button" onclick="tambahPengguna({{ $detailMenara->id }})" class="btn btn-info">
-                                                Tambah Pengguna Menara
-                                            </button>
-                                        </td>
-                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -400,6 +397,7 @@
     var mymap = L.map('map').setView([marker.lat, marker.long], 15);
 
     L.marker([marker.lat, marker.long]).addTo(mymap);
+    L.circle([marker.lat, marker.long], {radius: marker.tinggi_menara, color: '#ff0000'}).addTo(mymap);
         
     L.Map.include({
         getMarkerById: function (id) {

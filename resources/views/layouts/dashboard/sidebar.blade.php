@@ -12,7 +12,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <a href="/profile/admin">
-              <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <img src="../../dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </a>
           </div>
           <div class="info">
@@ -24,7 +24,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <a href="/profile/user">
-              <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <img src="../../dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </a>
           </div>
           <div class="info">
@@ -171,7 +171,7 @@
           @endif
             @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin', 'Tim Administratif', 'Tim Lapangan', 'Pemilik Menara']))
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('dataLaporanBerkala') }}" class="nav-link">
                 <i class="nav-icon fas fa-reguler fa-file"></i>
                 <p>
                   Laporan Kondisi Menara
@@ -181,7 +181,7 @@
             @endif
             @if (in_array(auth()->guard('admin')->user()->kategori, ['Admin']))
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('laporan') }}" class="nav-link">
                 <i class="nav-icon fas fa-reguler fa-clipboard"></i>
                 <p>
                   Laporan Data Menara

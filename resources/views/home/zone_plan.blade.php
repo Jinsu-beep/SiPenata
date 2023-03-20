@@ -161,7 +161,7 @@
                     // console.log(element)
                     circleAvailable = L.circle([element.lat, element.long], element.radius, {
                         color: '#0505f7',
-                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br> </div>').addTo(mymap);
+                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                     available.push(circleAvailable)
                 });
             } else if (this.checked == false) {
@@ -173,10 +173,10 @@
         $('#checkboxPrimary1').change(function() {
             if (this.checked == true) {
                 dataZonePlanUsed.forEach(element => {
-                    console.log()
+                    console.log(element)
                     circleUsed = L.circle([element.lat, element.long], element.radius, {
                         color: '#0fde00',
-                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br> </div>').addTo(mymap);
+                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                     used.push(circleUsed)
                 });
             } else if (this.checked == false) {

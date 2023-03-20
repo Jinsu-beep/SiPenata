@@ -110,6 +110,10 @@
                                 <option value="terlarang" @if ($dataZonePlan->status == 'terlarang') selected @endif>Terlarang</option>
                             </select>
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="alamat">Detail Zone Plan</label>
+                            <textarea type="text" class="form-control" placeholder="Detail Zone Plan" name="detail">{{ $dataZonePlan->detail }}</textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -221,17 +225,6 @@
 </script>
 
 <script>
-    // icon init
-    // var ibadahIcon = L.icon({
-    //     iconUrl: '/images/circleBlack.png',
-
-    //     iconSize:     [32, 32],
-    // });
-
-    // var circle2 = L.circle(1000, {
-    //     opacity: 1,
-    //     fillOpacity: 0,
-    // });
     var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
 
     var lat = dataZonePlan.lat;
@@ -297,24 +290,6 @@
         removalMode: true,
         rotateMode: false,
     });
-
-    //SET MARKER BUTTON
-    // $('#set-koordinat').on('click', function(){
-    //     mymap.pm.enableDraw('Circle', {
-    //         snappable: true,
-    //         snapDistance: 20,
-    //         markerStyle: {
-    //             move: true,
-    //             icon: ibadahIcon,
-    //         },
-    //     });
-
-    // });
-
-    // var circle = L.circle([-8.344840432675312, 115.01931444793775], 1000).addTo(mymap);
-    // circle.on('move', function(e){
-    //     console.log(e);
-    // });
 
     //HANDLER PM CREATE
     mymap.on('pm:create', e => {
@@ -386,21 +361,21 @@
                 console.log()
                 circleAvailable = L.circle([element.lat, element.long], element.radius, {
                     color: '#0505f7',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                 available.push(circleAvailable)
             });
             dataZonePlanUsed.forEach(element => {
                 console.log()
                 circleUsed = L.circle([element.lat, element.long], element.radius, {
                     color: '#0fde00',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
                 used.push(circleUsed)
             });
             dataZonePlanTerlarang.forEach(element => {
                 console.log()
                 circleTerlarang = L.circle([element.lat, element.long], element.radius, {
                     color: '#f70505',
-                }).addTo(mymap);
+                }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br> </div>').addTo(mymap);
                 terlarang.push(circleTerlarang)
             });
         } else if (this.checked == false) {
