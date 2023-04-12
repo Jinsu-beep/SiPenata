@@ -80,34 +80,42 @@ class PengajuanMenaraController extends Controller
 
     public function insertPengajuan($id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'lat' => 'required',
-            'lng' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'desa' => 'required',
-            'jenisMenara' => 'required',
-            'tinggiMenara' => 'required',
-            'tinggiAntena' => 'required',
-            'luasArea' => 'required',
-            'aksesJalan' => 'required',
-            'statusLahan' => 'required',
-            'namaPemilikTanah' => 'required',
-            'file_KTPPemohon' => 'required',
-            'file_NPWPPemohon' => 'required',
-            'file_fotoPemohon' => 'required',
-            'file_suratKuasa' => 'required',
-            'file_rancangBangun' => 'required',
-            'file_denahBangunan' => 'required',
-            'file_lokasiDanSituasi' => 'required',
-            'file_suratTanah' => 'required',
-            'idZone' => 'required',
-        ]);
+        switch ($request->input('action')) {
+            case 'draft':
+                break;
+            
+            case 'ajukan':
+                $validator = Validator::make($request->all(), [
+                    'lat' => 'required',
+                    'lng' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten' => 'required',
+                    'kecamatan' => 'required',
+                    'desa' => 'required',
+                    'jenisMenara' => 'required',
+                    'tinggiMenara' => 'required',
+                    'tinggiAntena' => 'required',
+                    'luasArea' => 'required',
+                    'aksesJalan' => 'required',
+                    'statusLahan' => 'required',
+                    'namaPemilikTanah' => 'required',
+                    'file_KTPPemohon' => 'required',
+                    'file_NPWPPemohon' => 'required',
+                    'file_fotoPemohon' => 'required',
+                    'file_suratKuasa' => 'required',
+                    'file_rancangBangun' => 'required',
+                    'file_denahBangunan' => 'required',
+                    'file_lokasiDanSituasi' => 'required',
+                    'file_suratTanah' => 'required',
+                    'idZone' => 'required',
+                ]);
+        
+                if($validator->fails()){
+                    // dd($validator);
+                    return back()->withErrors($validator);
+                }
 
-        if($validator->fails()){
-            dd($validator);
-            return back()->withErrors($validator);
+                break;
         }
 
         $pengajuan = PengajuanMenaraModel::latest('id')->first();
@@ -159,132 +167,293 @@ class PengajuanMenaraController extends Controller
                 break;
         }
 
-        $zonePlan = ZonePlanModel::find($request->idZone);
-        $zonePlan->jumlah_menara = $zonePlan->jumlah_menara + 1;
-        if ($zonePlan->jumlah_menara == $zonePlan->batas_menara) {
-            $zonePlan->status = 'used';
+        switch ($request->input('action')) {
+            case 'draft':
+                $zonePlan = ZonePlanModel::find($request->idZone);
+                if ($zonePlan) {
+                    $zonePlan->jumlah_menara = $zonePlan->jumlah_menara + 1;
+                    if ($zonePlan->jumlah_menara == $zonePlan->batas_menara) {
+                        $zonePlan->status = 'used';
+                    }
+                    $zonePlan->save();
+                }
+
+                break;
+            
+            case 'ajukan':
+                $zonePlan = ZonePlanModel::find($request->idZone);
+                $zonePlan->jumlah_menara = $zonePlan->jumlah_menara + 1;
+                if ($zonePlan->jumlah_menara == $zonePlan->batas_menara) {
+                    $zonePlan->status = 'used';
+                }
+                $zonePlan->save();
+
+                break;
         }
-        $zonePlan->save();
 
-        $fileKTP = $request->file('file_KTPPemohon');
-        $extensionKTP = $fileKTP->getClientOriginalExtension();
-        $namaKTP = 'KTPPemohon.' . $extensionKTP;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_KTPPemohon'), $namaKTP);
+        switch ($request->input('action')) {
+            case 'draft':
+                $fileKTP = $request->file('file_KTPPemohon');
+                if ($fileKTP) {
+                    $extensionKTP = $fileKTP->getClientOriginalExtension();
+                    $namaKTP = 'KTPPemohon.' . $extensionKTP;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_KTPPemohon'), $namaKTP);
 
-        $fileNPWP = $request->file('file_NPWPPemohon');
-        $extensionNPWP = $fileNPWP->getClientOriginalExtension();
-        $namaNPWP = 'NPWPPemohon.' . $extensionNPWP;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_NPWPPemohon'), $namaNPWP);
+                    $newDetailPengajuan1 = new DetailPengajuanModel();
+                    $newDetailPengajuan1->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan1->file = "KTPPemohon";
+                    $newDetailPengajuan1->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaKTP;
+                    $newDetailPengajuan1->status = "tunggu persetujuan";
+                    $newDetailPengajuan1->tanggal = Carbon::now();
+                    $newDetailPengajuan1->save();
+                }
 
-        $fileFotoPemohon = $request->file('file_fotoPemohon');
-        $extensionFotoPemohon = $fileFotoPemohon->getClientOriginalExtension();
-        $namaFotoPemohon = 'FotoPemohon.' . $extensionFotoPemohon;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_fotoPemohon'), $namaFotoPemohon);
+                $fileNPWP = $request->file('file_NPWPPemohon');
+                if ($fileNPWP) {
+                    $extensionNPWP = $fileNPWP->getClientOriginalExtension();
+                    $namaNPWP = 'NPWPPemohon.' . $extensionNPWP;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_NPWPPemohon'), $namaNPWP);
 
-        $fileSuratKuasa = $request->file('file_suratKuasa');
-        $extensionSuratKuasa = $fileSuratKuasa->getClientOriginalExtension();
-        $namaSuratKuasa = 'SuratKuasa.' . $extensionSuratKuasa;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratKuasa'), $namaSuratKuasa);
+                    $newDetailPengajuan2 = new DetailPengajuanModel();
+                    $newDetailPengajuan2->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan2->file = "NPWPPemohon";
+                    $newDetailPengajuan2->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaNPWP;
+                    $newDetailPengajuan2->status = "tunggu persetujuan";
+                    $newDetailPengajuan2->tanggal = Carbon::now();
+                    $newDetailPengajuan2->save();
+                }
 
-        $fileRancangBangun = $request->file('file_rancangBangun');
-        $extensionRancangBangun = $fileRancangBangun->getClientOriginalExtension();
-        $namaRancangBangun = 'RancangBangun.' . $extensionRancangBangun;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_rancangBangun'), $namaRancangBangun);
+                $fileFotoPemohon = $request->file('file_fotoPemohon');
+                if ($fileFotoPemohon) {
+                    $extensionFotoPemohon = $fileFotoPemohon->getClientOriginalExtension();
+                    $namaFotoPemohon = 'FotoPemohon.' . $extensionFotoPemohon;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_fotoPemohon'), $namaFotoPemohon);
+                    $newDetailPengajuan3 = new DetailPengajuanModel();
+                    $newDetailPengajuan3->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan3->file = "FotoPemohon";
+                    $newDetailPengajuan3->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaFotoPemohon;
+                    $newDetailPengajuan3->status = "tunggu persetujuan";
+                    $newDetailPengajuan3->tanggal = Carbon::now();
+                    $newDetailPengajuan3->save();
+                }
 
-        $fileDenahBangunan = $request->file('file_denahBangunan');
-        $extensionDenahBangunan = $fileDenahBangunan->getClientOriginalExtension();
-        $namaDenahBangunan = 'DenahBangunan.' . $extensionDenahBangunan;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_denahBangunan'), $namaDenahBangunan);
+                $fileSuratKuasa = $request->file('file_suratKuasa');
+                if ($fileSuratKuasa) {
+                    $extensionSuratKuasa = $fileSuratKuasa->getClientOriginalExtension();
+                    $namaSuratKuasa = 'SuratKuasa.' . $extensionSuratKuasa;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratKuasa'), $namaSuratKuasa);
 
-        $fileLokasiDanSituasi = $request->file('file_lokasiDanSituasi');
-        $extensionLokasiDanSituasi = $fileLokasiDanSituasi->getClientOriginalExtension();
-        $namaLokasiDanSituasi = 'LokasiDanSituasi.' . $extensionLokasiDanSituasi;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_lokasiDanSituasi'), $namaLokasiDanSituasi);
+                    $newDetailPengajuan4 = new DetailPengajuanModel();
+                    $newDetailPengajuan4->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan4->file = "SuratKuasa";
+                    $newDetailPengajuan4->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratKuasa;
+                    $newDetailPengajuan4->status = "tunggu persetujuan";
+                    $newDetailPengajuan4->tanggal = Carbon::now();
+                    $newDetailPengajuan4->save();
+                }
 
-        $fileSuratTanah = $request->file('file_suratTanah');
-        $extensionSuratTanah = $fileSuratTanah->getClientOriginalExtension();
-        $namaSuratTanah = 'SuratTanah.' . $extensionSuratTanah;
-        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratTanah'), $namaSuratTanah);
+                $fileRancangBangun = $request->file('file_rancangBangun');
+                if ($fileRancangBangun) {
+                    $extensionRancangBangun = $fileRancangBangun->getClientOriginalExtension();
+                    $namaRancangBangun = 'RancangBangun.' . $extensionRancangBangun;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_rancangBangun'), $namaRancangBangun);
 
-        $newDetailPengajuan1 = new DetailPengajuanModel();
-        $newDetailPengajuan1->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan1->file = "KTPPemohon";
-        $newDetailPengajuan1->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaKTP;
-        $newDetailPengajuan1->status = "tunggu persetujuan";
-        $newDetailPengajuan1->tanggal = Carbon::now();
-        $newDetailPengajuan1->save();
+                    $newDetailPengajuan5 = new DetailPengajuanModel();
+                    $newDetailPengajuan5->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan5->file = "RancangBangun";
+                    $newDetailPengajuan5->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaRancangBangun;
+                    $newDetailPengajuan5->status = "tunggu persetujuan";
+                    $newDetailPengajuan5->tanggal = Carbon::now();
+                    $newDetailPengajuan5->save();
+                }
 
-        $newDetailPengajuan2 = new DetailPengajuanModel();
-        $newDetailPengajuan2->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan2->file = "NPWPPemohon";
-        $newDetailPengajuan2->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaNPWP;
-        $newDetailPengajuan2->status = "tunggu persetujuan";
-        $newDetailPengajuan2->tanggal = Carbon::now();
-        $newDetailPengajuan2->save();
+                $fileDenahBangunan = $request->file('file_denahBangunan');
+                if ($fileDenahBangunan) {
+                    $extensionDenahBangunan = $fileDenahBangunan->getClientOriginalExtension();
+                    $namaDenahBangunan = 'DenahBangunan.' . $extensionDenahBangunan;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_denahBangunan'), $namaDenahBangunan);
 
-        $newDetailPengajuan3 = new DetailPengajuanModel();
-        $newDetailPengajuan3->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan3->file = "FotoPemohon";
-        $newDetailPengajuan3->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaFotoPemohon;
-        $newDetailPengajuan3->status = "tunggu persetujuan";
-        $newDetailPengajuan3->tanggal = Carbon::now();
-        $newDetailPengajuan3->save();
+                    $newDetailPengajuan6 = new DetailPengajuanModel();
+                    $newDetailPengajuan6->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan6->file = "DenahBangunan";
+                    $newDetailPengajuan6->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaDenahBangunan;
+                    $newDetailPengajuan6->status = "tunggu persetujuan";
+                    $newDetailPengajuan6->tanggal = Carbon::now();
+                    $newDetailPengajuan6->save();
+                }
 
-        $newDetailPengajuan4 = new DetailPengajuanModel();
-        $newDetailPengajuan4->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan4->file = "SuratKuasa";
-        $newDetailPengajuan4->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratKuasa;
-        $newDetailPengajuan4->status = "tunggu persetujuan";
-        $newDetailPengajuan4->tanggal = Carbon::now();
-        $newDetailPengajuan4->save();
+                $fileLokasiDanSituasi = $request->file('file_lokasiDanSituasi');
+                if ($fileLokasiDanSituasi) {
+                    $extensionLokasiDanSituasi = $fileLokasiDanSituasi->getClientOriginalExtension();
+                    $namaLokasiDanSituasi = 'LokasiDanSituasi.' . $extensionLokasiDanSituasi;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_lokasiDanSituasi'), $namaLokasiDanSituasi);
 
-        $newDetailPengajuan5 = new DetailPengajuanModel();
-        $newDetailPengajuan5->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan5->file = "RancangBangun";
-        $newDetailPengajuan5->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaRancangBangun;
-        $newDetailPengajuan5->status = "tunggu persetujuan";
-        $newDetailPengajuan5->tanggal = Carbon::now();
-        $newDetailPengajuan5->save();
+                    $newDetailPengajuan7 = new DetailPengajuanModel();
+                    $newDetailPengajuan7->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan7->file = "GambarLokasiDanSituasi";
+                    $newDetailPengajuan7->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaLokasiDanSituasi;
+                    $newDetailPengajuan7->status = "tunggu persetujuan";
+                    $newDetailPengajuan7->tanggal = Carbon::now();
+                    $newDetailPengajuan7->save();
+                }
 
-        $newDetailPengajuan6 = new DetailPengajuanModel();
-        $newDetailPengajuan6->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan6->file = "DenahBangunan";
-        $newDetailPengajuan6->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaDenahBangunan;
-        $newDetailPengajuan6->status = "tunggu persetujuan";
-        $newDetailPengajuan6->tanggal = Carbon::now();
-        $newDetailPengajuan6->save();
+                $fileSuratTanah = $request->file('file_suratTanah');
+                if ($fileSuratTanah) {
+                    $extensionSuratTanah = $fileSuratTanah->getClientOriginalExtension();
+                    $namaSuratTanah = 'SuratTanah.' . $extensionSuratTanah;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratTanah'), $namaSuratTanah);
 
-        $newDetailPengajuan7 = new DetailPengajuanModel();
-        $newDetailPengajuan7->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan7->file = "GambarLokasiDanSituasi";
-        $newDetailPengajuan7->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaLokasiDanSituasi;
-        $newDetailPengajuan7->status = "tunggu persetujuan";
-        $newDetailPengajuan7->tanggal = Carbon::now();
-        $newDetailPengajuan7->save();
+                    $newDetailPengajuan8 = new DetailPengajuanModel();
+                    $newDetailPengajuan8->id_pengajuan_menara = $newPengajuan->id;
+                    $newDetailPengajuan8->file = "SuratTanah";
+                    $newDetailPengajuan8->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratTanah;
+                    $newDetailPengajuan8->status = "tunggu persetujuan";
+                    $newDetailPengajuan8->tanggal = Carbon::now();
+                    $newDetailPengajuan8->save();
+                }
+                
+                $jumlahData = $request->jumlahData;
 
-        $newDetailPengajuan8 = new DetailPengajuanModel();
-        $newDetailPengajuan8->id_pengajuan_menara = $newPengajuan->id;
-        $newDetailPengajuan8->file = "SuratTanah";
-        $newDetailPengajuan8->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratTanah;
-        $newDetailPengajuan8->status = "tunggu persetujuan";
-        $newDetailPengajuan8->tanggal = Carbon::now();
-        $newDetailPengajuan8->save();
+                for ($i=1; $i <= $jumlahData; $i++) { 
+                    $filePendamping = $request->file('file_pendamping');
+                    $extension = $filePendamping[$i]->getClientOriginalExtension();
+                    $nama = 'Pendamping' . $i . '.' . $extension;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id . '/Pendamping', $request->file_pendamping[$i], $nama);
 
-        $jumlahData = $request->jumlahData;
+                    $newPendamping = new PersetujuanPendampingModel();
+                    $newPendamping->id_pengajuan_menara = $newPengajuan->id;
+                    $newPendamping->nama = $request->nama[$i];
+                    $newPendamping->no_ktp = $request->ktp[$i];
+                    $newPendamping->jarak = $request->jarak[$i];
+                    $newPendamping->file_suratPersetujuan = "/storage/Pengajuan/" . $newPengajuan->id . "/Pendamping/" . $nama;
+                    $newPendamping->save();
+                }
+                
+                break;
+            
+            case 'ajukan':
+                $fileKTP = $request->file('file_KTPPemohon');
+                $extensionKTP = $fileKTP->getClientOriginalExtension();
+                $namaKTP = 'KTPPemohon.' . $extensionKTP;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_KTPPemohon'), $namaKTP);
 
-        for ($i=1; $i <= $jumlahData; $i++) { 
-            $filePendamping = $request->file('file_pendamping');
-            $extension = $filePendamping[$i]->getClientOriginalExtension();
-            $nama = 'Pendamping' . $i . '.' . $extension;
-            Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id . '/Pendamping', $request->file_pendamping[$i], $nama);
+                $fileNPWP = $request->file('file_NPWPPemohon');
+                $extensionNPWP = $fileNPWP->getClientOriginalExtension();
+                $namaNPWP = 'NPWPPemohon.' . $extensionNPWP;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_NPWPPemohon'), $namaNPWP);
 
-            $newPendamping = new PersetujuanPendampingModel();
-            $newPendamping->id_pengajuan_menara = $newPengajuan->id;
-            $newPendamping->nama = $request->nama[$i];
-            $newPendamping->no_ktp = $request->ktp[$i];
-            $newPendamping->jarak = $request->jarak[$i];
-            $newPendamping->file_suratPersetujuan = "/storage/Pengajuan/" . $newPengajuan->id . "/Pendamping/" . $nama;
-            $newPendamping->save();
+                $fileFotoPemohon = $request->file('file_fotoPemohon');
+                $extensionFotoPemohon = $fileFotoPemohon->getClientOriginalExtension();
+                $namaFotoPemohon = 'FotoPemohon.' . $extensionFotoPemohon;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_fotoPemohon'), $namaFotoPemohon);
+
+                $fileSuratKuasa = $request->file('file_suratKuasa');
+                $extensionSuratKuasa = $fileSuratKuasa->getClientOriginalExtension();
+                $namaSuratKuasa = 'SuratKuasa.' . $extensionSuratKuasa;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratKuasa'), $namaSuratKuasa);
+
+                $fileRancangBangun = $request->file('file_rancangBangun');
+                $extensionRancangBangun = $fileRancangBangun->getClientOriginalExtension();
+                $namaRancangBangun = 'RancangBangun.' . $extensionRancangBangun;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_rancangBangun'), $namaRancangBangun);
+
+                $fileDenahBangunan = $request->file('file_denahBangunan');
+                $extensionDenahBangunan = $fileDenahBangunan->getClientOriginalExtension();
+                $namaDenahBangunan = 'DenahBangunan.' . $extensionDenahBangunan;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_denahBangunan'), $namaDenahBangunan);
+
+                $fileLokasiDanSituasi = $request->file('file_lokasiDanSituasi');
+                $extensionLokasiDanSituasi = $fileLokasiDanSituasi->getClientOriginalExtension();
+                $namaLokasiDanSituasi = 'LokasiDanSituasi.' . $extensionLokasiDanSituasi;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_lokasiDanSituasi'), $namaLokasiDanSituasi);
+
+                $fileSuratTanah = $request->file('file_suratTanah');
+                $extensionSuratTanah = $fileSuratTanah->getClientOriginalExtension();
+                $namaSuratTanah = 'SuratTanah.' . $extensionSuratTanah;
+                Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id, $request->file('file_suratTanah'), $namaSuratTanah);
+
+                $newDetailPengajuan1 = new DetailPengajuanModel();
+                $newDetailPengajuan1->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan1->file = "KTPPemohon";
+                $newDetailPengajuan1->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaKTP;
+                $newDetailPengajuan1->status = "tunggu persetujuan";
+                $newDetailPengajuan1->tanggal = Carbon::now();
+                $newDetailPengajuan1->save();
+
+                $newDetailPengajuan2 = new DetailPengajuanModel();
+                $newDetailPengajuan2->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan2->file = "NPWPPemohon";
+                $newDetailPengajuan2->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaNPWP;
+                $newDetailPengajuan2->status = "tunggu persetujuan";
+                $newDetailPengajuan2->tanggal = Carbon::now();
+                $newDetailPengajuan2->save();
+
+                $newDetailPengajuan3 = new DetailPengajuanModel();
+                $newDetailPengajuan3->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan3->file = "FotoPemohon";
+                $newDetailPengajuan3->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaFotoPemohon;
+                $newDetailPengajuan3->status = "tunggu persetujuan";
+                $newDetailPengajuan3->tanggal = Carbon::now();
+                $newDetailPengajuan3->save();
+
+                $newDetailPengajuan4 = new DetailPengajuanModel();
+                $newDetailPengajuan4->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan4->file = "SuratKuasa";
+                $newDetailPengajuan4->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratKuasa;
+                $newDetailPengajuan4->status = "tunggu persetujuan";
+                $newDetailPengajuan4->tanggal = Carbon::now();
+                $newDetailPengajuan4->save();
+
+                $newDetailPengajuan5 = new DetailPengajuanModel();
+                $newDetailPengajuan5->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan5->file = "RancangBangun";
+                $newDetailPengajuan5->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaRancangBangun;
+                $newDetailPengajuan5->status = "tunggu persetujuan";
+                $newDetailPengajuan5->tanggal = Carbon::now();
+                $newDetailPengajuan5->save();
+
+                $newDetailPengajuan6 = new DetailPengajuanModel();
+                $newDetailPengajuan6->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan6->file = "DenahBangunan";
+                $newDetailPengajuan6->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaDenahBangunan;
+                $newDetailPengajuan6->status = "tunggu persetujuan";
+                $newDetailPengajuan6->tanggal = Carbon::now();
+                $newDetailPengajuan6->save();
+
+                $newDetailPengajuan7 = new DetailPengajuanModel();
+                $newDetailPengajuan7->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan7->file = "GambarLokasiDanSituasi";
+                $newDetailPengajuan7->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaLokasiDanSituasi;
+                $newDetailPengajuan7->status = "tunggu persetujuan";
+                $newDetailPengajuan7->tanggal = Carbon::now();
+                $newDetailPengajuan7->save();
+
+                $newDetailPengajuan8 = new DetailPengajuanModel();
+                $newDetailPengajuan8->id_pengajuan_menara = $newPengajuan->id;
+                $newDetailPengajuan8->file = "SuratTanah";
+                $newDetailPengajuan8->patch = "/storage/Pengajuan/" . $newPengajuan->id . "/" . $namaSuratTanah;
+                $newDetailPengajuan8->status = "tunggu persetujuan";
+                $newDetailPengajuan8->tanggal = Carbon::now();
+                $newDetailPengajuan8->save();
+
+                $jumlahData = $request->jumlahData;
+
+                for ($i=1; $i <= $jumlahData; $i++) { 
+                    $filePendamping = $request->file('file_pendamping');
+                    $extension = $filePendamping[$i]->getClientOriginalExtension();
+                    $nama = 'Pendamping' . $i . '.' . $extension;
+                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id . '/Pendamping', $request->file_pendamping[$i], $nama);
+
+                    $newPendamping = new PersetujuanPendampingModel();
+                    $newPendamping->id_pengajuan_menara = $newPengajuan->id;
+                    $newPendamping->nama = $request->nama[$i];
+                    $newPendamping->no_ktp = $request->ktp[$i];
+                    $newPendamping->jarak = $request->jarak[$i];
+                    $newPendamping->file_suratPersetujuan = "/storage/Pengajuan/" . $newPengajuan->id . "/Pendamping/" . $nama;
+                    $newPendamping->save();
+                }
+                
+                break;
         }
 
         switch ($request->input('action')) {
@@ -304,8 +473,7 @@ class PengajuanMenaraController extends Controller
 
         $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->find($id);
         $status = PengajuanStatusModel::with('Status.PengajuanStatus')->where('id_pengajuan_menara', $id)->first();
-        // dd($status);
-
+        
         $detailFile1 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "KTPPemohon")->first();
         $detailFile2 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "NPWPPemohon")->first();
         $detailFile3 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "FotoPemohon")->first();
@@ -315,15 +483,98 @@ class PengajuanMenaraController extends Controller
         $detailFile7 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "GambarLokasiDanSituasi")->first();
         $detailFile8 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "SuratTanah")->first();
 
-        return view("dashboard.pengajuanMenara.draftPengajuan", compact("dataUser", "detailPengajuan", "status", "detailFile1", "detailFile2", "detailFile3", "detailFile4", "detailFile5", "detailFile6", "detailFile7", "detailFile8"));
+        if ($detailFile1 == null) {
+            $detailFileData1['status'] = 0;
+            $detailFileData1['data'] = 0;
+        } else {
+            $detailFileData1['status'] = 1;
+            $detailFileData1['data'] = $detailFile1;
+        }
+
+        if ($detailFile2 == null) {
+            $detailFileData2['status'] = 0;
+            $detailFileData2['data'] = 0;
+        } else {
+            $detailFileData2['status'] = 1;
+            $detailFileData2['data'] = $detailFile2;
+        }
+
+        if ($detailFile3 == null) {
+            $detailFileData3['status'] = 0;
+            $detailFileData3['data'] = 0;
+        } else {
+            $detailFileData3['status'] = 1;
+            $detailFileData3['data'] = $detailFile3;
+        }
+
+        if ($detailFile4 == null) {
+            $detailFileData4['status'] = 0;
+            $detailFileData4['data'] = 0;
+        } else {
+            $detailFileData4['status'] = 1;
+            $detailFileData4['data'] = $detailFile4;
+        }
+
+        if ($detailFile5 == null) {
+            $detailFileData5['status'] = 0;
+            $detailFileData5['data'] = 0;
+        } else {
+            $detailFileData5['status'] = 1;
+            $detailFileData5['data'] = $detailFile5;
+        }
+
+        if ($detailFile6 == null) {
+            $detailFileData6['status'] = 0;
+            $detailFileData6['data'] = 0;
+        } else {
+            $detailFileData6['status'] = 1;
+            $detailFileData6['data'] = $detailFile6;
+        }
+
+        if ($detailFile7 == null) {
+            $detailFileData7['status'] = 0;
+            $detailFileData7['data'] = 0;
+        } else {
+            $detailFileData7['status'] = 1;
+            $detailFileData7['data'] = $detailFile7;
+        }
+
+        if ($detailFile8 == null) {
+            $detailFileData8['status'] = 0;
+            $detailFileData8['data'] = 0;
+        } else {
+            $detailFileData8['status'] = 1;
+            $detailFileData8['data'] = $detailFile8;
+        }
+
+        // dd($detailPengajuan);
+
+        return view("dashboard.pengajuanMenara.draftPengajuan", compact("dataUser", "detailPengajuan", "status", "detailFileData1", "detailFileData2", "detailFileData3", "detailFileData4", "detailFileData5", "detailFileData6", "detailFileData7", "detailFileData8"));
     }
 
     public function editDraft($id)
     {
-        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->with('Provinsi.PemilikMenara')->with('Kabupaten.PemilikMenara')->with('Kecamatan.PemilikMenara')->with('Desa.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
+        $dataUser = PemilikMenaraModel::with('user.PemilikMenara')
+                    ->with('Provinsi.PemilikMenara')
+                    ->with('Kabupaten.PemilikMenara')
+                    ->with('Kecamatan.PemilikMenara')
+                    ->with('Desa.PemilikMenara')
+                    ->whereIn("id_user", [Auth::user()->id])
+                    ->first();
 
-        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->find($id);
-        $status = PengajuanStatusModel::with('Status.PengajuanStatus')->where('id_pengajuan_menara', $id)->first();
+        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')
+                            ->with('Kabupaten.PengajuanMenara')
+                            ->with('Kecamatan.PengajuanMenara')
+                            ->with('Desa.PengajuanMenara')
+                            ->with('DetailPengajuan.PengajuanMenara')
+                            ->with('PersetujuanPendamping.PengajuanMenara')
+                            ->with('PengajuanStatus.PengajuanMenara')
+                            ->with('ZonePlan.PengajuanMenara')
+                            ->find($id);
+
+        $status = PengajuanStatusModel::with('Status.PengajuanStatus')
+                    ->where('id_pengajuan_menara', $id)
+                    ->first();
         // dd($status);
 
         $provinsi = ProvinsiModel::get();
@@ -342,44 +593,139 @@ class PengajuanMenaraController extends Controller
         $detailFile7 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "GambarLokasiDanSituasi")->first();
         $detailFile8 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "SuratTanah")->first();
 
-        return view("dashboard.pengajuanMenara.editDraft", compact("dataUser", "detailPengajuan", "status", "provinsi", "kabupaten", "kecamatan", "desa", "dataZonePlan", "detailFile1", "detailFile2", "detailFile3", "detailFile4", "detailFile5", "detailFile6", "detailFile7", "detailFile8"));
+        if ($detailFile1 == null) {
+            $detailFileData1['status'] = 0;
+            $detailFileData1['data'] = 0;
+        } else {
+            $detailFileData1['status'] = 1;
+            $detailFileData1['data'] = $detailFile1;
+        }
+
+        if ($detailFile2 == null) {
+            $detailFileData2['status'] = 0;
+            $detailFileData2['data'] = 0;
+        } else {
+            $detailFileData2['status'] = 1;
+            $detailFileData2['data'] = $detailFile2;
+        }
+
+        if ($detailFile3 == null) {
+            $detailFileData3['status'] = 0;
+            $detailFileData3['data'] = 0;
+        } else {
+            $detailFileData3['status'] = 1;
+            $detailFileData3['data'] = $detailFile3;
+        }
+
+        if ($detailFile4 == null) {
+            $detailFileData4['status'] = 0;
+            $detailFileData4['data'] = 0;
+        } else {
+            $detailFileData4['status'] = 1;
+            $detailFileData4['data'] = $detailFile4;
+        }
+
+        if ($detailFile5 == null) {
+            $detailFileData5['status'] = 0;
+            $detailFileData5['data'] = 0;
+        } else {
+            $detailFileData5['status'] = 1;
+            $detailFileData5['data'] = $detailFile5;
+        }
+
+        if ($detailFile6 == null) {
+            $detailFileData6['status'] = 0;
+            $detailFileData6['data'] = 0;
+        } else {
+            $detailFileData6['status'] = 1;
+            $detailFileData6['data'] = $detailFile6;
+        }
+
+        if ($detailFile7 == null) {
+            $detailFileData7['status'] = 0;
+            $detailFileData7['data'] = 0;
+        } else {
+            $detailFileData7['status'] = 1;
+            $detailFileData7['data'] = $detailFile7;
+        }
+
+        if ($detailFile8 == null) {
+            $detailFileData8['status'] = 0;
+            $detailFileData8['data'] = 0;
+        } else {
+            $detailFileData8['status'] = 1;
+            $detailFileData8['data'] = $detailFile8;
+        }
+
+        return view("dashboard.pengajuanMenara.editDraft", compact("dataUser", "detailPengajuan", "status", "provinsi", "kabupaten", "kecamatan", "desa", "dataZonePlan", "detailFileData1", "detailFileData2", "detailFileData3", "detailFileData4", "detailFileData5", "detailFileData6", "detailFileData7", "detailFileData8"));
     }
 
     public function updateDraft($id, Request $request)
     {
-        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')->with('Kabupaten.PengajuanMenara')->with('Kecamatan.PengajuanMenara')->with('Desa.PengajuanMenara')->with('DetailPengajuan.PengajuanMenara')->with('PersetujuanPendamping.PengajuanMenara')->with('PengajuanStatus.PengajuanMenara')->find($id);
-        $detailFile1 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "KTPPemohon")->first();
-        $detailFile2 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "NPWPPemohon")->first();
-        $detailFile3 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "FotoPemohon")->first();
-        $detailFile4 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "SuratKuasa")->first();
-        $detailFile5 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "RancangBangun")->first();
-        $detailFile6 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "DenahBangunan")->first();
-        $detailFile7 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "GambarLokasiDanSituasi")->first();
-        $detailFile8 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)->where("file", "SuratTanah")->first();
+        $detailPengajuan = PengajuanMenaraModel::with('Provinsi.PengajuanMenara')
+                            ->with('Kabupaten.PengajuanMenara')
+                            ->with('Kecamatan.PengajuanMenara')
+                            ->with('Desa.PengajuanMenara')
+                            ->with('DetailPengajuan.PengajuanMenara')
+                            ->with('PersetujuanPendamping.PengajuanMenara')
+                            ->with('PengajuanStatus.PengajuanMenara')
+                            ->find($id);
+        $detailFile1 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "KTPPemohon")
+                        ->first();
+        $detailFile2 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "NPWPPemohon")
+                        ->first();
+        $detailFile3 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "FotoPemohon")
+                        ->first();
+        $detailFile4 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "SuratKuasa")
+                        ->first();
+        $detailFile5 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "RancangBangun")
+                        ->first();
+        $detailFile6 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "DenahBangunan")
+                        ->first();
+        $detailFile7 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "GambarLokasiDanSituasi")
+                        ->first();
+        $detailFile8 = DetailPengajuanModel::where("id_pengajuan_menara", $detailPengajuan->id)
+                        ->where("file", "SuratTanah")
+                        ->first();
 
-        $validator = Validator::make($request->all(), [
-            'lat' => 'required',
-            'lng' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'desa' => 'required',
-            'jenisMenara' => 'required',
-            'tinggiMenara' => 'required',
-            'tinggiAntena' => 'required',
-            'luasArea' => 'required',
-            'aksesJalan' => 'required',
-            'statusLahan' => 'required',
-            'namaPemilikTanah' => 'required',
-            'idZone' => 'required'
-        ]);
+        switch ($request->input('action')) {
+            case 'draft':
+                break;
+            
+            case 'ajukan':
+                $validator = Validator::make($request->all(), [
+                    'lat' => 'required',
+                    'lng' => 'required',
+                    'provinsi' => 'required',
+                    'kabupaten' => 'required',
+                    'kecamatan' => 'required',
+                    'desa' => 'required',
+                    'jenisMenara' => 'required',
+                    'tinggiMenara' => 'required',
+                    'tinggiAntena' => 'required',
+                    'luasArea' => 'required',
+                    'aksesJalan' => 'required',
+                    'statusLahan' => 'required',
+                    'namaPemilikTanah' => 'required',
+                    'idZone' => 'required'
+                ]);
 
-        if($validator->fails()){
-            return back()->withErrors($validator);
+                if($validator->fails()){
+                    return back()->withErrors($validator);
+                }
+
+                break;
         }
         
         switch ($request->input('action')) {
-            case 'draft':
+            case 'ajukan':
                 if ($detailFile1 == NULL) {
                     $validator = Validator::make($request->all(), [
                         'file_KTPPemohon' => 'required',
@@ -449,8 +795,15 @@ class PengajuanMenaraController extends Controller
         }
 
         // dd($request);
-
-        if ($detailPengajuan->id_zonePlan != $request->idZone) {
+        if ($detailPengajuan->id_zonePlan == null) {
+            $zonaBaru = ZonePlanModel::find($request->idZone);
+            // dd($zonaBaru);
+            $zonaBaru->jumlah_menara = $zonaBaru->jumlah_menara + 1;
+            if ($zonaBaru->jumlah_menara == $zonaBaru->batas_menara) {
+                $zonaBaru->status = 'used';
+            }
+            $zonaBaru->update();
+        } elseif ($detailPengajuan->id_zonePlan != $request->idZone) {
             $zonaLama = ZonePlanModel::find($detailPengajuan->id_zonePlan);
             $zonaLama->jumlah_menara = $zonaLama->jumlah_menara - 1;
             if ($zonaLama->status == 'used') {
@@ -531,7 +884,7 @@ class PengajuanMenaraController extends Controller
             $namaNPWP = 'NPWPPemohon.' . $extensionNPWP;
             Storage::putFileAs('public/Pengajuan/' . $id, $request->file('file_NPWPPemohon'), $namaNPWP);
 
-            $updateDetailPengajuan2 = DetailPengajuanModel::where('id_pengajuan_menara', $id)->where('file', 'KTPPemohon')->first();
+            $updateDetailPengajuan2 = DetailPengajuanModel::where('id_pengajuan_menara', $id)->where('file', 'NPWPPemohon')->first();
             if ($updateDetailPengajuan2) {
                 $updateDetailPengajuan2->patch = "/storage/Pengajuan/" . $id . "/" . $namaNPWP;
                 $updateDetailPengajuan2->status = "tunggu persetujuan";

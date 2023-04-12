@@ -45,7 +45,8 @@ class UserController extends Controller
                 return redirect()->route('biodata');
             }
 
-            $menara = MenaraModel::get();
+            $menara = MenaraModel::where("id_pemilik_menara", $dataUser->id)
+                        ->get();
             $zoneplan = ZonePlanModel::get();
 
             $perusahaan = PerusahaanModel::find($dataUser->id_perusahaan);

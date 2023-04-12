@@ -56,63 +56,162 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama">Nama Zone Plan</label>
-                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Zone Plan">
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama Zone Plan">
+                            @error('nama')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Nama Zone Plan Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="Provinsi">Provinsi</label>
-                            <select class="form-control select2" id="provinsi" name="provinsi" data-placeholder="Provinsi" style="width: 100%;">
+                            <select class="form-control select2 @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi" placeholder="Provinsi" style="width: 100%;">
                                 <option selected disabled>Pilih Provinsi ...</option>
                                 @foreach ($dataProvinsi as $dp)
                                 <option value="{{ $dp->id }}">{{ $dp->nama }}</option>
                                 @endforeach
                             </select>
+                            @error('provinsi')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Provinsi Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="Kabupaten">Kabupaten</label>
-                            <select class="form-control select2" id="kabupaten" name="kabupaten" data-placeholder="Kabupaten" style="width: 100%;">
+                            <select class="form-control select2 @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" placeholder="Kabupaten" style="width: 100%;">
                                 <option selected disabled>Pilih Kabupaten ...</option>
                             </select>
+                            @error('kabupaten')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Kabupaten Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Kecamatan">Kecamatan</label>
-                            <select class="form-control select2" id="kecamatan" name="kecamatan" data-placeholder="Kecamatan" style="width: 100%;">
+                            <select class="form-control select2 @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" placeholder="Kecamatan" style="width: 100%;">
                                 <option selected disabled>Pilih Kecamatan ...</option>
                             </select>
+                            @error('kecamatan')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Kecamatan Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="Desa">Desa</label>
-                            <select class="form-control select2" id="desa" name="desa" data-placeholder="Desa" style="width: 100%;">
+                            <select class="form-control select2 @error('desa') is-invalid @enderror" id="desa" name="desa" placeholder="Desa" style="width: 100%;">
                                 <option selected disabled>Pilih Desa ...</option>
                             </select>
+                            @error('desa')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Desa Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Latitude</label>
-                            <input type="text" class="form-control" name="lat" id="lat" readonly>
+                            <input type="text" class="form-control @error('lat') is-invalid @enderror" name="lat" id="lat" placeholder="Latitude" readonly>
+                            @error('lat')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Latitude Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Longitude</label>
-                            <input type="text" class="form-control" name="lng" id="lng" readonly>
+                            <input type="text" class="form-control @error('lng') is-invalid @enderror" name="lng" id="lng" placeholder="Longitude" readonly>
+                            @error('lng')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Longitude Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Radius (Meter)</label>
-                            <input type="text" class="form-control" name="rad" id="rad" readonly>
+                            <input type="text" class="form-control @error('rad') is-invalid @enderror" name="rad" id="rad" placeholder="Radius" readonly>
+                            @error('rad')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Radius Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Batas Menara</label>
-                            <input type="number" class="form-control" name="batasMenara" id="batasMenara">
+                            <input type="number" class="form-control @error('batasMenara') is-invalid @enderror" name="batasMenara" id="batasMenara" placeholder="Batas Menara"> 
+                            @error('batasMenara')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Batas Menara Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <select class="form-control select2" name="status" id="status" data-placeholder="Status" style="width: 100%;">
+                            <select class="form-control select2 @error('status') is-invalid @enderror" name="status" id="status" data-placeholder="Status" style="width: 100%;">
                                 <option selected disabled>Pilih Status...</option>
                                 <option value="available">Available</option>
                                 <option value="used">Used</option>
                                 <option value="terlarang">Terlarang</option>
                             </select>
+                            @error('status')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Status Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="alamat">Detail Zone Plan</label>
-                            <textarea type="text" class="form-control" placeholder="Detail Zone Plan" name="detail"></textarea>
+                            <textarea type="text" class="form-control @error('detail') is-invalid @enderror" placeholder="Detail Zone Plan" name="detail" placeholder="Detail Zone Plan"></textarea>
+                            @error('detail')
+                                <div class="invalid-feedback text-start">
+                                    {{ $message }}
+                                </div>
+                            @else
+                                <div class="invalid-feedback">
+                                    Detail Zone Plan Wajib Diisi
+                                </div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
