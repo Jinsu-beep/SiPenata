@@ -31,7 +31,7 @@ CREATE TABLE `tb_admin` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_admin` */
 
@@ -55,7 +55,7 @@ CREATE TABLE `tb_detail_pengajuan` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_detail_pengajuan_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tb_detail_pengajuan` */
 
@@ -92,14 +92,14 @@ insert  into `tb_detail_pengajuan`(`id`,`id_pengajuan_menara`,`file`,`patch`,`st
 (46,13,'DenahBangunan','/storage/Pengajuan/13/DenahBangunan.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
 (47,13,'GambarLokasiDanSituasi','/storage/Pengajuan/13/LokasiDanSituasi.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
 (48,13,'SuratTanah','/storage/Pengajuan/13/SuratTanah.pdf','disetujui','2023-02-03','2023-02-04 03:46:14','2023-02-03 19:46:14',NULL),
-(49,14,'KTPPemohon','/storage/Pengajuan/14/KTPPemohon.jpg','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(50,14,'NPWPPemohon','/storage/Pengajuan/14/NPWPPemohon.jpeg','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(51,14,'FotoPemohon','/storage/Pengajuan/14/FotoPemohon.jpg','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(52,14,'SuratKuasa','/storage/Pengajuan/14/SuratKuasa.pdf','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(53,14,'RancangBangun','/storage/Pengajuan/14/RancangBangun.pdf','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(54,14,'DenahBangunan','/storage/Pengajuan/14/DenahBangunan.pdf','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(55,14,'GambarLokasiDanSituasi','/storage/Pengajuan/14/LokasiDanSituasi.pdf','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(56,14,'SuratTanah','/storage/Pengajuan/14/SuratTanah.pdf','tunggu persetujuan','2023-03-02','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
+(49,14,'KTPPemohon','/storage/Pengajuan/14/KTPPemohon.jpg','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(50,14,'NPWPPemohon','/storage/Pengajuan/14/NPWPPemohon.jpeg','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(51,14,'FotoPemohon','/storage/Pengajuan/14/FotoPemohon.jpg','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(52,14,'SuratKuasa','/storage/Pengajuan/14/SuratKuasa.pdf','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(53,14,'RancangBangun','/storage/Pengajuan/14/RancangBangun.pdf','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(54,14,'DenahBangunan','/storage/Pengajuan/14/DenahBangunan.pdf','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(55,14,'GambarLokasiDanSituasi','/storage/Pengajuan/14/LokasiDanSituasi.pdf','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
+(56,14,'SuratTanah','/storage/Pengajuan/14/SuratTanah.pdf','disetujui','2023-03-02','2023-04-14 14:58:19','2023-04-14 06:58:19',NULL),
 (57,15,'KTPPemohon','/storage/Pengajuan/15/KTPPemohon.jpg','disetujui','2023-03-14','2023-03-14 18:14:20','2023-03-14 10:14:20',NULL),
 (58,15,'NPWPPemohon','/storage/Pengajuan/15/NPWPPemohon.jpeg','disetujui','2023-03-14','2023-03-14 18:14:20','2023-03-14 10:14:20',NULL),
 (59,15,'FotoPemohon','/storage/Pengajuan/15/FotoPemohon.jpg','disetujui','2023-03-14','2023-03-14 18:14:20','2023-03-14 10:14:20',NULL),
@@ -123,7 +123,199 @@ insert  into `tb_detail_pengajuan`(`id`,`id_pengajuan_menara`,`file`,`patch`,`st
 (77,17,'RancangBangun','/storage/Pengajuan/17/RancangBangun.pdf','disetujui','2023-03-18','2023-03-18 22:58:22','2023-03-18 14:58:22',NULL),
 (78,17,'DenahBangunan','/storage/Pengajuan/17/DenahBangunan.pdf','disetujui','2023-03-18','2023-03-18 22:58:22','2023-03-18 14:58:22',NULL),
 (79,17,'GambarLokasiDanSituasi','/storage/Pengajuan/17/LokasiDanSituasi.pdf','disetujui','2023-03-18','2023-03-18 22:58:22','2023-03-18 14:58:22',NULL),
-(80,17,'SuratTanah','/storage/Pengajuan/17/SuratTanah.pdf','disetujui','2023-03-18','2023-03-18 22:58:22','2023-03-18 14:58:22',NULL);
+(80,17,'SuratTanah','/storage/Pengajuan/17/SuratTanah.pdf','disetujui','2023-03-18','2023-03-18 22:58:22','2023-03-18 14:58:22',NULL),
+(81,18,'KTPPemohon','/storage/Pengajuan/18/KTPPemohon.jpg','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(82,18,'NPWPPemohon','/storage/Pengajuan/18/NPWPPemohon.jpeg','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(83,18,'FotoPemohon','/storage/Pengajuan/18/FotoPemohon.jpg','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(84,18,'SuratKuasa','/storage/Pengajuan/18/SuratKuasa.pdf','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(85,18,'RancangBangun','/storage/Pengajuan/18/RancangBangun.pdf','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(86,18,'DenahBangunan','/storage/Pengajuan/18/DenahBangunan.pdf','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(87,18,'GambarLokasiDanSituasi','/storage/Pengajuan/18/LokasiDanSituasi.pdf','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(88,18,'SuratTanah','/storage/Pengajuan/18/SuratTanah.pdf','disetujui','2023-04-11','2023-04-14 14:59:21','2023-04-14 06:59:21',NULL),
+(89,23,'KTPPemohon','/storage/Pengajuan/23/KTPPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(90,23,'NPWPPemohon','/storage/Pengajuan/23/NPWPPemohon.jpeg','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(91,23,'FotoPemohon','/storage/Pengajuan/23/FotoPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(92,23,'SuratKuasa','/storage/Pengajuan/23/SuratKuasa.pdf','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(93,23,'RancangBangun','/storage/Pengajuan/23/RancangBangun.pdf','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(94,23,'DenahBangunan','/storage/Pengajuan/23/DenahBangunan.pdf','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(95,23,'GambarLokasiDanSituasi','/storage/Pengajuan/23/LokasiDanSituasi.pdf','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(96,23,'SuratTanah','/storage/Pengajuan/23/SuratTanah.pdf','disetujui','2023-04-24','2023-05-04 23:04:40','2023-05-04 15:04:40',NULL),
+(97,20,'KTPPemohon','/storage/Pengajuan/20/KTPPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(98,20,'NPWPPemohon','/storage/Pengajuan/20/NPWPPemohon.jpeg','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(99,20,'FotoPemohon','/storage/Pengajuan/20/FotoPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(100,20,'SuratKuasa','/storage/Pengajuan/20/SuratKuasa.pdf','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(101,20,'RancangBangun','/storage/Pengajuan/20/RancangBangun.pdf','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(102,20,'DenahBangunan','/storage/Pengajuan/20/DenahBangunan.pdf','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(103,20,'GambarLokasiDanSituasi','/storage/Pengajuan/20/LokasiDanSituasi.pdf','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(104,20,'SuratTanah','/storage/Pengajuan/20/SuratTanah.pdf','disetujui','2023-04-24','2023-05-04 23:02:18','2023-05-04 15:02:18',NULL),
+(105,19,'KTPPemohon','/storage/Pengajuan/19/KTPPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(106,19,'NPWPPemohon','/storage/Pengajuan/19/NPWPPemohon.jpeg','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(107,19,'FotoPemohon','/storage/Pengajuan/19/FotoPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(108,19,'SuratKuasa','/storage/Pengajuan/19/SuratKuasa.pdf','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(109,19,'RancangBangun','/storage/Pengajuan/19/RancangBangun.pdf','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(110,19,'DenahBangunan','/storage/Pengajuan/19/DenahBangunan.pdf','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(111,19,'GambarLokasiDanSituasi','/storage/Pengajuan/19/LokasiDanSituasi.pdf','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(112,19,'SuratTanah','/storage/Pengajuan/19/SuratTanah.pdf','disetujui','2023-04-24','2023-05-04 23:01:53','2023-05-04 15:01:53',NULL),
+(113,21,'KTPPemohon','/storage/Pengajuan/21/KTPPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(114,21,'NPWPPemohon','/storage/Pengajuan/21/NPWPPemohon.jpeg','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(115,21,'FotoPemohon','/storage/Pengajuan/21/FotoPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(116,21,'SuratKuasa','/storage/Pengajuan/21/SuratKuasa.pdf','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(117,21,'RancangBangun','/storage/Pengajuan/21/RancangBangun.pdf','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(118,21,'DenahBangunan','/storage/Pengajuan/21/DenahBangunan.pdf','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(119,21,'GambarLokasiDanSituasi','/storage/Pengajuan/21/LokasiDanSituasi.pdf','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(120,21,'SuratTanah','/storage/Pengajuan/21/SuratTanah.pdf','disetujui','2023-04-24','2023-05-04 23:03:33','2023-05-04 15:03:33',NULL),
+(121,22,'KTPPemohon','/storage/Pengajuan/22/KTPPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(122,22,'NPWPPemohon','/storage/Pengajuan/22/NPWPPemohon.jpeg','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(123,22,'FotoPemohon','/storage/Pengajuan/22/FotoPemohon.jpg','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(124,22,'SuratKuasa','/storage/Pengajuan/22/SuratKuasa.pdf','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(125,22,'RancangBangun','/storage/Pengajuan/22/RancangBangun.pdf','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(126,22,'DenahBangunan','/storage/Pengajuan/22/DenahBangunan.pdf','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(127,22,'GambarLokasiDanSituasi','/storage/Pengajuan/22/LokasiDanSituasi.pdf','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(128,22,'SuratTanah','/storage/Pengajuan/22/SuratTanah.pdf','disetujui','2023-04-24','2023-05-04 23:04:03','2023-05-04 15:04:03',NULL),
+(129,24,'KTPPemohon','/storage/Pengajuan/24/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(130,24,'NPWPPemohon','/storage/Pengajuan/24/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(131,24,'FotoPemohon','/storage/Pengajuan/24/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(132,24,'SuratKuasa','/storage/Pengajuan/24/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(133,24,'RancangBangun','/storage/Pengajuan/24/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(134,24,'DenahBangunan','/storage/Pengajuan/24/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(135,24,'GambarLokasiDanSituasi','/storage/Pengajuan/24/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(136,24,'SuratTanah','/storage/Pengajuan/24/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:05:16','2023-05-04 15:05:16',NULL),
+(137,25,'KTPPemohon','/storage/Pengajuan/25/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(138,25,'NPWPPemohon','/storage/Pengajuan/25/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(139,25,'FotoPemohon','/storage/Pengajuan/25/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(140,25,'SuratKuasa','/storage/Pengajuan/25/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(141,25,'RancangBangun','/storage/Pengajuan/25/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(142,25,'DenahBangunan','/storage/Pengajuan/25/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(143,25,'GambarLokasiDanSituasi','/storage/Pengajuan/25/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(144,25,'SuratTanah','/storage/Pengajuan/25/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:05:56','2023-05-04 15:05:56',NULL),
+(145,26,'KTPPemohon','/storage/Pengajuan/26/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(146,26,'NPWPPemohon','/storage/Pengajuan/26/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(147,26,'FotoPemohon','/storage/Pengajuan/26/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(148,26,'SuratKuasa','/storage/Pengajuan/26/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(149,26,'RancangBangun','/storage/Pengajuan/26/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(150,26,'DenahBangunan','/storage/Pengajuan/26/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(151,26,'GambarLokasiDanSituasi','/storage/Pengajuan/26/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(152,26,'SuratTanah','/storage/Pengajuan/26/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:06:36','2023-05-04 15:06:36',NULL),
+(161,28,'KTPPemohon','/storage/Pengajuan/28/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(162,28,'NPWPPemohon','/storage/Pengajuan/28/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(163,28,'FotoPemohon','/storage/Pengajuan/28/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(164,28,'SuratKuasa','/storage/Pengajuan/28/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(165,28,'RancangBangun','/storage/Pengajuan/28/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(166,28,'DenahBangunan','/storage/Pengajuan/28/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(167,28,'GambarLokasiDanSituasi','/storage/Pengajuan/28/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(168,28,'SuratTanah','/storage/Pengajuan/28/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:07:06','2023-05-04 15:07:06',NULL),
+(169,29,'KTPPemohon','/storage/Pengajuan/29/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(170,29,'NPWPPemohon','/storage/Pengajuan/29/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(171,29,'FotoPemohon','/storage/Pengajuan/29/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(172,29,'SuratKuasa','/storage/Pengajuan/29/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(173,29,'RancangBangun','/storage/Pengajuan/29/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(174,29,'DenahBangunan','/storage/Pengajuan/29/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(175,29,'GambarLokasiDanSituasi','/storage/Pengajuan/29/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(176,29,'SuratTanah','/storage/Pengajuan/29/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:07:47','2023-05-04 15:07:47',NULL),
+(177,30,'KTPPemohon','/storage/Pengajuan/30/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(178,30,'NPWPPemohon','/storage/Pengajuan/30/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(179,30,'FotoPemohon','/storage/Pengajuan/30/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(180,30,'SuratKuasa','/storage/Pengajuan/30/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(181,30,'RancangBangun','/storage/Pengajuan/30/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(182,30,'DenahBangunan','/storage/Pengajuan/30/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(183,30,'GambarLokasiDanSituasi','/storage/Pengajuan/30/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(184,30,'SuratTanah','/storage/Pengajuan/30/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:08:26','2023-05-04 15:08:26',NULL),
+(185,31,'KTPPemohon','/storage/Pengajuan/31/KTPPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(186,31,'NPWPPemohon','/storage/Pengajuan/31/NPWPPemohon.jpeg','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(187,31,'FotoPemohon','/storage/Pengajuan/31/FotoPemohon.jpg','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(188,31,'SuratKuasa','/storage/Pengajuan/31/SuratKuasa.pdf','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(189,31,'RancangBangun','/storage/Pengajuan/31/RancangBangun.pdf','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(190,31,'DenahBangunan','/storage/Pengajuan/31/DenahBangunan.pdf','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(191,31,'GambarLokasiDanSituasi','/storage/Pengajuan/31/LokasiDanSituasi.pdf','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(192,31,'SuratTanah','/storage/Pengajuan/31/SuratTanah.pdf','disetujui','2023-05-01','2023-05-04 23:09:05','2023-05-04 15:09:05',NULL),
+(193,32,'KTPPemohon','/storage/Pengajuan/32/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(194,32,'NPWPPemohon','/storage/Pengajuan/32/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(195,32,'FotoPemohon','/storage/Pengajuan/32/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(196,32,'SuratKuasa','/storage/Pengajuan/32/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(197,32,'RancangBangun','/storage/Pengajuan/32/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(198,32,'DenahBangunan','/storage/Pengajuan/32/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(199,32,'GambarLokasiDanSituasi','/storage/Pengajuan/32/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(200,32,'SuratTanah','/storage/Pengajuan/32/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:11:53','2023-05-04 15:11:53',NULL),
+(201,33,'KTPPemohon','/storage/Pengajuan/33/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(202,33,'NPWPPemohon','/storage/Pengajuan/33/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(203,33,'FotoPemohon','/storage/Pengajuan/33/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(204,33,'SuratKuasa','/storage/Pengajuan/33/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(205,33,'RancangBangun','/storage/Pengajuan/33/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(206,33,'DenahBangunan','/storage/Pengajuan/33/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(207,33,'GambarLokasiDanSituasi','/storage/Pengajuan/33/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(208,33,'SuratTanah','/storage/Pengajuan/33/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:12:28','2023-05-04 15:12:28',NULL),
+(209,34,'KTPPemohon','/storage/Pengajuan/34/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(210,34,'NPWPPemohon','/storage/Pengajuan/34/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(211,34,'FotoPemohon','/storage/Pengajuan/34/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(212,34,'SuratKuasa','/storage/Pengajuan/34/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(213,34,'RancangBangun','/storage/Pengajuan/34/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(214,34,'DenahBangunan','/storage/Pengajuan/34/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(215,34,'GambarLokasiDanSituasi','/storage/Pengajuan/34/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(216,34,'SuratTanah','/storage/Pengajuan/34/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:14:37','2023-05-04 15:14:37',NULL),
+(217,35,'KTPPemohon','/storage/Pengajuan/35/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(218,35,'NPWPPemohon','/storage/Pengajuan/35/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(219,35,'FotoPemohon','/storage/Pengajuan/35/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(220,35,'SuratKuasa','/storage/Pengajuan/35/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(221,35,'RancangBangun','/storage/Pengajuan/35/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(222,35,'DenahBangunan','/storage/Pengajuan/35/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(223,35,'GambarLokasiDanSituasi','/storage/Pengajuan/35/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(224,35,'SuratTanah','/storage/Pengajuan/35/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:15:33','2023-05-04 15:15:33',NULL),
+(225,36,'KTPPemohon','/storage/Pengajuan/36/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(226,36,'NPWPPemohon','/storage/Pengajuan/36/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(227,36,'FotoPemohon','/storage/Pengajuan/36/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(228,36,'SuratKuasa','/storage/Pengajuan/36/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(229,36,'RancangBangun','/storage/Pengajuan/36/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(230,36,'DenahBangunan','/storage/Pengajuan/36/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(231,36,'GambarLokasiDanSituasi','/storage/Pengajuan/36/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(232,36,'SuratTanah','/storage/Pengajuan/36/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:16:14','2023-05-04 15:16:14',NULL),
+(233,37,'KTPPemohon','/storage/Pengajuan/37/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(234,37,'NPWPPemohon','/storage/Pengajuan/37/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(235,37,'FotoPemohon','/storage/Pengajuan/37/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(236,37,'SuratKuasa','/storage/Pengajuan/37/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(237,37,'RancangBangun','/storage/Pengajuan/37/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(238,37,'DenahBangunan','/storage/Pengajuan/37/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(239,37,'GambarLokasiDanSituasi','/storage/Pengajuan/37/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(240,37,'SuratTanah','/storage/Pengajuan/37/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:16:56','2023-05-04 15:16:56',NULL),
+(241,38,'KTPPemohon','/storage/Pengajuan/38/KTPPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(242,38,'NPWPPemohon','/storage/Pengajuan/38/NPWPPemohon.jpeg','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(243,38,'FotoPemohon','/storage/Pengajuan/38/FotoPemohon.jpg','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(244,38,'SuratKuasa','/storage/Pengajuan/38/SuratKuasa.pdf','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(245,38,'RancangBangun','/storage/Pengajuan/38/RancangBangun.pdf','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(246,38,'DenahBangunan','/storage/Pengajuan/38/DenahBangunan.pdf','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(247,38,'GambarLokasiDanSituasi','/storage/Pengajuan/38/LokasiDanSituasi.pdf','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(248,38,'SuratTanah','/storage/Pengajuan/38/SuratTanah.pdf','disetujui','2023-05-03','2023-05-04 23:17:55','2023-05-04 15:17:55',NULL),
+(249,39,'KTPPemohon','/storage/Pengajuan/39/KTPPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(250,39,'NPWPPemohon','/storage/Pengajuan/39/NPWPPemohon.jpeg','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(251,39,'FotoPemohon','/storage/Pengajuan/39/FotoPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(252,39,'SuratKuasa','/storage/Pengajuan/39/SuratKuasa.pdf','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(253,39,'RancangBangun','/storage/Pengajuan/39/RancangBangun.pdf','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(254,39,'DenahBangunan','/storage/Pengajuan/39/DenahBangunan.pdf','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(255,39,'GambarLokasiDanSituasi','/storage/Pengajuan/39/LokasiDanSituasi.pdf','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(256,39,'SuratTanah','/storage/Pengajuan/39/SuratTanah.pdf','disetujui','2023-05-10','2023-05-11 00:37:09','2023-05-10 16:37:09',NULL),
+(257,40,'KTPPemohon','/storage/Pengajuan/40/KTPPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(258,40,'NPWPPemohon','/storage/Pengajuan/40/NPWPPemohon.jpeg','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(259,40,'FotoPemohon','/storage/Pengajuan/40/FotoPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(260,40,'SuratKuasa','/storage/Pengajuan/40/SuratKuasa.pdf','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(261,40,'RancangBangun','/storage/Pengajuan/40/RancangBangun.pdf','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(262,40,'DenahBangunan','/storage/Pengajuan/40/DenahBangunan.pdf','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(263,40,'GambarLokasiDanSituasi','/storage/Pengajuan/40/LokasiDanSituasi.pdf','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(264,40,'SuratTanah','/storage/Pengajuan/40/SuratTanah.pdf','disetujui','2023-05-10','2023-05-11 00:37:33','2023-05-10 16:37:33',NULL),
+(265,41,'KTPPemohon','/storage/Pengajuan/41/KTPPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(266,41,'NPWPPemohon','/storage/Pengajuan/41/NPWPPemohon.jpeg','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(267,41,'FotoPemohon','/storage/Pengajuan/41/FotoPemohon.jpg','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(268,41,'SuratKuasa','/storage/Pengajuan/41/SuratKuasa.pdf','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(269,41,'RancangBangun','/storage/Pengajuan/41/RancangBangun.pdf','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(270,41,'DenahBangunan','/storage/Pengajuan/41/DenahBangunan.pdf','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(271,41,'GambarLokasiDanSituasi','/storage/Pengajuan/41/LokasiDanSituasi.pdf','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(272,41,'SuratTanah','/storage/Pengajuan/41/SuratTanah.pdf','disetujui','2023-05-10','2023-05-11 00:48:11','2023-05-10 16:48:11',NULL),
+(273,42,'KTPPemohon','/storage/Pengajuan/42/KTPPemohon.jpg','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(274,42,'NPWPPemohon','/storage/Pengajuan/42/NPWPPemohon.jpeg','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(275,42,'FotoPemohon','/storage/Pengajuan/42/FotoPemohon.jpg','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(276,42,'SuratKuasa','/storage/Pengajuan/42/SuratKuasa.pdf','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(277,42,'RancangBangun','/storage/Pengajuan/42/RancangBangun.pdf','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(278,42,'DenahBangunan','/storage/Pengajuan/42/DenahBangunan.pdf','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(279,42,'GambarLokasiDanSituasi','/storage/Pengajuan/42/LokasiDanSituasi.pdf','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL),
+(280,42,'SuratTanah','/storage/Pengajuan/42/SuratTanah.pdf','tunggu persetujuan','2023-05-11','2023-05-11 15:10:36','2023-05-11 15:10:36',NULL);
 
 /*Table structure for table `tb_detail_perusahaan` */
 
@@ -142,7 +334,7 @@ CREATE TABLE `tb_detail_perusahaan` (
   PRIMARY KEY (`id`),
   KEY `id_perusahaan` (`id_perusahaan`),
   CONSTRAINT `tb_detail_perusahaan_ibfk_1` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_detail_perusahaan` */
 
@@ -154,7 +346,19 @@ insert  into `tb_detail_perusahaan`(`id`,`id_perusahaan`,`file`,`patch`,`status`
 (5,18,'TandaDaftarPerusahaan','/storage/Perusahaan/18/TandaDaftar.pdf','disetujui','2023-03-02','2023-03-02 17:47:22','2023-03-02 09:47:22',NULL),
 (6,18,'AktaPendirianPerusahaan','/storage/Perusahaan/18/AktaPendirian.pdf','disetujui','2023-03-02','2023-03-02 17:47:22','2023-03-02 09:47:22',NULL),
 (7,19,'TandaDaftarPerusahaan','/storage/Perusahaan/19/TandaDaftar.pdf','disetujui','2023-03-14','2023-03-14 17:50:08','2023-03-14 09:50:08',NULL),
-(8,19,'AktaPendirianPerusahaan','/storage/Perusahaan/19/AktaPendirian.pdf','disetujui','2023-03-14','2023-03-14 17:50:08','2023-03-14 09:50:08',NULL);
+(8,19,'AktaPendirianPerusahaan','/storage/Perusahaan/19/AktaPendirian.pdf','disetujui','2023-03-14','2023-03-14 17:50:08','2023-03-14 09:50:08',NULL),
+(9,20,'TandaDaftarPerusahaan','/storage/Perusahaan/20/TandaDaftar.pdf','disetujui','2023-04-18','2023-04-19 13:31:25','2023-04-19 05:31:25',NULL),
+(10,20,'AktaPendirianPerusahaan','/storage/Perusahaan/20/AktaPendirian.pdf','disetujui','2023-04-18','2023-04-19 13:31:25','2023-04-19 05:31:25',NULL),
+(11,21,'TandaDaftarPerusahaan','/storage/Perusahaan/21/TandaDaftar.pdf','disetujui','2023-04-19','2023-04-19 13:33:37','2023-04-19 05:33:37',NULL),
+(12,21,'AktaPendirianPerusahaan','/storage/Perusahaan/21/AktaPendirian.pdf','disetujui','2023-04-19','2023-04-19 13:33:37','2023-04-19 05:33:37',NULL),
+(13,22,'TandaDaftarPerusahaan','/storage/Perusahaan/22/TandaDaftar.pdf','disetujui','2023-04-19','2023-04-19 13:35:53','2023-04-19 05:35:53',NULL),
+(14,22,'AktaPendirianPerusahaan','/storage/Perusahaan/22/AktaPendirian.pdf','disetujui','2023-04-19','2023-04-19 13:35:53','2023-04-19 05:35:53',NULL),
+(15,23,'TandaDaftarPerusahaan','/storage/Perusahaan/23/TandaDaftar.pdf','disetujui','2023-04-19','2023-04-19 13:36:18','2023-04-19 05:36:18',NULL),
+(16,23,'AktaPendirianPerusahaan','/storage/Perusahaan/23/AktaPendirian.pdf','disetujui','2023-04-19','2023-04-19 13:36:18','2023-04-19 05:36:18',NULL),
+(17,24,'TandaDaftarPerusahaan','/storage/Perusahaan/24/TandaDaftar.pdf','disetujui','2023-04-19','2023-04-19 13:36:51','2023-04-19 05:36:51',NULL),
+(18,24,'AktaPendirianPerusahaan','/storage/Perusahaan/24/AktaPendirian.pdf','disetujui','2023-04-19','2023-04-19 13:36:51','2023-04-19 05:36:51',NULL),
+(19,25,'TandaDaftarPerusahaan','/storage/Perusahaan/25/TandaDaftar.pdf','disetujui','2023-04-19','2023-04-19 19:42:25','2023-04-19 11:42:25',NULL),
+(20,25,'AktaPendirianPerusahaan','/storage/Perusahaan/25/AktaPendirian.pdf','disetujui','2023-04-19','2023-04-19 19:42:25','2023-04-19 11:42:25',NULL);
 
 /*Table structure for table `tb_laporan_kondisi` */
 
@@ -178,7 +382,7 @@ CREATE TABLE `tb_laporan_kondisi` (
   CONSTRAINT `tb_laporan_kondisi_ibfk_1` FOREIGN KEY (`id_tim_lapangan`) REFERENCES `tb_tim_lapangan` (`id`),
   CONSTRAINT `tb_laporan_kondisi_ibfk_2` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
   CONSTRAINT `tb_laporan_kondisi_ibfk_3` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_laporan_kondisi` */
 
@@ -187,7 +391,10 @@ insert  into `tb_laporan_kondisi`(`id`,`id_perusahaan`,`id_menara`,`id_tim_lapan
 (2,17,15,4,'2023-01-26','/storage/LaporanKondisi/15/2023-1-26/DokumenKondisi_2023-1-26.jpeg','test','2023-02-26 13:59:08','2023-02-26 05:00:35',NULL),
 (3,17,15,4,'2023-01-27','/storage/LaporanKondisi/15/2023-1-27/DokumenKondisi_2023-1-27.jpeg','test','2023-02-26 13:59:09','2023-02-27 05:04:40',NULL),
 (4,17,16,4,'2023-01-26','/storage/LaporanKondisi/16/2023-1-26/DokumenKondisi_2023-1-26.jpg','test','2023-02-26 13:59:12','2023-02-26 05:07:18',NULL),
-(5,16,12,4,'2023-02-14','/storage/LaporanKondisi/12/2023-02-14/DokumenKondisi_2023-02-14.jpg','Menara dalam kondisi baik','2023-03-13 16:58:47','2023-03-13 16:58:47',NULL);
+(5,16,12,4,'2023-02-14','/storage/LaporanKondisi/12/2023-02-14/DokumenKondisi_2023-02-14.jpg','Menara dalam kondisi baik','2023-03-13 16:58:47','2023-03-13 16:58:47',NULL),
+(6,19,27,4,'2023-04-11','/storage/LaporanKondisi/27/2023-04-11/DokumenKondisi_2023-04-11.jpg','Menara dalam kondisi baik','2023-05-11 15:23:57','2023-05-11 15:23:57',NULL),
+(7,18,19,4,'2023-04-11','/storage/LaporanKondisi/19/2023-04-11/DokumenKondisi_2023-04-11.jpeg','Menara dan lingkungan dalam kondisi baik','2023-05-11 15:24:26','2023-05-11 15:24:26',NULL),
+(8,23,41,4,'2023-04-11','/storage/LaporanKondisi/41/2023-04-11/DokumenKondisi_2023-04-11.jpg','Menara kondisi baik, namun lingkungan menara dalam keadaan kotor','2023-05-11 15:25:21','2023-05-11 15:25:21',NULL);
 
 /*Table structure for table `tb_m_dasarhukum` */
 
@@ -203,7 +410,7 @@ CREATE TABLE `tb_m_dasarhukum` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_dasarhukum` */
 
@@ -1087,7 +1294,7 @@ CREATE TABLE `tb_m_provider` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_provider` */
 
@@ -1203,17 +1410,54 @@ CREATE TABLE `tb_m_zoneplan` (
   CONSTRAINT `tb_m_zoneplan_ibfk_2` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_m_zoneplan_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_m_zoneplan_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_m_zoneplan` */
 
 insert  into `tb_m_zoneplan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`nama`,`lat`,`long`,`radius`,`batas_menara`,`jumlah_menara`,`status`,`detail`,`created_at`,`updated_at`,`deleted_at`) values 
-(1,51,7,704,492,'Seraya Barat','-8.396299741738005','115.6995957076312',642,1,2,'used','Zone Plan daerah Desa Seraya Barat','2023-03-18 22:54:36','2023-03-18 14:54:36',NULL),
+(1,51,7,704,493,'Seraya Timur 1','-8.396299741738005','115.6995957076312',642,1,2,'used','Zone Plan daerah Desa Seraya Barat','2023-04-14 17:18:21','2023-04-14 09:18:21',NULL),
 (4,51,7,705,497,'Ababi','-8.400375435618203','115.58737271010638',290,2,2,'used',NULL,'2023-02-04 03:45:34','2023-02-03 19:45:34',NULL),
 (6,51,7,708,533,'Tulamben','-8.283776784611558','115.59719977460378',640,1,1,'used','Zone Plan desa tulamben','2023-03-18 22:57:10','2023-03-18 14:57:10',NULL),
 (7,51,7,704,492,'Seraya Barat 1','-8.439862138683022','115.63816825638409',340,1,1,'used',NULL,'2023-02-01 16:46:49','2023-02-01 08:46:49',NULL),
 (8,51,7,705,497,'Daerah Wisata','-8.412389992325839','115.58694369032985',258,0,0,'terlarang','Daerah Wisata Tirta Gangga','2023-02-12 01:25:12','2023-02-11 17:25:12',NULL),
-(9,51,7,707,521,'Duda 1','-8.443703898036212','115.49347791495163',701,1,1,'used','zone plan daerah duda','2023-03-14 18:11:42','2023-03-14 10:11:42',NULL);
+(9,51,7,707,521,'Duda 1','-8.443703898036212','115.49347791495163',701,3,2,'available','zone plan daerah duda','2023-04-24 17:09:31','2023-04-24 09:09:31',NULL),
+(10,51,7,705,504,'Culik1','-8.33936574776549','115.61596631834671',77,1,1,'used','Desa culik, Kecamatan Abang daerah tanah rata','2023-04-12 00:53:02','2023-04-11 16:53:02',NULL),
+(11,51,7,705,506,'Kerta Mandala 1','-8.353197360442246','115.61444742666696',99,1,0,'available','Daerah desa dengan tanah yang datar','2023-04-14 09:10:22','2023-04-14 09:10:22',NULL),
+(12,51,7,705,499,'Amed 1','-8.334182581734062','115.64253510334949',62,1,0,'available','daerah dekat pesisir pantai','2023-04-14 09:13:49','2023-04-14 09:13:49',NULL),
+(13,51,7,704,493,'Seraya Timur 1','-8.420201377062739','115.68416838393613',105,1,0,'available','Daerah rerumputan dengan tanah datar','2023-04-14 09:17:51','2023-04-14 09:17:51',NULL),
+(14,51,7,704,486,'Bugbug 1','-8.495133817932151','115.58925032615663',125,1,1,'used','Daerah dekat perumahan','2023-05-04 00:21:32','2023-05-03 16:21:32',NULL),
+(15,51,7,703,477,'Manggis 1','-8.483503850135019','115.5254567250099',110,1,0,'available','daerah dekat perumahan di perbukitan','2023-04-14 09:25:27','2023-04-14 09:25:27',NULL),
+(16,51,7,703,477,'Manggis 2','-8.49071177244304','115.52215977884961',114,1,1,'used','Daerah dekat perumahan','2023-05-11 00:34:45','2023-05-10 16:34:45',NULL),
+(17,51,7,704,487,'Jasri 1','-8.475152552014867','115.61501558401896',100,1,0,'available','daerah dekat dengan sungai','2023-04-14 09:34:29','2023-04-14 09:34:29',NULL),
+(18,51,7,706,514,'Sibetan 1','-8.440312844301937','115.5390927014549',123,1,1,'used','daerah dekat sawah','2023-04-24 17:37:54','2023-04-24 09:37:54',NULL),
+(19,51,7,703,478,'Candi Dasa 1','-8.506691976016205','115.56526557766956',146,1,1,'used','Dekat dengan daerah wisata','2023-05-04 00:40:18','2023-05-03 16:40:18',NULL),
+(20,51,7,703,485,'Sengkidu 1','-8.497984303344829','115.5407067364551',104,1,1,'used','Dekat dengan perumahan dan tanah landai','2023-05-04 00:13:58','2023-05-03 16:13:58',NULL),
+(21,51,7,701,462,'Pempatan 1','-8.375608915688932','115.41783323828459',107,1,1,'used','daerah dataran tinggi','2023-04-24 17:49:29','2023-04-24 09:49:29',NULL),
+(22,51,7,701,461,'Besakih 1','-8.374766479152552','115.43792551279212',124,1,1,'used','daerah dataran tinggi','2023-05-11 23:10:35','2023-05-11 15:10:35',NULL),
+(23,51,7,701,459,'Rendang 1','-8.427272514402635','115.4223507266409',143,1,1,'used','daerah dataran tinggi','2023-05-01 19:09:21','2023-05-01 11:09:21',NULL),
+(24,51,7,701,460,'Menanga 1','-8.408731170716266','115.41833658714435',124,1,1,'used','daerah dataran tinggi dekat dengan perumahan','2023-04-24 18:01:28','2023-04-24 10:01:28',NULL),
+(25,51,7,702,470,'Tri Eka Buana 1','-8.495465581203277','115.44285418395171',133,1,1,'used','daerah dekat dengan sungai','2023-04-24 17:53:22','2023-04-24 09:53:22',NULL),
+(26,51,7,702,466,'Sidemen 1','-8.468332002737416','115.44814252595334',171,1,1,'used','daerah dataran tinggi','2023-05-04 00:47:59','2023-05-03 16:47:59',NULL),
+(27,51,7,702,473,'wismakerta','-8.493446645552902','115.42137085101152',106,1,0,'available','daerah perumahan warga','2023-04-15 02:53:30','2023-04-15 02:53:30',NULL),
+(28,51,7,701,462,'Pempatan 2','-8.363841258051554','115.41711691912585',100,1,0,'available','derah dekat dengan perumahan warga','2023-04-15 03:12:39','2023-04-15 03:12:39',NULL),
+(29,51,7,702,465,'Talibeng 1','-8.489682480201198','115.45442794649558',108,1,1,'used','daerah  perbukitan','2023-05-04 00:28:34','2023-05-03 16:28:34',NULL),
+(30,51,7,702,468,'Telaga Tawang 1','-8.479280471733723','115.45679206455323',100,1,1,'used','daerah dataran tinggi','2023-05-01 20:27:00','2023-05-01 12:27:00',NULL),
+(31,51,7,703,480,'Ngis 1','-8.48001266880292','115.54748290286177',110,1,1,'used','Dekat daerah persawahan','2023-05-01 18:27:09','2023-05-01 10:27:09',NULL),
+(32,51,7,706,513,'Bebandem 1','-8.4351656818766','115.55643082001492',112,1,2,'used','Dearah dekat dengan warga','2023-05-01 18:43:04','2023-05-01 10:43:04',NULL),
+(33,51,7,706,512,'Budekeling 1','-8.426436574437107','115.56718655891332',107,1,1,'used','Daerah dataran tinggi','2023-05-11 00:36:18','2023-05-10 16:36:18',NULL),
+(34,51,7,706,513,'Bebandem 2','-8.44348600921992','115.56313632909408',99,1,1,'used','Daerah dekat dengan perumahan','2023-05-01 19:51:00','2023-05-01 11:51:00',NULL),
+(35,51,7,706,518,'Macang 1','-8.441066340673844','115.52785996323355',112,1,0,'available','daerah perbukitan','2023-04-17 07:18:07','2023-04-17 07:18:07',NULL),
+(36,51,7,707,523,'Duda Utara 1','-8.430633999638406','115.49618860404756',137,1,1,'used','Daerah dataran tinggi','2023-05-04 00:45:02','2023-05-03 16:45:02',NULL),
+(37,51,7,707,525,'Peringsari 1','-8.435887350020774','115.48004157792586',101,1,1,'used','Daerah dengan tanah datar','2023-05-11 00:47:31','2023-05-10 16:47:31',NULL),
+(38,51,7,707,522,'Sebudi 1','-8.4007497352741','115.48386416856788',114,1,0,'available','Daerah dataran tinggi','2023-04-17 07:57:32','2023-04-17 07:57:32',NULL),
+(39,51,7,707,524,'Duda Timur 1','-8.446255874329403','115.5049217958514',98,1,1,'used','Daerah dekat perumahan','2023-05-04 00:51:07','2023-05-03 16:51:07',NULL),
+(40,51,7,708,528,'Dukuh 1','-8.280867743788157','115.54650654572404',113,1,1,'used','Daerah tanah kering','2023-05-01 18:23:13','2023-05-01 10:23:13',NULL),
+(41,51,7,708,534,'Baturinggit 1','-8.246042522582469','115.55969243664494',111,1,0,'available','Daerah tanah kering','2023-04-17 08:02:14','2023-04-17 08:02:14',NULL),
+(42,51,7,708,529,'Kubu 1','-8.264963191859698','115.56856513696285',141,1,1,'used','Daerah dengan tanah kering','2023-05-01 18:58:30','2023-05-01 10:58:30',NULL),
+(43,51,7,708,533,'Tulamben 2','-8.283873000238595','115.57729390249095',112,1,0,'available','Daerah tanah kering','2023-04-17 08:04:30','2023-04-17 08:04:30',NULL),
+(44,51,7,704,492,'Daerah Wisata Taman Ujung','-8.464668073462752','115.63030954138227',448,0,0,'terlarang','Daerah wisata','2023-05-09 05:32:54','2023-05-09 05:32:54',NULL),
+(45,51,7,705,497,'Lahan Hijau','-8.415319280066617','115.5924802710511',424,0,0,'terlarang','Daerah Lahan Hijau','2023-05-09 19:16:39','2023-05-09 19:16:39',NULL),
+(46,51,7,703,479,'Tenganan','-8.47522749696779','115.56669601959388',353,0,0,'terlarang','Derah wisata dan budaya','2023-05-09 19:17:54','2023-05-09 19:17:54',NULL);
 
 /*Table structure for table `tb_menara` */
 
@@ -1253,17 +1497,41 @@ CREATE TABLE `tb_menara` (
   CONSTRAINT `tb_menara_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_menara_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`),
   CONSTRAINT `tb_menara_ibfk_5` FOREIGN KEY (`id_pemilik_menara`) REFERENCES `tb_pemilik_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_menara` */
 
 insert  into `tb_menara`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`id_desa`,`id_pemilik_menara`,`id_zonePlan`,`no_menara`,`foto`,`tanggal_pembuatan`,`lat`,`long`,`jenis_menara`,`tinggi_menara`,`tinggi_antena`,`luas_area`,`akses_jalan`,`file_suratIzinPembangunan`,`file_suratIzinOperasional`,`created_at`,`updated_at`,`deleted_at`) values 
 (12,51,7,705,497,16,4,'161','/storage/Menara/12/FotoMenara.jpeg','2023-01-08','-8.401762515031399','115.58721184730531','Menara 4 Kaki','70','2','200','Jalan Setapak','/storage/Menara/12/Pembangunan.pdf','/storage/Menara/12/Operasional.pdf','2023-02-04 03:41:12','2023-01-08 09:50:22',NULL),
-(15,51,7,704,492,17,7,'173',NULL,NULL,'-8.441052411616912','115.63937544822694','Menara 4 Kaki','75','2','200','Aspal',NULL,NULL,'2023-02-02 09:33:13','2023-02-02 09:33:13',NULL),
+(15,51,7,704,492,17,7,'171','/storage/Menara/15/FotoMenara.jpg','2023-05-08','-8.441052411616912','115.63937544822694','Menara 4 Kaki','75','2','200','Aspal','/storage/Menara/15/Pembangunan.pdf','/storage/Menara/15/Operasional.pdf','2023-05-11 23:07:35','2023-05-11 15:07:02',NULL),
 (16,51,7,705,497,17,4,'172','/storage/Menara/16/FotoMenara.jpg','2023-03-15','-8.398691497299039','115.58898746967317','Menara 4 Kaki','73','2','300','Jalan Setapak','/storage/Menara/16/Pembangunan.pdf','/storage/Menara/16/Operasional.pdf','2023-03-02 17:50:19','2023-03-02 09:50:19',NULL),
 (17,51,7,707,521,19,9,'191','/storage/Menara/17/FotoMenara.jpeg','2023-04-09','-8.44208879840787','115.4922240972519','Menara 4 Kaki','10','20','500','Beton','/storage/Menara/17/Pembangunan.pdf','/storage/Menara/17/Operasional.pdf','2023-03-14 18:18:22','2023-03-14 10:18:22',NULL),
 (18,51,7,704,492,19,1,'192',NULL,NULL,'-8.398776739181956','115.70292234420778','Menara 4 Kaki','70','1','100','jalan setapak',NULL,NULL,'2023-03-18 14:50:22','2023-03-18 14:50:22',NULL),
-(19,51,7,708,533,18,6,'181',NULL,NULL,'-8.285659952401481','115.59941053390504','Menara 4 Kaki','72','2','150','aspal',NULL,NULL,'2023-03-18 15:00:05','2023-03-18 15:00:05',NULL);
+(19,51,7,708,533,18,6,'181','/storage/Menara/19/FotoMenara.jpg','2023-05-02','-8.285659952401481','115.59941053390504','Menara 4 Kaki','72','2','150','aspal','/storage/Menara/19/Pembangunan.pdf','/storage/Menara/19/Operasional.pdf','2023-05-11 23:08:53','2023-05-11 15:08:53',NULL),
+(20,51,7,704,492,17,1,'173','/storage/Menara/20/FotoMenara.jpg','2023-04-26','-8.396561770870875','115.70368409156801','Menara 4 Kaki','69','1','200','Setapak','/storage/Menara/20/Pembangunan.pdf','/storage/Menara/20/Operasional.pdf','2023-05-11 23:08:09','2023-05-11 15:08:09',NULL),
+(21,51,7,705,504,16,10,'162','/storage/Menara/21/FotoMenara.jpg','2023-05-09','-8.339370060269022','115.6156834959984','Menara 4 Kaki','70','2','200','aspal','/storage/Menara/21/Pembangunan.pdf','/storage/Menara/21/Operasional.pdf','2023-05-11 23:02:47','2023-05-11 15:02:47',NULL),
+(22,51,7,701,462,16,21,'163','/storage/Menara/22/FotoMenara.jpg','2023-05-04','-8.37566953389876','115.41727244853975','Menara 3 Kaki','60','1','100','Jalan Setapak','/storage/Menara/22/Pembangunan.pdf','/storage/Menara/22/Operasional.pdf','2023-05-11 23:03:25','2023-05-11 15:03:25',NULL),
+(23,51,7,706,514,16,18,'164','/storage/Menara/23/FotoMenara.jpg','2023-05-06','-8.441059376145448','115.53913056850435','Menara 4 Kaki','73','1','320','Aspal','/storage/Menara/23/Pembangunan.pdf','/storage/Menara/23/Operasional.pdf','2023-05-11 23:03:45','2023-05-11 15:03:45',NULL),
+(24,51,7,702,470,16,25,'165','/storage/Menara/24/FotoMenara.jpg','2023-04-30','-8.495878419655721','115.44268101453783','Menara 3 Kaki','50','1','130','Aspal','/storage/Menara/24/Pembangunan.pdf','/storage/Menara/24/Operasional.pdf','2023-05-11 23:04:59','2023-05-11 15:04:59',NULL),
+(25,51,7,701,460,16,24,'166','/storage/Menara/25/FotoMenara.jpg','2023-05-02','-8.40857279733796','115.41777670383455','Menara 3 Kaki','55','1','120','jalan aspal','/storage/Menara/25/Pembangunan.pdf','/storage/Menara/25/Operasional.pdf','2023-05-11 23:05:36','2023-05-11 15:05:36',NULL),
+(26,51,7,707,521,16,9,'167','/storage/Menara/26/FotoMenara.jpg','2023-05-10','-8.440076049803942','115.49277663230897','Menara 4 Kaki','70','2','200','Jalan Setapak','/storage/Menara/26/Pembangunan.pdf','/storage/Menara/26/Operasional.pdf','2023-05-11 23:06:08','2023-05-11 15:06:08',NULL),
+(27,51,7,708,528,19,40,'193',NULL,NULL,'-8.280428963809916','115.54587095975877','Menara 4 Kaki','73','1','153','Jalan Bertanah',NULL,NULL,'2023-05-04 15:22:14','2023-05-04 15:22:14',NULL),
+(28,51,7,703,480,19,31,'194',NULL,NULL,'-8.480041021514637','115.54735690355304','Menara 3 Kaki','57','1','140','Aspal',NULL,NULL,'2023-05-04 15:22:25','2023-05-04 15:22:25',NULL),
+(29,51,7,706,513,20,32,'201','/storage/Menara/29/FotoMenara.jpg','2023-03-08','-8.435889174088361','115.55653005838396','Menara 4 Kaki','75','1','160','Jalan Setapak','/storage/Menara/29/Pembangunan.pdf','/storage/Menara/29/Operasional.pdf','2023-05-11 23:11:52','2023-05-11 15:11:52',NULL),
+(30,51,7,708,529,20,42,'202','/storage/Menara/30/FotoMenara.jpg','2023-01-24','-8.264306737065608','115.5676826834679','Menara 4 Kaki','72','1','172','Jalan Tanah','/storage/Menara/30/Pembangunan.pdf','/storage/Menara/30/Operasional.pdf','2023-05-11 23:12:24','2023-05-11 15:12:24',NULL),
+(31,51,7,701,459,20,23,'203','/storage/Menara/31/FotoMenara.jpeg','2023-03-23','-8.427680285295306','115.42198777198793','Menara 4 Kaki','71','1','190','Jalan tanah','/storage/Menara/31/Pembangunan.pdf','/storage/Menara/31/Operasional.pdf','2023-05-11 23:13:12','2023-05-11 15:13:12',NULL),
+(32,51,7,706,513,21,34,'211','/storage/Menara/32/FotoMenara.jpg','2023-01-18','-8.443678859068912','115.5627152323723','Menara 4 Kaki','69','1','168','Jalan Setapak','/storage/Menara/32/Pembangunan.pdf','/storage/Menara/32/Operasional.pdf','2023-05-11 23:13:57','2023-05-11 15:13:57',NULL),
+(33,51,7,702,468,21,30,'212','/storage/Menara/33/FotoMenara.jpeg','2023-03-29','-8.479356576521226','115.4572293162346','Menara 4 Kaki','70','1','160','Jalan aspal','/storage/Menara/33/Pembangunan.pdf','/storage/Menara/33/Operasional.pdf','2023-05-11 23:14:50','2023-05-11 15:14:50',NULL),
+(34,51,7,703,485,22,20,'221','/storage/Menara/34/FotoMenara.jpeg','2023-02-03','-8.49772657092685','115.54022490978242','Menara 4 Kaki','69','1','100','Jalan Setapak','/storage/Menara/34/Pembangunan.pdf','/storage/Menara/34/Operasional.pdf','2023-05-11 23:15:33','2023-05-11 15:15:33',NULL),
+(35,51,7,704,486,22,14,'222','/storage/Menara/35/FotoMenara.jpeg','2023-05-27','-8.495133817932151','115.58925032615663','Menara 4 Kaki','71','1','123','jalan tanah','/storage/Menara/35/Pembangunan.pdf','/storage/Menara/35/Operasional.pdf','2023-05-11 23:16:19','2023-05-11 15:16:19',NULL),
+(36,51,7,702,465,22,29,'223','/storage/Menara/36/FotoMenara.jpeg','2023-04-06','-8.49023857690016','115.45482605695726','Menara 4 Kaki','76','1','150','jalan aspal','/storage/Menara/36/Pembangunan.pdf','/storage/Menara/36/Operasional.pdf','2023-05-11 23:16:49','2023-05-11 15:16:49',NULL),
+(37,51,7,703,478,25,19,'251','/storage/Menara/37/FotoMenara.jpg','2023-01-11','-8.507202123226339','115.56552350521089','Menara 4 Kaki','80','1','120','jalan aspal','/storage/Menara/37/Pembangunan.pdf','/storage/Menara/37/Operasional.pdf','2023-05-11 23:21:26','2023-05-11 15:21:26',NULL),
+(38,51,7,707,523,24,36,'241','/storage/Menara/38/FotoMenara.jpg','2023-03-25','-8.431221356941975','115.49621522426607','Menara 4 Kaki','70','1','100','jalan setapak','/storage/Menara/38/Pembangunan.pdf','/storage/Menara/38/Operasional.pdf','2023-05-11 23:19:35','2023-05-11 15:19:35',NULL),
+(39,51,7,702,466,24,26,'242','/storage/Menara/39/FotoMenara.jpeg','2023-03-22','-8.467685507545983','115.44870793819429','Menara 4 Kaki','69','1','130','jalan tanah','/storage/Menara/39/Pembangunan.pdf','/storage/Menara/39/Operasional.pdf','2023-05-11 23:20:17','2023-05-11 15:20:17',NULL),
+(40,51,7,707,524,23,39,'231','/storage/Menara/40/FotoMenara.jpg','2023-05-19','-8.446896270149827','115.50472319126129','Menara 4 Kaki','71','1','140','jalan setapak','/storage/Menara/40/Pembangunan.pdf','/storage/Menara/40/Operasional.pdf','2023-05-11 23:17:44','2023-05-11 15:17:44',NULL),
+(41,51,7,703,477,23,16,'232','/storage/Menara/41/FotoMenara.jpeg','2023-02-09','-8.49114766228498','115.52239358425142','Menara 4 Kaki','70','1','142','Jalan Setapak','/storage/Menara/41/Pembangunan.pdf','/storage/Menara/41/Operasional.pdf','2023-05-11 23:18:12','2023-05-11 15:18:12',NULL),
+(42,51,7,706,512,23,33,'233','/storage/Menara/42/FotoMenara.jpg','2023-03-17','-8.426052847372969','115.5672723054886','Menara 4 Kaki','72','1','130','Jalan Setapak','/storage/Menara/42/Pembangunan.pdf','/storage/Menara/42/Operasional.pdf','2023-05-11 23:18:47','2023-05-11 15:18:47',NULL),
+(43,51,7,707,525,25,37,'252','/storage/Menara/43/FotoMenara.webp','2023-02-04','-8.436403892453374','115.48052698373796','Menara 4 Kaki','68','1','120','Jalan Setapak','/storage/Menara/43/Pembangunan.pdf','/storage/Menara/43/Operasional.pdf','2023-05-11 23:22:03','2023-05-11 15:22:03',NULL);
 
 /*Table structure for table `tb_opd` */
 
@@ -1319,7 +1587,7 @@ CREATE TABLE `tb_pemilik_menara` (
   CONSTRAINT `tb_pemilik_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_pemilik_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`),
   CONSTRAINT `tb_pemilik_menara_ibfk_6` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pemilik_menara` */
 
@@ -1327,7 +1595,13 @@ insert  into `tb_pemilik_menara`(`id`,`id_user`,`id_perusahaan`,`id_provinsi`,`i
 (16,52,16,51,9,901,685,'Agus Aditya','0123456789','9876543210','WNI','Jln. Pulau Kawe','08123456789','jisnubagas@student.unud.ac.id','2023-01-08 09:10:09','2023-01-08 09:18:41',NULL),
 (17,53,17,51,7,705,497,'Tyagi Jisnu','123456789','546481','WNI','Jl. Lettu Dugdugan','081321321321','tyagijisnubagas222@gmail.com','2023-01-08 09:52:16','2023-01-08 09:54:18',NULL),
 (18,54,18,51,7,704,487,'Tyagi Jisnu','0132213132132132','20','WNI','sad','03','bagasjisnu@gmail.com','2023-03-02 09:41:44','2023-03-02 09:45:15',NULL),
-(19,55,19,51,7,704,488,'Gustiagus Umbu Aldi Putra','510704090400056','-','WNI','Lingkungan Kertasari, Kelurahan Padangkerta','082145533403','umbuputraworkspace@gmail.com','2023-03-14 09:40:52','2023-03-14 09:47:41',NULL);
+(19,55,19,51,7,704,488,'Gustiagus Umbu Aldi Putra','510704090400056','-','WNI','Lingkungan Kertasari, Kelurahan Padangkerta','082145533403','umbuputraworkspace@gmail.com','2023-03-14 09:40:52','2023-03-14 09:47:41',NULL),
+(20,58,20,51,3,306,255,'Bima Ardianto','012321','46168187','WNI','Jl. Canggu','786213','bima123@gmail.com','2023-04-17 08:08:20','2023-04-18 03:10:46',NULL),
+(21,59,21,51,3,305,250,'Bagas Perdana','456654','16152','WNI','Jln. Udayana','0231518498','BagasPerdana@gmail.com','2023-04-17 08:13:44','2023-04-19 04:57:57',NULL),
+(22,60,22,51,7,703,477,'Nabila Milena','321321','21531','WNI','Jl. Raya Manggis','15618','NabilaMilena@gmail.com','2023-04-17 14:41:33','2023-04-19 05:03:46',NULL),
+(23,61,25,51,9,903,717,'Aditya Mahya','74147','56151','WNI','jalan buana raya  no 29X','5161','AdityaMahya@gmail.com','2023-04-17 14:46:01','2023-04-19 11:41:29',NULL),
+(24,62,23,51,5,503,365,'Arsen Daniswara','653289','135','WNI','Jl. Raya Semarapura','6561','ArsenDaniswara@gmail.com','2023-04-17 14:48:02','2023-05-03 16:41:28',NULL),
+(25,63,24,51,2,205,113,'Mahesa Putra','978645213','15164','WNI','Jl. sudirman','51468','MahesaPutra@gmail.com','2023-04-17 14:49:09','2023-04-19 05:14:42',NULL);
 
 /*Table structure for table `tb_pengajuan_menara` */
 
@@ -1369,7 +1643,7 @@ CREATE TABLE `tb_pengajuan_menara` (
   CONSTRAINT `tb_pengajuan_menara_ibfk_3` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_4` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_pengajuan_menara_ibfk_5` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_menara` */
 
@@ -1378,10 +1652,34 @@ insert  into `tb_pengajuan_menara`(`id`,`id_pemilik_menara`,`id_provinsi`,`id_ka
 (11,17,51,7,704,492,7,2,'-8.441052411616912','115.63937544822694','Menara 4 Kaki','75','2','200','Aspal','milik perusahaan','PT. Bintang',1,'2023-02-01','/storage/Pengajuan/11/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-02-02 17:33:13','2023-02-02 09:33:13',NULL),
 (12,17,51,7,708,533,6,3,'-8.286509299265775','115.59825181961061','Menara 4 Kaki','74','2','200','aspal','milik perusahaan','Pt. Bintang',NULL,'2023-02-02',NULL,'diajukan','2023-02-02 09:55:10','2023-02-02 09:55:10',NULL),
 (13,17,51,7,705,497,4,4,'-8.398691497299039','115.58898746967317','Menara 4 Kaki','73','2','300','Jalan Setapak','milik perusahaan','PT. Bintang',1,'2023-02-03','/storage/Pengajuan/13/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-02-04 03:47:33','2023-02-03 19:47:33',NULL),
-(14,17,51,7,704,492,1,5,'-8.396561770870875','115.70368409156801','Menara 4 Kaki','69','1','200','Setapak','milik perusahaan','PT. Bintang',1,'2023-03-02',NULL,'diajukan','2023-03-02 18:02:17','2023-03-02 10:02:17',NULL),
+(14,17,51,7,704,492,1,5,'-8.396561770870875','115.70368409156801','Menara 4 Kaki','69','1','200','Setapak','milik perusahaan','PT. Bintang',1,'2023-03-02','/storage/Pengajuan/14/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-04-14 15:03:12','2023-04-14 07:03:12',NULL),
 (15,19,51,7,707,521,9,6,'-8.44208879840787','115.4922240972519','Menara 4 Kaki','10','20','500','Beton','milik perusahaan','PT Telefonica Komunikasi',1,'2023-03-14','/storage/Pengajuan/15/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-03-14 18:16:50','2023-03-14 10:16:50',NULL),
 (16,19,51,7,704,492,1,7,'-8.398776739181956','115.70292234420778','Menara 4 Kaki','70','1','100','jalan setapak','milik perusahaan','PT Telefonica co',NULL,'2023-03-18','/storage/Pengajuan/16/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-03-18 22:50:22','2023-03-18 14:50:22',NULL),
-(17,18,51,7,708,533,6,8,'-8.285659952401481','115.59941053390504','Menara 4 Kaki','72','2','150','aspal','milik perusahaan','PT Sakura',NULL,'2023-03-18','/storage/Pengajuan/17/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-03-18 23:00:05','2023-03-18 15:00:05',NULL);
+(17,18,51,7,708,533,6,8,'-8.285659952401481','115.59941053390504','Menara 4 Kaki','72','2','150','aspal','milik perusahaan','PT Sakura',NULL,'2023-03-18','/storage/Pengajuan/17/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-03-18 23:00:05','2023-03-18 15:00:05',NULL),
+(18,16,51,7,705,504,10,9,'-8.339370060269022','115.6156834959984','Menara 4 Kaki','70','2','200','aspal','milik perusahaan','PT. Asri',1,'2023-04-11','/storage/Pengajuan/18/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-04-14 15:03:29','2023-04-14 07:03:29',NULL),
+(19,16,51,7,701,462,21,10,'-8.37566953389876','115.41727244853975','Menara 3 Kaki','60','1','100','Jalan Setapak','sewa','Dewa Satya',NULL,'2023-04-24','/storage/Pengajuan/19/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:21:10','2023-05-04 15:21:10',NULL),
+(20,16,51,7,706,514,18,11,'-8.441059376145448','115.53913056850435','Menara 4 Kaki','73','1','320','Aspal','milik perusahaan','PT. Astri',NULL,'2023-04-24','/storage/Pengajuan/20/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:21:22','2023-05-04 15:21:22',NULL),
+(21,16,51,7,702,470,25,12,'-8.495878419655721','115.44268101453783','Menara 3 Kaki','50','1','130','Aspal','milik perusahaan','PT. Astri',NULL,'2023-04-24','/storage/Pengajuan/21/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:21:38','2023-05-04 15:21:38',NULL),
+(22,16,51,7,701,460,24,13,'-8.40857279733796','115.41777670383455','Menara 3 Kaki','55','1','120','jalan aspal','milik perusahaan','PT. Astri',NULL,'2023-04-24','/storage/Pengajuan/22/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:21:49','2023-05-04 15:21:49',NULL),
+(23,16,51,7,707,521,9,14,'-8.440076049803942','115.49277663230897','Menara 4 Kaki','70','2','200','Jalan Setapak','milik perusahaan','PT. Asri',1,'2023-04-24','/storage/Pengajuan/23/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:22:02','2023-05-04 15:22:02',NULL),
+(24,19,51,7,708,528,40,15,'-8.280428963809916','115.54587095975877','Menara 4 Kaki','73','1','153','Jalan Bertanah','milik perusahaan','PT. Telefonica Co',1,'2023-05-01','/storage/Pengajuan/24/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:22:14','2023-05-04 15:22:14',NULL),
+(25,19,51,7,703,480,31,16,'-8.480041021514637','115.54735690355304','Menara 3 Kaki','57','1','140','Aspal','milik perusahaan','PT. Telefonica Co',NULL,'2023-05-01','/storage/Pengajuan/25/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:22:25','2023-05-04 15:22:25',NULL),
+(26,20,51,7,706,513,32,17,'-8.435889174088361','115.55653005838396','Menara 4 Kaki','75','1','160','Jalan Setapak','milik perusahaan','PT. Suka Usaha',1,'2023-05-01','/storage/Pengajuan/26/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:22:36','2023-05-04 15:22:36',NULL),
+(28,20,51,7,708,529,42,18,'-8.264306737065608','115.5676826834679','Menara 4 Kaki','72','1','172','Jalan Tanah','milik perusahaan','PT. Suka Usaha',2,'2023-05-01','/storage/Pengajuan/28/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:22:46','2023-05-04 15:22:46',NULL),
+(29,20,51,7,701,459,23,19,'-8.427680285295306','115.42198777198793','Menara 4 Kaki','71','1','190','Jalan tanah','milik perusahaan','PT. Suka Usaha',NULL,'2023-05-01','/storage/Pengajuan/29/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:23:01','2023-05-04 15:23:01',NULL),
+(30,21,51,7,706,513,34,20,'-8.443678859068912','115.5627152323723','Menara 4 Kaki','69','1','168','Jalan Setapak','milik perusahaan','PT. Gembira Bersama',NULL,'2023-05-01','/storage/Pengajuan/30/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:23:11','2023-05-04 15:23:11',NULL),
+(31,21,51,7,702,468,30,21,'-8.479356576521226','115.4572293162346','Menara 4 Kaki','70','1','160','Jalan aspal','milik perusahaan','PT. Gembira Bersama',1,'2023-05-01','/storage/Pengajuan/31/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:23:22','2023-05-04 15:23:22',NULL),
+(32,22,51,7,703,485,20,22,'-8.49772657092685','115.54022490978242','Menara 4 Kaki','69','1','100','Jalan Setapak','milik perusahaan','PT. Kemari Kasih',NULL,'2023-05-03','/storage/Pengajuan/32/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:23:35','2023-05-04 15:23:35',NULL),
+(33,22,51,7,704,486,14,23,'-8.495133817932151','115.58925032615663','Menara 4 Kaki','71','1','123','jalan tanah','milik perusahaan','PT. Kemari Kasih',NULL,'2023-05-03','/storage/Pengajuan/33/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:23:54','2023-05-04 15:23:54',NULL),
+(34,22,51,7,702,465,29,24,'-8.49023857690016','115.45482605695726','Menara 4 Kaki','76','1','150','jalan aspal','milik perusahaan','PT. Kemari Kasih',NULL,'2023-05-03','/storage/Pengajuan/34/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:33:06','2023-05-04 15:33:06',NULL),
+(35,25,51,7,703,478,19,25,'-8.507202123226339','115.56552350521089','Menara 4 Kaki','80','1','120','jalan aspal','milik perusahaan','PT. Selalu Kasih',NULL,'2023-05-03','/storage/Pengajuan/35/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:33:16','2023-05-04 15:33:16',NULL),
+(36,24,51,7,707,523,36,26,'-8.431221356941975','115.49621522426607','Menara 4 Kaki','70','1','100','jalan setapak','milik perusahaan','PT. Sendiri Hebat',NULL,'2023-05-03','/storage/Pengajuan/36/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:33:27','2023-05-04 15:33:27',NULL),
+(37,24,51,7,702,466,26,27,'-8.467685507545983','115.44870793819429','Menara 4 Kaki','69','1','130','jalan tanah','milik perusahaan','PT. Sendiri Hebat',NULL,'2023-05-03','/storage/Pengajuan/37/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:33:37','2023-05-04 15:33:37',NULL),
+(38,23,51,7,707,524,39,28,'-8.446896270149827','115.50472319126129','Menara 4 Kaki','71','1','140','jalan setapak','milik perusahaan','PT. Pinewood',NULL,'2023-05-03','/storage/Pengajuan/38/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-04 23:33:48','2023-05-04 15:33:48',NULL),
+(39,23,51,7,703,477,16,29,'-8.49114766228498','115.52239358425142','Menara 4 Kaki','70','1','142','Jalan Setapak','milik perusahaan','PT. Pinewood',NULL,'2023-05-10','/storage/Pengajuan/39/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-11 00:38:39','2023-05-10 16:38:39',NULL),
+(40,23,51,7,706,512,33,30,'-8.426052847372969','115.5672723054886','Menara 4 Kaki','72','1','130','Jalan Setapak','milik perusahaan','PT. Pinewood',NULL,'2023-05-10','/storage/Pengajuan/40/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-11 00:38:52','2023-05-10 16:38:52',NULL),
+(41,25,51,7,707,525,37,31,'-8.436403892453374','115.48052698373796','Menara 4 Kaki','68','1','120','Jalan Setapak','milik perusahaan','PT. Selalu Kasih',NULL,'2023-05-10','/storage/Pengajuan/41/FileSurat/RekomendasiPembangunanMenara.pdf','diajukan','2023-05-11 00:49:18','2023-05-10 16:49:18',NULL),
+(42,18,51,7,701,461,22,32,'-8.37516352496851','115.4378315806389','Menara 4 Kaki','70','1','120','Jalan setapak','milik perusahaan','PT. Sakura',NULL,'2023-05-11',NULL,'diajukan','2023-05-11 15:10:35','2023-05-11 15:10:35',NULL);
 
 /*Table structure for table `tb_pengajuan_status` */
 
@@ -1401,7 +1699,7 @@ CREATE TABLE `tb_pengajuan_status` (
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_pengajuan_status_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `tb_m_status` (`id`),
   CONSTRAINT `tb_pengajuan_status_ibfk_2` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_pengajuan_status` */
 
@@ -1458,7 +1756,151 @@ insert  into `tb_pengajuan_status`(`id`,`id_status`,`id_pengajuan_menara`,`tangg
 (63,9,17,'2023-03-18 14:58:22','data dan berkas sudah lengkap','2023-03-18 14:58:22','2023-03-18 14:58:22',NULL),
 (64,4,17,'2023-03-18 14:58:50','lokasi dapat dibangun menara','2023-03-18 14:58:50','2023-03-18 14:58:50',NULL),
 (65,5,17,'2023-03-18 14:58:50','lokasi dapat dibangun menara','2023-03-18 14:58:50','2023-03-18 14:58:50',NULL),
-(66,6,17,'2023-03-18 15:00:05','pengajuan selesai','2023-03-18 15:00:05','2023-03-18 15:00:05',NULL);
+(66,6,17,'2023-03-18 15:00:05','pengajuan selesai','2023-03-18 15:00:05','2023-03-18 15:00:05',NULL),
+(67,2,18,'2023-04-11 18:26:55',NULL,'2023-04-11 18:26:55','2023-04-11 18:26:55',NULL),
+(68,3,14,'2023-04-14 06:58:19','data dan berkas sudah lengkap','2023-04-14 06:58:19','2023-04-14 06:58:19',NULL),
+(69,9,14,'2023-04-14 06:58:19','data dan berkas sudah lengkap','2023-04-14 06:58:19','2023-04-14 06:58:19',NULL),
+(70,3,18,'2023-04-14 06:59:21','data dan berkas sudah lengkap','2023-04-14 06:59:21','2023-04-14 06:59:21',NULL),
+(71,9,18,'2023-04-14 06:59:21','data dan berkas sudah lengkap','2023-04-14 06:59:21','2023-04-14 06:59:21',NULL),
+(72,4,14,'2023-04-14 07:01:45','lokasi bisa dibangun menara','2023-04-14 07:01:45','2023-04-14 07:01:45',NULL),
+(73,5,14,'2023-04-14 07:01:45','lokasi bisa dibangun menara','2023-04-14 07:01:45','2023-04-14 07:01:45',NULL),
+(74,4,18,'2023-04-14 07:02:03','lokasi bisa dibangun menara','2023-04-14 07:02:03','2023-04-14 07:02:03',NULL),
+(75,5,18,'2023-04-14 07:02:03','lokasi bisa dibangun menara','2023-04-14 07:02:03','2023-04-14 07:02:03',NULL),
+(76,6,14,'2023-04-14 07:03:12','pengajuan menara selesai','2023-04-14 07:03:12','2023-04-14 07:03:12',NULL),
+(77,6,18,'2023-04-14 07:03:29','pengajuan menara selesai','2023-04-14 07:03:29','2023-04-14 07:03:29',NULL),
+(78,2,23,'2023-04-24 09:09:31',NULL,'2023-04-24 09:09:31','2023-04-24 09:09:31',NULL),
+(79,2,20,'2023-04-24 09:37:54',NULL,'2023-04-24 09:37:54','2023-04-24 09:37:54',NULL),
+(80,2,19,'2023-04-24 09:49:29',NULL,'2023-04-24 09:49:29','2023-04-24 09:49:29',NULL),
+(81,2,21,'2023-04-24 09:53:22',NULL,'2023-04-24 09:53:22','2023-04-24 09:53:22',NULL),
+(82,2,22,'2023-04-24 10:01:28',NULL,'2023-04-24 10:01:28','2023-04-24 10:01:28',NULL),
+(83,2,24,'2023-05-01 10:23:13',NULL,'2023-05-01 10:23:13','2023-05-01 10:23:13',NULL),
+(84,2,25,'2023-05-01 10:27:09',NULL,'2023-05-01 10:27:09','2023-05-01 10:27:09',NULL),
+(85,2,26,'2023-05-01 10:40:19',NULL,'2023-05-01 10:40:19','2023-05-01 10:40:19',NULL),
+(87,2,28,'2023-05-01 10:58:30',NULL,'2023-05-01 10:58:30','2023-05-01 10:58:30',NULL),
+(88,2,29,'2023-05-01 11:09:21',NULL,'2023-05-01 11:09:21','2023-05-01 11:09:21',NULL),
+(89,2,30,'2023-05-01 11:51:00',NULL,'2023-05-01 11:51:00','2023-05-01 11:51:00',NULL),
+(90,2,31,'2023-05-01 12:27:00',NULL,'2023-05-01 12:27:00','2023-05-01 12:27:00',NULL),
+(91,2,32,'2023-05-03 16:13:58',NULL,'2023-05-03 16:13:58','2023-05-03 16:13:58',NULL),
+(92,2,33,'2023-05-03 16:21:32',NULL,'2023-05-03 16:21:32','2023-05-03 16:21:32',NULL),
+(93,2,34,'2023-05-03 16:28:34',NULL,'2023-05-03 16:28:34','2023-05-03 16:28:34',NULL),
+(94,2,35,'2023-05-03 16:40:18',NULL,'2023-05-03 16:40:18','2023-05-03 16:40:18',NULL),
+(95,2,36,'2023-05-03 16:45:02',NULL,'2023-05-03 16:45:02','2023-05-03 16:45:02',NULL),
+(96,2,37,'2023-05-03 16:47:59',NULL,'2023-05-03 16:47:59','2023-05-03 16:47:59',NULL),
+(97,2,38,'2023-05-03 16:51:07',NULL,'2023-05-03 16:51:07','2023-05-03 16:51:07',NULL),
+(98,3,19,'2023-05-04 15:01:53','Persyaratan sudah lengkap','2023-05-04 15:01:53','2023-05-04 15:01:53',NULL),
+(99,9,19,'2023-05-04 15:01:53','Persyaratan sudah lengkap','2023-05-04 15:01:53','2023-05-04 15:01:53',NULL),
+(100,3,20,'2023-05-04 15:02:18','Persyaratan sudah lengkap','2023-05-04 15:02:18','2023-05-04 15:02:18',NULL),
+(101,9,20,'2023-05-04 15:02:18','Persyaratan sudah lengkap','2023-05-04 15:02:18','2023-05-04 15:02:18',NULL),
+(102,3,21,'2023-05-04 15:03:33','Persyaratan sudah lengkap','2023-05-04 15:03:33','2023-05-04 15:03:33',NULL),
+(103,9,21,'2023-05-04 15:03:33','Persyaratan sudah lengkap','2023-05-04 15:03:33','2023-05-04 15:03:33',NULL),
+(104,3,22,'2023-05-04 15:04:03','Persyaratan sudah lengkap','2023-05-04 15:04:03','2023-05-04 15:04:03',NULL),
+(105,9,22,'2023-05-04 15:04:03','Persyaratan sudah lengkap','2023-05-04 15:04:03','2023-05-04 15:04:03',NULL),
+(106,3,23,'2023-05-04 15:04:40','Persyaratan sudah lengkap','2023-05-04 15:04:40','2023-05-04 15:04:40',NULL),
+(107,9,23,'2023-05-04 15:04:40','Persyaratan sudah lengkap','2023-05-04 15:04:40','2023-05-04 15:04:40',NULL),
+(108,3,24,'2023-05-04 15:05:16','Persyaratan sudah lengkap','2023-05-04 15:05:16','2023-05-04 15:05:16',NULL),
+(109,9,24,'2023-05-04 15:05:16','Persyaratan sudah lengkap','2023-05-04 15:05:16','2023-05-04 15:05:16',NULL),
+(110,3,25,'2023-05-04 15:05:56','Persyaratan sudah lengkap','2023-05-04 15:05:56','2023-05-04 15:05:56',NULL),
+(111,9,25,'2023-05-04 15:05:56','Persyaratan sudah lengkap','2023-05-04 15:05:56','2023-05-04 15:05:56',NULL),
+(112,3,26,'2023-05-04 15:06:36','Persyaratan sudah lengkap','2023-05-04 15:06:36','2023-05-04 15:06:36',NULL),
+(113,9,26,'2023-05-04 15:06:36','Persyaratan sudah lengkap','2023-05-04 15:06:36','2023-05-04 15:06:36',NULL),
+(114,3,28,'2023-05-04 15:07:06','Persyaratan sudah lengkap','2023-05-04 15:07:06','2023-05-04 15:07:06',NULL),
+(115,9,28,'2023-05-04 15:07:06','Persyaratan sudah lengkap','2023-05-04 15:07:06','2023-05-04 15:07:06',NULL),
+(116,3,29,'2023-05-04 15:07:47','Persyaratan sudah lengkap','2023-05-04 15:07:47','2023-05-04 15:07:47',NULL),
+(117,9,29,'2023-05-04 15:07:47','Persyaratan sudah lengkap','2023-05-04 15:07:47','2023-05-04 15:07:47',NULL),
+(118,3,30,'2023-05-04 15:08:26','Persyaratan sudah lengkap','2023-05-04 15:08:26','2023-05-04 15:08:26',NULL),
+(119,9,30,'2023-05-04 15:08:26','Persyaratan sudah lengkap','2023-05-04 15:08:26','2023-05-04 15:08:26',NULL),
+(120,3,31,'2023-05-04 15:09:05','Persyaratan sudah lengkap','2023-05-04 15:09:05','2023-05-04 15:09:05',NULL),
+(121,9,31,'2023-05-04 15:09:05','Persyaratan sudah lengkap','2023-05-04 15:09:05','2023-05-04 15:09:05',NULL),
+(122,3,32,'2023-05-04 15:11:53','Persyaratan sudah lengkap','2023-05-04 15:11:53','2023-05-04 15:11:53',NULL),
+(123,9,32,'2023-05-04 15:11:53','Persyaratan sudah lengkap','2023-05-04 15:11:53','2023-05-04 15:11:53',NULL),
+(124,3,33,'2023-05-04 15:12:28','Persyaratan sudah lengkap','2023-05-04 15:12:28','2023-05-04 15:12:28',NULL),
+(125,9,33,'2023-05-04 15:12:28','Persyaratan sudah lengkap','2023-05-04 15:12:28','2023-05-04 15:12:28',NULL),
+(126,3,34,'2023-05-04 15:14:37','Persyaratan sudah lengkap','2023-05-04 15:14:37','2023-05-04 15:14:37',NULL),
+(127,9,34,'2023-05-04 15:14:37','Persyaratan sudah lengkap','2023-05-04 15:14:37','2023-05-04 15:14:37',NULL),
+(128,3,35,'2023-05-04 15:15:33','Persyaratan sudah lengkap','2023-05-04 15:15:33','2023-05-04 15:15:33',NULL),
+(129,9,35,'2023-05-04 15:15:33','Persyaratan sudah lengkap','2023-05-04 15:15:33','2023-05-04 15:15:33',NULL),
+(130,3,36,'2023-05-04 15:16:14','Persyaratan sudah lengkap','2023-05-04 15:16:14','2023-05-04 15:16:14',NULL),
+(131,9,36,'2023-05-04 15:16:14','Persyaratan sudah lengkap','2023-05-04 15:16:14','2023-05-04 15:16:14',NULL),
+(132,3,37,'2023-05-04 15:16:56','Persyaratan sudah lengkap','2023-05-04 15:16:56','2023-05-04 15:16:56',NULL),
+(133,9,37,'2023-05-04 15:16:56','Persyaratan sudah lengkap','2023-05-04 15:16:56','2023-05-04 15:16:56',NULL),
+(134,3,38,'2023-05-04 15:17:55','Persyaratan sudah lengkap','2023-05-04 15:17:55','2023-05-04 15:17:55',NULL),
+(135,9,38,'2023-05-04 15:17:55','Persyaratan sudah lengkap','2023-05-04 15:17:55','2023-05-04 15:17:55',NULL),
+(136,4,19,'2023-05-04 15:18:28','Lokasi dapat dibangun menara','2023-05-04 15:18:28','2023-05-04 15:18:28',NULL),
+(137,5,19,'2023-05-04 15:18:28','Lokasi dapat dibangun menara','2023-05-04 15:18:28','2023-05-04 15:18:28',NULL),
+(138,4,20,'2023-05-04 15:18:35','Lokasi dapat dibangun menara','2023-05-04 15:18:35','2023-05-04 15:18:35',NULL),
+(139,5,20,'2023-05-04 15:18:35','Lokasi dapat dibangun menara','2023-05-04 15:18:35','2023-05-04 15:18:35',NULL),
+(140,4,21,'2023-05-04 15:18:41','Lokasi dapat dibangun menara','2023-05-04 15:18:41','2023-05-04 15:18:41',NULL),
+(141,5,21,'2023-05-04 15:18:41','Lokasi dapat dibangun menara','2023-05-04 15:18:41','2023-05-04 15:18:41',NULL),
+(142,4,22,'2023-05-04 15:18:46','Lokasi dapat dibangun menara','2023-05-04 15:18:46','2023-05-04 15:18:46',NULL),
+(143,5,22,'2023-05-04 15:18:46','Lokasi dapat dibangun menara','2023-05-04 15:18:46','2023-05-04 15:18:46',NULL),
+(144,4,23,'2023-05-04 15:18:52','Lokasi dapat dibangun menara','2023-05-04 15:18:52','2023-05-04 15:18:52',NULL),
+(145,5,23,'2023-05-04 15:18:52','Lokasi dapat dibangun menara','2023-05-04 15:18:52','2023-05-04 15:18:52',NULL),
+(146,4,24,'2023-05-04 15:18:58','Lokasi dapat dibangun menara','2023-05-04 15:18:58','2023-05-04 15:18:58',NULL),
+(147,5,24,'2023-05-04 15:18:58','Lokasi dapat dibangun menara','2023-05-04 15:18:58','2023-05-04 15:18:58',NULL),
+(148,4,25,'2023-05-04 15:19:04','Lokasi dapat dibangun menara','2023-05-04 15:19:04','2023-05-04 15:19:04',NULL),
+(149,5,25,'2023-05-04 15:19:04','Lokasi dapat dibangun menara','2023-05-04 15:19:04','2023-05-04 15:19:04',NULL),
+(150,4,26,'2023-05-04 15:19:13','Lokasi dapat dibangun menara','2023-05-04 15:19:13','2023-05-04 15:19:13',NULL),
+(151,5,26,'2023-05-04 15:19:13','Lokasi dapat dibangun menara','2023-05-04 15:19:13','2023-05-04 15:19:13',NULL),
+(152,4,28,'2023-05-04 15:19:18','Lokasi dapat dibangun menara','2023-05-04 15:19:18','2023-05-04 15:19:18',NULL),
+(153,5,28,'2023-05-04 15:19:18','Lokasi dapat dibangun menara','2023-05-04 15:19:18','2023-05-04 15:19:18',NULL),
+(154,4,29,'2023-05-04 15:19:33','Lokasi dapat dibangun menara','2023-05-04 15:19:33','2023-05-04 15:19:33',NULL),
+(155,5,29,'2023-05-04 15:19:33','Lokasi dapat dibangun menara','2023-05-04 15:19:33','2023-05-04 15:19:33',NULL),
+(156,4,30,'2023-05-04 15:19:40','Lokasi dapat dibangun menara','2023-05-04 15:19:40','2023-05-04 15:19:40',NULL),
+(157,5,30,'2023-05-04 15:19:40','Lokasi dapat dibangun menara','2023-05-04 15:19:40','2023-05-04 15:19:40',NULL),
+(158,4,31,'2023-05-04 15:19:53','Lokasi dapat dibangun menara','2023-05-04 15:19:53','2023-05-04 15:19:53',NULL),
+(159,5,31,'2023-05-04 15:19:53','Lokasi dapat dibangun menara','2023-05-04 15:19:53','2023-05-04 15:19:53',NULL),
+(160,4,32,'2023-05-04 15:19:58','Lokasi dapat dibangun menara','2023-05-04 15:19:58','2023-05-04 15:19:58',NULL),
+(161,5,32,'2023-05-04 15:19:58','Lokasi dapat dibangun menara','2023-05-04 15:19:58','2023-05-04 15:19:58',NULL),
+(162,4,33,'2023-05-04 15:20:02','Lokasi dapat dibangun menara','2023-05-04 15:20:02','2023-05-04 15:20:02',NULL),
+(163,5,33,'2023-05-04 15:20:02','Lokasi dapat dibangun menara','2023-05-04 15:20:02','2023-05-04 15:20:02',NULL),
+(164,4,34,'2023-05-04 15:20:08','Lokasi dapat dibangun menara','2023-05-04 15:20:08','2023-05-04 15:20:08',NULL),
+(165,5,34,'2023-05-04 15:20:08','Lokasi dapat dibangun menara','2023-05-04 15:20:08','2023-05-04 15:20:08',NULL),
+(166,4,35,'2023-05-04 15:20:13','Lokasi dapat dibangun menara','2023-05-04 15:20:13','2023-05-04 15:20:13',NULL),
+(167,5,35,'2023-05-04 15:20:13','Lokasi dapat dibangun menara','2023-05-04 15:20:13','2023-05-04 15:20:13',NULL),
+(168,4,36,'2023-05-04 15:20:18','Lokasi dapat dibangun menara','2023-05-04 15:20:18','2023-05-04 15:20:18',NULL),
+(169,5,36,'2023-05-04 15:20:18','Lokasi dapat dibangun menara','2023-05-04 15:20:18','2023-05-04 15:20:18',NULL),
+(170,4,37,'2023-05-04 15:20:23','Lokasi dapat dibangun menara','2023-05-04 15:20:23','2023-05-04 15:20:23',NULL),
+(171,5,37,'2023-05-04 15:20:23','Lokasi dapat dibangun menara','2023-05-04 15:20:23','2023-05-04 15:20:23',NULL),
+(172,4,38,'2023-05-04 15:20:27','Lokasi dapat dibangun menara','2023-05-04 15:20:27','2023-05-04 15:20:27',NULL),
+(173,5,38,'2023-05-04 15:20:27','Lokasi dapat dibangun menara','2023-05-04 15:20:27','2023-05-04 15:20:27',NULL),
+(174,6,19,'2023-05-04 15:21:10','Pengajuan menara selesai','2023-05-04 15:21:10','2023-05-04 15:21:10',NULL),
+(175,6,20,'2023-05-04 15:21:22','Pengajuan menara selesai','2023-05-04 15:21:22','2023-05-04 15:21:22',NULL),
+(176,6,21,'2023-05-04 15:21:38','Pengajuan menara selesai','2023-05-04 15:21:38','2023-05-04 15:21:38',NULL),
+(177,6,22,'2023-05-04 15:21:49','Pengajuan menara selesai','2023-05-04 15:21:49','2023-05-04 15:21:49',NULL),
+(178,6,23,'2023-05-04 15:22:02','Pengajuan menara selesai','2023-05-04 15:22:02','2023-05-04 15:22:02',NULL),
+(179,6,24,'2023-05-04 15:22:14','Pengajuan menara selesai','2023-05-04 15:22:14','2023-05-04 15:22:14',NULL),
+(180,6,25,'2023-05-04 15:22:25','Pengajuan menara selesai','2023-05-04 15:22:25','2023-05-04 15:22:25',NULL),
+(181,6,26,'2023-05-04 15:22:36','Pengajuan menara selesai','2023-05-04 15:22:36','2023-05-04 15:22:36',NULL),
+(182,6,28,'2023-05-04 15:22:46','Pengajuan menara selesai','2023-05-04 15:22:46','2023-05-04 15:22:46',NULL),
+(183,6,29,'2023-05-04 15:23:01','Pengajuan menara selesai','2023-05-04 15:23:01','2023-05-04 15:23:01',NULL),
+(184,6,30,'2023-05-04 15:23:11','Pengajuan menara selesai','2023-05-04 15:23:11','2023-05-04 15:23:11',NULL),
+(185,6,31,'2023-05-04 15:23:22','Pengajuan menara selesai','2023-05-04 15:23:22','2023-05-04 15:23:22',NULL),
+(186,6,32,'2023-05-04 15:23:35','Pengajuan menara selesai','2023-05-04 15:23:35','2023-05-04 15:23:35',NULL),
+(187,6,33,'2023-05-04 15:23:54','Pengajuan menara selesai','2023-05-04 15:23:54','2023-05-04 15:23:54',NULL),
+(188,6,34,'2023-05-04 15:33:06','Pengajuan menara selesai','2023-05-04 15:33:06','2023-05-04 15:33:06',NULL),
+(189,6,35,'2023-05-04 15:33:16','Pengajuan menara selesai','2023-05-04 15:33:16','2023-05-04 15:33:16',NULL),
+(190,6,36,'2023-05-04 15:33:27','Pengajuan menara selesai','2023-05-04 15:33:27','2023-05-04 15:33:27',NULL),
+(191,6,37,'2023-05-04 15:33:37','Pengajuan menara selesai','2023-05-04 15:33:37','2023-05-04 15:33:37',NULL),
+(192,6,38,'2023-05-04 15:33:48','Pengajuan menara selesai','2023-05-04 15:33:48','2023-05-04 15:33:48',NULL),
+(193,2,39,'2023-05-10 16:34:45',NULL,'2023-05-10 16:34:45','2023-05-10 16:34:45',NULL),
+(194,2,40,'2023-05-10 16:36:18',NULL,'2023-05-10 16:36:18','2023-05-10 16:36:18',NULL),
+(195,3,39,'2023-05-10 16:37:09','Administrasi diterima','2023-05-10 16:37:09','2023-05-10 16:37:09',NULL),
+(196,9,39,'2023-05-10 16:37:09','Administrasi diterima','2023-05-10 16:37:09','2023-05-10 16:37:09',NULL),
+(197,3,40,'2023-05-10 16:37:33','Berkas diterima','2023-05-10 16:37:33','2023-05-10 16:37:33',NULL),
+(198,9,40,'2023-05-10 16:37:33','Berkas diterima','2023-05-10 16:37:33','2023-05-10 16:37:33',NULL),
+(199,4,39,'2023-05-10 16:37:56','lokasi sesuai dibangun menara','2023-05-10 16:37:56','2023-05-10 16:37:56',NULL),
+(200,5,39,'2023-05-10 16:37:56','lokasi sesuai dibangun menara','2023-05-10 16:37:56','2023-05-10 16:37:56',NULL),
+(201,4,40,'2023-05-10 16:38:07','lokasi sesuai dibangun menara','2023-05-10 16:38:07','2023-05-10 16:38:07',NULL),
+(202,5,40,'2023-05-10 16:38:07','lokasi sesuai dibangun menara','2023-05-10 16:38:07','2023-05-10 16:38:07',NULL),
+(203,6,39,'2023-05-10 16:38:39','pengajuan selesai','2023-05-10 16:38:39','2023-05-10 16:38:39',NULL),
+(204,6,40,'2023-05-10 16:38:52','pengajuan selesai','2023-05-10 16:38:52','2023-05-10 16:38:52',NULL),
+(205,2,41,'2023-05-10 16:47:31',NULL,'2023-05-10 16:47:31','2023-05-10 16:47:31',NULL),
+(206,3,41,'2023-05-10 16:48:11','administrasi diterima','2023-05-10 16:48:11','2023-05-10 16:48:11',NULL),
+(207,9,41,'2023-05-10 16:48:11','administrasi diterima','2023-05-10 16:48:11','2023-05-10 16:48:11',NULL),
+(208,4,41,'2023-05-10 16:48:48','lokasi sesuai untuk dibangun menara','2023-05-10 16:48:48','2023-05-10 16:48:48',NULL),
+(209,5,41,'2023-05-10 16:48:48','lokasi sesuai untuk dibangun menara','2023-05-10 16:48:48','2023-05-10 16:48:48',NULL),
+(210,6,41,'2023-05-10 16:49:18','pengajuan selesai','2023-05-10 16:49:18','2023-05-10 16:49:18',NULL),
+(211,2,42,'2023-05-11 15:10:35',NULL,'2023-05-11 15:10:35','2023-05-11 15:10:35',NULL);
 
 /*Table structure for table `tb_penggunaan_menara` */
 
@@ -1476,7 +1918,7 @@ CREATE TABLE `tb_penggunaan_menara` (
   KEY `id_provider` (`id_provider`),
   CONSTRAINT `tb_penggunaan_menara_ibfk_1` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
   CONSTRAINT `tb_penggunaan_menara_ibfk_2` FOREIGN KEY (`id_provider`) REFERENCES `tb_m_provider` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_penggunaan_menara` */
 
@@ -1484,9 +1926,40 @@ insert  into `tb_penggunaan_menara`(`id`,`id_provider`,`id_menara`,`created_at`,
 (1,12,12,'2023-01-08 09:50:37','2023-01-08 09:50:37',NULL),
 (5,12,16,'2023-03-02 09:50:26','2023-03-02 09:50:26',NULL),
 (6,14,16,'2023-03-02 09:50:32','2023-03-02 09:50:32',NULL),
-(7,12,15,'2023-03-13 01:23:48','2023-03-13 01:23:48',NULL),
 (8,12,17,'2023-03-14 10:18:50','2023-03-14 10:18:50',NULL),
-(9,16,17,'2023-03-14 10:19:02','2023-03-14 10:19:02',NULL);
+(9,16,17,'2023-03-14 10:19:02','2023-03-14 10:19:02',NULL),
+(10,14,15,'2023-03-24 16:10:33','2023-03-24 16:10:33',NULL),
+(11,12,15,'2023-03-24 16:10:42','2023-03-24 16:10:42',NULL),
+(12,13,23,'2023-05-11 15:03:53','2023-05-11 15:03:53',NULL),
+(13,12,23,'2023-05-11 15:03:59','2023-05-11 15:03:59',NULL),
+(14,16,22,'2023-05-11 15:04:08','2023-05-11 15:04:08',NULL),
+(15,14,21,'2023-05-11 15:04:19','2023-05-11 15:04:19',NULL),
+(16,13,21,'2023-05-11 15:04:25','2023-05-11 15:04:25',NULL),
+(17,12,24,'2023-05-11 15:05:06','2023-05-11 15:05:06',NULL),
+(18,13,25,'2023-05-11 15:05:42','2023-05-11 15:05:42',NULL),
+(19,13,26,'2023-05-11 15:06:21','2023-05-11 15:06:21',NULL),
+(20,14,20,'2023-05-11 15:08:16','2023-05-11 15:08:16',NULL),
+(21,12,19,'2023-05-11 15:08:59','2023-05-11 15:08:59',NULL),
+(22,15,29,'2023-05-11 15:11:58','2023-05-11 15:11:58',NULL),
+(23,14,30,'2023-05-11 15:12:31','2023-05-11 15:12:31',NULL),
+(24,13,31,'2023-05-11 15:13:18','2023-05-11 15:13:18',NULL),
+(25,15,32,'2023-05-11 15:14:03','2023-05-11 15:14:03',NULL),
+(26,12,33,'2023-05-11 15:14:56','2023-05-11 15:14:56',NULL),
+(27,13,34,'2023-05-11 15:15:39','2023-05-11 15:15:39',NULL),
+(28,14,34,'2023-05-11 15:15:45','2023-05-11 15:15:45',NULL),
+(29,14,35,'2023-05-11 15:16:24','2023-05-11 15:16:24',NULL),
+(30,13,36,'2023-05-11 15:17:00','2023-05-11 15:17:00',NULL),
+(31,15,40,'2023-05-11 15:17:49','2023-05-11 15:17:49',NULL),
+(32,16,41,'2023-05-11 15:18:21','2023-05-11 15:18:21',NULL),
+(33,14,42,'2023-05-11 15:18:53','2023-05-11 15:18:53',NULL),
+(34,12,38,'2023-05-11 15:19:41','2023-05-11 15:19:41',NULL),
+(35,15,38,'2023-05-11 15:19:47','2023-05-11 15:19:47',NULL),
+(36,13,38,'2023-05-11 15:19:52','2023-05-11 15:19:52',NULL),
+(37,13,39,'2023-05-11 15:20:25','2023-05-11 15:20:25',NULL),
+(38,15,39,'2023-05-11 15:20:29','2023-05-11 15:20:29',NULL),
+(39,14,37,'2023-05-11 15:21:32','2023-05-11 15:21:32',NULL),
+(40,12,37,'2023-05-11 15:21:37','2023-05-11 15:21:37',NULL),
+(41,12,43,'2023-05-11 15:22:10','2023-05-11 15:22:10',NULL);
 
 /*Table structure for table `tb_persetujuan_pendamping` */
 
@@ -1505,7 +1978,7 @@ CREATE TABLE `tb_persetujuan_pendamping` (
   PRIMARY KEY (`id`),
   KEY `id_pengajuan_menara` (`id_pengajuan_menara`),
   CONSTRAINT `tb_persetujuan_pendamping_ibfk_1` FOREIGN KEY (`id_pengajuan_menara`) REFERENCES `tb_pengajuan_menara` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_persetujuan_pendamping` */
 
@@ -1515,7 +1988,13 @@ insert  into `tb_persetujuan_pendamping`(`id`,`id_pengajuan_menara`,`nama`,`no_k
 (7,11,'Dito','123','/storage/Pengajuan/11/Pendamping/Pendamping1.pdf','63','2023-01-30 15:05:36','2023-01-30 15:05:36',NULL),
 (8,13,'Budi','123123','/storage/Pengajuan/13/Pendamping/Pendamping1.pdf','30','2023-02-03 19:45:34','2023-02-03 19:45:34',NULL),
 (9,14,'dipa','0123123','/storage/Pengajuan/14/Pendamping/Pendamping1.pdf','60','2023-03-02 09:54:39','2023-03-02 09:54:39',NULL),
-(10,15,'Susila','5107045698740036','/storage/Pengajuan/15/Pendamping/Pendamping1.pdf','50','2023-03-14 10:11:42','2023-03-14 10:11:42',NULL);
+(10,15,'Susila','5107045698740036','/storage/Pengajuan/15/Pendamping/Pendamping1.pdf','50','2023-03-14 10:11:42','2023-03-14 10:11:42',NULL),
+(11,18,'dika','0123','/storage/Pengajuan/18/Pendamping/Pendamping1.pdf','50','2023-04-11 18:26:02','2023-04-11 18:26:02',NULL),
+(12,23,'abdi','0235489','/storage/Pengajuan/23/Pendamping/Pendamping1.pdf','20','2023-04-24 09:09:31','2023-04-24 09:09:31',NULL),
+(13,24,'Budi','17166','/storage/Pengajuan/24/Pendamping/Pendamping1.pdf','62','2023-05-01 10:23:14','2023-05-01 10:23:14',NULL),
+(14,28,'Dimas','74555745','/storage/Pengajuan/28/Pendamping/Pendamping1.pdf','60','2023-05-01 10:58:33','2023-05-01 10:58:33',NULL),
+(15,28,'Dira','4454675','/storage/Pengajuan/28/Pendamping/Pendamping2.pdf','70','2023-05-01 10:58:33','2023-05-01 10:58:33',NULL),
+(16,31,'susila','55665','/storage/Pengajuan/31/Pendamping/Pendamping1.pdf','65','2023-05-01 12:27:00','2023-05-01 12:27:00',NULL);
 
 /*Table structure for table `tb_perusahaan` */
 
@@ -1546,7 +2025,7 @@ CREATE TABLE `tb_perusahaan` (
   CONSTRAINT `tb_perusahaan_ibfk_2` FOREIGN KEY (`id_kabupaten`) REFERENCES `tb_m_kabupaten` (`id`),
   CONSTRAINT `tb_perusahaan_ibfk_3` FOREIGN KEY (`id_kecamatan`) REFERENCES `tb_m_kecamatan` (`id`),
   CONSTRAINT `tb_perusahaan_ibfk_4` FOREIGN KEY (`id_desa`) REFERENCES `tb_m_desa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_perusahaan` */
 
@@ -1554,7 +2033,13 @@ insert  into `tb_perusahaan`(`id`,`id_provinsi`,`id_kabupaten`,`id_kecamatan`,`i
 (16,51,9,901,685,'PT. Asri','0321456987','Jl. Pulau Kawe','a@gmail.com','diterima','/storage/Perusahaan/16/Marker.png','pendaftaran diterima','2023-01-09 01:32:12','2023-01-08 09:23:19',NULL),
 (17,51,9,901,685,'PT. Bintang','036155684','Jl. Pulau Moyo','b@gmail.com','diterima','/storage/Perusahaan/17/Marker.png','dis','2023-01-10 12:28:35','2023-01-10 04:28:35',NULL),
 (18,51,3,305,250,'PT. Sakura','0321321221','Jl. Universitas Udayana','sakura1@gmail.com','diterima','/storage/Perusahaan/18/Marker.png','Diterima','2023-03-02 17:47:22','2023-03-02 09:47:22',NULL),
-(19,51,2,204,102,'PT. Telefonica Co','+6216587465','Jalan Raya Singaraja Denpasar','workspace@telefonica.id','diterima','/storage/Perusahaan/19/Marker.png','Perusahaan diterima','2023-03-14 17:50:08','2023-03-14 09:50:08',NULL);
+(19,51,2,204,102,'PT. Telefonica Co','+6216587465','Jalan Raya Singaraja Denpasar','workspace@telefonica.id','diterima','/storage/Perusahaan/19/Marker.png','Perusahaan diterima','2023-03-14 17:50:08','2023-03-14 09:50:08',NULL),
+(20,51,3,306,252,'Pt. Suka Usaha','0322584','Jl. Bulu Indah','SukaUsaha@gmail.com','diterima','/storage/Perusahaan/20/Marker.png','Diterima','2023-04-19 13:31:26','2023-04-19 05:31:26',NULL),
+(21,51,3,301,196,'Pt. Gembira Bersama','02643513','Jl. raya kuta','GembiraBersama@gmail.com','diterima','/storage/Perusahaan/21/Marker.png','diterima','2023-04-19 13:33:37','2023-04-19 05:33:37',NULL),
+(22,51,4,401,261,'PT. Kemari Kasih','1616816','Jl. raya celuk','KemariKasih@gmail.com','diterima','/storage/Perusahaan/22/Marker.png','diterima','2023-04-19 13:35:53','2023-04-19 05:35:53',NULL),
+(23,51,9,901,686,'PT. Sendiri Hebat','15165','Jl. Raya Sesetan','SendiriHebat@gmail.com','diterima','/storage/Perusahaan/23/Marker.png','diterima','2023-04-19 13:36:18','2023-04-19 05:36:18',NULL),
+(24,51,2,205,113,'PT. Selalu Kasih','154684','Jl. Sudirman','SelaluKasih@gmail.com','diterima','/storage/Perusahaan/24/Marker.png','diterima','2023-04-19 13:36:51','2023-04-19 05:36:51',NULL),
+(25,51,3,301,199,'PT. Pinewood','361497612','Jalan Raya Seminyak No. 14A','pinewoodcompany@gmail.com','diterima','/storage/Perusahaan/25/Marker.png','diterima','2023-04-19 19:42:25','2023-04-19 11:42:25',NULL);
 
 /*Table structure for table `tb_super_admin` */
 
@@ -1643,7 +2128,7 @@ CREATE TABLE `tb_user` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_user` */
 
@@ -1655,7 +2140,13 @@ insert  into `tb_user`(`id`,`username`,`password`,`kategori`,`token`,`created_at
 (52,'agus','$2y$10$.G/.ZR1I0FXDyckliHR6AOxvSVx1wCU5wFbGqUzgGHf5DjN1PC/YG','Pemilik Menara','LJrE5cnT809PRYEI',NULL,'2023-01-08 09:10:24',NULL,NULL),
 (53,'tyagi','$2y$10$nGTnHKRapbmdMwy/RX0xaOM9yj/W8pesxf73zqPEvGRx/BclvTa9O','Pemilik Menara','j1oJ0drirQ5X2JWl',NULL,'2023-01-08 09:52:34',NULL,NULL),
 (54,'jisnu','$2y$10$FTPORO50Tt4cLBr/3tTAo.c/6Dxl8Yau4abhciX4T7SSv7gT4XfSC','Pemilik Menara','bZoCi47XYYAPaO7y',NULL,'2023-03-02 09:41:56',NULL,NULL),
-(55,'bigbadboiy','$2y$10$TGYcGds6VJGkqHvEPCyyie/QmNsh6W3vK/n3pvcovMf3Ks0MA/3H.','Pemilik Menara','8RH8uUXz8iijEdnq',NULL,'2023-03-14 09:42:33',NULL,NULL);
+(55,'bigbadboiy','$2y$10$TGYcGds6VJGkqHvEPCyyie/QmNsh6W3vK/n3pvcovMf3Ks0MA/3H.','Pemilik Menara','8RH8uUXz8iijEdnq',NULL,'2023-03-14 09:42:33',NULL,NULL),
+(58,'bima','$2y$10$7PdzFTPYBFSnb9V6Kmd/J./OmYlu0KwPASZGwEe8pQNVyImE/1vHy','Pemilik Menara','qx7Q0RCMmnm2NzMl',NULL,'2023-04-17 22:49:37',NULL,NULL),
+(59,'bagas','$2y$10$Z151sOOd9Y5G51R1ttFNdOlXGp.Ok6K4irocAsOflsVsDaWLOAmGK','Pemilik Menara','xekDJ2ouied8NzS0',NULL,'2023-04-17 22:49:40',NULL,NULL),
+(60,'nabila','$2y$10$TwiZlZe7jS2RatZommKcO.mNts47cAKD4qWgpv2yXrYeEYXiIq5Ba','Pemilik Menara','jjWsCjaGpYch3w9R',NULL,'2023-04-17 22:49:43',NULL,NULL),
+(61,'aditya','$2y$10$8YgA8p4YkxKl13VPiUjMhujzL2kaFcnyXAGRVm0Gx2e2G2q6AAIDS','Pemilik Menara','uJfyHwHZqJnoysqB',NULL,'2023-04-17 22:49:45',NULL,NULL),
+(62,'arsen','$2y$10$pdX.vMbaBL964GixP5MrBOXzObF3xb59py.hmeamE6EXTxbq1qNOq','Pemilik Menara','RwIq5uj80tlZHsU2',NULL,'2023-04-17 22:49:48',NULL,NULL),
+(63,'mahesa','$2y$10$APXKRAMJOKCotrm/zYqnMuUSZf1JP968Txb1NoQwcAziRJd29QfGC','Pemilik Menara','sQOVmrvSmcSY6MBa',NULL,'2023-04-19 13:12:18',NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1075,9 +1075,9 @@
                     type: 'GET',
                     url: '/pengajuan/getDistance/' + lat + '/' + lng,
                     success: function(response) {
-                        // console.log(response);
+                        // console.log(data.zone_plan.id);
                         if (response.statusZona == 1) {
-                            if (response.zp.id == data.zone_plan.id) {
+                            if (response.zp.id == data.id_zonePlan) {
                                 $('#menara_provinsi').empty();
                                 $('#menara_provinsi').append('<option value="' + response.zp
                                     .id_provinsi + '"' + ' selected>' + response.zp.provinsi.nama +
@@ -1099,7 +1099,7 @@
                                 $('#status').append(
                                     '<h6 style="color: red">*Lokasi Yang Dipilih Diluar Zona Pembangunan Yang Ada</h6>'
                                 );
-                            } else {
+                            } else if (!data.id_zonePlan) {
                                 $('#menara_provinsi').empty();
                                 $('#menara_provinsi').append('<option value="' + response.zp
                                     .id_provinsi + '"' + ' selected>' + response.zp.provinsi.nama +

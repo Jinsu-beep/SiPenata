@@ -48,21 +48,30 @@ class LandingController extends Controller
 
     public function data_menara()
     {
-        $listPerusahaan = PemilikMenaraModel::with('perusahaan.PemilikMenara')->with('Menara.PemilikMenara')->with('Provinsi.PemilikMenara')->with('Kabupaten.PemilikMenara')->with('Kecamatan.PemilikMenara')->with('Desa.PemilikMenara')->get();
+        $listPerusahaan = PemilikMenaraModel::with('perusahaan.PemilikMenara')
+                            ->with('Menara.PemilikMenara')
+                            ->with('Provinsi.PemilikMenara')
+                            ->with('Kabupaten.PemilikMenara')
+                            ->with('Kecamatan.PemilikMenara')
+                            ->with('Desa.PemilikMenara')
+                            ->whereHas('Perusahaan', function($query) {
+                                $query->where('status', 'diterima');
+                            })
+                            ->get();
         // dd($listPerusahaan);
 
         $pemilikMenaraIds = [];
         $kecamatanMenaraIds = [];
 
         $menara = MenaraModel::with('PemilikMenara.Menara')
-        ->with('Provinsi.Menara')->with('Kabupaten.Menara')
-        ->with('Kecamatan.Menara')
-        ->with('Desa.Menara')
-        ->with('PenggunaanMenara.Menara')
-        ->get();
+                    ->with('Provinsi.Menara')
+                    ->with('Kabupaten.Menara')
+                    ->with('Kecamatan.Menara')
+                    ->with('Desa.Menara')
+                    ->with('PenggunaanMenara.Menara')
+                    ->get();
 
-        $kecamatan = KecamatanModel::where('id_kabupaten', 7)
-        ->get();
+        $kecamatan = KecamatanModel::where('id_kabupaten', 7)->get();
 
         $penggunaMenara = PenggunaanMenaraModel::with('Menara.PenggunaanMenara')->with('Provider.PenggunaanMenara')->get();
 

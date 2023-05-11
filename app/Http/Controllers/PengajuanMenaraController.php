@@ -39,16 +39,18 @@ class PengajuanMenaraController extends Controller
             $dataPengajuan = PengajuanMenaraModel::with("PengajuanStatusTerakhir.PengajuanMenara")->get();
             // $waktu = Carbon::now();
             // dd($dataPengajuan);
+            $no = 1;
 
-            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataPengajuan"));
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataPengajuan", "no"));
 
         } elseif (Auth::user()->kategori == "Tim Lapangan") {
             $dataUser = TimLapanganModel::with('user.TimLapangan')->whereIn("id_user", [Auth::user()->id])->first();
             $dataPengajuan = PengajuanMenaraModel::with("PengajuanStatusTerakhir.PengajuanMenara")->get();
             // $waktu = Carbon::now();
             // dd($waktu);
+            $no = 1;
 
-            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataPengajuan"));
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataPengajuan", "no"));
         } elseif (Auth::user()->kategori == "Pemilik Menara") {
             $dataUser = PemilikMenaraModel::with('user.PemilikMenara')->whereIn("id_user", [Auth::user()->id])->first();
 
@@ -58,8 +60,9 @@ class PengajuanMenaraController extends Controller
             $dataPengajuan = PengajuanMenaraModel::with("PengajuanStatusTerakhir.PengajuanMenara")->where("id_pemilik_menara", $dataUser->id)->get();
             $status = MasterStatusModel::get();
             // dd($dataPengajuan);
+            $no = 1;
 
-            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara", "dataPengajuan", "status"));
+            return view("dashboard.pengajuanMenara.data", compact("dataUser", "dataMenara", "dataPengajuan", "status", "no"));
 
         }
     }
@@ -438,19 +441,21 @@ class PengajuanMenaraController extends Controller
 
                 $jumlahData = $request->jumlahData;
 
-                for ($i=1; $i <= $jumlahData; $i++) { 
-                    $filePendamping = $request->file('file_pendamping');
-                    $extension = $filePendamping[$i]->getClientOriginalExtension();
-                    $nama = 'Pendamping' . $i . '.' . $extension;
-                    Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id . '/Pendamping', $request->file_pendamping[$i], $nama);
-
-                    $newPendamping = new PersetujuanPendampingModel();
-                    $newPendamping->id_pengajuan_menara = $newPengajuan->id;
-                    $newPendamping->nama = $request->nama[$i];
-                    $newPendamping->no_ktp = $request->ktp[$i];
-                    $newPendamping->jarak = $request->jarak[$i];
-                    $newPendamping->file_suratPersetujuan = "/storage/Pengajuan/" . $newPengajuan->id . "/Pendamping/" . $nama;
-                    $newPendamping->save();
+                for ($i=1; $i <= $jumlahData; $i++) {
+                    if ($request->file('file_pendamping')) {
+                        $filePendamping = $request->file('file_pendamping');
+                        $extension = $filePendamping[$i]->getClientOriginalExtension();
+                        $nama = 'Pendamping' . $i . '.' . $extension;
+                        Storage::putFileAs('public/Pengajuan/' . $newPengajuan->id . '/Pendamping', $request->file_pendamping[$i], $nama);
+    
+                        $newPendamping = new PersetujuanPendampingModel();
+                        $newPendamping->id_pengajuan_menara = $newPengajuan->id;
+                        $newPendamping->nama = $request->nama[$i];
+                        $newPendamping->no_ktp = $request->ktp[$i];
+                        $newPendamping->jarak = $request->jarak[$i];
+                        $newPendamping->file_suratPersetujuan = "/storage/Pengajuan/" . $newPengajuan->id . "/Pendamping/" . $nama;
+                        $newPendamping->save();
+                    }
                 }
                 
                 break;
@@ -1800,9 +1805,13 @@ class PengajuanMenaraController extends Controller
         $statusMenara = 0;
         $data = [];
 
-        $zoneplan = ZonePlanModel::with('Provinsi.ZonePlan')->with('Kabupaten.ZonePlan')->with('Kecamatan.ZonePlan')->with('Desa.ZonePlan')->get();
+        $zoneplan = ZonePlanModel::with('Provinsi.ZonePlan')
+                    ->with('Kabupaten.ZonePlan')
+                    ->with('Kecamatan.ZonePlan')
+                    ->with('Desa.ZonePlan')
+                    ->get();
         $menara = MenaraModel::get();
-
+        
         foreach ($zoneplan as $zp) {
             $theta = $zp->long - $lng;
             if ($theta == 0.0) {
@@ -1826,19 +1835,24 @@ class PengajuanMenaraController extends Controller
                     $kms = $mile * 1.609344;
                     $meters = $kms * 1000;
 
-                    $menaraDekat = 0;
-
                     if ($meters <= 350) {
                         $statusMenara = 1;
-                        $menaraDekat = $m;
+                        $data['menaraDekat'] = $m;
+                        // $menaraDekat = $m;
                     }
                     
+                    // $data['meters'] = $meters;
                 }
                 $statusZona = 1;
                 $data['statusZona'] = $statusZona;
                 $data['statusMenara'] = $statusMenara;
                 $data['zp'] = $zp;
-                $data['menaraDekat'] = $menaraDekat;
+                // if ($menaraDekat) {
+                //     $data['menaraDekat'] = $menaraDekat;
+                // } else {
+                //     $data['menaraDekat'] = 0;
+                // }
+                // $data['menara'] = $menara;
                 // $data = [$status, $zp, $zp->Provinsi, $zp->Kabupaten, $zp->Kecamatan, $zp->Desa];
                 return response()->json($data);
             }

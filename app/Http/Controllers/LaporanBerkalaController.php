@@ -70,7 +70,7 @@ class LaporanBerkalaController extends Controller
         ]);
 
         if($validator->fails()){
-            dd($validator);
+            // dd($validator);
             return back()->withErrors($validator);
         }
 
