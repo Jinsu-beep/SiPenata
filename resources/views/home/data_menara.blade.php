@@ -1,11 +1,9 @@
-@extends('layouts/home/index-layout')
+@extends('layouts/home2/index')
 @section('title')
     <title>SiPenata | Data Menara</title>
 @endsection
 
 @push('css')
-    {{-- <meta name="csrf-token" content="{{  csrf_token()  }}"> --}}
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="anonymous" />
@@ -23,7 +21,7 @@
 @endpush
 
 @section('content')
-    <section class="content">
+    <section class="content" id="content">
         <div class="row mt-4 mx-2">
             <div class="col-md-4 col-12">
                 <div class="card card-primary">
@@ -47,7 +45,7 @@
                                     </div>
                                     <div class="col-lg-1"></div>
                                     <div class="col-lg-1">
-                                        <img src="{{ $lp->perusahaan->marker }}" alt="image" height="30">
+                                        <img src="{{ $lp->perusahaan->marker }}" alt="image" height="40">
                                     </div>
                                 </div>
                             @endforeach
@@ -77,8 +75,7 @@
                         <h6 class="m-0 font-weight-bold">Map</h6>
                     </div>
                     <div class="card-body">
-                        {{-- <div id="map"></div> --}}
-                        <div id="mymap" style="width: 100%; height: 623px;"></div>
+                        <div id="mymap" style="width: 100%; height: 672px;"></div>
                     </div>
                 </div>
             </div>
@@ -91,9 +88,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Detail Menara</h5>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button> --}}
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -209,9 +203,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div> --}}
             </div>
         </div>
     </div>
@@ -243,51 +234,10 @@
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script>
-        //MAP INIT
-        // $('#map').append('<div id="mymap" style="width: 100%; height: 623px;"></div>');        
-
         var mymap = L.map('mymap').setView([-8.367760, 115.547787], 11);
-
-
-
 
         var dataPerusahaan = {!! json_encode($listPerusahaan->toArray()) !!}
         var kecamatan = {!! json_encode($kecamatan->toArray()) !!}
-
-        // menara.forEach(element1 =>{
-        //         marker = L.marker([element1.lat, element1.long], {
-        //             icon : icon,
-        //             id : idperusahaan,
-        //         }).bindPopup('<div class="row"> <div class="col align-self-start"> No Menara : '+element1.no_menara+'<br>Jenis Menara : '+element1.jenis_menara+'<hr></div> <div class="w-100"></div> <div class="col align-self-center"> <button onclick="detailMenara('+element1.id+')" class="btn btn-primary float-center">Detail</button> </div> </div>');
-        //         mymap.addLayer(marker);
-        //         markers.push(marker)
-
-        //         // document.getElementById('map').innerHTML = '<div id="mymap" style="width: 100%; height: 623px;"></div>';
-        //         // var osmLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        //         //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        //         //     maxZoom: 18,
-        //         //     id: 'mapbox/streets-v11',
-        //         //     tileSize: 512,
-        //         //     zoomOffset: -1,
-        //         //     accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
-        //         // })
-        //         // var map = new L.Map('mymap');
-        //         // map.setView(new L.LatLng(-8.367760, 115.547787), 9 );
-        //         // map.addLayer(osmLayer);
-
-        //         // L.marker([-8.367760, 115.547787]).addTo(map);
-
-        //         // $('#mymap').empty();
-
-        //         // $.ajax({
-        //         //     type: 'GET',
-        //         //     url: '/test',
-        //         //     success: function (response){
-        //         //         $('#mymap').html(response);
-        //         //     }
-        //         // });
-
-        // });
 
         $.ajaxSetup({
             headers: {
@@ -360,16 +310,7 @@
             })
         }
 
-
-
         dataPerusahaan.forEach(element => {
-            // let icon = new L.Icon({
-            //     iconUrl: element.perusahaan.marker,
-            //     iconSize: [25, 41],
-            //     iconAnchor: [12, 41],
-            //     popupAnchor: [1, -34],
-            //     shadowSize: [41, 41]
-            // });
 
             $('#namaPerusahaan' + element.perusahaan.id).change(function() {
                 removeLayer()
@@ -431,23 +372,5 @@
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoiZmlyZXJleDk3OSIsImEiOiJja2dobG1wanowNTl0MzNwY3Fld2hpZnJoIn0.YRQqomJr_RmnW3q57oNykw'
         }).addTo(mymap);
-    </script>
-
-    {{-- <script>
-        function testMap() {
-            $.ajax({
-                type: 'get',
-                url: '/test',
-                success: function (response){
-                    $('#mymap').html(response);
-                }
-            });
-        }
-    </script> --}}
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#dataMenara').addClass('active');
-        });
     </script>
 @endpush

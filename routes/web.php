@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/test', function () {
-//     return view('registrasi.test');
-// });
+Route::get('/test', function () {
+    return view('layouts.home2.index');
+});
 
 Route::get('/', 'LandingController@home')->name('home')->middleware('guest');
 Route::get('/landingdasarhukum', 'LandingController@dasarHukum')->name('dasarhukum')->middleware('guest');
@@ -23,7 +23,7 @@ Route::get('/landingdasarhukum/{id}', 'LandingController@getDasarHukum')->name('
 Route::get('/landingzoneplan', 'LandingController@zone_plan')->name('zone_plan')->middleware('guest');
 Route::get('/landingzoneplan/analisaLokasi/{lat}/{lng}','LandingController@analisaLokasi')->name('analisaLokasi')->middleware('guest');
 Route::get('/landingdatamenara', 'LandingController@data_menara')->name('data_menara')->middleware('guest');
-Route::get('/test', 'LandingController@test')->middleware('guest');
+// Route::get('/test', 'LandingController@test')->middleware('guest');
 
 Route::post('/getMenara', 'LandingController@getMenara')->middleware('guest');
 

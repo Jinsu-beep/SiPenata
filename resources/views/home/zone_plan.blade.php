@@ -1,131 +1,141 @@
-@extends('layouts/home/index-layout')
-@section('title')<title>SiPenata | Zone Plan</title>@endsection
+@extends('layouts/home2/index')
+@section('title')
+    <title>SiPenata | Zone Plan</title>
+@endsection
 
 @push('css')
-{{-- Leaflet --}}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+    {{-- Leaflet --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 
-<!-- Theme style -->
-{{-- <link rel="stylesheet" href="../../dist/css/adminlte.min.css"> --}}
-<link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Theme style -->
+    {{-- <link rel="stylesheet" href="../../dist/css/adminlte.min.css"> --}}
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 @endpush
 
 @section('content')
-<section class="content">
-    <div class="container-fluid">
-        <div class="row mt-4 mx-2">
-            <div class="col-md-4 col-12">
-                <div class="row">
-                    <div class="col">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h6 class="m-0 font-weight-bold">Data Zone Plan</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <div class="icheck-primary d-inline">
-                                            <input type="checkbox" id="checkboxPrimary2">
-                                            <label for="checkboxPrimary2">
-                                                Zone Plan Tersedia
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-1">
-                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                            <path fill="#0505f7" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                                        </svg>
-                                    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row mt-4 mx-2">
+                <div class="col-md-4 col-12">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h6 class="m-0 font-weight-bold">Data Zone Plan</h6>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <div class="icheck-primary d-inline">
-                                            <input type="checkbox" id="checkboxPrimary1">
-                                            <label for="checkboxPrimary1">
-                                                Zone Plan Terisi
-                                            </label>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="checkboxPrimary2">
+                                                <label for="checkboxPrimary2">
+                                                    Zone Plan Tersedia
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-1">
+                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                                <path fill="#0505f7"
+                                                    d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                                            </svg>
                                         </div>
                                     </div>
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-1">
-                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                            <path fill="#0fde00" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <div class="icheck-primary d-inline">
-                                            <input type="checkbox" id="checkboxPrimary3">
-                                            <label for="checkboxPrimary3">
-                                                Zone Plan Terlarang
-                                            </label>
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="checkboxPrimary1">
+                                                <label for="checkboxPrimary1">
+                                                    Zone Plan Terisi
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-1">
+                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                                <path fill="#0fde00"
+                                                    d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                                            </svg>
                                         </div>
                                     </div>
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-1">
-                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                                            <path fill="#f70505" d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                                        </svg>
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="checkboxPrimary3">
+                                                <label for="checkboxPrimary3">
+                                                    Zone Plan Terlarang
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-1">
+                                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                                <path fill="#f70505"
+                                                    d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h6 class="m-0 font-weight-bold">Analisa Zona Cellplan</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="nama">Latitude</label>
-                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="Latitude">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h6 class="m-0 font-weight-bold">Analisa Zona Cellplan</h6>
                                 </div>
-                                <div class="form-group">
-                                    <label for="nama">Longitude</label>
-                                    <input type="text" class="form-control" name="lng" id="lng" placeholder="Longitude">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="nama">Latitude</label>
+                                        <input type="text" class="form-control" name="lat" id="lat"
+                                            placeholder="Latitude">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama">Longitude</label>
+                                        <input type="text" class="form-control" name="lng" id="lng"
+                                            placeholder="Longitude">
+                                    </div>
+                                    <br>
+                                    <button onclick="cekLokasi()" class="btn btn-primary">Submit</button>
                                 </div>
-                                <br>
-                                <button onclick="cekLokasi()" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div id="status" class="col mt-2">
+                        <div class="w-100"></div>
+                        <div id="status" class="col mt-2">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8 col-12">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h6 class="m-0 font-weight-bold">Map</h6>
-                    </div>
-                    <div class="card-body">
-                        <div id="map" style="width: 100%; height: 655px;"></div>
-                        {{-- <div>
-                            Nama Zona : "+element.nama+"<br>Kecamatan : "+element.kecamatan.nama+'<br>Desa : "+element.desa.nama+'<br>Status : "+element.status+'<br>
-                        </div> --}}
+                <div class="col-md-8 col-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold">Map</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="map" style="width: 100%; height: 655px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection
 
 @push('js')
     {{-- Leaflet --}}
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
     <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
 
@@ -133,9 +143,9 @@
         //MAP INIT
         var mymap = L.map('map').setView([-8.367760, 115.547787], 11);
         L.Map.include({
-            getMarkerById: function (id) {
+            getMarkerById: function(id) {
                 var marker = null;
-                this.eachLayer(function (layer) {
+                this.eachLayer(function(layer) {
                     if (layer instanceof L.Circle) {
                         if (layer.options.id === id) {
                             marker = layer;
@@ -161,7 +171,10 @@
                     // console.log(element)
                     circleAvailable = L.circle([element.lat, element.long], element.radius, {
                         color: '#0505f7',
-                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
+                    }).bindPopup('<div> Nama Zona : ' + element.nama + '<br>Kecamatan : ' + element
+                        .kecamatan.nama + '<br>Desa : ' + element.desa.nama + '<br>Status : ' + element
+                        .status + '<br>Jumlah Menara : ' + element.menara.length + ' </div>').addTo(
+                        mymap);
                     available.push(circleAvailable)
                 });
             } else if (this.checked == false) {
@@ -176,7 +189,10 @@
                     console.log(element)
                     circleUsed = L.circle([element.lat, element.long], element.radius, {
                         color: '#0fde00',
-                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br>Jumlah Menara : '+ element.menara.length +' </div>').addTo(mymap);
+                    }).bindPopup('<div> Nama Zona : ' + element.nama + '<br>Kecamatan : ' + element
+                        .kecamatan.nama + '<br>Desa : ' + element.desa.nama + '<br>Status : ' + element
+                        .status + '<br>Jumlah Menara : ' + element.menara.length + ' </div>').addTo(
+                        mymap);
                     used.push(circleUsed)
                 });
             } else if (this.checked == false) {
@@ -191,7 +207,9 @@
                     console.log()
                     circleTerlarang = L.circle([element.lat, element.long], element.radius, {
                         color: '#f70505',
-                    }).bindPopup('<div> Nama Zona : '+element.nama+'<br>Kecamatan : '+element.kecamatan.nama+'<br>Desa : '+element.desa.nama+'<br>Status : '+element.status+'<br> </div>').addTo(mymap);
+                    }).bindPopup('<div> Nama Zona : ' + element.nama + '<br>Kecamatan : ' + element
+                        .kecamatan.nama + '<br>Desa : ' + element.desa.nama + '<br>Status : ' + element
+                        .status + '<br> </div>').addTo(mymap);
                     terlarang.push(circleTerlarang)
                 });
             } else if (this.checked == false) {
@@ -215,29 +233,47 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/landingzoneplan/analisaLokasi/'+lat+'/'+lng,
-                success: function (response){
+                url: '/landingzoneplan/analisaLokasi/' + lat + '/' + lng,
+                success: function(response) {
                     // console.log(response);
                     if (response.statusZona == 1) {
                         if (response.zp.status != 'available') {
                             if (response.statusMenara == 1) {
-                                $('#status').append('<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat '+lat+' & '+lng+' berada kurang dari atau sama dengan 350 Meter dengan menara terdekat.</h6> </div> </div> </div>');
+                                $('#status').append(
+                                    '<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat ' +
+                                    lat + ' & ' + lng +
+                                    ' berada kurang dari atau sama dengan 350 Meter dengan menara terdekat.</h6> </div> </div> </div>'
+                                );
                             } else {
-                                $('#status').append('<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat '+lat+' & '+lng+' berada diluar Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>');
+                                $('#status').append(
+                                    '<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat ' +
+                                    lat + ' & ' + lng +
+                                    ' berada diluar Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>'
+                                );
                             }
                         } else {
-                            $('#status').append('<div class="card card-primary"> <div class="card-body" style="background-color: chartreuse"> <div> <h6>Koordinat '+lat+' & '+lng+' berada didalam Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>');
+                            $('#status').append(
+                                '<div class="card card-primary"> <div class="card-body" style="background-color: chartreuse"> <div> <h6>Koordinat ' +
+                                lat + ' & ' + lng +
+                                ' berada didalam Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>');
                         }
                     } else if (response.statusZona == 0) {
                         if (response.statusMenara == 1) {
-                            $('#status').append('<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat '+lat+' & '+lng+' berada kurang dari atau sama dengan 350 Meter dengan menara terdekat.</h6> </div> </div> </div>');
+                            $('#status').append(
+                                '<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat ' +
+                                lat + ' & ' + lng +
+                                ' berada kurang dari atau sama dengan 350 Meter dengan menara terdekat.</h6> </div> </div> </div>'
+                            );
                         }
-                        $('#status').append('<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat '+lat+' & '+lng+' berada diluar Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>');
+                        $('#status').append(
+                            '<div class="card card-primary"> <div class="card-body" style="background-color: rgb(255, 0, 0)"> <div> <h6>Koordinat ' +
+                            lat + ' & ' + lng +
+                            ' berada diluar Zona Pembangunan yang Tersedia.</h6> </div> </div> </div>');
                     }
                 }
             });
 
-            marker =  L.marker([lat, lng]).addTo(mymap);
+            marker = L.marker([lat, lng]).addTo(mymap);
         }
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -251,7 +287,7 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#zonePlan').addClass('active');
         });
     </script>
