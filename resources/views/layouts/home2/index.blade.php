@@ -21,7 +21,8 @@
 
 <body>
     <header>
-        <a href="#" class="logo"><img src="{{ asset('/images/logosipenata.png') }}" alt=""></a>
+        <a href="{{ route('home') }}" class="logo"><img src="{{ asset('/images/logosipenata.png') }}"
+                alt=""></a>
         <div class="bx bx-menu" id="menu-icon"></div>
 
         <ul class="navbar">

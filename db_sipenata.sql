@@ -382,7 +382,7 @@ CREATE TABLE `tb_laporan_kondisi` (
   CONSTRAINT `tb_laporan_kondisi_ibfk_1` FOREIGN KEY (`id_tim_lapangan`) REFERENCES `tb_tim_lapangan` (`id`),
   CONSTRAINT `tb_laporan_kondisi_ibfk_2` FOREIGN KEY (`id_menara`) REFERENCES `tb_menara` (`id`),
   CONSTRAINT `tb_laporan_kondisi_ibfk_3` FOREIGN KEY (`id_perusahaan`) REFERENCES `tb_perusahaan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `tb_laporan_kondisi` */
 
@@ -394,7 +394,8 @@ insert  into `tb_laporan_kondisi`(`id`,`id_perusahaan`,`id_menara`,`id_tim_lapan
 (5,16,12,4,'2023-02-14','/storage/LaporanKondisi/12/2023-02-14/DokumenKondisi_2023-02-14.jpg','Menara dalam kondisi baik','2023-03-13 16:58:47','2023-03-13 16:58:47',NULL),
 (6,19,27,4,'2023-04-11','/storage/LaporanKondisi/27/2023-04-11/DokumenKondisi_2023-04-11.jpg','Menara dalam kondisi baik','2023-05-11 15:23:57','2023-05-11 15:23:57',NULL),
 (7,18,19,4,'2023-04-11','/storage/LaporanKondisi/19/2023-04-11/DokumenKondisi_2023-04-11.jpeg','Menara dan lingkungan dalam kondisi baik','2023-05-11 15:24:26','2023-05-11 15:24:26',NULL),
-(8,23,41,4,'2023-04-11','/storage/LaporanKondisi/41/2023-04-11/DokumenKondisi_2023-04-11.jpg','Menara kondisi baik, namun lingkungan menara dalam keadaan kotor','2023-05-11 15:25:21','2023-05-11 15:25:21',NULL);
+(8,23,41,4,'2023-04-11','/storage/LaporanKondisi/41/2023-04-11/DokumenKondisi_2023-04-11.jpg','Menara kondisi baik, namun lingkungan menara dalam keadaan kotor','2023-05-11 15:25:21','2023-05-11 15:25:21',NULL),
+(9,17,15,4,'2023-04-12','/storage/LaporanKondisi/15/2023-04-12/DokumenKondisi_2023-04-12.jpeg','Menara dalam kondisi baik','2023-05-12 03:21:44','2023-05-12 03:21:44',NULL);
 
 /*Table structure for table `tb_m_dasarhukum` */
 
