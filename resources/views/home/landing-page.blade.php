@@ -25,7 +25,7 @@
             <p class="h4">Si Penata merupakan media online dari Dinas Komunikasi dan Informatika Kabupaten
                 Karangasem
                 untuk melihat data menara yang ada, melihat zona lokasi atau zona pendirian menara telekomunikasi dan
-                pendaftaran menara telekomuniasi. </p>
+                pendaftaran menara telekomunikasi. </p>
         </div>
     </section>
 

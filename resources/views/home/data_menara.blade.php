@@ -274,7 +274,7 @@
                         dataPerusahaan.forEach(element => {
                             if (element1.pemilik_menara.id_perusahaan == element.perusahaan
                                 .id) {
-                                console.log(element.perusahaan.marker)
+                                // console.log(element.perusahaan.marker)
                                 var icon = new L.Icon({
                                     iconUrl: element.perusahaan.marker,
                                     iconSize: [25, 41],
@@ -330,10 +330,10 @@
         let pengguna = []
 
         function detailMenara(id) {
-            console.log(id)
+            // console.log(id)
             var menara = {!! json_encode($menara->toArray()) !!}
             menara.forEach(element => {
-                console.log(element)
+                // console.log(element)
                 if (element.id == id) {
                     $('#gambarMenara').empty();
                     $('#gambarMenara').append('<img src="' + element.foto + '" width="400">');

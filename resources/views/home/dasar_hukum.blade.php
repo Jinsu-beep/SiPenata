@@ -54,7 +54,7 @@
                 type: 'GET',
                 url: '/landingdasarhukum/' + id,
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     PDFObject.embed(response.file_DasarHukum, "#file");
                     $('#modal-showFile').modal('show');
                 }

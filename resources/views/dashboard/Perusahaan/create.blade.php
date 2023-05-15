@@ -206,14 +206,14 @@
                         // console.log(response);
                         $('#kabupaten').empty();
                         $('#kabupaten').append(
-                        '<option selected disabled>Pilih Kabupaten ...</option>');
+                            '<option selected disabled>Pilih Kabupaten ...</option>');
                         response.forEach(element => {
                             $('#kabupaten').append('<option value="' + element['id'] + '"' +
                                 '>' + element['nama'] + '</option>');
                         });
                         $('#kecamatan').empty();
                         $('#kecamatan').append(
-                        '<option selected disabled>Pilih Kecamatan ...</option>');
+                            '<option selected disabled>Pilih Kecamatan ...</option>');
                         $('#desa').empty();
                         $('#desa').append('<option selected disabled>Pilih Desa ...</option>');
                     }
@@ -233,7 +233,7 @@
                         // console.log(response);
                         $('#kecamatan').empty();
                         $('#kecamatan').append(
-                        '<option selected disabled>Pilih Kecamatan ...</option>');
+                            '<option selected disabled>Pilih Kecamatan ...</option>');
                         response.forEach(element => {
                             $('#kecamatan').append('<option value="' + element['id'] + '"' +
                                 '>' + element['nama'] + '</option>');

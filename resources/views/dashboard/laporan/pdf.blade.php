@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Laporan Menara</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Laporan Menara</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
-	<style type="text/css">
-		table tr td,
-		table tr th{
-			font-size: 9pt;
-		}
-	</style>
-	<center>
-		<h5>Laporan Menara</h5>
+    <style type="text/css">
+        table tr td,
+        table tr th {
+            font-size: 9pt;
+        }
+    </style>
+    <center>
+        <h5>Laporan Menara</h5>
         <br>
-	</center>
- 
-	<table id="example2" class="table table-bordered table-hover">
+    </center>
+
+    <table id="example2" class="table table-bordered table-hover">
         <thead class="text-center">
             <tr>
                 <th width="25px">No.</th>
@@ -40,6 +43,7 @@
             @endforeach
         </tbody>
     </table>
- 
+
 </body>
+
 </html>

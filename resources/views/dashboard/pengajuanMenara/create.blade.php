@@ -808,7 +808,7 @@
                     type: 'GET',
                     url: '/pengajuan/getDistance/' + lat + '/' + lng,
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.statusZona == 1) {
                             if (response.zp.status != 'available') {
                                 $('#status').append(
@@ -871,7 +871,7 @@
                         mymap.removeLayer(element);
                     });
                     let kerusakan = $('#tinggiMenara').val();
-                    console.log(kerusakan);
+                    // console.log(kerusakan);
                     zonaKerusakan = L.circle([lat, lng], {
                         radius: kerusakan,
                         color: '#ff0000'
@@ -917,24 +917,6 @@
                         mymap.removeLayer(element);
                     });
                 });
-
-                // e.marker.pm.enable({  
-                //     allowSelfIntersection: false,  
-                // });
-
-                // e.marker.on('move', function(e){
-                //     // console.log(e);
-                //     $('#lat').val(e.latlng.lat);
-                //     $('#lng').val(e.latlng.lng);
-
-                //     $.ajax({
-                //         type: 'GET',
-                //         url: '/pengajuan/getDistance/'+e.latlng.lat+'/'+e.latlng.lng,
-                //         success: function (response){
-                //             console.log(response[0]);
-                //         }
-                //     });
-                // });  
             }
         });
 
@@ -1025,7 +1007,7 @@
 
         function tambahPendamping() {
             id = parseInt(id) + 1;
-            console.log(id);
+            // console.log(id);
             $('#tabel_pendamping').append('<tr id="tr' + id +
                 '"> <td> <input type="text" class="form-control" placeholder="Nama Pendamping" name="nama[' + id +
                 ']" id="lat"> </td> <td> <input type="text" class="form-control" placeholder="No KTP Pendamping" name="ktp[' +

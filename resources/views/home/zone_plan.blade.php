@@ -186,7 +186,7 @@
         $('#checkboxPrimary1').change(function() {
             if (this.checked == true) {
                 dataZonePlanUsed.forEach(element => {
-                    console.log(element)
+                    // console.log(element)
                     circleUsed = L.circle([element.lat, element.long], element.radius, {
                         color: '#0fde00',
                     }).bindPopup('<div> Nama Zona : ' + element.nama + '<br>Kecamatan : ' + element
@@ -204,7 +204,7 @@
         $('#checkboxPrimary3').change(function() {
             if (this.checked == true) {
                 dataZonePlanTerlarang.forEach(element => {
-                    console.log()
+                    // console.log()
                     circleTerlarang = L.circle([element.lat, element.long], element.radius, {
                         color: '#f70505',
                     }).bindPopup('<div> Nama Zona : ' + element.nama + '<br>Kecamatan : ' + element
@@ -226,7 +226,7 @@
             let lng = $('#lng').val();
 
             $('#status').empty();
-            console.log(marker)
+            // console.log(marker)
             if (marker != undefined) {
                 mymap.removeLayer(marker);
             }

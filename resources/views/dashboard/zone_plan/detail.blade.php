@@ -313,7 +313,7 @@
     <script>
         var dataZonePlan = {!! json_encode($dataZonePlan->toArray()) !!}
         let menara = {!! json_encode($menara->toArray()) !!}
-        console.log(menara)
+        // console.log(menara)
 
         var lat = dataZonePlan.lat;
         var lng = dataZonePlan.long;
@@ -354,7 +354,7 @@
         function detailMenara(id) {
             menara.forEach(element => {
                 if (element.id == id) {
-                    console.log(element.provinsi.nama)
+                    // console.log(element.provinsi.nama)
                     $('#gambarMenara').empty();
                     $('#gambarMenara').append('<img src="' + element.foto + '" width="400">');
                     $('#noMenara').val(element.no_menara);

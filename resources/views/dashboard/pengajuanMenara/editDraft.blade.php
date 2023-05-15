@@ -939,7 +939,7 @@
         });
 
         let data = {!! json_encode($detailPengajuan->toArray()) !!}
-        console.log(data)
+        // console.log(data)
         if (data.lat != null && data.long != null) {
             var marker = L.marker([data.lat, data.long]).addTo(mymap);
             $('#menara_provinsi').empty();
@@ -978,7 +978,7 @@
                     mymap.removeLayer(element);
                 });
                 let kerusakan = $('#tinggiMenara').val();
-                console.log(kerusakan);
+                // console.log(kerusakan);
                 zonaKerusakan = L.circle([data.lat, data.long], {
                     radius: kerusakan,
                     color: '#ff0000'
@@ -1156,7 +1156,7 @@
                         mymap.removeLayer(element);
                     });
                     let kerusakan = $('#tinggiMenara').val();
-                    console.log(kerusakan);
+                    // console.log(kerusakan);
                     zonaKerusakan = L.circle([lat, lng], {
                         radius: kerusakan,
                         color: '#ff0000'
@@ -1202,16 +1202,6 @@
                         mymap.removeLayer(element);
                     });
                 });
-
-                // e.marker.pm.enable({
-                //     allowSelfIntersection: false,
-                // });
-
-                // e.marker.on('move', function(e) {
-                //     // console.log(e);
-                //     $('#lat').val(e.latlng.lat);
-                //     $('#lng').val(e.latlng.lng);
-                // });
             }
         });
 
@@ -1415,9 +1405,9 @@
     <script>
         function showFile1() {
             let file = {!! json_encode($detailFileData1) !!}
-            console.log(file.status)
+            // console.log(file.status)
             if (file.status == 1) {
-                console.log(1);
+                // console.log(1);
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
                 $('#judul').append('File KTP Pemohon');
@@ -1427,7 +1417,7 @@
 
         function showFile2() {
             let file = {!! json_encode($detailFileData2) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1438,7 +1428,7 @@
 
         function showFile3() {
             let file = {!! json_encode($detailFileData3) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1449,7 +1439,7 @@
 
         function showFile4() {
             let file = {!! json_encode($detailFileData4) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1460,7 +1450,7 @@
 
         function showFile5() {
             let file = {!! json_encode($detailFileData5) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1471,7 +1461,7 @@
 
         function showFile6() {
             let file = {!! json_encode($detailFileData6) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1482,7 +1472,7 @@
 
         function showFile7() {
             let file = {!! json_encode($detailFileData7) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
@@ -1493,7 +1483,7 @@
 
         function showFile8() {
             let file = {!! json_encode($detailFileData8) !!}
-            console.log(file);
+            // console.log(file);
             if (file.status == 1) {
                 PDFObject.embed(file.data.patch, "#file");
                 $('#judul').empty();
